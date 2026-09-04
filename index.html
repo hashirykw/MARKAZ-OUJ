@@ -4704,13 +4704,19 @@ img{backface-visibility:hidden}
     </div>
   </div>
 
-  <div class="hbar">
-    <div class="container-xxl hbar-in"><div class="row g-3">
-      <a href="https://wa.me/923002672558" class="col-6 col-lg-3"><b>WhatsApp</b><span>+92 300 267 2558</span></a>
-      <a href="tel:03002672558" class="col-6 col-lg-3"><b>Call</b><span>0300 267 2558</span></a>
-      <a href="#contact" class="col-6 col-lg-3"><b>Address</b><span>Markaz Khel o Saqafat, Block 10</span></a>
-      <a href="#academy" class="col-6 col-lg-3"><b>Hours</b><span>Open daily · Doors 9:00 AM</span></a>
-    </div></div>
+  <div class="hbar" id="heroBar">
+    <div class="container-xxl hbar-in">
+      <div class="hbar-grid">
+        <a class="hbar-i" href="https://wa.me/923002672558" target="_blank" rel="noopener">
+          <b>WhatsApp</b><span>+92 300 267 2558</span></a>
+        <a class="hbar-i" href="tel:03002672558">
+          <b>Call</b><span>0300 267 2558</span></a>
+        <a class="hbar-i" href="#contact">
+          <b>Address</b><span>Markaz Khel o Saqafat, Block 10</span></a>
+        <a class="hbar-i" href="#academy">
+          <b>Hours</b><span>Open daily &middot; Doors 9:00 AM</span></a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -10722,6 +10728,277 @@ body > section.hero, body > section.ouj{ background-image:none }
   .sh-lg img{ width:clamp(52px,15vw,66px); padding:8px 9px; border-radius:14px }
 }
 
+
+/* ==================================================================
+   7 · HERO CONTACT STRIP — rebuilt
+   The old strip was a Bootstrap .row floating on a 42% white panel.
+   Three things were broken:
+     1. at --bmax:6px on phones the blur is too weak to hide the H1,
+        so the headline ghosted straight through the bar;
+     2. the hero's padding-bottom was a fixed guess, so the bar sat
+        on top of hero content instead of below it;
+     3. the four cells had no dividers and no shared height, and the
+        hover state shifted text sideways.
+   Rebuilt as a real 4-cell grid with hairline rules, equal heights,
+   and a measured clearance (see #heroBar in the script below).
+   ================================================================== */
+.hbar{
+  position:absolute; left:0; right:0; bottom:0; z-index:4;
+  background:rgba(255,255,255,.93) !important;
+  background-image:linear-gradient(180deg,rgba(255,255,255,.90),rgba(255,255,255,.985)) !important;
+  backdrop-filter:blur(min(22px,var(--bmax))) saturate(1.3);
+  -webkit-backdrop-filter:blur(min(22px,var(--bmax))) saturate(1.3);
+  border-top:1px solid rgba(18,64,200,.16) !important;
+  box-shadow:0 -12px 34px rgba(11,21,51,.07);
+}
+/* soft scrim so the hero fades into the bar instead of being sliced by it */
+.hbar::before{
+  content:''; position:absolute; left:0; right:0; bottom:100%; height:64px;
+  background:linear-gradient(to top,rgba(255,255,255,.72),rgba(255,255,255,0));
+  pointer-events:none;
+}
+
+.hbar-in{ padding:0 !important }
+
+.hbar-grid{ display:grid; grid-template-columns:repeat(4,1fr) }
+
+.hbar .hbar-i{
+  position:relative; display:flex; flex-direction:column; justify-content:center;
+  gap:5px; min-height:76px; padding:15px 16px 15px 19px;
+  border:0; text-decoration:none; transform:none;
+  transition:background .3s var(--ez);
+}
+/* hairline between cells — inset top and bottom so it reads as a rule, not a box */
+.hbar .hbar-i + .hbar-i::before{
+  content:''; position:absolute; left:0; top:16px; bottom:16px; width:1px;
+  background:linear-gradient(180deg,transparent,rgba(18,64,200,.18) 20%,
+                             rgba(18,64,200,.18) 80%,transparent);
+}
+/* red accent grows in place — no sideways nudge */
+.hbar .hbar-i::after{
+  content:''; position:absolute; left:0; top:50%; width:2px; height:0;
+  background:var(--red); transform:translateY(-50%); border-radius:2px;
+  transition:height .34s var(--ez);
+}
+.hbar .hbar-i:hover,.hbar .hbar-i:focus-visible{ background:rgba(216,18,26,.045) }
+.hbar .hbar-i:hover::after,.hbar .hbar-i:focus-visible::after{ height:calc(100% - 26px) }
+
+.hbar .hbar-i b{
+  display:block; margin:0; font-family:var(--hd); font-weight:600;
+  font-size:10px; letter-spacing:.26em; text-transform:uppercase; color:var(--red);
+  line-height:1;
+}
+.hbar .hbar-i span{
+  display:block; font-size:13px; line-height:1.35; color:var(--txt);
+  text-wrap:pretty;
+}
+
+/* 2 x 2 — the four-up is unreadable below the tablet break */
+@media (max-width:900px){
+  .hbar-grid{ grid-template-columns:1fr 1fr }
+  .hbar .hbar-i{ min-height:66px; padding:13px 14px 13px 16px }
+  .hbar .hbar-i:nth-child(odd)::before{ display:none }
+  .hbar .hbar-i:nth-child(n+3){ border-top:1px solid rgba(18,64,200,.13) }
+  .hbar::before{ height:52px }
+}
+@media (max-width:420px){
+  .hbar .hbar-i{ min-height:62px; padding:12px 10px 12px 14px; gap:4px }
+  .hbar .hbar-i b{ font-size:9px; letter-spacing:.18em }
+  .hbar .hbar-i span{ font-size:11.5px; line-height:1.3 }
+}
+
+/* clearance is measured, not guessed — fallbacks cover the pre-script paint */
+.hero{ padding-bottom:var(--hbar-space,150px) !important }
+@media (max-width:900px){ .hero{ padding-bottom:var(--hbar-space,224px) !important } }
+@media (max-width:420px){ .hero{ padding-bottom:var(--hbar-space,214px) !important } }
+
+
+/* ==================================================================
+   8 · SECTION NUMERALS — moved opposite the section logo
+   Every .sh in this page is left-aligned, so the logo always sits on
+   the left edge. Half the ghost numerals were positioned .tl, which
+   put a 150px numeral directly behind the logo and the eyebrow line
+   and ate the whole top-left corner. They now all live on the right,
+   smaller and lighter, so the head keeps its own column.
+   ================================================================== */
+.ghostn.tl,
+.ghostn.tr{ left:auto; right:0; top:8px }
+.ouj .ghostn{ right:0 }
+
+@media (min-width:901px){
+  .ghostn{ font-size:clamp(120px,14vw,210px); opacity:.9 }
+  /* the head never runs under the numeral */
+  .sh{ padding-right:clamp(0px,12vw,190px) }
+}
+@media (max-width:900px){
+  .ghostn{ font-size:clamp(76px,22vw,120px); opacity:.5; top:4px }
+  .sh{ padding-right:0 }
+  .sh-lg{ position:relative; z-index:2 }
+  .eyb{ position:relative; z-index:2 }
+}
+@media (max-width:420px){
+  .ghostn{ font-size:clamp(64px,20vw,96px); opacity:.42 }
+}
+
+/* ==================================================================
+   9 · CARD SYSTEM — one hover model for every card family
+   Previously each family had its own hover (some lifted, some only
+   changed a border, some did both plus a 3px sideways nudge), and
+   the lifted card stayed underneath its neighbours because nothing
+   raised its stacking order. This is the single treatment:
+   lift → silver rim → light follows the cursor.
+   ================================================================== */
+:root{
+  --card-ez:cubic-bezier(.2,.65,.25,1);
+  --card-lift:-8px;
+  --silver-line:rgba(188,199,220,.95);
+}
+
+.pc,.prod,.tm,.tl-card,.slot,.ev,.sqc,.pth,.nc,.xlink,.qbox,
+.ct-card,.mo,.bfc,.bt:not(.feat){
+  position:relative;
+  transition:transform .52s var(--card-ez),
+             box-shadow .52s var(--card-ez),
+             border-color .34s var(--card-ez),
+             background-color .34s var(--card-ez);
+}
+
+@media (hover:hover) and (pointer:fine){
+  .pc:hover,.prod:hover,.tm:hover,.tl-card:hover,.slot:hover,.ev:hover,
+  .sqc:hover,.pth:hover,.nc:hover,.xlink:hover,.qbox:hover,
+  .ct-card:hover,.mo:hover,.bfc:hover,.bt:not(.feat):hover,
+  .pc:focus-visible,.prod:focus-visible,.tm:focus-visible,
+  .tl-card:focus-visible,.slot:focus-visible,.ev:focus-visible{
+    transform:translateY(var(--card-lift)) scale(1.006);
+    z-index:6;
+    border-color:var(--silver-line) !important;
+    /* the silver lining: a bright top edge, a cool rim, then depth */
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.98),
+      inset 0 0 0 1px rgba(255,255,255,.55),
+      0 0 0 1px rgba(196,206,226,.55),
+      0 28px 56px -20px rgba(11,21,51,.30),
+      0 10px 20px -12px rgba(11,21,51,.20) !important;
+  }
+
+  /* a soft highlight that tracks the cursor — --mx/--my come from JS */
+  .pc:hover,.prod:hover,.tm:hover,.tl-card:hover,.slot:hover,
+  .ev:hover,.sqc:hover,.pth:hover,.nc:hover,.qbox:hover,
+  .ct-card:hover,.bfc:hover,.bt:not(.feat):hover{
+    background-image:
+      radial-gradient(300px circle at var(--mx,50%) var(--my,0%),
+                      rgba(255,255,255,.70),rgba(255,255,255,0) 62%),
+      var(--lg-fill) !important;
+  }
+
+  /* the lifted card must clear its neighbours, and a transformed
+     reveal wrapper would otherwise trap its z-index */
+  .pg > [data-rv]:has(.pc:hover),
+  .row > [data-rv]:has(.bt:hover),
+  .row > [data-rv]:has(.tm:hover),
+  .row > [data-rv]:has(.prod:hover){ position:relative; z-index:6 }
+  .tl-item:has(.tl-card:hover){ z-index:6 }
+
+  /* the numeral and the read-more answer the hover too */
+  .pc:hover .n{ -webkit-text-stroke-width:1.6px }
+  .pc:hover .lk{ gap:12px }
+}
+
+/* touch: no hover, so the press is the feedback */
+@media (hover:none){
+  .pc:active,.prod:active,.tm:active,.tl-card:active,.slot:active,
+  .ev:active,.sqc:active,.bt:not(.feat):active{
+    transform:scale(.982);
+    box-shadow:0 10px 22px -12px rgba(11,21,51,.24) !important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .pc,.prod,.tm,.tl-card,.slot,.ev,.sqc,.pth,.nc,.xlink,.qbox,
+  .ct-card,.mo,.bfc,.bt:not(.feat){ transition:box-shadow .3s linear }
+  .pc:hover,.prod:hover,.tm:hover,.tl-card:hover,.slot:hover,
+  .ev:hover,.sqc:hover,.bt:not(.feat):hover{ transform:none }
+}
+
+/* the phone rail clipped the lift — give it room to rise into */
+@media (max-width:860px){
+  .tl-row{ padding-top:6px; padding-bottom:18px }
+}
+
+/* ==================================================================
+   10 · CARD TYPE — sized so a title never breaks mid-word
+   `overflow-wrap:anywhere` was splitting words to fit ("Corpor /
+   ate…"). break-word only splits when a word genuinely cannot fit,
+   and the sizes now step down with the viewport instead of holding
+   one desktop size into a 280px card.
+   ================================================================== */
+.pc h3,.prod h3,.tm h4,.tl-card h4{
+  overflow-wrap:break-word; word-break:normal; hyphens:manual;
+}
+.pc h3        { font-size:clamp(15.5px,3.4vw,19px);  line-height:1.24 }
+.pc p         { font-size:clamp(12.5px,3vw,13.5px);  line-height:1.55 }
+.tl-card h4   { font-size:clamp(15px,3.7vw,18px);    line-height:1.24 }
+.tl-card p    { font-size:clamp(12px,2.9vw,13.5px);  line-height:1.5 }
+.prod h3      { font-size:clamp(14.5px,3.3vw,17px);  line-height:1.25 }
+.tm h4        { font-size:clamp(15px,3.4vw,18px) }
+
+/* ==================================================================
+   11 · CARD FOOTERS — small on phones, unchanged on laptops
+   ================================================================== */
+@media (max-width:900px){
+  .pt{ gap:5px }
+  .pc .pt{ padding-top:11px }
+  .pt span{ font-size:9px; letter-spacing:.11em; padding:4px 8px }
+  .tl-kind{ font-size:9px; letter-spacing:.15em; padding:4px 9px; margin-bottom:9px }
+  .pc .lk{ font-size:11px; letter-spacing:.13em }
+}
+@media (max-width:420px){
+  .pt span{ font-size:8.5px; letter-spacing:.08em; padding:3px 7px }
+  .pc .lk{ font-size:10.5px }
+}
+
+/* ==================================================================
+   12 · FOOTER — the wordmark was wearing a card
+   `.bt` is two classes in one stylesheet: the brand wordmark and the
+   bento tile. The footer's <b class="bt"> was picking up the tile's
+   glass fill and padding, so the logo sat in a pale slab; and .mkb
+   kept its ink colour inside the paragraph, which is invisible on
+   the navy. Both scoped out here.
+   ================================================================== */
+footer .ft-brand .bt{
+  display:inline; padding:0 !important; border:0 !important;
+  background:none !important; background-image:none !important;
+  box-shadow:none !important; backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  color:#fff !important; line-height:1.05;
+}
+footer .ft-brand .bt::before,
+footer .ft-brand .bt::after{ display:none !important }
+footer .mkb{ color:#fff !important }
+
+@media (max-width:900px){
+  footer{ padding:40px 0 22px }
+  .ft{ margin-bottom:24px }
+  .ft h5{ font-size:10.5px; letter-spacing:.2em; margin-bottom:8px }
+  .ft a{ font-size:12.5px; padding:3px 0 }
+  .ft p{ font-size:12.5px; max-width:none }
+  .ft-brand{ margin-bottom:10px }
+  .ft-brand img{ width:36px; height:36px }
+  footer .ft-brand .bt{ font-size:19px !important }
+  .ft-b{ font-size:11.5px; padding-top:14px }
+}
+
+
+/* the footer wordmark shares the .bt class name with the bento tile —
+   keep it out of the card hover model entirely */
+footer .ft-brand .bt,
+footer .ft-brand .bt:hover,
+footer .ft-brand .bt:focus-visible{
+  transform:none !important; box-shadow:none !important;
+  background:none !important; background-image:none !important;
+  border:0 !important; padding:0 !important; z-index:auto !important;
+}
+
 </style>
 
 <script id="v14js">
@@ -11092,6 +11369,67 @@ equaliseSoon();
   });
 })();
 
+})();
+</script>
+
+<script id="heroBarFit">
+/* Hero contact strip: measure the bar and reserve exactly that much room
+   at the bottom of the hero, so the headline can never sit behind it.
+   Re-runs on resize, orientation change and font load. */
+(function(){
+  var hero = document.querySelector('.hero'),
+      bar  = document.getElementById('heroBar');
+  if(!hero || !bar) return;
+
+  function fit(){
+    var offset = parseFloat(getComputedStyle(bar).bottom) || 0;
+    hero.style.setProperty('--hbar-space',
+      Math.round(bar.offsetHeight + offset + 30) + 'px');
+  }
+
+  fit();
+  addEventListener('load', fit);
+  addEventListener('orientationchange', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(bar);
+  else addEventListener('resize', fit);
+})();
+</script>
+
+<script id="cardShine">
+/* Cards: feed the cursor position into --mx/--my so the highlight
+   sits under the pointer. One delegated listener, rAF-throttled,
+   pointer-devices only — phones never run it. */
+(function(){
+  if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+
+  var SEL = '.pc,.prod,.tm,.tl-card,.slot,.ev,.sqc,.pth,.nc,.qbox,'
+          + '.ct-card,.bfc,.bt:not(.feat)';
+  var pending = null, frame = 0;
+
+  function paint(){
+    frame = 0;
+    if (!pending) return;
+    var card = pending.card, r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', ((pending.x - r.left) / r.width  * 100).toFixed(1) + '%');
+    card.style.setProperty('--my', ((pending.y - r.top)  / r.height * 100).toFixed(1) + '%');
+  }
+
+  document.addEventListener('pointermove', function(e){
+    var card = e.target.closest && e.target.closest(SEL);
+    if (!card) return;
+    pending = { card:card, x:e.clientX, y:e.clientY };
+    if (!frame) frame = requestAnimationFrame(paint);
+  }, { passive:true });
+
+  /* reset on the way out so the next hover starts clean */
+  document.addEventListener('pointerout', function(e){
+    var card = e.target.closest && e.target.closest(SEL);
+    if (card && !card.contains(e.relatedTarget)){
+      card.style.removeProperty('--mx');
+      card.style.removeProperty('--my');
+    }
+  }, { passive:true });
 })();
 </script>
 
