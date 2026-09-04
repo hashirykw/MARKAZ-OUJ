@@ -10585,9 +10585,7 @@ img[data-logo]{ opacity:1 !important }
   display:flex; align-items:center; justify-content:center; gap:0;
   margin:0 0 16px }
 .sh:not(.text-center) .sh-lg.ouj-lg{ justify-content:flex-start }
-.sh-lg.ouj-lg img{
-  width:clamp(44px,5.2vw,62px); height:auto; max-width:none;
-  background:none; border-radius:0; padding:0 }
+.sh-lg.ouj-lg img{ max-width:none }   /* plate is defined in the LOGO PLATES block */
 
 .ad-lg.ouj-lg{ left:auto; right:16px; bottom:16px }
 .ad-lg.ouj-lg img{
@@ -10667,6 +10665,61 @@ body > section:nth-of-type(even){
 body > section.hero, body > section.ouj{ background-image:none }
 @media (max-width:575px){
   body > section, body > section:nth-of-type(even){ background-size:auto, auto, 26px 26px, 26px 26px }
+}
+
+/* ------------------------------------------------------------------
+   LOGO PLATES
+   The two marks are transparent PNGs pulling in opposite directions:
+   the Markaz mark is a silver/white wordmark, which disappears on the
+   light section grounds, and the OUJ mark has solid black letterforms,
+   which disappear on anything dark. A single plate colour cannot serve
+   both, so each mark gets its own frosted card — dark glass under the
+   silver artwork, light glass under the gold-and-black artwork. The
+   plate is drawn on the image element itself, because .sh-lg is a full-width
+   flex row and would stretch a background across the whole column.
+   ------------------------------------------------------------------ */
+.sh-lg img{
+  box-sizing:border-box;
+  width:clamp(58px,6.6vw,80px); height:auto;
+  padding:9px 11px; border-radius:17px;
+  backdrop-filter:blur(min(16px,var(--bmax)));
+  -webkit-backdrop-filter:blur(min(16px,var(--bmax)));
+  transition:transform .45s var(--ez2), box-shadow .45s var(--ez2) }
+
+/* silver artwork -> dark glass */
+.sh-lg.markaz-lg img{
+  background:linear-gradient(152deg, rgba(11,21,51,.88), rgba(16,26,60,.76));
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 16px 34px -16px rgba(11,21,51,.60),
+             inset 0 1px 0 rgba(255,255,255,.20) }
+
+/* gold + black artwork -> light glass */
+.sh-lg.ouj-lg img{
+  background:linear-gradient(152deg, rgba(255,255,255,.94), rgba(255,255,255,.74));
+  border:1px solid var(--edge);
+  box-shadow:0 16px 34px -18px rgba(11,21,51,.38),
+             inset 0 1px 0 rgba(255,255,255,.95) }
+
+.sh:hover .sh-lg img{ transform:translateY(-2px) }
+
+/* the header tile was solid ink with the black-lettered OUJ mark inside
+   it, so half the mark was invisible. Light glass, red wedge kept. */
+.dbrand__mark{
+  background:linear-gradient(152deg, rgba(255,255,255,.96), rgba(255,255,255,.80));
+  border:1px solid var(--edge);
+  backdrop-filter:blur(min(14px,var(--bmax)));
+  -webkit-backdrop-filter:blur(min(14px,var(--bmax)));
+  box-shadow:0 6px 16px -9px rgba(11,21,51,.45) }
+
+/* footer sits on ink; keep the existing white chip but match the radius
+   and give it the same edge treatment as the rest */
+.ft-brand img{
+  border-radius:12px; padding:5px;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 10px 22px -12px rgba(0,0,0,.6) }
+
+@media (max-width:575px){
+  .sh-lg img{ width:clamp(52px,15vw,66px); padding:8px 9px; border-radius:14px }
 }
 
 </style>
