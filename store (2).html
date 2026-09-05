@@ -10,7 +10,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Bebas+Neue&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&family=Oswald:wght@500;700&family=Kaushan+Script&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500..900;1,500..800&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Italianno&display=swap">
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Store","name":"OUJ Store — Markaz OUJ Performance",
@@ -1144,9 +1144,482 @@ body::before{
   .bulk__grid{grid-template-columns:minmax(0,1fr) minmax(0,380px)}
 }
 
+
+/* ==================================================================
+   TYPOGRAPHY SYSTEM
+   The page was running eight families — Anton, Archivo Black, Bebas,
+   Barlow Condensed, Oswald, Space Grotesk, Kaushan and Inter. That is
+   what made it read as a template rather than a brand. It now runs on
+   three, and the range comes from one variable family instead:
+
+     Archivo (variable, wdth 62–125 / wght 400–900)
+       · wdth 115 / 800  — display headlines, athletic and wide
+       · wdth 100 / 700  — card titles and sub-heads
+       · wdth  88 / 650  — eyebrows, labels, buttons, nav
+       · wdth 105 / 700  — figures, tabular
+     Inter        — body copy, at optical sizes
+     Fraunces     — the wordmark only, because that is the identity
+   ================================================================== */
+:root{
+  --f-brand:'Fraunces',Georgia,'Times New Roman',serif;
+  --dsp:'Archivo','Inter',system-ui,sans-serif;
+  --dsp2:'Archivo','Inter',system-ui,sans-serif;
+  --tall:'Archivo','Inter',system-ui,sans-serif;
+  --hd:'Archivo','Inter',system-ui,sans-serif;
+  --num:'Archivo','Inter',system-ui,sans-serif;
+  --scr:'Fraunces',Georgia,serif;
+  --bdy:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+
+/* --- body --- */
+body{
+  font-family:var(--bdy);font-size:15.5px;line-height:1.68;
+  font-optical-sizing:auto;letter-spacing:-.002em;
+  font-feature-settings:"kern" 1,"liga" 1,"calt" 1,"ss03" 1;
+}
+
+/* --- display: wide, heavy, tightly tracked --- */
+.phero h1,h2.sh-h,.pnl h4,.pd h4,.tally h4,.done h4,.cempty b + *{
+  font-family:var(--dsp);font-weight:800;
+  font-variation-settings:'wdth' 115,'wght' 800;
+  letter-spacing:-.03em;line-height:.94;text-transform:uppercase;
+}
+.phero h1{line-height:.9;letter-spacing:-.034em}
+h2.sh-h{line-height:.96}
+.pnl h4,.done h4{letter-spacing:-.026em;line-height:1}
+
+/* --- sub-display: card titles, normal width --- */
+.prod h3,.pick b,.ci__b b,.kitr b,.cempty b,.np-grid b,.dbrand__mark span{
+  font-family:var(--dsp2);font-weight:700;
+  font-variation-settings:'wdth' 100,'wght' 700;
+  letter-spacing:-.016em;text-transform:none;
+}
+.prod h3{line-height:1.24}
+.pick b{font-size:15.5px}
+
+/* --- labels: semi-condensed, generously tracked --- */
+.eyb,.fld label,.ft h5,.orail h5,.stepi b,.prod__cat,.prod__tag,.prod__stk,
+.pchip,.pt span,.btn,.tabs a,.fbar button,.crumb,.hstat span,.vgrp h5,.fgrp h5,
+.tline.big,.sumline.tot,.fcount,.fbtn,.fclear,.vopt,.ci__v,.dbrand__txt .dbs,
+.co__h span,.tier span,.oid em,#toast,.ft-brand span,.prod__price small,
+.pd__cat,.pd__specs b,.tl-kind,.sumline.soft b,.tline.soft b{
+  font-family:var(--hd);font-weight:650;
+  font-variation-settings:'wdth' 88,'wght' 650;
+  font-feature-settings:"kern" 1;
+}
+.tabs a,.fbar button{font-variation-settings:'wdth' 92,'wght' 620;letter-spacing:.045em}
+.btn{letter-spacing:.13em;font-variation-settings:'wdth' 86,'wght' 700}
+.eyb{letter-spacing:.24em;font-variation-settings:'wdth' 84,'wght' 700}
+
+/* --- figures: one width, one weight, always tabular --- */
+.hstat b,.prod__price b,.prod__price s,.pd__price,.sumline b,.tline b,.orow b,
+.orow i,.stp input,.cartb__n,.oid span,.kitr__p,.np-grid em,.tabs a i,.fbar button i,
+.chk em,.stepi em,.done__tick + *,.tally .tline b{
+  font-family:var(--num);font-weight:700;
+  font-variation-settings:'wdth' 105,'wght' 700;
+  font-variant-numeric:tabular-nums lining-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;letter-spacing:-.01em;
+}
+
+/* --- the wordmark keeps Fraunces --- */
+.mkb,.dbt,.ft-brand b,.co__h b,.ft-brand .m{
+  font-family:var(--f-brand)!important;font-weight:700;
+  font-variation-settings:'opsz' 60,'wght' 700;letter-spacing:.012em;
+}
+
+/* --- prose gets a measure and a rhythm --- */
+.lead{font-size:clamp(15px,1.32vw,17.5px);line-height:1.7;max-width:60ch;color:#48587E}
+.sh-p{font-size:clamp(14.2px,1.15vw,15.6px);line-height:1.72;max-width:64ch}
+.prod p{font-size:clamp(11.8px,.95vw,13px);line-height:1.54;color:#5C6B8C;letter-spacing:0}
+.pd__d{font-size:14.6px;line-height:1.74;color:#41507A;max-width:56ch}
+.pnl > p.sub{font-size:14.4px;line-height:1.7;color:#5C6B8C;max-width:54ch}
+.pick span{font-size:12.8px;line-height:1.56;color:#5C6B8C}
+.note{font-size:13.3px;line-height:1.68}
+.hint{font-size:12px;line-height:1.55}
+.ft p{line-height:1.68}
+
+/* --- headings sit closer to what follows --- */
+.phero h1{margin:16px 0 18px}
+h2.sh-h{margin:15px 0 13px}
+
+@media (max-width:600px){
+  body{font-size:15px}
+  .phero h1{letter-spacing:-.028em}
+  .pnl h4,.pd h4{letter-spacing:-.02em}
+}
+
+
+/* ==================================================================
+   NUMBER CARDS + MOTION
+   ================================================================== */
+
+/* ---------- the stat cards ---------- */
+.hstat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-top:28px}
+@media (max-width:760px){ .hstat{grid-template-columns:1fr 1fr;gap:9px} }
+.statc{
+  position:relative;overflow:hidden;isolation:isolate;
+  padding:16px 18px 15px;border-radius:18px;
+  background:rgba(255,255,255,.48);
+  border:1px solid rgba(255,255,255,.82);
+  backdrop-filter:blur(min(20px,var(--bmax))) saturate(1.45);
+  -webkit-backdrop-filter:blur(min(20px,var(--bmax))) saturate(1.45);
+  box-shadow:0 1px 0 rgba(255,255,255,.95) inset,0 10px 26px -16px rgba(11,21,51,.32);
+  transition:transform .5s var(--card-ez),box-shadow .5s var(--card-ez),
+             border-color .34s var(--ez),background-color .34s var(--ez);
+}
+/* the red rule, same signature as every other card */
+.statc::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:linear-gradient(90deg,var(--red-dk),var(--red) 34%,var(--red-lt) 66%,var(--red));
+  transform:scaleX(0);transform-origin:left center;transition:transform .55s var(--ez2);
+}
+/* a slow sheen that only crosses on hover */
+.statc em{
+  content:'';position:absolute;inset:0;z-index:0;display:block;pointer-events:none;
+  background:linear-gradient(104deg,transparent 26%,rgba(255,255,255,.62) 48%,transparent 70%);
+  transform:translateX(-130%);transition:transform 1.05s var(--ez2);
+}
+.statc b,.statc span{position:relative;z-index:1;display:block}
+.statc b{
+  font-size:clamp(24px,2.4vw,32px);line-height:1;color:var(--ink);
+  transition:transform .5s var(--ez2),color .34s var(--ez);transform-origin:left bottom;
+}
+.statc span{
+  font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);
+  margin-top:8px;transition:color .34s var(--ez);
+}
+@media (hover:hover) and (pointer:fine){
+  .statc:hover{
+    transform:translateY(-7px);
+    background-color:rgba(255,255,255,.66);
+    border-color:rgba(216,18,26,.3);
+    box-shadow:0 1px 0 rgba(255,255,255,1) inset,0 0 0 1px rgba(216,18,26,.14),
+               0 26px 50px -22px rgba(11,21,51,.34),0 12px 24px -18px rgba(216,18,26,.34);
+  }
+  .statc:hover::after{transform:scaleX(1)}
+  .statc:hover em{transform:translateX(130%)}
+  .statc:hover b{transform:scale(1.06);color:var(--red-dk)}
+  .statc:hover span{color:var(--ink)}
+}
+.statc:active{transform:translateY(-2px) scale(.99)}
+/* while a figure is counting it sits in tabular width so it cannot jitter */
+.statc b.counting{font-variant-numeric:tabular-nums}
+
+/* ---------- scroll progress ---------- */
+#prog{
+  position:fixed;top:0;left:0;height:2px;width:100%;z-index:120;transform-origin:left center;
+  transform:scaleX(0);pointer-events:none;
+  background:linear-gradient(90deg,var(--blue),var(--red) 62%,var(--red-lt));
+  box-shadow:0 0 12px rgba(216,18,26,.5);
+}
+
+/* ---------- reveals: softer, staggered ---------- */
+[data-rv]{
+  opacity:0;transform:translate3d(0,26px,0) scale(.995);
+  transition:opacity .82s var(--ez2),transform .82s var(--ez2);
+  transition-delay:var(--rv-d,0ms);will-change:opacity,transform;
+}
+[data-rv].in{opacity:1;transform:none;will-change:auto}
+
+/* the grid staggers its own cards on first paint */
+.grid > .prod{animation:cardIn .6s var(--ez2) both;animation-delay:var(--d,0ms)}
+@keyframes cardIn{from{opacity:0;transform:translate3d(0,18px,0)}to{opacity:1;transform:none}}
+
+/* anchors clear the floating dock */
+:target,section[id],#top,#shop,#bulk{scroll-margin-top:calc(var(--dock-top) + var(--dock-h) + 18px)}
+
+@media (prefers-reduced-motion:reduce){
+  .grid > .prod{animation:none}
+  .statc em{display:none}
+  #prog{display:none}
+}
+
+
+/* ==================================================================
+   TYPE SYSTEM v2 — Playfair Display + Poppins, with Italianno
+   The pairing you gave me. Roles:
+     Playfair Display  — headlines, card titles, the wordmark.
+                         Variable, so it runs 500 through 900.
+     Poppins           — body, labels, buttons, nav, every figure.
+     Italianno         — one script accent, used once. A script that
+                         appears twice stops being an accent.
+   Overrides the Archivo width-axis rules from the previous pass;
+   Playfair has no width axis, so weight is set on its own.
+   ================================================================== */
+:root{
+  --f-brand:'Playfair Display',Georgia,'Times New Roman',serif;
+  --dsp:'Playfair Display',Georgia,serif;
+  --dsp2:'Playfair Display',Georgia,serif;
+  --tall:'Poppins','Inter',system-ui,sans-serif;
+  --hd:'Poppins','Inter',system-ui,sans-serif;
+  --num:'Poppins','Inter',system-ui,sans-serif;
+  --scr:'Italianno',cursive;
+  --bdy:'Poppins','Inter',system-ui,-apple-system,sans-serif;
+}
+
+/* Poppins is geometric and a touch wide, so prose wants more leading
+   and no negative tracking to stay comfortable at length. */
+body{
+  font-family:var(--bdy);font-size:15px;line-height:1.76;letter-spacing:0;
+  font-optical-sizing:auto;font-feature-settings:"kern" 1,"liga" 1;
+}
+
+/* --- display: Playfair, heavy, caps with a little air ---
+   Serif capitals need positive tracking, not the negative tracking a
+   grotesk wants — tightening them jams the serifs together. */
+.phero h1,h2.sh-h,.pnl h4,.pd h4,.tally h4,.done h4{
+  font-family:var(--dsp);font-weight:800;
+  font-variation-settings:'wght' 800;
+  letter-spacing:.004em;line-height:1.02;text-transform:uppercase;
+}
+.phero h1{font-weight:900;font-variation-settings:'wght' 900;
+  line-height:.98;letter-spacing:.002em}
+h2.sh-h{line-height:1.04}
+.pnl h4,.done h4{line-height:1.06;letter-spacing:.006em}
+.phero h1 em,h2.sh-h em{font-style:normal}
+
+/* --- sub-display: card titles in sentence case, where Playfair reads best --- */
+.prod h3,.pick b,.ci__b b,.kitr b,.cempty b,.np-grid b{
+  font-family:var(--dsp2);font-weight:700;font-variation-settings:'wght' 700;
+  letter-spacing:.002em;text-transform:none;line-height:1.3;
+}
+.prod h3{font-size:clamp(14.5px,1.3vw,17.5px)}
+.pick b{font-size:16.5px}
+
+/* --- labels: Poppins, 600, tracked out --- */
+.eyb,.fld label,.ft h5,.orail h5,.stepi b,.prod__cat,.prod__tag,.prod__stk,
+.pchip,.pt span,.btn,.tabs a,.fbar button,.crumb,.hstat span,.statc span,
+.vgrp h5,.fgrp h5,.tline.big,.sumline.tot,.fcount,.fbtn,.fclear,.vopt,.ci__v,
+.dbrand__txt .dbs,.co__h span,.tier span,.oid em,#toast,.ft-brand span,
+.prod__price small,.pd__cat,.pd__specs b,.sumline.soft b,.tline.soft b{
+  font-family:var(--hd);font-weight:600;font-variation-settings:normal;
+}
+.btn{letter-spacing:.11em;font-weight:600}
+.eyb{letter-spacing:.22em;font-weight:600}
+.tabs a,.fbar button{letter-spacing:.05em;font-weight:500;text-transform:none;font-size:14px}
+.prod__cat{letter-spacing:.19em}
+
+/* --- figures: Poppins tabular; its geometric numerals sit well under Playfair --- */
+.hstat b,.statc b,.prod__price b,.prod__price s,.pd__price,.sumline b,.tline b,
+.orow b,.orow i,.stp input,.cartb__n,.oid span,.kitr__p,.np-grid em,.tabs a i,
+.fbar button i,.chk em,.stepi em{
+  font-family:var(--num);font-weight:700;font-variation-settings:normal;
+  font-variant-numeric:tabular-nums lining-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;letter-spacing:-.012em;
+}
+
+/* --- the wordmark: Playfair, which is where it belongs --- */
+.mkb,.dbt,.ft-brand b,.co__h b,.ft-brand .m,.dbrand__mark span{
+  font-family:var(--f-brand)!important;font-weight:800;
+  font-variation-settings:'wght' 800;letter-spacing:.008em;text-transform:uppercase;
+}
+
+/* --- the one script accent --- */
+.scriptmark{
+  display:block;font-family:var(--scr);font-weight:400;
+  font-size:clamp(30px,4.2vw,52px);line-height:.9;letter-spacing:.01em;
+  color:var(--red);text-transform:none;margin-bottom:-4px;
+  background:linear-gradient(103deg,var(--red) 0%,var(--red-dk) 46%,var(--blue) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+/* --- prose measures, retuned for Poppins --- */
+.lead{font-size:clamp(14.5px,1.28vw,16.8px);line-height:1.78;max-width:56ch;color:#48587E}
+.sh-p{font-size:clamp(13.8px,1.1vw,15.2px);line-height:1.8;max-width:60ch}
+.prod p{font-size:clamp(11.5px,.92vw,12.6px);line-height:1.6;color:#5C6B8C}
+.pd__d{font-size:14px;line-height:1.82;color:#41507A;max-width:54ch}
+.pnl > p.sub{font-size:13.8px;line-height:1.8;color:#5C6B8C;max-width:52ch}
+.pick span{font-size:12.4px;line-height:1.64;color:#5C6B8C}
+.note{font-size:12.8px;line-height:1.76}
+.hint{font-size:11.6px;line-height:1.66}
+.inp,.ta,.sel-btn{font-family:var(--bdy);font-size:14.5px;letter-spacing:0}
+
+@media (max-width:600px){
+  body{font-size:14.5px;line-height:1.72}
+  .phero h1{line-height:1.02}
+  .prod h3{line-height:1.26}
+}
+
+
+/* ==================================================================
+   ONE PAGE, TWO MODES
+   Small orders and institution orders now share the same catalogue.
+   The mode switch changes what a card's action does — a plus button
+   becomes a per-student stepper — and nothing else moves.
+   ================================================================== */
+.modesw{
+  position:relative;display:grid;grid-template-columns:1fr 1fr;gap:6px;
+  padding:6px;border-radius:20px;margin:0 0 16px;
+  background:linear-gradient(152deg,rgba(255,255,255,.72),rgba(237,242,254,.5));
+  backdrop-filter:blur(min(24px,var(--bmax))) saturate(1.5);
+  -webkit-backdrop-filter:blur(min(24px,var(--bmax))) saturate(1.5);
+  border:1px solid rgba(255,255,255,.82);
+  box-shadow:0 1px 0 rgba(255,255,255,.95) inset,0 14px 34px -20px rgba(11,21,51,.34);
+}
+.modesw__ink{
+  position:absolute;top:6px;left:6px;width:calc(50% - 9px);height:calc(100% - 12px);
+  border-radius:15px;z-index:0;pointer-events:none;
+  background:linear-gradient(168deg,#1B2749 0%,var(--ink) 52%,#050A1C 100%);
+  box-shadow:0 10px 26px -12px rgba(11,21,51,.7);
+  transition:transform .52s var(--ez2);
+}
+.modesw.bulk .modesw__ink{transform:translateX(calc(100% + 6px))}
+.modesw button{
+  position:relative;z-index:1;display:flex;align-items:center;gap:12px;text-align:left;
+  padding:13px 16px;border-radius:15px;color:var(--mut);
+  transition:color .34s var(--ez),transform .4s var(--ez2);
+}
+.modesw button b{display:block;font-family:var(--dsp2);font-weight:700;font-size:14.5px;
+  color:var(--ink);line-height:1.2;transition:color .34s var(--ez)}
+.modesw button em{display:block;font-family:var(--hd);font-weight:600;font-style:normal;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:4px;
+  transition:color .34s var(--ez)}
+.modesw__i{width:36px;height:36px;flex:none;border-radius:12px;display:grid;place-items:center;
+  background:rgba(255,255,255,.8);border:1px solid var(--line);
+  transition:background .34s var(--ez),transform .46s var(--ez2),border-color .34s var(--ez)}
+.modesw__i svg{width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round;transition:stroke .34s var(--ez)}
+.modesw button[aria-selected="true"] b{color:#fff}
+.modesw button[aria-selected="true"] em{color:rgba(255,255,255,.6)}
+.modesw button[aria-selected="true"] .modesw__i{background:var(--red);border-color:transparent}
+.modesw button[aria-selected="true"] .modesw__i svg{stroke:#fff}
+.modesw button:not([aria-selected="true"]):hover b{color:var(--blue)}
+.modesw button:not([aria-selected="true"]):hover .modesw__i{transform:translateY(-2px) rotate(-5deg)}
+@media (max-width:620px){
+  .modesw{grid-template-columns:1fr;gap:5px}
+  .modesw__ink{width:calc(100% - 12px);height:calc(50% - 8px)}
+  .modesw.bulk .modesw__ink{transform:translateY(calc(100% + 5px))}
+  .modesw button{padding:11px 13px;gap:10px}
+  .modesw button b{font-size:13.5px}
+}
+
+/* ---------- the institution bar ---------- */
+.bkbar{
+  padding:16px;border-radius:20px;margin:0 0 18px;
+  background:linear-gradient(152deg,rgba(18,64,200,.07),rgba(255,255,255,.5));
+  border:1px solid rgba(18,64,200,.2);
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 12px 30px -20px rgba(18,64,200,.5);
+  animation:bkIn .5s var(--ez2) both;
+}
+@keyframes bkIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.bkbar__row{display:grid;grid-template-columns:2fr 1.4fr .8fr .9fr;gap:11px}
+@media (max-width:900px){ .bkbar__row{grid-template-columns:1fr 1fr} }
+@media (max-width:520px){ .bkbar__row{grid-template-columns:1fr} }
+.bkf{display:block;min-width:0}
+.bkf > span{display:block;font-family:var(--hd);font-weight:600;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--blue-dk);margin-bottom:6px}
+.bkf .inp,.bkf .sel-btn{height:46px;border-radius:12px;font-size:14px}
+.bkbar__pre{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:14px;
+  padding-top:13px;border-top:1px solid rgba(18,64,200,.14)}
+.bkbar__pre b{font-family:var(--hd);font-weight:600;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--mut);margin-right:3px}
+.bkbar__pre button{padding:7px 14px;border-radius:100px;font-family:var(--hd);font-weight:600;
+  font-size:11.5px;letter-spacing:.06em;color:var(--ink);background:rgba(255,255,255,.8);
+  border:1px solid rgba(18,64,200,.18);transition:.28s var(--ez)}
+.bkbar__pre button:hover{background:var(--ink);border-color:var(--ink);color:#fff;transform:translateY(-2px)}
+.bkbar__pre button.cl{color:var(--red);border-color:rgba(216,18,26,.26)}
+.bkbar__pre button.cl:hover{background:var(--red);border-color:var(--red);color:#fff}
+.bkbar__hint{font-size:12px;line-height:1.6;color:var(--mut);margin-top:11px}
+
+/* ---------- a card in bulk mode ---------- */
+.prod__bulk{display:none;align-items:center;gap:8px}
+body.bulkmode .prod__buy{display:none}
+body.bulkmode .prod__bulk{display:flex}
+body.bulkmode .prod__price small{display:block}
+.prod__bulk .stp{border-color:rgba(18,64,200,.22);background:rgba(255,255,255,.9)}
+.prod__bulk .stp button{width:30px;height:30px}
+.prod__bulk .stp input{width:36px;height:30px}
+.prod.picked{border-color:rgba(18,64,200,.4)}
+.prod.picked::after{transform:scaleX(1);
+  background:linear-gradient(90deg,var(--blue-dk),var(--blue) 40%,var(--blue-lt))}
+.prod__each{font-family:var(--hd);font-weight:600;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--blue);white-space:nowrap}
+.prod.picked .prod__each{color:var(--blue-dk)}
+body.bulkmode .prod{cursor:pointer}
+
+/* ---------- the live dock ---------- */
+.bkdock{
+  position:fixed;left:0;right:0;bottom:0;z-index:80;
+  padding:10px 0 calc(10px + env(safe-area-inset-bottom));
+  background:linear-gradient(0deg,rgba(255,255,255,.96),rgba(255,255,255,.82));
+  backdrop-filter:blur(min(28px,var(--bmax))) saturate(1.5);
+  -webkit-backdrop-filter:blur(min(28px,var(--bmax))) saturate(1.5);
+  border-top:1px solid rgba(18,64,200,.16);
+  box-shadow:0 -14px 40px -18px rgba(11,21,51,.4);
+  transform:translateY(105%);transition:transform .5s var(--ez2);
+}
+.bkdock.on{transform:none}
+.bkdock__in{width:min(1400px,100% - 48px);margin:0 auto;display:flex;align-items:center;gap:16px}
+@media (max-width:600px){ .bkdock__in{width:min(1400px,100% - 26px);gap:11px} }
+.bkdock__n{min-width:0;flex:1}
+.bkdock__n b{display:block;font-family:var(--dsp2);font-weight:700;font-size:14px;color:var(--ink);
+  line-height:1.2}
+.bkdock__n span{display:block;font-family:var(--hd);font-weight:600;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-top:3px}
+.bkdock__t{text-align:right;flex:none}
+.bkdock__t span{display:block;font-family:var(--hd);font-weight:600;font-size:9.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.bkdock__t b{display:block;font-family:var(--num);font-weight:700;font-size:22px;color:var(--ink);
+  line-height:1.1;font-variant-numeric:tabular-nums}
+@media (max-width:520px){
+  .bkdock__n span{display:none}
+  .bkdock__t b{font-size:18px}
+  .bkdock .btn{padding:0 14px}
+}
+
+/* ---------- the explainer band ---------- */
+.howrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:26px}
+@media (max-width:900px){ .howrow{grid-template-columns:1fr 1fr} }
+@media (max-width:520px){ .howrow{grid-template-columns:1fr} }
+.how{position:relative;overflow:hidden;padding:20px;border-radius:20px;
+  background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.8);
+  backdrop-filter:blur(min(20px,var(--bmax))) saturate(1.45);
+  box-shadow:0 1px 0 rgba(255,255,255,.95) inset,0 12px 30px -20px rgba(11,21,51,.34);
+  transition:transform .5s var(--card-ez),box-shadow .5s var(--card-ez),border-color .34s var(--ez)}
+.how::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:linear-gradient(90deg,var(--red-dk),var(--red) 34%,var(--red-lt));
+  transform:scaleX(0);transform-origin:left center;transition:transform .55s var(--ez2)}
+.how em{display:block;font-family:var(--num);font-weight:700;font-size:12px;letter-spacing:.1em;
+  color:var(--red);font-style:normal;margin-bottom:10px}
+.how b{display:block;font-family:var(--dsp2);font-weight:700;font-size:16px;color:var(--ink);
+  line-height:1.25;margin-bottom:7px}
+.how span{display:block;font-size:12.6px;line-height:1.66;color:var(--mut)}
+@media (hover:hover) and (pointer:fine){
+  .how:hover{transform:translateY(-7px);border-color:rgba(216,18,26,.3);
+    box-shadow:0 1px 0 rgba(255,255,255,1) inset,0 0 0 1px rgba(216,18,26,.14),
+               0 26px 50px -22px rgba(11,21,51,.34)}
+  .how:hover::after{transform:scaleX(1)}
+}
+.howcta{display:flex;gap:11px;flex-wrap:wrap}
+
+/* ==================================================================
+   THE TOOLBAR GETS OUT OF THE WAY
+   Scrolling down through products hides it; a small scroll back up
+   brings it in. Touching the search field opens the filters with it.
+   ================================================================== */
+.tools{
+  transition:transform .46s var(--ez2),opacity .34s var(--ez),
+             box-shadow .4s var(--ez),padding .34s var(--ez);
+  will-change:transform;
+}
+.tools.hid{
+  transform:translateY(calc(-100% - var(--dock-top) - var(--dock-h) - 24px));
+  opacity:0;pointer-events:none;
+}
+.tools.stuck{box-shadow:0 20px 44px -22px rgba(11,21,51,.44)}
+.tools.searching .fbar{opacity:.5}
+.srch input{transition:background .28s var(--ez),border-color .28s var(--ez),
+            box-shadow .3s var(--ez),transform .34s var(--ez2)}
+.srch input:focus{transform:translateY(-1px)}
+.fdraw{transition:max-height .52s var(--ez2),opacity .34s var(--ez),margin .4s var(--ez2)}
+.fdraw:not(.open){opacity:0}
+.fdraw.open{opacity:1}
+@media (prefers-reduced-motion:reduce){ .tools.hid{transform:none;opacity:1;pointer-events:auto} }
+
 </style>
 </head>
 <body data-page="store">
+<div id="prog" aria-hidden="true"></div>
 
 <!-- ==================== HEADER ==================== -->
 <header id="hdr">
@@ -1202,15 +1675,16 @@ body::before{
       <a href="index.html">Home</a><i></i><span>OUJ Store</span>
     </nav>
     <div class="eyb">Equipment by <span class="mkb">Markaz OUJ Performance</span></div>
+    <span class="scriptmark">Kitted out,</span>
     <h1>The <em>OUJ Store</em></h1>
     <p class="lead">The training and protective gear our own coaches ask for, priced without the
       retail markup. Cricket, football, basketball, athletics, Taekwondo and fitness — plus
       per-student kitting for schools, colleges and corporate teams.</p>
     <div class="hstat">
-      <div><b id="hsCount">30</b><span>Items in stock</span></div>
-      <div><b id="hsCats">12</b><span>Categories</span></div>
-      <div><b>25+</b><span>Institutions supplied</span></div>
-      <div><b>2–5</b><span>Day delivery, Karachi</span></div>
+      <div class="statc"><em></em><b id="hsCount" data-n="61">61</b><span>Items in stock</span></div>
+      <div class="statc"><em></em><b id="hsCats" data-n="12">12</b><span>Categories</span></div>
+      <div class="statc"><em></em><b data-n="25" data-suffix="+">25+</b><span>Institutions supplied</span></div>
+      <div class="statc"><em></em><b data-static="2–5">2–5</b><span>Day delivery, Karachi</span></div>
     </div>
   </div>
 </section>
@@ -1218,6 +1692,18 @@ body::before{
 <!-- ==================== CATALOGUE ==================== -->
 <section id="shop" style="padding-top:8px">
   <div class="wrap">
+
+    <div class="modesw" id="modesw" role="tablist" aria-label="Order type">
+      <button class="on" role="tab" aria-selected="true" data-mode="one">
+        <span class="modesw__i"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg></span>
+        <span><b>Just for me</b><em>One-off order, retail pricing</em></span>
+      </button>
+      <button role="tab" aria-selected="false" data-mode="bulk">
+        <span class="modesw__i"><svg viewBox="0 0 24 24"><path d="M3 10l9-5 9 5-9 5-9-5z"/><path d="M7 12.5V17c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4.5"/></svg></span>
+        <span><b>Bulk for an institution</b><em>Per-student kitting, volume tiers</em></span>
+      </button>
+      <i class="modesw__ink" aria-hidden="true"></i>
+    </div>
 
     <div class="tools" id="tools">
       <div class="tools__top">
@@ -1265,81 +1751,71 @@ body::before{
       </div>
     </div>
 
-    <p class="fcount"><b id="cnt">0</b> items shown</p>
+    <div class="bkbar" id="bkbar" hidden>
+      <div class="bkbar__row">
+        <label class="bkf"><span>Institution</span>
+          <select class="inp" id="bkInst"><option value="">Select a school or college…</option></select>
+        </label>
+        <label class="bkf"><span>Order type</span>
+          <select class="inp" id="bkType">
+            <option>School PE kit</option><option>Inter-school team kit</option>
+            <option>Summer camp package</option><option>Taekwondo grading kit</option>
+            <option>Corporate wellness kit</option><option>Athletics meet</option>
+          </select>
+        </label>
+        <label class="bkf bkf--sm"><span>Students</span>
+          <input class="inp" id="bkStudents" type="number" min="1" max="5000" value="40" inputmode="numeric">
+        </label>
+        <label class="bkf bkf--sm"><span>Needed by</span>
+          <input class="inp" id="bkWhen" type="date">
+        </label>
+      </div>
+      <div class="bkf" id="bkOtherWrap" hidden style="margin-top:10px">
+        <span>Institution name</span>
+        <input class="inp" id="bkOther" placeholder="e.g. Falcon House Grammar School, Gulshan campus">
+      </div>
+      <div class="bkbar__pre">
+        <b>Start from a kit</b>
+        <button data-pre="pe">School PE</button>
+        <button data-pre="tkd">Taekwondo</button>
+        <button data-pre="camp">Summer camp</button>
+        <button data-pre="meet">Athletics meet</button>
+        <button data-pre="clear" class="cl">Clear</button>
+      </div>
+      <p class="bkbar__hint">Set a per-student quantity on any card below. The quantity is
+        multiplied by your student count, and the volume tier applies automatically.</p>
+    </div>
+
+    <p class="fcount"><b id="cnt">0</b> items shown<span id="cntMode"></span></p>
     <div class="grid" id="grid"></div>
   </div>
 </section>
 
-<!-- ==================== BULK / INSTITUTIONS ==================== -->
+<!-- ==================== HOW BULK WORKS ==================== -->
 <section id="bulk">
   <div class="wrap">
     <div class="sh" data-rv>
       <div class="eyb b">Schools, colleges &amp; corporates</div>
-      <h2 class="sh-h">Order a <em>whole squad</em> at once</h2>
-      <p class="sh-p">Pick the institution, tell us how many students the kit is for, and set the
-        per-student quantities. The builder prices it live, applies the volume tier, and drops the
-        whole package into your cart as one line — so you check out once, not thirty times.</p>
+      <h2 class="sh-h">One store. <em>One order.</em></h2>
+      <p class="sh-p">Small orders and institution orders run through the same catalogue &mdash; you
+        just tell it which one you are doing. Switch to bulk, name the institution and the number of
+        students, then set a per-student quantity on any card. It multiplies through, applies the
+        volume tier, and drops the whole package into your cart as a single line.</p>
     </div>
-
-    <div class="bulk" data-rv>
-      <div class="bulk__grid">
-        <div>
-          <div class="two">
-            <div class="fld">
-              <label for="bkInst"><em>1</em> Institution</label>
-              <select class="inp" id="bkInst">
-                <option value="">Select a school or college…</option>
-              </select>
-            </div>
-            <div class="fld">
-              <label for="bkType"><em>2</em> Order type</label>
-              <select class="inp" id="bkType">
-                <option value="School PE kit">School PE kit</option>
-                <option value="Inter-school team kit">Inter-school team kit</option>
-                <option value="Summer camp package">Summer camp package</option>
-                <option value="Taekwondo grading kit">Taekwondo grading kit</option>
-                <option value="Corporate wellness kit">Corporate wellness kit</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="fld" id="bkOtherWrap" style="display:none">
-            <label for="bkOther">Institution name</label>
-            <input class="inp" id="bkOther" placeholder="e.g. Falcon House Grammar School, Gulshan campus">
-          </div>
-
-          <div class="two">
-            <div class="fld">
-              <label for="bkStudents"><em>3</em> Number of students</label>
-              <input class="inp" id="bkStudents" type="number" min="1" max="5000" value="40" inputmode="numeric">
-              <p class="hint">Every per-student quantity below is multiplied by this number.</p>
-            </div>
-            <div class="fld">
-              <label for="bkWhen">Needed by</label>
-              <input class="inp" id="bkWhen" type="date">
-            </div>
-          </div>
-
-          <div class="fld" style="margin-bottom:8px">
-            <label><em>4</em> Per-student kit</label>
-            <p class="hint" style="margin:-2px 0 10px">Set what each student gets. Leave anything at zero to drop it.</p>
-          </div>
-          <div class="kit" id="bkKit"></div>
-        </div>
-
-        <aside class="tally" id="bkTally">
-          <h4>Live quote</h4>
-          <p>Indicative. Final pricing is confirmed on the proposal after a site visit.</p>
-          <div class="tier" id="bkTier"></div>
-          <div id="bkLines"></div>
-          <div class="tline big"><span>Estimated total</span><b id="bkTotal">Rs 0</b></div>
-          <button class="btn btn-r btn-full" id="bkAdd" style="margin-top:16px">
-            Add package to cart
-            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-          <a class="btn btn-o btn-full btn-sm" id="bkWa" style="margin-top:9px" href="https://wa.me/923002672558">Ask a question first</a>
-        </aside>
-      </div>
+    <div class="howrow">
+      <div class="how" data-rv><em>01</em><b>Pick the mode</b>
+        <span>Just for me, or bulk for an institution. The catalogue and the categories stay the same either way.</span></div>
+      <div class="how" data-rv><em>02</em><b>Set per-student quantities</b>
+        <span>One jersey, two pairs of socks, a mouthguard each. Or start from a ready-made kit and edit it.</span></div>
+      <div class="how" data-rv><em>03</em><b>Watch the tier</b>
+        <span>25 units takes 5% off, 50 takes 8%, 100 takes 12%, 250 takes 15% &mdash; counted across the whole package.</span></div>
+      <div class="how" data-rv><em>04</em><b>Check out once</b>
+        <span>The package lands in the cart as one line. Delivery is confirmed with the order, not charged here.</span></div>
+    </div>
+    <div class="howcta" data-rv>
+      <button class="btn btn-r" data-gomode="bulk">Switch to bulk ordering
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <a class="btn btn-o" id="bkWa" href="https://wa.me/923002672558">Ask a question first</a>
     </div>
   </div>
 </section>
@@ -1650,6 +2126,21 @@ body::before{
         </aside>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="bkdock" id="bkdock" hidden>
+  <div class="bkdock__in">
+    <div class="bkdock__n">
+      <b id="bdLines">0 items</b>
+      <span id="bdUnits">0 units for 40 students</span>
+    </div>
+    <div class="bkdock__t">
+      <span id="bdTier">No tier yet</span>
+      <b id="bdTotal">Rs 0</b>
+    </div>
+    <button class="btn btn-r btn-sm" id="bdAdd" disabled>Add package
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </div>
 </div>
 
@@ -2158,16 +2649,14 @@ var SCHOOLS = ['Beaconhouse School System — North Nazimabad','Bahria Foundatio
  'The Educators — Federal B Area','Usman Public School — Campus VI','Other — not listed'];
 
 /* per-student kit lines the builder starts from */
-var KIT = [
- {id:'kt-jersey', n:'Custom team jersey',  s:'Sublimated with your crest', p:2600, q:1},
- {id:'kt-short',  n:'Match shorts',        s:'Colour matched to the jersey', p:1400, q:1},
- {id:'ft-rope',   n:'Skipping rope',       s:'Steel core, adjustable',      p:350,  q:1},
- {id:'pg-shin',   n:'Shin guards',         s:'Sleeve type, sized by height',p:1900, q:0},
- {id:'pg-mouth',  n:'Mouthguard',          s:'Boil and bite, cased',        p:210,  q:0},
- {id:'ft-mat',    n:'Training mat',        s:'10 mm, closed-cell NBR',      p:2200, q:0},
- {id:'tk-dobok',  n:'Taekwondo dobok',     s:'8 oz, WTF cut',               p:5200, q:0},
- {id:'tk-belt',   n:'Grading belt',        s:'Colour-fast, 8-row stitched', p:900,  q:0}
-];
+/* ready-made kits — each is a map of product id -> per-student quantity.
+   They only ever pre-fill the catalogue; everything stays editable. */
+var PRESETS = {
+  pe:   {'kt-jersey':1,'kt-short':1,'kt-sock':1,'ft-rope':1,'pg-shin':1},
+  tkd:  {'tk-dobok':1,'tk-belt':1,'pg-mouth':1,'tk-guard':1},
+  camp: {'kt-jersey':1,'gr-water':1,'ck-soft':1,'fb-ball':1,'ft-rope':1},
+  meet: {'at-relay':1,'at-hurdle':1,'at-block':1,'at-throw':1,'gr-mark':1,'gr-score':1}
+};
 
 /* volume tiers — the same ladder for the cart and the bulk builder */
 var TIERS = [{u:250,d:.15,l:'250+'},{u:100,d:.12,l:'100+'},{u:50,d:.08,l:'50+'},{u:25,d:.05,l:'25+'}];
@@ -2286,7 +2775,8 @@ function card(it){
   if(it.v && Object.keys(it.v).length)
     chips += '<span class="pchip b">'+Object.keys(it.v).length+' option'
            + (Object.keys(it.v).length>1?'s':'')+'</span>';
-  return '<article class="prod'+(it.stock==='out'?' out':'')+'" data-id="'+it.id+'" tabindex="0" role="button">'
+  return '<article class="prod'+(it.stock==='out'?' out':'')
+       + (bulkQ[it.id]?' picked':'')+'" data-id="'+it.id+'" tabindex="0" role="button">'
    + '<div class="prod__ph">'
      + '<img src="'+IMG(it.img)+'" alt="'+esc(it.n)+'" loading="lazy" decoding="async">'
      + (it.tag?'<span class="prod__tag '+(it.tc||'')+'">'+esc(it.tag)+'</span>':'')
@@ -2305,6 +2795,15 @@ function card(it){
        + '</span>'
        + '<button class="prod__buy" data-add="'+it.id+'" aria-label="Add '+esc(it.n)+' to cart">'
          + '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>'
+       + '<span class="prod__bulk">'
+         + '<span class="prod__each">Per<br>student</span>'
+         + '<span class="stp">'
+           + '<button data-bq="'+it.id+'" data-d="-1" aria-label="One fewer per student">−</button>'
+           + '<input type="number" min="0" max="20" value="'+(bulkQ[it.id]||0)
+             +'" data-bqi="'+it.id+'" inputmode="numeric" aria-label="Per student quantity">'
+           + '<button data-bq="'+it.id+'" data-d="1" aria-label="One more per student">+</button>'
+         + '</span>'
+       + '</span>'
      + '</div>'
    + '</div></article>';
 }
@@ -2319,6 +2818,7 @@ function paintGrid(){
   $('#grid').innerHTML = list.length
     ? list.map(card).join('')
     : '<p class="fempty">Nothing matches that combination — try clearing a filter.</p>';
+  $$('#grid .prod').forEach(function(c,i){ c.style.setProperty('--d', Math.min(i,14)*38 + 'ms'); });
   $('#cnt').textContent = list.length;
 
   var n = view.size.length+view.use.length+view.price.length+view.avail.length;
@@ -2452,50 +2952,73 @@ function kitRow(l){
     + '</div></div>';
 }
 
-/* ================= BULK BUILDER ================= */
-var kitQ = KIT.map(function(k){ return k.q; });
+/* ================= BULK MODE =================
+   The catalogue is the builder. A card's plus button becomes a
+   per-student stepper, the quantities live in one map, and the dock
+   at the foot of the screen prices it as you go. */
+var mode  = 'one';
+var bulkQ = {};                    /* product id -> per-student quantity */
 
-function paintKit(){
-  $('#bkKit').innerHTML = KIT.map(function(k,i){
-    return '<div class="kitr"><div class="kitr__b"><b>'+esc(k.n)+'</b><span>'+esc(k.s)+'</span></div>'
-      + '<span class="kitr__p">'+rs(k.p)+'</span>'
-      + '<span class="stp"><button data-kq="'+i+'" data-d="-1" aria-label="Less">−</button>'
-      + '<input type="number" min="0" max="20" value="'+kitQ[i]+'" data-ki="'+i+'" inputmode="numeric">'
-      + '<button data-kq="'+i+'" data-d="1" aria-label="More">+</button></span></div>';
-  }).join('');
-}
+function heads(){ return Math.max(1, parseInt($('#bkStudents').value,10) || 1); }
+
 function bulkCalc(){
-  var heads = Math.max(1, parseInt($('#bkStudents').value,10) || 1);
-  var lines = [], gross = 0, totalUnits = 0;
-  KIT.forEach(function(k,i){
-    var q = kitQ[i]; if(!q) return;
-    var qty = q*heads, t = qty*k.p;
-    lines.push({n:k.n, q:qty, t:t}); gross += t; totalUnits += qty;
+  var h = heads(), lines = [], gross = 0, totalUnits = 0;
+  Object.keys(bulkQ).forEach(function(id){
+    var q = bulkQ[id]; if(!q) return;
+    var it = ITEMS.filter(function(i){ return i.id===id; })[0]; if(!it) return;
+    var qty = q*h, t = qty*it.p;
+    lines.push({id:id, n:it.n, per:q, q:qty, t:t});
+    gross += t; totalUnits += qty;
   });
   var tier = tierFor(totalUnits), disc = Math.round(gross*tier.d);
-  return {heads:heads, lines:lines, gross:gross, units:totalUnits, tier:tier, disc:disc, net:gross-disc};
+  return {heads:h, lines:lines, gross:gross, units:totalUnits,
+          tier:tier, disc:disc, net:gross-disc};
 }
-function paintBulk(){
-  var r = bulkCalc();
-  $('#bkTier').innerHTML = TIERS.slice().reverse().map(function(t){
-    return '<span'+(r.tier.u===t.u?' class="on"':'')+'>'+t.l+' units · '+Math.round(t.d*100)+'%</span>';
-  }).join('');
-  $('#bkLines').innerHTML =
-      (r.lines.length
-        ? r.lines.map(function(l){ return '<div class="tline"><span>'+esc(l.n)+' × '+l.q+'</span><b>'+rs(l.t)+'</b></div>'; }).join('')
-        : '<div class="tline"><span>Nothing selected yet</span><b>—</b></div>')
-    + '<div class="tline"><span>'+r.units+' units for '+r.heads+' students</span><b>'+rs(r.gross)+'</b></div>'
-    + (r.disc ? '<div class="tline disc"><span>Volume tier '+r.tier.l+'</span><b>− '+rs(r.disc)+'</b></div>' : '');
-  $('#bkTotal').textContent = rs(r.net);
-  $('#bkAdd').disabled = !r.lines.length;
 
-  var inst = $('#bkInst').value==='Other — not listed' ? ($('#bkOther').value||'Institution') : $('#bkInst').value;
+function instName(){
+  var v = $('#bkInst').value;
+  if(v === 'Other — not listed') return $('#bkOther').value.trim() || 'Institution — name to confirm';
+  return v || 'Institution — name to confirm';
+}
+
+function paintDock(){
+  var r = bulkCalc(), dock = $('#bkdock');
+  if(mode !== 'bulk'){ dock.classList.remove('on'); dock.hidden = true; return; }
+  dock.hidden = false;
+  requestAnimationFrame(function(){ dock.classList.add('on'); });
+
+  $('#bdLines').textContent  = r.lines.length
+    ? r.lines.length + (r.lines.length===1 ? ' item selected' : ' items selected')
+    : 'Nothing selected yet';
+  $('#bdUnits').textContent  = r.units + ' units for ' + r.heads + ' students';
+  $('#bdTier').textContent   = r.tier.d
+    ? 'Tier ' + r.tier.l + ' · ' + Math.round(r.tier.d*100) + '% off'
+    : (r.units ? 'No tier yet — 25 units gets 5%' : 'No tier yet');
+  $('#bdTotal').textContent  = rs(r.net);
+  $('#bdAdd').disabled = !r.lines.length;
+
   $('#bkWa').href = WA + '?text=' + encodeURIComponent(
     'Assalam o Alaikum, I want a quote for a bulk order.\n'
-    + 'Institution: ' + (inst||'—') + '\nType: ' + $('#bkType').value
+    + 'Institution: ' + instName() + '\nType: ' + $('#bkType').value
     + '\nStudents: ' + r.heads + '\nEstimated: ' + rs(r.net));
 }
 
+function setMode(m, silent){
+  mode = m;
+  document.body.classList.toggle('bulkmode', m==='bulk');
+  $('#modesw').classList.toggle('bulk', m==='bulk');
+  $$('#modesw button').forEach(function(b){
+    var on = b.dataset.mode===m;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  $('#bkbar').hidden = m!=='bulk';
+  $('#cntMode').textContent = m==='bulk' ? ' · per-student quantities' : '';
+  write('ouj_mode_v1', m);
+  paintGrid();
+  paintDock();
+  if(!silent) toast(m==='bulk' ? 'Bulk mode on' : 'Back to single orders');
+}
 /* ================= CHECKOUT ================= */
 var co = {step:1, who:'', ful:'Delivery', pay:''};
 
@@ -2760,41 +3283,78 @@ addEventListener('storage', function(e){
 });
 
 /* bulk builder */
-$('#bkKit').addEventListener('click', function(e){
-  var b = e.target.closest('[data-kq]'); if(!b) return;
-  var i = +b.dataset.kq;
-  kitQ[i] = Math.max(0, Math.min(20, kitQ[i] + (+b.dataset.d)));
-  $('[data-ki="'+i+'"]', this).value = kitQ[i];
-  paintBulk();
+/* mode switch */
+$('#modesw').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-mode]'); if(!b) return;
+  setMode(b.dataset.mode);
 });
-$('#bkKit').addEventListener('change', function(e){
-  var i = e.target.closest('[data-ki]'); if(!i) return;
-  kitQ[+i.dataset.ki] = Math.max(0, Math.min(20, parseInt(i.value,10)||0));
-  i.value = kitQ[+i.dataset.ki];
-  paintBulk();
+document.addEventListener('click', function(e){
+  var g = e.target.closest('[data-gomode]'); if(!g) return;
+  setMode(g.dataset.gomode);
+  var t = document.getElementById('shop');
+  if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
 });
-$('#bkStudents').addEventListener('input', paintBulk);
-$('#bkType').addEventListener('change', paintBulk);
-$('#bkOther').addEventListener('input', paintBulk);
+
+/* per-student steppers, delegated on the grid */
+function setQ(id, q){
+  q = Math.max(0, Math.min(20, q));
+  if(q) bulkQ[id] = q; else delete bulkQ[id];
+  var card = $('.prod[data-id="'+id+'"]');
+  if(card){
+    card.classList.toggle('picked', !!q);
+    var inp = $('[data-bqi="'+id+'"]', card); if(inp) inp.value = q;
+  }
+  paintDock();
+}
+$('#grid').addEventListener('click', function(e){
+  var b = e.target.closest('[data-bq]'); if(!b) return;
+  e.stopPropagation();
+  setQ(b.dataset.bq, (bulkQ[b.dataset.bq]||0) + (+b.dataset.d));
+}, true);
+$('#grid').addEventListener('change', function(e){
+  var i = e.target.closest('[data-bqi]'); if(!i) return;
+  setQ(i.dataset.bqi, parseInt(i.value,10)||0);
+});
+
+/* the institution bar */
+['#bkStudents','#bkType','#bkOther','#bkWhen'].forEach(function(sel){
+  $(sel).addEventListener('input', paintDock);
+  $(sel).addEventListener('change', paintDock);
+});
 $('#bkInst').addEventListener('change', function(){
-  $('#bkOtherWrap').style.display = this.value==='Other — not listed' ? '' : 'none';
-  paintBulk();
+  $('#bkOtherWrap').hidden = this.value !== 'Other — not listed';
+  paintDock();
 });
-$('#bkAdd').addEventListener('click', function(){
+$('#bkbar').addEventListener('click', function(e){
+  var p = e.target.closest('[data-pre]'); if(!p) return;
+  var key = p.dataset.pre;
+  bulkQ = (key === 'clear') ? {} : Object.assign({}, PRESETS[key] || {});
+  if(key !== 'clear'){
+    var label = {pe:'School PE kit', tkd:'Taekwondo grading kit',
+                 camp:'Summer camp package', meet:'Athletics meet'}[key];
+    if(label) $('#bkType').value = label;
+    var native = $('#bkType'); if(native.themeSync) native.themeSync();
+  }
+  paintGrid();
+  paintDock();
+  toast(key === 'clear' ? 'Selection cleared' : 'Kit loaded — edit as you like');
+});
+
+/* the whole package lands in the cart as one line */
+$('#bdAdd').addEventListener('click', function(){
   var r = bulkCalc();
   if(!r.lines.length) return;
-  var inst = $('#bkInst').value==='Other — not listed'
-    ? ($('#bkOther').value.trim() || 'Institution — name to confirm')
-    : ($('#bkInst').value || 'Institution — name to confirm');
   var when = $('#bkWhen').value;
   cart.push({
     k:'kit|'+Date.now(), kit:true, id:'bulk',
-    n:$('#bkType').value + ' — ' + inst,
+    n:$('#bkType').value + ' — ' + instName(),
     sub:r.heads + ' students · ' + r.units + ' units · tier ' + r.tier.l
         + (when ? ' · needed by ' + when : ''),
-    img:P.school, price:r.net, qty:1, units:r.units, lines:r.lines
+    img:P.school, price:r.net, qty:1, units:r.units,
+    lines:r.lines.map(function(l){ return {n:l.n + ' (' + l.per + ' each)', q:l.q, t:l.t}; })
   });
   persist(); bump();
+  bulkQ = {}; paintGrid(); paintDock();
   toast('Package added');
   show('#cartOv');
 });
@@ -2976,10 +3536,184 @@ document.addEventListener('click', function(e){
   });
 });
 
+
+/* ================= MOTION =================
+   Counters, a scroll progress rule, staggered cards, and an eased
+   page scroll. The eased scroll only runs on a mouse — trackpads and
+   touch already have inertia of their own, and hijacking those makes
+   a page feel worse, not better. */
+
+/* --- counters: numbers count up the first time they are seen --- */
+function countUp(el){
+  if(el.dataset.counted) return;
+  el.dataset.counted = '1';
+  var end = parseFloat(el.dataset.n);
+  if(isNaN(end)) return;
+  var suffix = el.dataset.suffix || '';
+  var dur = 1100 + Math.min(700, end * 1.6);
+  var t0 = null;
+  el.classList.add('counting');
+  el.textContent = '0';
+  function frame(t){
+    if(t0===null) t0 = t;
+    var p = Math.min(1,(t-t0)/dur);
+    var e = 1 - Math.pow(1-p,3);              /* ease out cubic */
+    el.textContent = Math.round(end*e).toLocaleString('en-PK') + (p===1 ? suffix : '');
+    if(p<1) requestAnimationFrame(frame); else el.classList.remove('counting');
+  }
+  requestAnimationFrame(frame);
+}
+var countObs = ('IntersectionObserver' in window)
+  ? new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(en.isIntersecting){ countUp(en.target); countObs.unobserve(en.target); }
+      });
+    },{rootMargin:'0px 0px -12% 0px'})
+  : null;
+function watchCounters(){
+  $$('[data-n]').forEach(function(el){
+    if(countObs) countObs.observe(el); else countUp(el);
+  });
+}
+
+/* --- scroll progress --- */
+(function(){
+  var bar = $('#prog'), tick = 0;
+  if(!bar) return;
+  function draw(){
+    tick = 0;
+    var max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max>0 ? Math.min(1, scrollY/max) : 0) + ')';
+  }
+  addEventListener('scroll', function(){ if(!tick) tick = requestAnimationFrame(draw); },{passive:true});
+  draw();
+})();
+
+/* --- eased page scroll --- */
+(function(){
+  if(!window.matchMedia) return;
+  if(!matchMedia('(pointer:fine)').matches) return;
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+
+  var target = 0, cur = 0, running = false;
+  var EASE = .115, NEST = '.pane__b,.co__body,.sel-list,.fbar,.orail__l,.fdraw';
+
+  function limit(){ return Math.max(0, document.documentElement.scrollHeight - innerHeight); }
+  function loop(){
+    cur += (target - cur) * EASE;
+    if(Math.abs(target - cur) < .5){ cur = target; running = false; }
+    scrollTo(0, cur);
+    if(running) requestAnimationFrame(loop);
+  }
+  function start(){
+    if(running) return;
+    running = true; cur = scrollY;
+    requestAnimationFrame(loop);
+  }
+
+  /* native smooth would fight the loop, so the loop owns it now */
+  document.documentElement.style.scrollBehavior = 'auto';
+
+  addEventListener('wheel', function(e){
+    if(e.ctrlKey || e.defaultPrevented) return;
+    if(document.body.classList.contains('locked')) return;      /* a panel is open */
+    if(e.target.closest && e.target.closest(NEST)) return;      /* an inner scroller */
+    if(limit() <= 0) return;
+    e.preventDefault();
+    if(!running) target = scrollY;
+    var d = e.deltaY * (e.deltaMode === 1 ? 22 : e.deltaMode === 2 ? innerHeight : 1);
+    target = Math.max(0, Math.min(limit(), target + d));
+    start();
+  }, {passive:false});
+
+  /* anything else that moves the page — keys, the scrollbar, a jump — resyncs it */
+  addEventListener('scroll', function(){ if(!running){ target = cur = scrollY; } },{passive:true});
+  addEventListener('resize', function(){ target = cur = scrollY; },{passive:true});
+
+  /* in-page links ride the same easing */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    var id = a.getAttribute('href');
+    if(id.length < 2) return;
+    var el = document.getElementById(id.slice(1));
+    if(!el) return;
+    e.preventDefault();
+    document.body.classList.remove('menu');
+    var pad = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+    target = Math.max(0, Math.min(limit(), el.getBoundingClientRect().top + scrollY - pad));
+    start();
+  });
+})();
+
+
+/* ================= THE TOOLBAR GETS OUT OF THE WAY =================
+   Scrolling down through the grid hides the search bar; a small
+   scroll back up brings it in. Touching the field opens the filters
+   with it, so the two are one gesture rather than two. */
+(function(){
+  var tools = $('#tools');
+  if(!tools) return;
+  var last = scrollY, tick = 0, shown = true, acc = 0;
+  var DOWN = 70,   /* how far down before it leaves  */
+      UP   = 26;   /* how little back up to call it in */
+
+  function show_(){ if(shown) return; shown = true;  tools.classList.remove('hid'); }
+  function hide_(){ if(!shown) return;
+    if(document.activeElement && tools.contains(document.activeElement)) return;
+    if(tools.classList.contains('searching')) return;   /* mid-search, leave it */
+    shown = false; tools.classList.add('hid');
+  }
+
+  function onScroll(){
+    tick = 0;
+    var y = scrollY, d = y - last;
+    last = y;
+
+    tools.classList.toggle('stuck', y > 260);
+
+    /* above the grid it always shows */
+    var grid = $('#grid');
+    if(!grid || y < grid.offsetTop - 200){ acc = 0; show_(); return; }
+
+    /* direction has to persist a little, so a trackpad wobble
+       does not flap the bar in and out */
+    if((d > 0) !== (acc > 0)) acc = 0;
+    acc += d;
+    if(acc >  DOWN){ hide_(); acc = 0; }
+    if(acc < -UP)  { show_(); acc = 0; }
+  }
+  addEventListener('scroll', function(){ if(!tick) tick = requestAnimationFrame(onScroll); },{passive:true});
+
+  /* touching the search field brings the filters with it */
+  var q = $('#q');
+  q.addEventListener('focus', function(){
+    show_();
+    tools.classList.add('searching');
+    if(!$('#fdraw').classList.contains('open')) $('#fbtn').click();
+  });
+  q.addEventListener('blur', function(){
+    tools.classList.remove('searching');
+    /* an empty search with no filters set closes the drawer again */
+    var none = !q.value && !(view.size.length+view.use.length+view.price.length+view.avail.length);
+    if(none && $('#fdraw').classList.contains('open')) setTimeout(function(){
+      if(document.activeElement && document.activeElement.closest &&
+         document.activeElement.closest('#fdraw')) return;
+      $('#fbtn').click();
+    }, 160);
+  });
+
+  /* a category tap should never leave the bar hidden */
+  $('#fbar').addEventListener('click', show_);
+  $('#modesw').addEventListener('click', show_);
+})();
+
 /* ================= BOOT ================= */
 $('#yr').textContent = new Date().getFullYear();
-$('#hsCount').textContent = ITEMS.length;
-$('#hsCats').textContent  = CATS.length;
+/* the figure is written straight away so it is never a zero if the
+   counter cannot run; countUp then animates it up from nought. */
+$('#hsCount').dataset.n = $('#hsCount').textContent = ITEMS.length;
+$('#hsCats').dataset.n  = $('#hsCats').textContent  = CATS.length;
 $('#bkInst').innerHTML = '<option value="">Select a school or college…</option>'
   + SCHOOLS.map(function(s){ return '<option>'+esc(s)+'</option>'; }).join('');
 
@@ -2988,13 +3722,13 @@ $$('select').forEach(themeSelect);
 buildBar();
 buildFilters();
 paintGrid();
-paintKit();
-paintBulk();
+setMode(read('ouj_mode_v1','one'), true);
 paintCart();
 loadDraft();
 payNotes();
 fulFields();
-$$('[data-rv]').forEach(io);
+$$('[data-rv]').forEach(function(el,i){ el.style.setProperty('--rv-d', (i%4)*90 + 'ms'); io(el); });
+watchCounters();
 
 /* a returning cart deserves a nudge, once */
 if(cart.length){
