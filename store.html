@@ -104,7 +104,7 @@
   --f-cond:'Chivo','Helvetica Neue',Arial,sans-serif;
   --f-num:'Inter Tight','Helvetica Neue',Arial,sans-serif;
   --f-brand:'Chivo','Helvetica Neue',Arial,sans-serif;
-  --nav:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  --nav-font:'Inter Tight','Helvetica Neue',Arial,sans-serif;
   --scr:'Chivo','Helvetica Neue',Arial,sans-serif;
 
   --bd:var(--line);
@@ -266,7 +266,7 @@ h1{font-family:var(--dsp);font-weight:900;font-size:clamp(40px,7.4vw,86px);
 
 .tabs{display:flex;align-items:center;gap:2px;min-width:0}
 .tabs a{position:relative;padding:9px 13px;border-radius:var(--r-pill);
-  font-family:var(--nav);font-weight:500;font-size:14px;color:var(--mut);
+  font-family:var(--nav-font);font-weight:500;font-size:14px;color:var(--mut);
   transition:color .2s var(--ez),background .2s var(--ez)}
 .tabs a:hover{color:var(--ink);background:rgba(11,21,51,.05)}
 .tabs a.on{color:var(--ink);font-weight:600}
@@ -4795,5 +4795,147 @@ if(cart.length){
 })();
 
 </script>
+
+<style id="layout-repair">
+/* ==================================================================
+   PATCH — LAYOUT REPAIR
+   1. --nav was declared twice: once as a length (nav height) and once
+      as a font stack. The font stack won, so every
+      calc(var(--nav) + Xpx) in the file became invalid and the browser
+      dropped the whole padding declaration -> hero text sat under the
+      fixed dock. The font var is now --nav-font and --nav is a length.
+   2. .wrap had no reliable gutter, so headings, cards and paragraphs
+      were glued to the screen edges.
+   3. The off-canvas menu panel was widening the page (sideways scroll).
+   ================================================================== */
+:root{ --gut:28px }
+@media (max-width:1100px){ :root{ --gut:24px } }
+@media (max-width:760px) { :root{ --gut:20px } }
+@media (max-width:400px) { :root{ --gut:16px } }
+
+/* no sideways scroll — clip, not hidden, so sticky still works */
+html,body{ overflow-x:clip }
+.navpanel{ max-width:100vw }
+.navbd{ max-width:100vw }
+
+/* the dock always sits above page content */
+header#hdr{ z-index:200 !important }
+
+/* one gutter for every container on the page */
+.wrap{
+  width:auto !important;
+  margin-inline:auto !important;
+  padding-left:max(var(--gut), env(safe-area-inset-left)) !important;
+  padding-right:max(var(--gut), env(safe-area-inset-right)) !important;
+}
+/* ---- container width: match the rest of the site (was 1400) ---- */
+:root{ --nav:78px }
+@media (max-width:760px){ :root{ --nav:74px } }
+.wrap{ max-width:1220px }
+
+/* ==================================================================
+   STORE HERO — rebuilt
+   The eyebrow was tucked under the dock, the "03" ghost numeral had no
+   styling at all (it rendered as plain body text at the top-left), and
+   the stat block had no layout rules, so it collapsed into a run-on
+   list: "61Items in stock".
+   ================================================================== */
+.phero{
+  position:relative; overflow:hidden;
+  padding-top:calc(var(--nav) + 54px) !important;
+  padding-bottom:clamp(40px,5vw,64px) !important;
+}
+@media (max-width:760px){
+  .phero{ padding-top:calc(var(--nav) + 40px) !important }
+}
+.phero > .wrap{ position:relative; z-index:2 }
+
+/* ghost numeral — decorative, behind the copy, out of the flow */
+.phero .ghostn{
+  position:absolute; right:0; top:calc(var(--nav) + 4px); z-index:0;
+  pointer-events:none; user-select:none;
+  font-family:var(--dsp,'Inter Tight',system-ui,sans-serif);
+  font-weight:900; line-height:.78; letter-spacing:-.045em;
+  font-size:clamp(110px,15vw,210px);
+  color:transparent; -webkit-text-stroke:1.5px rgba(18,64,200,.13);
+}
+@media (max-width:900px){
+  .phero .ghostn{ font-size:clamp(76px,20vw,120px); opacity:.55;
+                  -webkit-text-stroke-width:1.2px }
+}
+
+/* hero copy rhythm */
+.phero .crumb{ margin-bottom:16px }
+.phero .eyb{ display:block; margin-bottom:8px }
+.phero .scriptmark{ display:block; margin-bottom:4px }
+.phero .lead{ max-width:60ch; margin-bottom:0 }
+
+/* ---- stat row: real cards, real grid ---- */
+.hstat{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px; margin-top:30px;
+}
+@media (max-width:900px){ .hstat{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px } }
+@media (max-width:360px){ .hstat{ grid-template-columns:1fr } }
+
+.hstat .statc{
+  position:relative; display:flex; flex-direction:column; gap:6px;
+  padding:15px 16px 15px 19px !important;
+  border-radius:16px; overflow:hidden;
+  background:rgba(255,255,255,.74);
+  border:1px solid rgba(18,64,200,.10);
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset,
+             0 12px 28px -20px rgba(11,21,51,.5);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+}
+.hstat .statc em{
+  position:absolute; left:0; top:13px; bottom:13px; width:3px;
+  border-radius:0 3px 3px 0; background:var(--red,#d8121a);
+}
+.hstat .statc b{
+  font-size:clamp(23px,2.3vw,31px); line-height:1;
+  letter-spacing:-.02em; color:var(--ink,#0b1533);
+}
+.hstat .statc span{
+  font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+  line-height:1.35; color:var(--dim,#5b6480);
+}
+
+/* ---- catalogue: give the first block air under the hero ---- */
+#shop{ padding-top:26px !important }
+.modesw{ margin-bottom:18px }
+@media (max-width:620px){
+  .modesw{ grid-template-columns:1fr; }
+  .tools{ margin-bottom:18px }
+}
+/* filter chip rail must breathe to the gutter edge, not past it */
+.fbar{ scroll-padding-inline:2px }
+
+
+/* section numerals fell back into normal flow on phones, so a 78px
+   "01" was sitting on top of the section logo. Put them back where the
+   desktop rule puts them: absolute, right-hand side, behind the copy. */
+.ghostn{
+  position:absolute !important; left:auto !important; right:0 !important;
+  top:4px !important; z-index:0 !important; pointer-events:none;
+}
+.sh,.sh-lg,.eyb,.wrap > .plate{ position:relative; z-index:2 }
+
+
+/* section numerals fell back into normal flow on phones, so a 78px
+   "01" was sitting on top of the section logo. Put them back where the
+   desktop rule puts them: absolute, right-hand side, behind the copy. */
+.ghostn{
+  position:absolute !important; left:auto !important; right:0 !important;
+  top:4px !important; z-index:0 !important; pointer-events:none;
+}
+.sh,.sh-lg,.eyb,.wrap > .plate{ position:relative; z-index:2 }
+
+/* hero numerals must clear the fixed dock, not hide behind it */
+.phero .ghostn{ top:calc(var(--nav) + 10px) !important }
+@media (max-width:760px){ .phero .ghostn{ top:calc(var(--nav) + 2px) !important } }
+@media (max-width:760px){ .phero .ghostn{ right:8px !important } }
+</style>
 </body>
 </html>
