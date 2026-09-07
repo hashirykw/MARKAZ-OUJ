@@ -1,0 +1,2253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>About and Team | Markaz OUJ Performance, Karachi</title>
+<meta name="description" content="Markaz OUJ Performance is a Karachi sports service provider chaired by Abdul Samad Khan: coaching and PE teachers, equipment, event organizing, summer camps, fitness training and martial arts for schools, colleges, universities and corporate teams.">
+<meta name="theme-color" content="#0B1533">
+<link rel="canonical" href="https://markaz-ouj.com/about.html">
+<meta property="og:title" content="About and Team | Markaz OUJ Performance, Karachi">
+<meta property="og:description" content="Markaz OUJ Performance is a Karachi sports service provider chaired by Abdul Samad Khan: coaching and PE teachers, equipment, event organizing, summer camps, fitness training and martial arts for schools, colleges, universities and corporate teams.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markaz OUJ Performance">
+<meta property="og:locale" content="en_PK">
+<meta property="og:image" content="icons/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About and Team | Markaz OUJ Performance, Karachi">
+<meta name="twitter:description" content="Markaz OUJ Performance is a Karachi sports service provider chaired by Abdul Samad Khan: coaching and PE teachers, equipment, event organizing, summer camps, fitness training and martial arts for schools, colleges, universities and corporate teams.">
+<meta name="twitter:image" content="icons/og-cover.jpg">
+<link rel="icon" href="icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/favicon-180.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;600;700;900&family=Inter+Tight:wght@400;500;600;700&display=swap">
+<style>
+/* ===== site.css ===== */
+/* ==================================================================
+   MARKAZ OUJ PERFORMANCE — site.css  (v2)
+
+   The single shared stylesheet. Every page links this file; the
+   preloader, dock, search, buttons, cards, scoreboard, sheets and
+   footer are defined here once.
+
+       <link rel="stylesheet" href="site.css">
+       <script src="site.js" defer>…
+
+   COLOUR — 60 / 30 / 10
+     60  paper       #F2F4F7 ground, #FFFFFF surfaces
+     30  ink         #0B1533 dark bands, footer, sheets, headings
+     10  red         #D8121A one accent, used only where it means
+                     something: the live thing, the current thing,
+                     the thing you should press.
+     Brand blue survives as a link and focus tint, not a third
+     accent. If everything is accented, nothing is.
+
+   TYPE
+     Chivo        display — a sturdy grotesque with real weight at
+                  900, set tight and in sentence case
+     Inter Tight  everything else, including tabular figures
+
+   Token NAMES are unchanged from v1 so index.html and store.html
+   keep working; only the values moved.
+   ================================================================== */
+
+:root{
+  /* --- 60: paper --- */
+  --paper:#F2F4F7;
+  --cloud:#E6EAF0;
+  --mist:#F7F9FB;
+  --line:#DCE2EA;
+  --edge:rgba(11,21,51,.09);
+
+  /* --- 30: ink --- */
+  --ink:#0B1533;
+  --ink-2:#16224A;
+  --txt:#39435C;
+  --mut:#5B6780;
+  --dim:#8A93A6;
+
+  /* --- 10: accent --- */
+  --red:#D8121A;
+  --red-dk:#A60E15;
+  --red-lt:#F2545B;
+
+  /* brand blue — links and focus only */
+  --blue:#1240C8;
+  --blue-dk:#0B2E96;
+  --blue-lt:#4B76E8;
+  --blue-t:rgba(18,64,200,.12);
+
+  /* glass */
+  --glass:rgba(255,255,255,.62);
+  --glass-2:rgba(255,255,255,.78);
+  --glass-line:rgba(255,255,255,.85);
+  --bmax:18px;
+
+  /* radii, tiered by what the thing is */
+  --r-xs:8px;
+  --r-sm:12px;
+  --r-md:16px;
+  --r-lg:22px;
+  --r-pill:100px;
+
+  /* elevation, tiered by how far off the page it sits */
+  --s1:0 1px 2px rgba(11,21,51,.06);
+  --s2:0 4px 14px -6px rgba(11,21,51,.16);
+  --s3:0 18px 44px -22px rgba(11,21,51,.34);
+  --s4:0 40px 90px -30px rgba(11,21,51,.5);
+
+  /* type */
+  --dsp:'Chivo','Helvetica Neue',Arial,sans-serif;
+  --dsp2:'Chivo','Helvetica Neue',Arial,sans-serif;
+  --hd:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  --bdy:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  --num:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  --f-cond:'Chivo','Helvetica Neue',Arial,sans-serif;
+  --f-num:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  --f-brand:'Chivo','Helvetica Neue',Arial,sans-serif;
+  --nav:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  --scr:'Chivo','Helvetica Neue',Arial,sans-serif;
+
+  --bd:var(--line);
+  --sr:var(--r-md);
+
+  /* easing */
+  --ez:cubic-bezier(.4,0,.2,1);
+  --ez2:cubic-bezier(.16,1,.3,1);
+  --card-ez:cubic-bezier(.16,1,.3,1);
+
+  /* v1 compatibility — store.html still references these */
+  --lg-fill:var(--glass);
+  --lg-fill-2:var(--glass-2);
+  --grad-blue:var(--blue);
+  --grad-gold:#D9A62B;
+  --gold:#D9A62B; --gold-mid:#C08F1E; --gold-lt:#F4DE9B;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--txt);
+  font-family:var(--bdy);font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img{max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,select,textarea{font:inherit}
+h1,h2,h3,h4,h5,h6,p,figure,ul,ol{margin:0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+[hidden]{display:none!important}
+::selection{background:var(--red);color:#fff}
+
+/* ==================================================================
+   1 · THE PRELOADER — a board break
+   The one piece of motion nobody asked for. It runs once per session,
+   holds only as long as the page actually needs, then splits down the
+   middle and gets out of the way.
+   ================================================================== */
+#boot{position:fixed;inset:0;z-index:400;display:grid;place-items:center;
+  pointer-events:none}
+#boot.gone{display:none}
+.boot__half{position:absolute;top:0;bottom:0;width:50.5%;background:var(--ink);
+  transition:transform .78s var(--ez2);will-change:transform}
+.boot__half.l{left:0}
+.boot__half.r{right:0}
+#boot.break .boot__half.l{transform:translateX(-100%)}
+#boot.break .boot__half.r{transform:translateX(100%)}
+.boot__crack{position:absolute;top:0;left:50%;width:2px;height:0;
+  transform:translateX(-50%);background:var(--red);
+  box-shadow:0 0 18px 2px rgba(216,18,26,.55);
+  transition:height .5s var(--ez)}
+#boot.crack .boot__crack{height:100%}
+#boot.break .boot__crack{opacity:0;transition:opacity .18s linear}
+.boot__c{position:relative;z-index:2;text-align:center;transition:opacity .28s var(--ez)}
+#boot.break .boot__c{opacity:0}
+.boot__mark{width:78px;height:78px;margin:0 auto;border:2px solid rgba(255,255,255,.22);
+  display:grid;place-items:center;font-family:var(--dsp);font-weight:900;font-size:23px;
+  letter-spacing:.04em;color:#fff}
+.boot__n{margin-top:16px;font-family:var(--hd);font-weight:500;font-size:12.5px;
+  color:rgba(255,255,255,.5)}
+.boot__bar{width:132px;height:2px;margin:14px auto 0;background:rgba(255,255,255,.14);
+  overflow:hidden}
+.boot__bar i{display:block;height:100%;width:0;background:var(--red);
+  transition:width .3s var(--ez)}
+body.booting{overflow:hidden}
+@media (prefers-reduced-motion:reduce){
+  .boot__half,.boot__crack,.boot__bar i{transition:none}
+}
+
+/* ==================================================================
+   2 · LAYOUT
+   ================================================================== */
+.wrap{width:min(1220px,100% - 40px);margin-inline:auto}
+section{position:relative;padding:clamp(52px,7vw,96px) 0}
+section.tight{padding-top:0}
+
+/* Section head: no eyebrow label, no accented word. The heading does
+   the work and a short standfirst does the explaining. */
+.sh{max-width:62ch;margin-bottom:clamp(26px,3.4vw,40px)}
+.sh h2{font-family:var(--dsp);font-weight:900;font-size:clamp(28px,4vw,44px);
+  line-height:1.04;letter-spacing:-.022em;color:var(--ink)}
+.sh p{margin-top:12px;font-size:15.5px;line-height:1.68;color:var(--mut);max-width:56ch}
+
+.dark{background:var(--ink);color:#fff}
+.dark .sh h2{color:#fff}
+.dark .sh p{color:rgba(255,255,255,.62)}
+
+/* ==================================================================
+   3 · TYPE
+   ================================================================== */
+h1{font-family:var(--dsp);font-weight:900;font-size:clamp(40px,7.4vw,86px);
+  line-height:.95;letter-spacing:-.032em;color:var(--ink)}
+.lead{margin-top:18px;font-size:clamp(16px,1.5vw,18.5px);line-height:1.62;
+  color:var(--mut);max-width:56ch}
+.mkb{color:var(--ink);font-weight:600}
+.tnum{font-variant-numeric:tabular-nums lining-nums}
+
+.crumb{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--dim);
+  margin-bottom:20px}
+.crumb a{color:var(--mut)}
+.crumb a:hover{color:var(--red)}
+.crumb i{width:12px;height:1px;background:var(--line);font-style:normal}
+
+.phero{padding-top:clamp(104px,13vw,164px);padding-bottom:clamp(34px,4.4vw,56px)}
+.phero h1{max-width:14ch}
+
+/* ==================================================================
+   4 · BUTTONS — three, and only three
+   ================================================================== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  height:48px;padding:0 24px;border-radius:var(--r-pill);
+  font-family:var(--hd);font-weight:600;font-size:14.5px;letter-spacing:-.005em;
+  white-space:nowrap;cursor:pointer;border:1px solid transparent;
+  transition:background .2s var(--ez),color .2s var(--ez),border-color .2s var(--ez),
+    transform .12s var(--ez)}
+.btn:active{transform:translateY(1px)}
+.btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round}
+.btn-r{background:var(--red);color:#fff}
+.btn-r:hover{background:var(--red-dk)}
+.btn-k{background:var(--ink);color:#fff}
+.btn-k:hover{background:var(--ink-2)}
+.btn-o{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-o:hover{border-color:var(--ink);background:rgba(11,21,51,.04)}
+.btn-sm{height:38px;padding:0 16px;font-size:13px}
+.btn-full{width:100%}
+.dark .btn-o{color:#fff;border-color:rgba(255,255,255,.24)}
+.dark .btn-o:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+/* ==================================================================
+   5 · THE DOCK
+   ================================================================== */
+#prog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--red);z-index:300}
+
+#hdr{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;
+  transition:padding .3s var(--ez)}
+#hdr.sc{padding:8px 0}
+.dock{width:min(1220px,100% - 28px);margin-inline:auto;
+  display:flex;align-items:center;gap:14px;height:60px;padding:0 10px 0 14px;
+  border-radius:var(--r-pill);
+  background:var(--glass-2);border:1px solid var(--glass-line);box-shadow:var(--s2);
+  backdrop-filter:blur(var(--bmax)) saturate(1.6);
+  -webkit-backdrop-filter:blur(var(--bmax)) saturate(1.6);
+  transition:box-shadow .3s var(--ez),background .3s var(--ez)}
+#hdr.sc .dock{box-shadow:var(--s3);background:rgba(255,255,255,.9)}
+
+.dbrand{display:flex;align-items:center;gap:10px;flex:none}
+.dbrand__mark{width:36px;height:36px;flex:none;border-radius:10px;background:var(--ink);
+  display:grid;place-items:center;color:#fff;
+  font-family:var(--dsp);font-weight:900;font-size:11.5px;letter-spacing:.03em}
+.dbrand__txt{display:flex;flex-direction:column;line-height:1.05}
+.dbt{font-family:var(--dsp);font-weight:900;font-size:15px;color:var(--ink);
+  letter-spacing:-.018em}
+.dbs{font-family:var(--hd);font-weight:500;font-size:11px;color:var(--dim)}
+.dock__rule{width:1px;height:24px;background:var(--line);flex:none}
+
+.tabs{display:flex;align-items:center;gap:2px;min-width:0}
+.tabs a{position:relative;padding:9px 13px;border-radius:var(--r-pill);
+  font-family:var(--nav);font-weight:500;font-size:14px;color:var(--mut);
+  transition:color .2s var(--ez),background .2s var(--ez)}
+.tabs a:hover{color:var(--ink);background:rgba(11,21,51,.05)}
+.tabs a.on{color:var(--ink);font-weight:600}
+.tabs a.on::after{content:'';position:absolute;left:13px;right:13px;bottom:3px;height:2px;
+  background:var(--red);border-radius:2px}
+.tabs a i{display:none}
+@media (max-width:1040px){ .tabs,.dock__rule{display:none} }
+
+.nav-r{margin-left:auto;display:flex;align-items:center;gap:8px;flex:none}
+.mbtn{display:none;width:40px;height:40px;border-radius:var(--r-pill);
+  align-items:center;justify-content:center;flex-direction:column;gap:4px;
+  background:rgba(11,21,51,.05)}
+.mbtn i{display:block;width:15px;height:1.6px;background:var(--ink);border-radius:2px;
+  transition:transform .3s var(--ez2),opacity .2s var(--ez)}
+body.menu .mbtn i:nth-child(1){transform:translateY(5.6px) rotate(45deg)}
+body.menu .mbtn i:nth-child(2){opacity:0}
+body.menu .mbtn i:nth-child(3){transform:translateY(-5.6px) rotate(-45deg)}
+@media (max-width:1040px){ .mbtn{display:flex} }
+@media (max-width:600px){ .dock__cta{display:none} }
+
+.navbd{position:fixed;inset:0;z-index:198;background:rgba(11,21,51,.35);
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ez),visibility .3s;
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+body.menu .navbd{opacity:1;visibility:visible}
+.navpanel{position:fixed;top:0;right:0;bottom:0;z-index:199;width:min(360px,88vw);
+  padding:88px 22px 22px;background:var(--ink);color:#fff;
+  display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .42s var(--ez2)}
+body.menu .navpanel{transform:none}
+.np-grid{display:flex;flex-direction:column}
+.np-grid a{display:flex;align-items:baseline;gap:14px;padding:15px 0;
+  border-bottom:1px solid rgba(255,255,255,.1)}
+.np-grid a em{font-style:normal;font-family:var(--num);font-size:11px;
+  color:rgba(255,255,255,.34);font-variant-numeric:tabular-nums;flex:none}
+.np-grid a b{font-family:var(--dsp);font-weight:900;font-size:22px;letter-spacing:-.02em}
+.np-grid a:hover b{color:var(--red-lt)}
+.np-foot{margin-top:auto;padding-top:22px;display:flex;gap:8px}
+.np-foot .btn-o{color:#fff;border-color:rgba(255,255,255,.24)}
+
+/* ==================================================================
+   6 · SEARCH
+   ================================================================== */
+.srchb{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;
+  border-radius:var(--r-pill);border:1px solid var(--line);
+  font-family:var(--hd);font-weight:500;font-size:13px;color:var(--mut);
+  transition:border-color .2s var(--ez),color .2s var(--ez),background .2s var(--ez)}
+.srchb:hover{color:var(--ink);border-color:var(--ink);background:rgba(11,21,51,.04)}
+.srchb svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.srchb kbd{font-family:var(--num);font-size:11px;padding:1px 5px;border-radius:5px;
+  background:var(--cloud);color:var(--dim)}
+@media (max-width:900px){ .srchb{width:38px;padding:0;justify-content:center}
+  .srchb span,.srchb kbd{display:none} }
+
+/* ==================================================================
+   7 · SHEETS — one overlay shell for every popup on the site
+   ================================================================== */
+.ov{position:fixed;inset:0;z-index:250;display:flex;opacity:0;visibility:hidden;
+  transition:opacity .28s var(--ez),visibility .28s}
+.ov.on{opacity:1;visibility:visible}
+.ov__bd{position:absolute;inset:0;background:rgba(11,21,51,.44);
+  backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.pane{position:relative;z-index:2;display:flex;flex-direction:column;overflow:hidden;
+  background:#fff;border:1px solid var(--glass-line);box-shadow:var(--s4)}
+.pane__h{flex:0 0 auto;display:flex;align-items:flex-start;gap:12px;
+  padding:20px 22px;border-bottom:1px solid var(--line)}
+.pane__h h3{font-family:var(--dsp);font-weight:900;font-size:22px;color:var(--ink);
+  line-height:1.1;letter-spacing:-.022em}
+.pane__h p{margin-top:5px;font-size:13px;color:var(--mut)}
+.px{margin-left:auto;width:36px;height:36px;flex:none;border-radius:var(--r-pill);
+  display:grid;place-items:center;border:1px solid var(--line);
+  transition:background .2s var(--ez),border-color .2s var(--ez)}
+.px svg{width:15px;height:15px;fill:none;stroke:var(--ink);stroke-width:2.2;
+  stroke-linecap:round}
+.px:hover{background:var(--red);border-color:var(--red)}
+.px:hover svg{stroke:#fff}
+.pane__b{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:22px}
+body.ovon{overflow:hidden}
+
+/* search palette */
+.ov--pal{align-items:flex-start;justify-content:center;padding:clamp(12px,9vh,110px) 16px}
+.ov--pal .pane{width:min(620px,100%);max-height:min(540px,80vh);border-radius:var(--r-lg);
+  transform:translateY(-10px);transition:transform .34s var(--ez2)}
+.ov--pal.on .pane{transform:none}
+.palf{display:flex;align-items:center;gap:12px;padding:16px 18px;
+  border-bottom:1px solid var(--line)}
+.palf svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--dim);stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.palf input{flex:1;min-width:0;border:0;background:none;outline:0;font-size:16px;
+  color:var(--ink)}
+.palf input::placeholder{color:var(--dim)}
+.palr{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:8px}
+.palr h6{font-family:var(--hd);font-weight:600;font-size:12px;color:var(--dim);
+  padding:10px 12px 6px;margin:0}
+.palr a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r-sm);
+  transition:background .16s var(--ez)}
+.palr a:hover,.palr a.sel{background:var(--cloud)}
+.palr a i{width:28px;height:28px;flex:none;border-radius:var(--r-xs);display:grid;
+  place-items:center;font-style:normal;font-size:12px;color:#fff;background:var(--ink)}
+.palr a.is-page i{background:var(--red)}
+.palr a b{display:block;font-family:var(--hd);font-weight:600;font-size:14.5px;
+  color:var(--ink);line-height:1.3}
+.palr a span span{display:block;margin-top:1px;font-size:12.5px;color:var(--mut)}
+.palr .none{padding:34px 16px;text-align:center;color:var(--mut);font-size:13.5px}
+.palfoot{flex:0 0 auto;display:flex;gap:16px;padding:11px 18px;
+  border-top:1px solid var(--line);font-size:12px;color:var(--dim)}
+.palfoot kbd{font-family:var(--num);padding:1px 5px;border-radius:5px;
+  background:var(--cloud);color:var(--mut)}
+
+/* the detail sheet every card opens */
+.ov--sheet{align-items:center;justify-content:center;padding:clamp(12px,4vh,48px) 16px}
+.ov--sheet .pane{width:min(760px,100%);max-height:86vh;border-radius:var(--r-lg);
+  transform:translateY(14px) scale(.99);transition:transform .38s var(--ez2)}
+.ov--sheet.on .pane{transform:none}
+.sheet__ph{position:relative;flex:0 0 auto;aspect-ratio:21/9;overflow:hidden;
+  background:var(--cloud)}
+.sheet__ph img{width:100%;height:100%;object-fit:cover}
+.sheet__x{position:absolute;top:14px;right:14px;z-index:3;width:38px;height:38px;
+  border-radius:var(--r-pill);display:grid;place-items:center;
+  background:rgba(255,255,255,.92);box-shadow:var(--s2);
+  transition:background .2s var(--ez)}
+.sheet__x svg{width:16px;height:16px;fill:none;stroke:var(--ink);stroke-width:2.2;
+  stroke-linecap:round}
+.sheet__x:hover{background:var(--red)}
+.sheet__x:hover svg{stroke:#fff}
+.sheet__b{padding:24px 26px 28px;overflow-y:auto;overscroll-behavior:contain}
+.sheet__b h3{font-family:var(--dsp);font-weight:900;font-size:clamp(24px,3.4vw,34px);
+  line-height:1.02;letter-spacing:-.026em;color:var(--ink)}
+.sheet__b .sub{margin-top:8px;font-size:14px;color:var(--red);font-weight:600}
+.sheet__b p{margin-top:14px;font-size:15px;line-height:1.72;color:var(--txt);max-width:60ch}
+.sheet__list{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}
+.sheet__list li{position:relative;padding-left:24px;font-size:14.5px;line-height:1.6;
+  color:var(--txt)}
+.sheet__list li::before{content:'';position:absolute;left:2px;top:8px;width:9px;height:5px;
+  border-left:2px solid var(--red);border-bottom:2px solid var(--red);transform:rotate(-45deg)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+  margin-top:22px;background:var(--line);border:1px solid var(--line);
+  border-radius:var(--r-md);overflow:hidden}
+.facts div{background:#fff;padding:14px 16px}
+.facts em{display:block;font-style:normal;font-size:12.5px;color:var(--dim)}
+.facts b{display:block;margin-top:3px;font-family:var(--dsp);font-weight:900;font-size:17px;
+  color:var(--ink);letter-spacing:-.02em}
+@media (max-width:640px){
+  .ov--sheet{padding:0;align-items:flex-end}
+  .ov--sheet .pane{max-height:92vh;border-radius:var(--r-lg) var(--r-lg) 0 0;
+    transform:translateY(100%)}
+  .ov--sheet.on .pane{transform:none}
+  .sheet__ph{aspect-ratio:16/9}
+  .sheet__b{padding:20px 18px 26px}
+}
+
+/* ==================================================================
+   8 · CARDS
+   A card is a surface, not a decoration. Radius and elevation say how
+   important it is; they are not the same on everything.
+   ================================================================== */
+.card{position:relative;display:flex;flex-direction:column;
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-md);
+  transition:border-color .2s var(--ez),box-shadow .24s var(--ez),transform .24s var(--ez2)}
+.card--tap{cursor:pointer;text-align:left;width:100%}
+.card--tap:hover{border-color:var(--ink);box-shadow:var(--s2)}
+.card--tap:active{transform:translateY(1px)}
+.card--glass{background:var(--glass);border-color:var(--glass-line);
+  backdrop-filter:blur(var(--bmax)) saturate(1.5);
+  -webkit-backdrop-filter:blur(var(--bmax)) saturate(1.5)}
+.card--feature{border-radius:var(--r-lg);box-shadow:var(--s2)}
+.card--feature.card--tap:hover{box-shadow:var(--s3)}
+
+.card__ph{position:relative;overflow:hidden;background:var(--cloud);flex:none;
+  border-radius:calc(var(--r-md) - 1px) calc(var(--r-md) - 1px) 0 0}
+.card--feature .card__ph{border-radius:calc(var(--r-lg) - 1px) calc(var(--r-lg) - 1px) 0 0}
+.card__ph img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .5s var(--ez2)}
+.card--tap:hover .card__ph img{transform:scale(1.04)}
+.card__b{padding:18px 20px 20px;display:flex;flex-direction:column;gap:7px;flex:1}
+.card__b h3{font-family:var(--dsp);font-weight:900;font-size:19px;line-height:1.1;
+  letter-spacing:-.022em;color:var(--ink)}
+.card__b p{font-size:14px;line-height:1.6;color:var(--mut)}
+.card__foot{margin-top:auto;padding-top:12px;display:flex;align-items:center;
+  justify-content:space-between;gap:10px;font-size:13px;color:var(--mut)}
+.card__foot strong{font-family:var(--dsp);font-weight:900;color:var(--ink);
+  letter-spacing:-.01em}
+
+/* the affordance that says "this opens" */
+.card__open{position:absolute;top:12px;right:12px;z-index:3;width:32px;height:32px;
+  border-radius:var(--r-pill);display:grid;place-items:center;
+  background:#fff;border:1px solid var(--line);box-shadow:var(--s1);
+  opacity:0;transform:scale(.85);
+  transition:opacity .2s var(--ez),transform .24s var(--ez2),background .2s var(--ez)}
+.card--tap:hover .card__open,.card--tap:focus-visible .card__open{opacity:1;transform:none}
+.card--tap:hover .card__open{background:var(--red);border-color:var(--red)}
+.card__open svg{width:14px;height:14px;fill:none;stroke:var(--ink);stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round}
+.card--tap:hover .card__open svg{stroke:#fff}
+@media (hover:none){ .card__open{opacity:1;transform:none} }
+
+.card__cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:16px;color:#fff}
+.card__cap h3{font-family:var(--dsp);font-weight:900;font-size:20px;line-height:1.06;
+  letter-spacing:-.022em}
+.card__cap p{margin-top:4px;font-size:13px;color:rgba(255,255,255,.78)}
+.card__scrim{position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(11,21,51,.86),rgba(11,21,51,.1) 62%,transparent)}
+
+.card__tag{position:absolute;top:12px;left:12px;z-index:3;padding:5px 10px;
+  border-radius:var(--r-pill);background:#fff;border:1px solid var(--line);
+  font-family:var(--hd);font-weight:600;font-size:12px;color:var(--ink)}
+.card__tag--live{background:var(--red);border-color:var(--red);color:#fff}
+
+/* ---------- grids, and what they do when the space runs out ---------- */
+.cgrid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.cgrid--2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.cgrid--sm{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+
+/* Below 620px a three- or four-up grid does not become two cramped
+   columns; it becomes a swipeable rail. Full-size cards, one thumb
+   gesture, nothing squeezed. */
+@media (max-width:620px){
+  .cgrid,.cgrid--2,.cgrid--sm{
+    grid-auto-flow:column;grid-template-columns:none;
+    grid-auto-columns:min(78vw,300px);
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:2px 20px 14px;margin-inline:-20px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  }
+  .cgrid::-webkit-scrollbar,.cgrid--2::-webkit-scrollbar,
+  .cgrid--sm::-webkit-scrollbar{display:none}
+  .cgrid > *,.cgrid--2 > *,.cgrid--sm > *{scroll-snap-align:center}
+  .cgrid.stack{grid-auto-flow:row;grid-template-columns:1fr;overflow:visible;
+    padding:0;margin-inline:0}
+}
+.railhint{display:none}
+@media (max-width:620px){ .railhint{display:block;margin-top:2px;font-size:12.5px;
+  color:var(--dim)} }
+
+/* ==================================================================
+   9 · THE SCOREBOARD
+   Figures belong together on one surface, reading across like a
+   results board — not in four identical floating cards.
+   ================================================================== */
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:rgba(255,255,255,.12);border-radius:var(--r-lg);overflow:hidden;
+  margin-top:clamp(28px,4vw,44px)}
+.board > div{background:var(--ink);padding:22px 20px 24px;position:relative}
+.board b{display:block;font-family:var(--dsp);font-weight:900;
+  font-size:clamp(30px,4.6vw,50px);line-height:.92;letter-spacing:-.036em;color:#fff;
+  font-variant-numeric:tabular-nums lining-nums}
+.board > div:first-child b{color:var(--red-lt)}
+.board span{display:block;margin-top:9px;font-size:13px;line-height:1.4;
+  color:rgba(255,255,255,.56);max-width:18ch}
+.board--light{background:var(--line)}
+.board--light > div{background:#fff}
+.board--light b{color:var(--ink)}
+.board--light > div:first-child b{color:var(--red)}
+.board--light span{color:var(--mut)}
+@media (max-width:760px){ .board{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:400px){ .board > div{padding:16px 14px 18px} .board span{font-size:12px} }
+
+/* ==================================================================
+   10 · CHIPS
+   ================================================================== */
+.frail{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:22px}
+.frail .spacer{flex:1 1 auto}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{height:36px;padding:0 15px;border-radius:var(--r-pill);
+  border:1px solid var(--line);
+  font-family:var(--hd);font-weight:500;font-size:13.5px;color:var(--mut);
+  transition:background .18s var(--ez),color .18s var(--ez),border-color .18s var(--ez)}
+.chips button:hover{color:var(--ink);border-color:var(--ink)}
+.chips button.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+.chips button i{font-style:normal;font-size:12px;margin-left:6px;opacity:.55;
+  font-variant-numeric:tabular-nums}
+.chips__ink{display:none}
+.fcount{font-size:13px;color:var(--dim)}
+.fcount b{font-family:var(--dsp);font-weight:900;color:var(--ink)}
+@media (max-width:620px){
+  .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    padding-bottom:2px;margin-inline:-20px;padding-inline:20px}
+  .chips::-webkit-scrollbar{display:none}
+  .chips button{flex:none}
+  .frail .spacer{display:none}
+}
+
+/* ==================================================================
+   11 · ROWS — schedules and records
+   ================================================================== */
+.rows{border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:#fff}
+.row-i{display:grid;align-items:center;gap:16px;padding:15px 18px;
+  border-top:1px solid var(--line);transition:background .18s var(--ez)}
+.row-i:first-child{border-top:0}
+.row-i:hover{background:var(--mist)}
+.row-i b{font-family:var(--dsp);font-weight:900;font-size:16px;color:var(--ink);
+  letter-spacing:-.02em;line-height:1.2}
+.row-i span{font-size:13.5px;color:var(--mut)}
+.row-i em{font-style:normal;font-family:var(--num);font-weight:600;font-size:14px;
+  color:var(--ink);font-variant-numeric:tabular-nums}
+.row-i u{text-decoration:none;justify-self:end;padding:5px 11px;border-radius:var(--r-pill);
+  border:1px solid var(--line);font-size:12.5px;color:var(--mut);white-space:nowrap}
+
+/* ==================================================================
+   12 · EMPTY STATE
+   ================================================================== */
+.nores{padding:48px 20px;text-align:center;border:1px dashed var(--line);
+  border-radius:var(--r-md);background:#fff}
+.nores b{display:block;font-family:var(--dsp);font-weight:900;font-size:19px;color:var(--ink);
+  letter-spacing:-.02em}
+.nores span{display:block;margin-top:6px;font-size:14px;color:var(--mut)}
+
+/* ==================================================================
+   13 · FOOTER
+   ================================================================== */
+footer{background:var(--ink);color:#fff;padding:clamp(48px,6vw,76px) 0 26px}
+.ft{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:clamp(24px,4vw,52px)}
+.ft-brand{display:flex;align-items:center;gap:11px;margin-bottom:16px}
+.ft-brand .m{width:38px;height:38px;border-radius:10px;background:var(--red);
+  display:grid;place-items:center;font-family:var(--dsp);font-weight:900;font-size:12px}
+.ft-brand b{display:block;font-family:var(--dsp);font-weight:900;font-size:16px;
+  letter-spacing:-.02em;color:#fff}
+.ft-brand span{display:block;font-size:12px;color:rgba(255,255,255,.5)}
+.ft > div > p{font-size:13.8px;line-height:1.7;color:rgba(255,255,255,.58);max-width:44ch}
+.ft h5{font-family:var(--hd);font-weight:600;font-size:13px;color:#fff;margin-bottom:13px}
+.ft a{display:block;padding:5px 0;font-size:13.8px;color:rgba(255,255,255,.58);
+  transition:color .18s var(--ez)}
+.ft a:hover{color:#fff}
+.ft-b{margin-top:clamp(32px,4vw,52px);padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.12);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-size:12.5px;color:rgba(255,255,255,.42)}
+@media (max-width:860px){ .ft{grid-template-columns:1fr 1fr} }
+@media (max-width:520px){ .ft{grid-template-columns:1fr;gap:26px} }
+
+/* ==================================================================
+   14 · MOTION
+   One orchestrated moment, at load. After that motion only answers
+   something the person did. No per-section fade-ups.
+   ================================================================== */
+.rise{opacity:0;transform:translateY(14px)}
+body.ready .rise{opacity:1;transform:none;
+  transition:opacity .6s var(--ez),transform .7s var(--ez2);
+  transition-delay:var(--rd,0ms)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .rise{opacity:1;transform:none}
+}
+
+/* ==================================================================
+   15 · TEXTURE AND LAYERING
+   Borrowed from the home page: the ground is never flat white. A fine
+   grain sits over everything, dark bands carry a faint grid, and the
+   heroes get one soft pool of light. All of it is generated, so it
+   costs nothing to download.
+   ================================================================== */
+body::before{
+  content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+body > *{position:relative;z-index:2}
+#boot{z-index:400}
+
+/* the dark bands get the same wire grid the 3D scene is made of */
+.dark::before{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000,transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000,transparent 78%);
+}
+.dark > .wrap{position:relative;z-index:2}
+
+/* one pool of light behind a page hero, never more */
+.phero::before{
+  content:'';position:absolute;z-index:0;pointer-events:none;
+  left:50%;top:-14%;width:min(1100px,120%);height:120%;transform:translateX(-50%);
+  background:radial-gradient(ellipse 50% 42% at 50% 46%,rgba(18,64,200,.09),transparent 70%);
+}
+.phero > .wrap{position:relative;z-index:2}
+
+/* ==================================================================
+   16 · THE 3D SCENE
+   Same canvas and same code as the home page, so the two pages move
+   the same way.
+   ================================================================== */
+.phero--scene{overflow:hidden}
+#scene{position:absolute;inset:0;width:100%;height:100%;z-index:1;
+  opacity:.55;pointer-events:auto}
+@media (max-width:760px){ #scene{opacity:.38} }
+@media (prefers-reduced-motion:reduce){ #scene{display:none} }
+
+/* ==================================================================
+   17 · THE SCOREBOARD, PROPERLY DRESSED
+   Each figure sits on its own panel with a ghost numeral behind it, an
+   accent rule that draws on hover, and a caption that stays quiet.
+   ================================================================== */
+.board{position:relative;isolation:isolate}
+.board > div{overflow:hidden;transition:background .3s var(--ez)}
+.board > div::before{
+  content:'';position:absolute;left:0;top:0;height:3px;width:0;background:var(--red);
+  transition:width .5s var(--ez2);
+}
+.board > div:hover::before{width:100%}
+.board > div:hover{background:var(--ink-2)}
+.board--light > div:hover{background:var(--mist)}
+/* the ghost figure behind the real one */
+.board > div::after{
+  content:attr(data-ghost);position:absolute;right:-6px;bottom:-22px;z-index:0;
+  font-family:var(--dsp);font-weight:900;font-size:96px;line-height:1;
+  color:rgba(255,255,255,.045);letter-spacing:-.05em;pointer-events:none;
+  font-variant-numeric:tabular-nums;
+}
+.board--light > div::after{color:rgba(11,21,51,.05)}
+.board b,.board span{position:relative;z-index:2}
+.board__k{position:relative;z-index:2;display:block;margin-bottom:12px;
+  font-family:var(--hd);font-weight:600;font-size:12px;color:rgba(255,255,255,.4)}
+.board--light .board__k{color:var(--dim)}
+
+/* ==================================================================
+   18 · MOBILE — smaller cards, denser type, a footer that folds away
+   ================================================================== */
+@media (max-width:620px){
+  /* the rails carry smaller cards so more than one is on screen */
+  .cgrid,.cgrid--2,.cgrid--sm{grid-auto-columns:min(64vw,250px);gap:12px}
+  .cgrid--sm{grid-auto-columns:min(46vw,190px)}
+  .card__b{padding:14px 15px 16px;gap:5px}
+  .card__b h3{font-size:16.5px}
+  .card__b p{font-size:13px;line-height:1.5}
+  .card__cap{padding:13px}
+  .card__cap h3{font-size:17px}
+  .card__cap p{font-size:12px}
+  .card__open{width:28px;height:28px;top:10px;right:10px}
+  .card__open svg{width:12px;height:12px}
+  section{padding:38px 0}
+  .sh{margin-bottom:20px}
+  .board{grid-template-columns:repeat(2,1fr);margin-top:26px}
+  .board > div{padding:16px 15px 18px}
+  .board > div::after{font-size:62px;bottom:-14px}
+  .board span{font-size:12px;margin-top:6px}
+
+  /* The footer was four full columns and a paragraph. On a phone that
+     is a second page nobody reads, so it folds to a brand line, one
+     row of links and the two things people actually tap. */
+  footer{padding:28px 0 18px}
+  .ft{display:block}
+  .ft > div > p,.ft h5{display:none}
+  .ft > div:nth-child(2),.ft > div:nth-child(3){display:none}
+  .ft-brand{margin-bottom:14px}
+  .ft > div:nth-child(4){display:flex;flex-wrap:wrap;gap:8px}
+  .ft > div:nth-child(4) a{padding:0;font-size:13px}
+  .ft > div:nth-child(4) a:not(:last-child)::after{content:'';margin-left:8px;
+    border-right:1px solid rgba(255,255,255,.18);padding-right:0}
+  .ftmob{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 4px}
+  .ftmob a{padding:7px 13px;border-radius:var(--r-pill);
+    border:1px solid rgba(255,255,255,.18);font-size:12.5px;color:rgba(255,255,255,.72)}
+  .ft-b{margin-top:16px;padding-top:14px;font-size:11.5px}
+}
+.ftmob{display:none}
+
+/* ==================================================================
+   19 · THE SHEET, WITH MORE IN IT
+   ================================================================== */
+.sheet__ph::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(11,21,51,.5),transparent 55%)}
+.sheet__eyebrow{position:absolute;left:22px;bottom:16px;z-index:3;color:#fff;
+  font-family:var(--dsp);font-weight:900;font-size:clamp(22px,3.4vw,32px);
+  letter-spacing:-.026em;line-height:1;max-width:80%}
+.sheet__ph + .sheet__b h3{margin-top:0}
+.sheet__note{margin-top:18px;padding:14px 16px;border-radius:var(--r-sm);
+  background:var(--mist);border:1px solid var(--line);font-size:13.5px;color:var(--mut)}
+.sheet__b .btn{margin-top:22px}
+
+/* a row that opens, used by the schedule and the belt ladder */
+.row-i.card--tap{cursor:pointer}
+.row-i.card--tap:hover{background:var(--mist)}
+.belt.card--tap{cursor:pointer;transition:border-color .2s var(--ez),
+  box-shadow .24s var(--ez),transform .24s var(--ez2)}
+.belt.card--tap:hover{border-color:var(--ink);box-shadow:var(--s2);transform:translateY(-3px)}
+.belt.belt--black.card--tap:hover{border-color:var(--red)}
+
+/* ==================================================================
+   20 · THE LOGOS
+   ================================================================== */
+.dbrand__logo{width:auto;height:26px;flex:none;display:block}
+@media (max-width:1040px){ .dbrand__logo{height:23px} }
+.np-grid a{flex-direction:column;align-items:flex-start;gap:2px}
+.np-grid a span{font-size:12.5px;color:rgba(255,255,255,.42)}
+.np-grid a:hover span{color:rgba(255,255,255,.7)}
+.ft-brand .m{background:#fff;padding:5px;width:auto;height:38px;border-radius:9px}
+.ft-brand .m img{height:100%;width:auto;display:block}
+
+/* ==================================================================
+   21 · DEPTH
+   Cards are no longer flat rectangles that change colour on hover.
+   Each one is a small stage: the surface tilts toward the pointer and
+   the things on it sit at different depths, so the photo, the title
+   and the open button separate as you move.
+   ================================================================== */
+.tiltwrap{perspective:1100px;perspective-origin:50% 40%}
+.card--tap{transform-style:preserve-3d;will-change:transform}
+.card--tap .card__ph,
+.card--tap .card__b,
+.card--tap .card__cap,
+.card--tap .card__open,
+.card--tap .card__tag,
+.card--tap .medal{transform-style:preserve-3d}
+.card--tap.tilting{transition:transform .12s linear}
+.card--tap.tilting .card__open{transform:translateZ(46px)}
+.card--tap.tilting .card__cap{transform:translateZ(30px)}
+.card--tap.tilting .card__tag,
+.card--tap.tilting .medal{transform:translateZ(38px)}
+.card--tap.tilting .card__b h3{transform:translateZ(22px)}
+.card--tap.tilting .card__b p{transform:translateZ(12px)}
+.card--tap .card__b h3,.card--tap .card__b p{transition:transform .4s var(--ez2)}
+
+/* a specular edge that follows the pointer across the card */
+.card--tap::after{
+  content:'';position:absolute;inset:0;z-index:6;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,0%),
+    rgba(255,255,255,.5),transparent 62%);
+  opacity:0;transition:opacity .3s var(--ez);mix-blend-mode:overlay;
+}
+.card--tap:hover::after{opacity:1}
+.card--feature.card--tap:hover{box-shadow:var(--s3),0 0 0 1px rgba(11,21,51,.06)}
+
+@media (hover:none),(prefers-reduced-motion:reduce){
+  .card--tap{transform:none!important}
+  .card--tap.tilting *{transform:none!important}
+  .card--tap::after{display:none}
+}
+
+/* ==================================================================
+   22 · THE CAGE
+   A wireframe armature built from four rings on different axes. It is
+   the same idea as the 3D hero on the home page, done in CSS, so the
+   pages that do not carry the WebGL scene still have depth in them.
+   ================================================================== */
+.cage{position:absolute;z-index:1;pointer-events:none;
+  right:clamp(-90px,-4vw,0px);top:50%;width:min(520px,52vw);aspect-ratio:1;
+  transform:translateY(-46%);perspective:900px}
+.cage__in{position:absolute;inset:0;transform-style:preserve-3d;
+  animation:cageSpin 34s linear infinite}
+.cage i{position:absolute;inset:0;border-radius:50%;border:1px solid var(--blue);
+  opacity:.16;display:block}
+.cage i:nth-child(1){transform:rotateX(74deg)}
+.cage i:nth-child(2){transform:rotateX(74deg) rotateY(60deg);border-color:var(--red);opacity:.13}
+.cage i:nth-child(3){transform:rotateX(74deg) rotateY(120deg)}
+.cage i:nth-child(4){inset:14%;transform:rotateX(70deg) rotateY(30deg);opacity:.1}
+.cage i:nth-child(5){inset:28%;transform:rotateX(78deg) rotateY(90deg);border-color:var(--red);
+  opacity:.12}
+.cage b{position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;
+  background:var(--blue);opacity:.4;
+  transform:translate3d(-50%,-50%,0) rotateY(var(--a)) translateX(var(--r)) }
+@keyframes cageSpin{to{transform:rotateY(360deg)}}
+@media (max-width:900px){ .cage{opacity:.55;width:64vw;right:-18vw} }
+@media (prefers-reduced-motion:reduce){ .cage__in{animation:none} }
+.phero--cage{overflow:hidden}
+
+/* ==================================================================
+   23 · HOVER, EVERYWHERE IT EARNS ITS PLACE
+   ================================================================== */
+/* buttons get a sheen that crosses once, and the primary one pulls
+   very slightly toward the pointer */
+.btn{position:relative;overflow:hidden;isolation:isolate}
+.btn::before{content:'';position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.28) 50%,transparent 62%);
+  transform:translateX(-110%);transition:transform .6s var(--ez2)}
+.btn:hover::before{transform:translateX(110%)}
+.btn-o::before{background:linear-gradient(105deg,transparent 38%,rgba(11,21,51,.07) 50%,transparent 62%)}
+.btn.mag{transition:background .2s var(--ez),color .2s var(--ez),border-color .2s var(--ez),
+  transform .18s var(--ez2)}
+
+/* nav tabs: the rule grows from the middle rather than appearing */
+.tabs a::after{content:'';position:absolute;left:50%;right:50%;bottom:3px;height:2px;
+  background:var(--red);border-radius:2px;
+  transition:left .28s var(--ez2),right .28s var(--ez2)}
+.tabs a:hover::after{left:13px;right:13px}
+.tabs a.on::after{left:13px;right:13px}
+
+/* footer links slide, and a hairline runs out under them */
+.ft a{position:relative;width:max-content;
+  transition:color .18s var(--ez),transform .28s var(--ez2)}
+.ft a:hover{transform:translateX(4px)}
+.ft a::after{content:'';position:absolute;left:0;bottom:2px;height:1px;width:0;
+  background:rgba(255,255,255,.4);transition:width .32s var(--ez2)}
+.ft a:hover::after{width:100%}
+
+/* the dock lifts a hair off the page when you reach it */
+.dock{transition:box-shadow .3s var(--ez),background .3s var(--ez),transform .3s var(--ez2)}
+#hdr:hover .dock{transform:translateY(-1px)}
+.dbrand{transition:transform .3s var(--ez2)}
+.dbrand:hover{transform:translateX(2px)}
+
+/* chips press in */
+.chips button{transition:background .18s var(--ez),color .18s var(--ez),
+  border-color .18s var(--ez),transform .14s var(--ez)}
+.chips button:active{transform:scale(.96)}
+
+/* the search field opens up */
+.srchb{transition:border-color .2s var(--ez),color .2s var(--ez),background .2s var(--ez),
+  transform .24s var(--ez2)}
+.srchb:hover{transform:translateY(-1px)}
+
+/* rows push their accent out from the left edge */
+.rows{position:relative}
+.row-i::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--red);transform:scaleY(0);transform-origin:center;
+  transition:transform .3s var(--ez2)}
+.row-i:hover::before{transform:scaleY(1)}
+
+/* the scoreboard panels come forward */
+.board{perspective:900px}
+.board > div{transform-style:preserve-3d;
+  transition:background .3s var(--ez),transform .4s var(--ez2)}
+.board > div:hover{transform:translateZ(18px)}
+.board b{transition:transform .4s var(--ez2)}
+.board > div:hover b{transform:translateZ(24px)}
+@media (hover:none),(prefers-reduced-motion:reduce){
+  .board > div:hover,.board > div:hover b{transform:none}
+}
+
+/* the drawer entries stagger in behind the panel */
+.np-grid a{transform:translateX(18px);opacity:0;
+  transition:transform .5s var(--ez2),opacity .4s var(--ez)}
+body.menu .np-grid a{transform:none;opacity:1}
+.np-grid a:nth-child(1){transition-delay:.06s}
+.np-grid a:nth-child(2){transition-delay:.11s}
+.np-grid a:nth-child(3){transition-delay:.16s}
+.np-grid a:nth-child(4){transition-delay:.21s}
+.np-grid a:nth-child(5){transition-delay:.26s}
+@media (prefers-reduced-motion:reduce){ .np-grid a{transform:none;opacity:1} }
+
+/* ==================================================================
+   24 · THE TIMELINE CARD
+   Lifted off the home page events strip, which is the best-looking
+   thing on the site: a marker on a rail, a date above it, then a glass
+   card with the photograph pushed right back behind the text. It is a
+   component now, so the story, the first month and the record all use
+   the same shape.
+   ================================================================== */
+.tl{position:relative}
+.tl-rail{position:relative;height:3px;border-radius:3px;background:var(--cloud);
+  margin-bottom:26px;overflow:hidden}
+.tl-rail i{display:block;height:100%;width:0;border-radius:3px;
+  background:linear-gradient(90deg,var(--blue),var(--red));
+  transition:width 1.4s var(--ez2)}
+.tl.in .tl-rail i{width:100%}
+
+.tl-row{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.tl-row--4{grid-template-columns:repeat(4,1fr)}
+.tl-row--2{grid-template-columns:repeat(2,1fr)}
+
+.tl-item{position:relative;padding-top:26px}
+.tl-node{position:absolute;top:-8px;left:26px;width:16px;height:16px;border-radius:50%;
+  background:#fff;border:3px solid var(--red);box-shadow:0 0 0 5px rgba(216,18,26,.12);
+  transition:box-shadow .35s var(--ez),transform .35s var(--ez2)}
+.tl-node.b{border-color:var(--blue);box-shadow:0 0 0 5px rgba(18,64,200,.12)}
+.tl-item:hover .tl-node{transform:scale(1.15);box-shadow:0 0 0 9px rgba(216,18,26,.14)}
+.tl-item:hover .tl-node.b{box-shadow:0 0 0 9px rgba(18,64,200,.14)}
+.tl-date{font-family:var(--hd);font-weight:700;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--red);margin:0 0 10px 2px}
+.tl-date.b{color:var(--blue)}
+
+.tl-card{position:relative;isolation:isolate;overflow:hidden;height:100%;
+  border-radius:var(--r-lg);padding:22px;cursor:pointer;text-align:left;width:100%;
+  background:var(--glass);border:1px solid var(--glass-line);box-shadow:var(--s1);
+  backdrop-filter:blur(var(--bmax)) saturate(1.4);
+  -webkit-backdrop-filter:blur(var(--bmax)) saturate(1.4);
+  transition:border-color .2s var(--ez),box-shadow .26s var(--ez),transform .26s var(--ez2)}
+.tl-card:hover{border-color:var(--ink);box-shadow:var(--s3)}
+.tl-card:active{transform:translateY(1px)}
+/* the photograph, pushed right back so the words always win */
+.tl-card .ph-bg{position:absolute;inset:0;z-index:-1;background-size:cover;
+  background-position:center;opacity:.26;filter:grayscale(.5) contrast(1.05);
+  transform:scale(1.02);
+  transition:opacity .45s var(--ez),transform .8s var(--ez2),filter .45s var(--ez)}
+.tl-card:hover .ph-bg{opacity:.44;filter:grayscale(0);transform:scale(1.07)}
+.tl-card::before{content:'';position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(160deg,rgba(255,255,255,.72),rgba(255,255,255,.42))}
+
+.tl-kind{display:inline-block;padding:5px 12px;border-radius:var(--r-pill);
+  font-family:var(--hd);font-weight:700;font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:12px;
+  background:rgba(216,18,26,.08);border:1px solid rgba(216,18,26,.2);color:var(--red)}
+.tl-kind.b{background:rgba(18,64,200,.08);border-color:rgba(18,64,200,.2);color:var(--blue)}
+.tl-card h3{font-family:var(--dsp);font-weight:900;font-size:20px;line-height:1.1;
+  letter-spacing:-.024em;color:var(--ink)}
+.tl-card p{margin-top:8px;font-size:14px;line-height:1.6;color:var(--txt)}
+.tl-card .card__open{top:14px;right:14px}
+
+/* dark bands invert the plate rather than the card */
+.dark .tl-rail{background:rgba(255,255,255,.14)}
+.dark .tl-card{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14)}
+.dark .tl-card::before{background:linear-gradient(160deg,rgba(11,21,51,.5),rgba(11,21,51,.72))}
+.dark .tl-card .ph-bg{opacity:.2}
+.dark .tl-card:hover{border-color:rgba(255,255,255,.4)}
+.dark .tl-card h3{color:#fff}
+.dark .tl-card p{color:rgba(255,255,255,.68)}
+.dark .tl-node{background:var(--ink)}
+.dark .tl-card .card__open{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.22)}
+.dark .tl-card .card__open svg{stroke:#fff}
+
+@media (max-width:900px){
+  .tl-row,.tl-row--4{grid-template-columns:repeat(2,1fr);gap:18px}
+}
+/* on a phone the strip scrolls rather than stacking into a long column */
+@media (max-width:620px){
+  .tl-rail{display:none}
+  .tl-row,.tl-row--4,.tl-row--2{
+    grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(74vw,290px);
+    gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:6px 20px 14px;margin-inline:-20px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .tl-row::-webkit-scrollbar{display:none}
+  .tl-item{scroll-snap-align:center;padding-top:20px}
+  .tl-node{left:2px;top:-2px;width:13px;height:13px;border-width:2.5px}
+  .tl-date{font-size:11px;margin-left:20px;margin-bottom:8px}
+  .tl-card{padding:16px;border-radius:var(--r-md)}
+  .tl-card h3{font-size:17px}
+  .tl-card p{font-size:13px}
+  .tl-card .ph-bg{opacity:.3}
+}
+
+/* ==================================================================
+   25 · THE LOGO PLATE
+   Neither mark survives on its own. The OUJ logo has black letterforms,
+   so it disappears on the ink bands; the academy logo is silver and
+   chrome, so it disappears on paper. Each one gets a plate in the
+   ground it was drawn for, which also gives it presence rather than
+   leaving it floating.
+   ================================================================== */
+.plate{position:relative;display:inline-flex;align-items:center;justify-content:center;
+  isolation:isolate;border-radius:var(--r-lg);overflow:hidden;
+  transition:transform .3s var(--ez2),box-shadow .3s var(--ez),border-color .3s var(--ez)}
+.plate img{position:relative;z-index:2;display:block;width:auto;height:100%}
+
+/* light plate — for the gold and black OUJ mark */
+.plate--light{background:#fff;border:1px solid var(--line);box-shadow:var(--s1)}
+.plate--light::before{content:'';position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse 70% 60% at 50% 30%,rgba(217,166,43,.14),transparent 70%)}
+
+/* dark plate — for the chrome and neon academy mark */
+.plate--dark{background:var(--ink);border:1px solid rgba(255,255,255,.1);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),var(--s3)}
+.plate--dark::before{content:'';position:absolute;inset:0;z-index:1;
+  background:
+    radial-gradient(ellipse 46% 60% at 32% 42%,rgba(216,18,26,.22),transparent 68%),
+    radial-gradient(ellipse 46% 60% at 68% 42%,rgba(18,64,200,.24),transparent 68%);
+}
+/* the same faint wire grid the dark bands carry */
+.plate--dark::after{content:'';position:absolute;inset:0;z-index:1;opacity:.55;
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:34px 34px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,#000,transparent 76%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,#000,transparent 76%)}
+
+/* sizes */
+.plate--xs{height:40px;padding:0 9px;border-radius:11px}
+.plate--xs img{height:24px}
+.plate--sm{height:52px;padding:0 13px;border-radius:13px}
+.plate--sm img{height:32px}
+.plate--md{height:86px;padding:0 22px;border-radius:var(--r-md)}
+.plate--md img{height:56px}
+.plate--lg{height:clamp(128px,15vw,168px);padding:0 clamp(22px,3vw,38px)}
+.plate--lg img{height:clamp(84px,11vw,116px)}
+@media (max-width:620px){
+  .plate--lg{height:112px;padding:0 20px;border-radius:var(--r-md)}
+  .plate--lg img{height:74px}
+}
+
+/* it reacts, like everything else that matters on the page */
+.plate--hov:hover{transform:translateY(-3px)}
+.plate--hov.plate--light:hover{box-shadow:var(--s2);border-color:var(--ink)}
+.plate--hov.plate--dark:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.1),var(--s4);
+  border-color:rgba(255,255,255,.24)}
+
+/* the dock and the footer both carry the parent mark on a light plate */
+.dbrand__logo{height:24px}
+.dbrand .plate--xs{height:38px}
+.ft-brand .m{padding:0;width:auto;height:44px;background:none;border-radius:0;display:block}
+
+</style>
+<style>
+/* ===== about.css ===== */
+/* ==================================================================
+   ABOUT — page-only styles.
+   ================================================================== */
+.hero-act{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+
+/* ---------- the chairman ---------- */
+.chair{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:#fff}
+.chair__ph{position:relative;min-height:360px;background:var(--cloud)}
+.chair__ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.chair__b{padding:clamp(24px,3.4vw,44px)}
+.chair__b h2{font-family:var(--dsp);font-weight:900;font-size:clamp(26px,3.4vw,40px);
+  line-height:1.02;letter-spacing:-.028em;color:var(--ink)}
+.chair__role{margin-top:7px;font-size:14px;color:var(--red);font-weight:600}
+.chair__b p{margin-top:16px;font-size:15.5px;line-height:1.74;color:var(--txt);max-width:52ch}
+.chair blockquote{margin:24px 0 0;padding:18px 22px;border-left:3px solid var(--red);
+  background:var(--mist);border-radius:0 var(--r-sm) var(--r-sm) 0;
+  font-family:var(--dsp);font-weight:700;font-size:17px;line-height:1.45;color:var(--ink);
+  letter-spacing:-.012em}
+@media (max-width:860px){
+  .chair{grid-template-columns:1fr}
+  .chair__ph{min-height:0;aspect-ratio:16/10}
+}
+
+/* ---------- service cards ---------- */
+.svc .card__b{gap:8px}
+.svc__i{width:40px;height:40px;border-radius:var(--r-sm);background:var(--ink);
+  display:grid;place-items:center;margin-bottom:4px}
+.svc__i svg{width:19px;height:19px;fill:none;stroke:#fff;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- client types ---------- */
+.who{position:relative;overflow:hidden;border-radius:var(--r-md);aspect-ratio:4/5;
+  border:1px solid rgba(255,255,255,.14)}
+.who img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:grayscale(1) contrast(1.06)}
+
+/* ---------- team ---------- */
+.tm .card__ph{aspect-ratio:1/1}
+.tm .card__b{gap:4px}
+.tm .role{font-size:13px;color:var(--red);font-weight:600}
+
+/* ---------- facility ---------- */
+.fac{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
+.fac__ph{position:relative;min-height:300px;border-radius:var(--r-lg);overflow:hidden;
+  background:var(--cloud)}
+.fac__ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fac__b{padding:clamp(22px,2.8vw,34px);border:1px solid var(--line);border-radius:var(--r-lg);
+  background:#fff}
+.fac__b h3{font-family:var(--dsp);font-weight:900;font-size:clamp(22px,2.8vw,30px);
+  line-height:1.05;letter-spacing:-.026em;color:var(--ink)}
+.fac__b p{margin-top:12px;font-size:15px;line-height:1.7;color:var(--txt);max-width:46ch}
+.fac__b .facts{margin-top:20px}
+.fac__b .hero-act{margin-top:20px}
+@media (max-width:860px){ .fac{grid-template-columns:1fr} .fac__ph{min-height:0;aspect-ratio:16/10} }
+
+/* ---------- mission and vision ---------- */
+.mv{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px)}
+.mv h2{font-family:var(--dsp);font-weight:900;font-size:clamp(24px,3vw,34px);line-height:1.04;
+  letter-spacing:-.026em;color:#fff}
+.mv p{margin-top:14px;font-size:15.5px;line-height:1.72;color:rgba(255,255,255,.66);max-width:44ch}
+@media (max-width:760px){ .mv{grid-template-columns:1fr;gap:26px} }
+
+/* ---------- the three names ---------- */
+.grp .card__b{gap:8px}
+.grp__role{font-size:12.5px;color:var(--red);font-weight:600}
+.grp .plate{margin-bottom:10px}
+.grp--dark{background:var(--ink);border-color:var(--ink)}
+.grp--dark h3{color:#fff}
+.grp--dark p{color:rgba(255,255,255,.64)}
+.grp--dark .card__open{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2)}
+.grp--dark .card__open svg{stroke:#fff}
+
+</style>
+<script>
+/* ===== site.js ===== */
+/* ==================================================================
+   MARKAZ OUJ PERFORMANCE — site.js  (v2)
+
+       <script src="site.js" defer>…
+
+   Handles: the board-break preloader, the dock, the drawer, the
+   search palette, the scroll progress bar, the one page-load reveal,
+   figure counters, link prefetching, and the sheet shell that every
+   card on the site opens into.
+
+   Opt-outs on <body>:
+     data-sitenav="off"   this page binds its own dock and drawer
+     data-siterv="off"    this page runs its own reveal code
+
+   Everything public lives on window.Markaz.
+   ================================================================== */
+(function () {
+  'use strict';
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var body = null;          /* set in init(), once there is one */
+  var ready = false, queue = [];
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+
+  window.Markaz = {
+    sheet: function (data, label) { openSheet(sheetHTML(data), label || data.title); },
+    sheetRaw: function (html, label) { openSheet(html, label); },
+    close: closeSheet,
+
+    /* wire a whole grid of cards to a data array in one line */
+    cards: function (host, data, toSheet) {
+      if (typeof host === 'string') host = $(host);
+      if (!host) return;
+      function open(el) {
+        var i = +el.dataset.k;
+        if (!isNaN(i) && data[i]) window.Markaz.sheet(toSheet(data[i], i));
+      }
+      host.addEventListener('click', function (e) {
+        var c = e.target.closest('[data-k]'); if (c) open(c);
+      });
+      host.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        var c = e.target.closest('[data-k]'); if (!c) return;
+        e.preventDefault(); open(c);
+      });
+      bindTilt(host); bindMagnet();
+    },
+
+    chips: function (host, items, onPick) {
+      if (typeof host === 'string') host = $(host);
+      if (!host) return;
+      items.forEach(function (it, k) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.v = it.v;
+        b.innerHTML = esc(it.l) + (it.n != null ? '<i>' + it.n + '</i>' : '');
+        if (k === 0) { b.classList.add('on'); b.setAttribute('aria-selected', 'true'); }
+        host.appendChild(b);
+      });
+      host.addEventListener('click', function (e) {
+        var b = e.target.closest('button[data-v]'); if (!b) return;
+        $$('button', host).forEach(function (x) {
+          x.classList.toggle('on', x === b);
+          x.setAttribute('aria-selected', x === b);
+        });
+        onPick(b.dataset.v);
+      });
+    },
+
+    /* the standard "this opens" corner button */
+    openGlyph: '<span class="card__open" aria-hidden="true"><svg viewBox="0 0 24 24">' +
+      '<path d="M9 6h9v9M18 6L6 18"/></svg></span>',
+
+    /* call after rendering cards, so they pick up the tilt */
+    live: function (root) { bindTilt(root); bindMagnet(); },
+
+    reduced: RM,
+    index: INDEX
+  };
+
+
+  /* ================================================================
+     THE TILT
+     Pointer-driven, capped low so a card leans rather than swings, and
+     switched off entirely for touch and for reduced motion. The rAF
+     guard means one transform write per frame however fast the mouse
+     moves.
+     ================================================================ */
+  var TILT_MAX = 7;
+  var COARSE = !!(window.matchMedia && matchMedia('(hover:none)').matches);
+
+  function bindTilt(root) {
+    if (RM || COARSE) return;
+    var list = $$('.card--tap', root || document);
+    /* the root may itself be the card, as with the chairman panel */
+    if (root && root.classList && root.classList.contains('card--tap')) list.push(root);
+    list.forEach(function (c) {
+      if (c.dataset.tilt) return;
+      c.dataset.tilt = '1';
+      var p = c.closest('.cgrid, .rows, .board, .tiltwrap');
+      if (p && !p.classList.contains('tiltwrap')) p.classList.add('tiltwrap');
+      if (c.classList.contains('row-i') || c.classList.contains('belt')) return;
+
+      var raf = 0;
+      c.addEventListener('pointermove', function (e) {
+        if (e.pointerType === 'touch' || raf) return;
+        raf = requestAnimationFrame(function () {
+          raf = 0;
+          var r = c.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width;
+          var y = (e.clientY - r.top) / r.height;
+          c.classList.add('tilting');
+          c.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+          c.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+          c.style.transform =
+            'rotateY(' + ((x - .5) * TILT_MAX).toFixed(2) + 'deg) rotateX(' +
+            ((.5 - y) * TILT_MAX).toFixed(2) + 'deg) translateY(-5px)';
+        });
+      });
+      c.addEventListener('pointerleave', function () {
+        c.classList.remove('tilting');
+        c.style.transform = '';
+      });
+    });
+  }
+
+  /* the one primary button on a screen leans toward the pointer */
+  function bindMagnet() {
+    if (RM || COARSE) return;
+    $$('.btn-r').forEach(function (b) {
+      if (b.dataset.mag) return;
+      b.dataset.mag = '1';
+      b.classList.add('mag');
+      b.addEventListener('pointermove', function (e) {
+        var r = b.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width / 2) / r.width;
+        var y = (e.clientY - r.top - r.height / 2) / r.height;
+        b.style.transform = 'translate(' + (x * 7).toFixed(1) + 'px,' +
+          (y * 5).toFixed(1) + 'px)';
+      });
+      b.addEventListener('pointerleave', function () { b.style.transform = ''; });
+    });
+  }
+
+  /* the wireframe armature, for the pages without the WebGL scene */
+  function buildCages() {
+    $$('.cage').forEach(function (c) {
+      if (c.firstChild) return;
+      var inner = document.createElement('div');
+      inner.className = 'cage__in';
+      inner.innerHTML = '<i></i><i></i><i></i><i></i><i></i>';
+      for (var k = 0; k < 14; k++) {
+        var b = document.createElement('b');
+        b.style.setProperty('--a', (k * 360 / 14) + 'deg');
+        b.style.setProperty('--r', (80 + (k % 4) * 42) + 'px');
+        b.style.opacity = 0.18 + (k % 5) * 0.06;
+        inner.appendChild(b);
+      }
+      c.appendChild(inner);
+    });
+  }
+
+  function init() {
+    body = document.body;
+    boot(); dock(); prefetch(); buildSearch(); reveals();
+    buildCages(); bindTilt(); bindMagnet();
+    var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
+    ready = true;
+    while (queue.length) queue.shift()();
+  }
+
+  /* ================================================================
+     1 · THE PRELOADER
+     It runs once a session. Come back to the site or move between
+     pages and there is no curtain at all — you should not have to
+     watch an animation to read a schedule. It also never outstays
+     the page: the moment the load event fires it breaks.
+     ================================================================ */
+  function boot() {
+    var el = $('#boot');
+    if (!el) return;
+
+    var seen = false;
+    try { seen = sessionStorage.getItem('mk-boot') === '1'; } catch (e) {}
+
+    if (seen || RM) {
+      el.classList.add('gone');
+      body.classList.remove('booting');
+      body.classList.add('ready');
+      return;
+    }
+
+    var bar = $('.boot__bar i', el);
+    var pct = 0, done = false;
+
+    var tick = setInterval(function () {
+      pct = Math.min(90, pct + (pct < 55 ? 11 : 4));
+      if (bar) bar.style.width = pct + '%';
+    }, 110);
+
+    /* the crack forms while it waits, so the split is earned */
+    setTimeout(function () { el.classList.add('crack'); }, 260);
+
+    function finish() {
+      if (done) return;
+      done = true;
+      clearInterval(tick);
+      if (bar) bar.style.width = '100%';
+      try { sessionStorage.setItem('mk-boot', '1'); } catch (e) {}
+      setTimeout(function () {
+        el.classList.add('break');
+        body.classList.remove('booting');
+        body.classList.add('ready');
+        setTimeout(function () { el.classList.add('gone'); }, 820);
+      }, 150);
+    }
+
+    /* whichever comes first: the page is genuinely ready, or 1.4s */
+    if (document.readyState === 'complete') finish();
+    else addEventListener('load', finish);
+    setTimeout(finish, 1400);
+  }
+
+  /* ================================================================
+     2 · THE SEARCH INDEX
+     One list for the whole site. Add a line and it appears in the
+     palette on every page.
+     ================================================================ */
+  var INDEX = [
+    { p: 'index.html',        t: 'Home',        s: 'Services, events and the record',   k: 'home landing' },
+    { p: 'martial-arts.html', t: 'The Academy', s: 'Taekwondo, boxing, kickboxing, MMA', k: 'academy martial arts dojang classes training' },
+    { p: 'store.html',        t: 'OUJ Store',   s: 'Equipment, gear and academy kit',   k: 'store shop buy equipment gear kit' },
+    { p: 'about.html',        t: 'About & Team', s: 'Abdul Samad Khan and the coaches', k: 'about team chairman coaches story' },
+    { p: 'wall-of-fame.html', t: 'Wall of Fame', s: 'Champions, medals and the gallery', k: 'fame medals champions gallery photos' },
+
+    { p: 'martial-arts.html#taekwondo',  t: 'Taekwondo',   s: 'Academy programme', k: 'taekwondo tkd poomsae sparring kicking korean' },
+    { p: 'martial-arts.html#boxing',     t: 'Boxing',      s: 'Academy programme', k: 'boxing box gloves ring sparring' },
+    { p: 'martial-arts.html#kickboxing', t: 'Kickboxing',  s: 'Academy programme', k: 'kickboxing kick boxing k1 muay' },
+    { p: 'martial-arts.html#mma',        t: 'MMA',         s: 'Academy programme', k: 'mma mixed martial arts grappling ground cage' },
+    { p: 'martial-arts.html#schedule',   t: 'Class schedule', s: 'On the Academy', k: 'schedule timetable timings batches days' },
+    { p: 'martial-arts.html#belts',      t: 'Belt ladder',    s: 'On the Academy', k: 'belt grading dan black belt ladder promotion' },
+    { p: 'martial-arts.html#fees',       t: 'Fees and trial', s: 'On the Academy', k: 'fees price cost monthly trial free join' },
+    { p: 'martial-arts.html#coaches',    t: 'The coaches',    s: 'On the Academy', k: 'coach instructor sensa trainer' },
+
+    { p: 'index.html#contact', t: 'Contact and hours', s: 'On Home', k: 'contact address phone hours karachi map' },
+    { p: 'store.html#shop',    t: 'All equipment',     s: 'In the Store', k: 'catalogue products browse' },
+    { p: 'about.html#chairman', t: 'Abdul Samad Khan', s: 'On About', k: 'chairman founder samad khan' },
+    { p: 'about.html#story',    t: 'Our story',        s: 'On About', k: 'story history timeline since 2016' },
+    { p: 'about.html#team',     t: 'The team',         s: 'On About', k: 'coaches staff trainers team' },
+    { p: 'wall-of-fame.html#squad',   t: 'The squad',    s: 'On the Wall of Fame', k: 'athletes champions squad competitors' },
+    { p: 'wall-of-fame.html#roll',    t: 'Honours roll', s: 'On the Wall of Fame', k: 'results record honours roll medals' },
+    { p: 'wall-of-fame.html#gallery', t: 'The gallery',  s: 'On the Wall of Fame', k: 'gallery photos pictures frames' }
+  ];
+
+  /* ================================================================
+     3 · THE DOCK
+     ================================================================ */
+  function dock() {
+  var hdr = $('#hdr');
+  if (hdr) addEventListener('scroll', function () {
+    hdr.classList.toggle('sc', scrollY > 16);
+  }, { passive: true });
+
+  if (body.dataset.sitenav !== 'off') {
+    var mbtn = $('#mbtn'), navbd = $('#navbd') || $('#navBd');
+    if (mbtn) mbtn.addEventListener('click', function () {
+      var open = body.classList.toggle('menu');
+      this.setAttribute('aria-expanded', open);
+    });
+    if (navbd) navbd.addEventListener('click', function () { body.classList.remove('menu'); });
+    $$('#navPanel a').forEach(function (a) {
+      a.addEventListener('click', function () { body.classList.remove('menu'); });
+    });
+  }
+
+  var prog = $('#prog') || $('#sprog');
+  if (prog) addEventListener('scroll', function () {
+    var h = document.documentElement.scrollHeight - innerHeight;
+    prog.style.width = (h > 0 ? (scrollY / h) * 100 : 0) + '%';
+  }, { passive: true });
+  }
+
+  /* ================================================================
+     4 · PREFETCH
+     Warm the next page while the pointer is still on its way to the
+     link, so moving around the site costs no visible wait.
+     ================================================================ */
+  function prefetch() {
+    var warmed = {};
+    function warm(href) {
+      if (!href || warmed[href] || href.indexOf('#') === 0) return;
+      warmed[href] = 1;
+      var l = document.createElement('link');
+      l.rel = 'prefetch'; l.href = href; l.as = 'document';
+      document.head.appendChild(l);
+    }
+    document.addEventListener('pointerover', function (e) {
+      var a = e.target.closest && e.target.closest('a[href$=".html"]');
+      if (a) warm(a.getAttribute('href'));
+    }, { passive: true });
+    document.addEventListener('touchstart', function (e) {
+      var a = e.target.closest && e.target.closest('a[href$=".html"]');
+      if (a) warm(a.getAttribute('href'));
+    }, { passive: true });
+  }
+
+  /* ================================================================
+     5 · THE SEARCH PALETTE
+     ================================================================ */
+  var pal, palIn, palRes, palSel = -1, palHits = [];
+
+  function buildSearch() {
+    var host = $('.nav-r');
+    if (!host || $('.srchb')) return;
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'srchb';
+    btn.setAttribute('aria-label', 'Search this site');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/>' +
+      '<path d="M20 20l-3.6-3.6"/></svg><span>Search</span><kbd>/</kbd>';
+    host.insertBefore(btn, host.firstChild);
+    btn.addEventListener('click', openPal);
+
+    pal = document.createElement('div');
+    pal.className = 'ov ov--pal';
+    pal.id = 'palOv';
+    pal.setAttribute('role', 'dialog');
+    pal.setAttribute('aria-modal', 'true');
+    pal.setAttribute('aria-label', 'Search');
+    pal.innerHTML =
+      '<div class="ov__bd" data-palclose></div>' +
+      '<div class="pane">' +
+        '<div class="palf">' +
+          '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/>' +
+          '<path d="M20 20l-3.6-3.6"/></svg>' +
+          '<input type="search" id="palIn" placeholder="Search classes, kit, people" ' +
+            'autocomplete="off" spellcheck="false" aria-label="Search this site">' +
+          '<button class="px" data-palclose aria-label="Close search">' +
+            '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+        '</div>' +
+        '<div class="palr" id="palRes"></div>' +
+        '<div class="palfoot"><span><kbd>&uarr;</kbd><kbd>&darr;</kbd> Move</span>' +
+        '<span><kbd>&crarr;</kbd> Open</span><span><kbd>Esc</kbd> Close</span></div>' +
+      '</div>';
+    body.appendChild(pal);
+    palIn = $('#palIn'); palRes = $('#palRes');
+
+    $$('[data-palclose]', pal).forEach(function (el) { el.addEventListener('click', closePal); });
+    palIn.addEventListener('input', function () { runSearch(this.value); });
+    palIn.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); move(1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); move(-1); }
+      else if (e.key === 'Enter' && palHits[palSel]) { location.href = palHits[palSel].p; }
+    });
+    runSearch('');
+  }
+
+  function runSearch(q) {
+    q = (q || '').toLowerCase().trim();
+    palHits = !q ? INDEX.slice(0, 5) : INDEX.filter(function (r) {
+      return (r.t + ' ' + r.s + ' ' + r.k).toLowerCase().indexOf(q) > -1;
+    }).slice(0, 12);
+    palSel = palHits.length ? 0 : -1;
+
+    if (!palHits.length) {
+      palRes.innerHTML = '<div class="none">Nothing here matches that. ' +
+        'Try <b>schedule</b>, <b>fees</b>, <b>gloves</b> or <b>belts</b>.</div>';
+      return;
+    }
+    palRes.innerHTML = '<h6>' + (q ? 'Results' : 'Go to') + '</h6>' +
+      palHits.map(function (r, k) {
+        var isPage = r.p.indexOf('#') < 0;
+        return '<a href="' + r.p + '" class="' + (isPage ? 'is-page ' : '') +
+          (k === palSel ? 'sel' : '') + '" data-k="' + k + '">' +
+          '<i aria-hidden="true">' + (isPage ? '\u2197' : '\u00A7') + '</i>' +
+          '<span><b>' + esc(r.t) + '</b><span>' + esc(r.s) + '</span></span></a>';
+      }).join('');
+    $$('a', palRes).forEach(function (a) {
+      a.addEventListener('mouseenter', function () { palSel = +this.dataset.k; mark(); });
+    });
+  }
+  function mark() { $$('a', palRes).forEach(function (a, k) { a.classList.toggle('sel', k === palSel); }); }
+  function move(d) {
+    if (!palHits.length) return;
+    palSel = (palSel + d + palHits.length) % palHits.length;
+    mark();
+    var el = $$('a', palRes)[palSel];
+    if (el && el.scrollIntoView) el.scrollIntoView({ block: 'nearest' });
+  }
+  function openPal() {
+    pal.classList.add('on'); body.classList.add('ovon');
+    palIn.value = ''; runSearch('');
+    setTimeout(function () { palIn.focus(); }, 50);
+  }
+  function closePal() { pal.classList.remove('on'); body.classList.remove('ovon'); }
+
+  addEventListener('keydown', function (e) {
+    if (!pal) return;
+    var open = pal.classList.contains('on');
+    if (e.key === 'Escape' && open) { closePal(); return; }
+    if (open) return;
+    var tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || e.target.isContentEditable) return;
+    if (e.key === '/' || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k')) {
+      e.preventDefault(); openPal();
+    }
+  });
+
+  /* ================================================================
+     6 · THE SHEET
+     Every card on the site opens into this. One shell, one set of
+     keyboard rules, one place to change how a popup behaves.
+     ================================================================ */
+  var sheet, sheetBack = null;
+
+  function ensureSheet() {
+    if (sheet) return sheet;
+    sheet = document.createElement('div');
+    sheet.className = 'ov ov--sheet';
+    sheet.id = 'sheet';
+    sheet.setAttribute('role', 'dialog');
+    sheet.setAttribute('aria-modal', 'true');
+    sheet.innerHTML = '<div class="ov__bd" data-sheetclose></div><div class="pane" id="sheetPane"></div>';
+    body.appendChild(sheet);
+    $$('[data-sheetclose]', sheet).forEach(function (el) {
+      el.addEventListener('click', closeSheet);
+    });
+    addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && sheet.classList.contains('on')) closeSheet();
+    });
+    return sheet;
+  }
+
+  function openSheet(html, label) {
+    ensureSheet();
+    sheetBack = document.activeElement;
+    sheet.setAttribute('aria-label', label || 'Details');
+    $('#sheetPane', sheet).innerHTML =
+      '<button class="sheet__x" data-sheetclose aria-label="Close">' +
+        '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' + html;
+    $$('[data-sheetclose]', sheet).forEach(function (el) {
+      el.addEventListener('click', closeSheet);
+    });
+    sheet.classList.add('on');
+    body.classList.add('ovon');
+    var x = $('.sheet__x', sheet); if (x) x.focus();
+  }
+  function closeSheet() {
+    if (!sheet) return;
+    sheet.classList.remove('on');
+    body.classList.remove('ovon');
+    if (sheetBack && sheetBack.focus) sheetBack.focus();
+  }
+
+  /* Build sheet content from a plain object, so every page describes
+     its cards the same way and they all open looking the same. */
+  function sheetHTML(d) {
+    return (d.img ? '<div class="sheet__ph"><img src="' + d.img + '" alt="' +
+              esc(d.title || '') + '" decoding="async"></div>' : '') +
+      '<div class="sheet__b">' +
+        '<h3>' + esc(d.title || '') + '</h3>' +
+        (d.sub ? '<div class="sub">' + esc(d.sub) + '</div>' : '') +
+        (d.body ? '<p>' + esc(d.body) + '</p>' : '') +
+        (d.list && d.list.length ? '<ul class="sheet__list">' +
+          d.list.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
+        (d.facts && d.facts.length ? '<div class="facts">' +
+          d.facts.map(function (f) {
+            return '<div><em>' + esc(f[0]) + '</em><b>' + esc(f[1]) + '</b></div>';
+          }).join('') + '</div>' : '') +
+        (d.cta ? '<div style="margin-top:24px"><a class="btn btn-r" href="' + d.cta[1] + '">' +
+          esc(d.cta[0]) + '</a></div>' : '') +
+      '</div>';
+  }
+
+  /* ================================================================
+     7 · REVEAL + COUNTERS
+     One reveal, at load, for what is already on screen. Figures count
+     when their board scrolls into view, once.
+     ================================================================ */
+  function count(el) {
+    var target = +el.dataset.n, suffix = el.dataset.suffix || '';
+    var t0 = performance.now(), dur = 900;
+    (function tick(now) {
+      var p = Math.min(1, (now - t0) / dur);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * e) + (p < 1 ? '' : suffix);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target + suffix;
+    })(t0);
+  }
+
+  function reveals() {
+  if (body.dataset.siterv !== 'off') {
+    $$('.rise').forEach(function (el, k) { el.style.setProperty('--rd', (k % 5) * 60 + 'ms'); });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (ents) {
+        ents.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          $$('b[data-n]', en.target).forEach(function (b) {
+            if (!b.dataset.done) { b.dataset.done = 1; if (!RM) count(b); }
+          });
+          io.unobserve(en.target);
+        });
+      }, { threshold: .3 });
+      $$('.board').forEach(function (el) { io.observe(el); });
+    } else {
+      $$('.board b[data-n]').forEach(function (b) { b.textContent = b.dataset.n + (b.dataset.suffix || ''); });
+    }
+  }
+  }
+
+  /* ================================================================
+     8 · PUBLIC
+     ================================================================ */
+
+  /* The API exists the moment this file runs, so a page script that
+     loads straight after can call Markaz.ready() without racing the
+     DOM. Everything queued there runs once the chrome is wired up. */
+  window.Markaz.ready = function (fn) { ready ? fn() : queue.push(fn); };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+<script>
+/* ===== about.js ===== */
+/* ==================================================================
+   ABOUT — data and behaviour
+
+   REPLACE ME FIRST
+   The six services and four client types are real: they are the
+   offerings already on the home page. The milestone years, every
+   coach name and every photograph are placeholders. Swap them, and
+   put real files in img/team/ and img/facility/.
+   ================================================================== */
+window.Markaz.ready(function () {
+  'use strict';
+
+  var M = window.Markaz;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+
+  function u(id, w, h, focal) {
+    return 'https://images.unsplash.com/photo-' + id +
+      '?auto=format&fit=crop&w=' + w + '&h=' + h + '&q=74&crop=' + (focal || 'entropy');
+  }
+  var P = {
+    a: '1517438476312-10d79c077509', b: '1517836357463-d25dfeac3438',
+    c: '1521572163474-6864f9cf17ab', d: '1534438327276-14e5300c3a48',
+    e: '1544216717-3bbf52512659',    f: '1544367567-0f2fcb009e0b',
+    g: '1552674605-db6ffd4facb5',    h: '1555597673-b21d5c935865',
+    i: '1583473848882-f9a5bc7fd2ee', j: '1595078475328-1ab05d0a6a0e'
+  };
+
+  var IC = {
+    whistle: '<path d="M4 10h9l6-3v10l-6-3H4z"/><circle cx="7" cy="17" r="3"/>',
+    kit:     '<path d="M3 10l9-5 9 5-9 5-9-5z"/><path d="M7 12.5V17c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4.5"/>',
+    trophy:  '<circle cx="12" cy="10" r="5"/><path d="M8 5H5v2a4 4 0 0 0 4 4M16 5h3v2a4 4 0 0 1-4 4M9 20h6M12 15v5"/>',
+    sun:     '<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/>',
+    heart:   '<path d="M12 20s-7-4.5-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7-2.8c0 4.7-7 14.8-7 14.8z"/>',
+    fist:    '<path d="M6 11V8a2 2 0 0 1 4 0M10 10V6.5a2 2 0 0 1 4 0V10M14 10.5V8a2 2 0 0 1 4 0v6a6 6 0 0 1-6 6h-1a7 7 0 0 1-5-2l-2-2.5a2 2 0 0 1 3-2.6l1 1"/>'
+  };
+
+  var SERVICES = [
+    { i: 'whistle', n: 'Coaching and PE teachers', img: u(P.d, 1200, 520),
+      s: 'Certified coaches and PE teachers placed on your site for the full term.',
+      body: 'We place staff inside your timetable rather than sending a visitor once a week. ' +
+            'The same coach turns up all term, reports to your head of sport, and is covered ' +
+            'by us when they are ill.',
+      list: ['Placed for the full term, not per session', 'Police-verified and insured by us',
+             'Cover arranged by us, not by you', 'Reports into your head of sport'] },
+    { i: 'kit', n: 'Sports equipment', img: u(P.a, 1200, 520),
+      s: 'Supply and setup for every major sport, without the retail markup.',
+      body: 'We buy for our own academy, so we buy at volume and we know which gear survives a ' +
+            'season of school use and which does not. Delivery across Karachi takes two to ' +
+            'five days.',
+      list: ['Priced below retail on volume', 'Delivered across Karachi in 2 to 5 days',
+             'Installation and setup included', 'Replacement schedule planned with you'] },
+    { i: 'trophy', n: 'Event organizing', img: u(P.g, 1200, 520),
+      s: 'Inter-school, inter-college, university and corporate tournaments, end to end.',
+      body: 'Fixtures, officials, kit, medals and the day itself. You give us the dates and the ' +
+            'number of teams; we hand back a run sheet and then run it.',
+      list: ['Fixtures and draw management', 'Qualified officials booked by us',
+             'Medals, certificates and photography', 'One run sheet, one point of contact'] },
+    { i: 'sun', n: 'Summer camps', img: u(P.j, 1200, 520),
+      s: 'Holiday skill camps in cricket, football, basketball, athletics and martial arts.',
+      body: 'Camps run through the holidays with a coach-to-child ratio that actually lets ' +
+            'coaching happen. Half-day and full-day formats, on your premises or ours.',
+      list: ['Half day and full day formats', 'Ratio capped so coaching is possible',
+             'On your premises or at Block 10', 'Daily report to parents'] },
+    { i: 'heart', n: 'Fitness training', img: u(P.e, 1200, 520),
+      s: 'Strength, conditioning and wellness programmes for corporate teams.',
+      body: 'Employee fitness that people actually attend, because it is scheduled around the ' +
+            'working day rather than against it. On your premises or ours.',
+      list: ['Corporate wellness days', 'Ongoing weekly staff sessions',
+             'Baseline assessment at the start', 'On your premises or at Block 10'] },
+    { i: 'fist', n: 'Martial arts and self defense', img: u(P.i, 1200, 520),
+      s: 'Taekwondo instruction and practical self defense for students and staff.',
+      body: 'The academy programme, delivered at your site. Full Taekwondo with the grading ' +
+            'ladder, or a six-week practical self defense course with no grading and no ' +
+            'sparring.',
+      list: ['Full Taekwondo with grading ladder', 'Or a six-week self defense course',
+             'Women-only cohorts available', 'Runs on your premises or ours'] }
+  ];
+
+  var SERVE = [
+    { n: 'Schools', s: 'PE timetables, house sport, inter-school fixtures', img: u(P.d, 600, 750),
+      body: 'The most common engagement: a coach or PE teacher placed on your timetable for the ' +
+            'full term, the equipment to run it, and a fixture calendar we organise ourselves.',
+      list: ['Placed coaches and PE teachers', 'Equipment supply and setup',
+             'Inter-school fixtures organised end to end', 'Summer and winter camps'] },
+    { n: 'Colleges', s: 'Squads, gradings and the annual sports week', img: u(P.a, 600, 750),
+      body: 'Colleges tend to want squads rather than timetabled classes, plus one large event ' +
+            'a year that has to run without anything going wrong.',
+      list: ['Squad coaching by discipline', 'Sports week planned and run',
+             'Martial arts and self defense courses', 'Officials and equipment provided'] },
+    { n: 'Universities', s: 'Inter-varsity events and facility programming', img: u(P.g, 600, 750),
+      body: 'Larger fixtures with more moving parts, and facilities that need a programme ' +
+            'rather than a booking sheet.',
+      list: ['Inter-varsity tournaments', 'Facility programming and scheduling',
+             'Fitness and conditioning for squads', 'Event officials and medical cover arranged'] },
+    { n: 'Corporates', s: 'Wellness days, self defense and staff fitness', img: u(P.e, 600, 750),
+      body: 'Employee fitness that people actually attend, because it is scheduled around the ' +
+            'working day rather than against it. On your premises or at Block 10.',
+      list: ['Corporate wellness days', 'Weekly staff fitness sessions',
+             'Self defense courses, women-only cohorts available',
+             'Inter-department leagues and team building'] }
+  ];
+
+  var STORY = [
+    { y: '2016', k: 'Academy', img: u(P.i, 900, 600),
+      h: 'The first squad', p: 'Markaz Martial Arts Academy opens in Block 10 and enters a ' +
+        'competition squad the same year.',
+      body: 'A hall, a set of mats and a Taekwondo class three evenings a week. The squad was ' +
+            'entered into its first competition before the end of the year, which set the ' +
+            'expectation everything since has been built on.',
+      list: ['Block 10, Federal B Area', 'Taekwondo only, three evenings a week',
+             'First competition squad entered'] },
+    { y: '2018', k: 'Coaching', img: u(P.d, 900, 600),
+      h: 'Schools start calling', p: 'Weekend classes turn into placed coaches when two Karachi ' +
+        'schools ask for a PE teacher on the timetable.',
+      body: 'The request was not for a visitor once a week but for someone on the timetable all ' +
+            'term who reported to the head of sport. That is still the shape of the service.',
+      list: ['First two school placements', 'Coaches on the timetable, not visiting',
+             'Cover arranged by us'] },
+    { y: '2020', k: 'Store', img: u(P.a, 900, 600),
+      h: 'Equipment, out of necessity', p: 'The store opens because institutions kept asking ' +
+        'where to buy gear that would survive a season.',
+      body: 'We were already buying at volume for the academy and knew which equipment lasts a ' +
+            'school year and which does not. The store simply passed that on.',
+      list: ['Every major sport, not only martial arts', 'Volume pricing passed on',
+             'Delivery across Karachi'] },
+    { y: '2022', k: 'Events', img: u(P.g, 900, 600),
+      h: 'Running the calendar', p: 'The first full inter-school tournament run end to end by ' +
+        'Markaz, from fixtures to medals.',
+      body: 'Organising rather than attending. Fixtures, officials, kit, medals and the day ' +
+            'itself, which is the part that decides whether anyone comes back next year.',
+      list: ['Fixtures and draw managed by us', 'Officials booked by us',
+             'Medals, certificates and photography'] },
+    { y: '2024', k: 'Group', img: u(P.e, 900, 600),
+      h: 'One company, six services', p: 'Markaz OUJ Performance brings coaching, equipment, ' +
+        'events, camps, fitness and martial arts under a single name.',
+      body: 'The parent company was formalised so institutions had one contract and one number ' +
+            'to call, with the academy and the store sitting underneath it.',
+      list: ['Markaz OUJ Performance as parent', 'Markaz Martial Arts Academy underneath',
+             'Markaz OUJ Store underneath', 'Chaired by Abdul Samad Khan'] },
+    { y: 'Now', k: 'Today', img: u(P.h, 900, 600),
+      h: 'Twenty-five institutions', p: 'Schools, colleges, universities and corporate teams ' +
+        'across Karachi, and a squad that keeps adding to the wall.',
+      body: 'Six services, four kinds of client, and a competition calendar we run rather than ' +
+            'enter. The academy still trains four nights a week in the same hall.',
+      list: ['25+ institutions and corporates', '4.1 on Google from 612 reviews',
+             'Competition calendar organised in house'] }
+  ];
+
+  var TEAM = [
+    { n: 'Abdul Samad Khan', r: 'Chairman', img: u(P.b, 600, 600, 'faces'),
+      s: 'Founded the academy in Block 10 and still takes the Saturday senior session.',
+      list: ['Runs the grading panel', 'Teaches Saturday seniors', 'At Markaz since 2016'] },
+    { n: 'Imran Qureshi', r: 'Head coach, Taekwondo', img: u(P.f, 600, 600, 'faces'),
+      s: 'Black belt IV Dan and a national referee. Selects the competition squad.',
+      list: ['Black belt IV Dan', 'National referee', 'Selects the competition squad'] },
+    { n: 'Sadia Rehman', r: 'Coach, women\u2019s and cadet groups', img: u(P.h, 600, 600, 'faces'),
+      s: 'Former provincial competitor. Leads the Sunday women-only session.',
+      list: ['Former provincial competitor', 'Leads the women-only session', 'Cadet group lead'] },
+    { n: 'Faraz Ahmed', r: 'Programme lead, schools', img: u(P.c, 600, 600, 'faces'),
+      s: 'Places and supervises the coaches working inside partner schools each term.',
+      list: ['Places coaches into schools', 'Termly reporting to heads of sport',
+             'Arranges cover'] },
+    { n: 'Nida Aslam', r: 'Events manager', img: u(P.j, 600, 600, 'faces'),
+      s: 'Runs the tournament calendar: fixtures, officials, kit and the day itself.',
+      list: ['Owns the fixture calendar', 'Books officials', 'Runs event day'] },
+    { n: 'Kashif Mehmood', r: 'Strength and conditioning', img: u(P.e, 600, 600, 'faces'),
+      s: 'Builds the fitness blocks for the squad and the corporate wellness days.',
+      list: ['Squad conditioning', 'Corporate wellness days', 'Baseline assessments'] }
+  ];
+
+
+  /* ---------------- how the three names fit together ---------------- */
+  var GROUP = [
+    { n: 'Markaz OUJ Performance', role: 'The parent company',
+      logo: 'icons/markaz-ouj.png', dark: true, href: 'index.html',
+      s: 'The sports service provider, and the organiser of the competitions everyone else ' +
+         'enters. Coaching, equipment, events, camps, fitness and martial arts.',
+      body: 'Markaz OUJ Performance sits above the other two names. It supplies certified ' +
+            'coaches and PE teachers to institutions, equips them, runs their tournaments and ' +
+            'camps, and delivers fitness and martial arts programmes. It is also a competition ' +
+            'organiser in its own right, which is why the inter-school and inter-club fixtures ' +
+            'on our calendar are ours to run rather than ours to attend.',
+      list: ['Chaired by Abdul Samad Khan',
+             'Serves schools, colleges, universities and corporates',
+             'Organises inter-school, inter-college and corporate competitions',
+             'Markaz Martial Arts Academy and the OUJ Store sit under it'] },
+    { n: 'Markaz Martial Arts Academy', role: 'The academy',
+      logo: 'icons/markaz-academy.png', href: 'martial-arts.html',
+      s: 'The teaching floor in Block 10. Taekwondo, boxing, kickboxing and MMA, plus the ' +
+         'competition squad.',
+      body: 'The academy is where Markaz started, in 2016, and it is still the part of the ' +
+            'group most people meet first. Four disciplines on one matted floor, a ten-grade ' +
+            'Taekwondo ladder examined by our own panel, and the squad that supplies the ' +
+            'medals on the Wall of Fame.',
+      list: ['Taekwondo, boxing, kickboxing and MMA',
+             'Ten belt grades, panel examined',
+             'Nineteen classes a week', 'Free first class, no minimum term'] },
+    { n: 'Markaz OUJ Store', role: 'The store',
+      href: 'store.html',
+      s: 'Equipment and academy kit, supplied at the price we buy it for ourselves.',
+      body: 'The store opened because institutions kept asking where to buy gear that would ' +
+            'survive a season of school use. We buy at volume for our own academy and pass ' +
+            'that on, with setup and delivery across Karachi.',
+      list: ['Every major sport, not only martial arts', 'Delivery across Karachi in 2 to 5 days',
+             'Bulk and per-student pricing for institutions', 'Installation and setup included'] }
+  ];
+
+  $('#groupGrid').innerHTML = GROUP.map(function (g, k) {
+    return '<article class="card card--feature card--tap grp' + (g.dark ? ' grp--dark' : '') +
+      '" data-k="' + k + '" role="button" tabindex="0" aria-label="Open details for ' +
+      esc(g.n) + '">' + M.openGlyph +
+      '<div class="card__b">' +
+        (g.logo ? '<span class="plate ' + (g.dark ? 'plate--light' : 'plate--dark') +
+          ' plate--md"><img src="' + g.logo + '" alt="" width="200" height="90"></span>' : '') +
+        '<div class="grp__role">' + esc(g.role) + '</div>' +
+        '<h3>' + esc(g.n) + '</h3><p>' + esc(g.s) + '</p>' +
+      '</div></article>';
+  }).join('');
+  M.cards('#groupGrid', GROUP, function (g) {
+    return { title: g.n, sub: g.role, body: g.body, list: g.list,
+             cta: ['Go to ' + g.role.replace('The ', ''), g.href] };
+  });
+
+  /* ================= RENDER ================= */
+  $('#chairImg').src = u(P.b, 840, 1000, 'faces');
+  $('#facImg').src = u(P.g, 900, 700);
+
+  $('#whatGrid').innerHTML = SERVICES.map(function (s, k) {
+    return '<article class="card card--tap svc" data-k="' + k + '" role="button" tabindex="0" ' +
+      'aria-label="Open details for ' + esc(s.n) + '">' + M.openGlyph +
+      '<div class="card__b">' +
+        '<span class="svc__i"><svg viewBox="0 0 24 24" aria-hidden="true">' + IC[s.i] + '</svg></span>' +
+        '<h3>' + esc(s.n) + '</h3><p>' + esc(s.s) + '</p>' +
+      '</div></article>';
+  }).join('');
+  M.cards('#whatGrid', SERVICES, function (s) {
+    return { title: s.n, sub: 'Markaz OUJ Performance', img: s.img, body: s.body, list: s.list,
+      cta: ['Ask about this', 'https://wa.me/923002672558?text=' +
+        encodeURIComponent('Assalam o Alaikum, I would like to ask about ' + s.n + '.')] };
+  });
+
+  $('#serveGrid').innerHTML = SERVE.map(function (s, k) {
+    return '<article class="card who card--tap" data-k="' + k + '" role="button" tabindex="0" ' +
+      'aria-label="Open details for ' + esc(s.n) + '">' +
+      '<img src="' + s.img + '" alt="" loading="lazy" decoding="async">' +
+      '<span class="card__scrim"></span>' + M.openGlyph +
+      '<div class="card__cap"><h3>' + esc(s.n) + '</h3><p>' + esc(s.s) + '</p></div></article>';
+  }).join('');
+  M.cards('#serveGrid', SERVE, function (s) {
+    return { title: s.n, sub: 'Who we serve',
+             img: s.img.replace(/w=\d+/, 'w=1200').replace(/h=\d+/, 'h=520'),
+             body: s.body, list: s.list,
+             cta: ['Talk to us about ' + s.n.toLowerCase(),
+                   'https://wa.me/923002672558?text=' + encodeURIComponent(
+                     'Assalam o Alaikum, I am enquiring on behalf of a ' +
+                     s.n.toLowerCase().replace(/s$/, '') + '.')] };
+  });
+
+  $('#spine .tl-row').innerHTML = STORY.map(function (s, k) {
+    var alt = k % 2 ? ' b' : '';
+    return '<div class="tl-item">' +
+      '<span class="tl-node' + alt + '"></span>' +
+      '<div class="tl-date' + alt + '">' + esc(s.y) + '</div>' +
+      '<article class="tl-card card--tap" data-k="' + k + '" role="button" tabindex="0" ' +
+        'aria-label="Open ' + esc(s.h) + '">' +
+        '<span class="ph-bg" style="background-image:url(\'' + s.img + '\')"></span>' +
+        M.openGlyph +
+        '<span class="tl-kind' + alt + '">' + esc(s.k) + '</span>' +
+        '<h3>' + esc(s.h) + '</h3><p>' + esc(s.p) + '</p>' +
+      '</article></div>';
+  }).join('');
+  M.cards('#spine', STORY, function (s) {
+    return { title: s.h, sub: s.y, img: s.img, body: s.body, list: s.list };
+  });
+  $('#spine').classList.add('in');
+
+  /* the chairman opens too, with the leadership note behind him */
+  var chair = document.querySelector('.chair');
+  chair.classList.add('card--tap');
+  chair.setAttribute('role', 'button');
+  chair.setAttribute('tabindex', '0');
+  chair.setAttribute('data-k', '0');
+  chair.insertAdjacentHTML('beforeend', M.openGlyph);
+  M.live(chair);
+  M.cards('.chair', [{}], function () {
+    return {
+      title: 'Abdul Samad Khan', sub: 'Chairman, Markaz OUJ Performance',
+      img: u(P.b, 1200, 520, 'faces'),
+      body: 'A renowned figure in Pakistani sport, Abdul Samad Khan chairs Markaz OUJ ' +
+            'Performance and still teaches the Saturday senior session at the academy. The ' +
+            'organisation is built around his conviction that a sports culture has to be grown ' +
+            'from the grassroots up rather than bought in at the top.',
+      list: ['Chairs Markaz OUJ Performance', 'Founded the academy in Block 10 in 2016',
+             'Runs the Taekwondo grading panel', 'Teaches the Saturday senior session'],
+      cta: ['Work with us', '#contact']
+    };
+  });
+
+  $('#teamGrid').innerHTML = TEAM.map(function (t, k) {
+    return '<article class="card card--tap tm" data-k="' + k + '" role="button" tabindex="0" ' +
+      'aria-label="Open details for ' + esc(t.n) + '">' +
+      '<div class="card__ph"><img src="' + t.img + '" alt="' + esc(t.n) +
+        '" loading="lazy" decoding="async" width="600" height="600"></div>' + M.openGlyph +
+      '<div class="card__b"><h3>' + esc(t.n) + '</h3>' +
+      '<div class="role">' + esc(t.r) + '</div></div></article>';
+  }).join('');
+  M.cards('#teamGrid', TEAM, function (t) {
+    return { title: t.n, sub: t.r,
+      img: t.img.replace(/w=\d+/, 'w=1200').replace(/h=\d+/, 'h=520'),
+      body: t.s, list: t.list };
+  });
+});
+
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SportsActivityLocation","name":"Markaz OUJ Performance",
+"slogan":"Building Champions, On and Off the Field","url":"https://markaz-ouj.com/about.html",
+"telephone":"+92-300-267-2558",
+"address":{"@type":"PostalAddress","streetAddress":"Markaz Khel o Saqafat, Block 10, Federal B Area","addressLocality":"Gulberg Town, Karachi","addressRegion":"Sindh","addressCountry":"PK"},
+"areaServed":{"@type":"City","name":"Karachi"},
+"employee":{"@type":"Person","name":"Abdul Samad Khan","jobTitle":"Chairman"},
+"openingHours":"Mo-Su 09:00-22:00"}
+</script>
+</head>
+<body data-page="about" class="booting">
+<div id="boot" aria-hidden="true">
+  <span class="boot__half l"></span>
+  <span class="boot__half r"></span>
+  <span class="boot__crack"></span>
+  <div class="boot__c">
+    <div class="boot__mark">OUJ</div>
+    <div class="boot__n">Markaz OUJ Performance</div>
+    <div class="boot__bar"><i></i></div>
+  </div>
+</div>
+<div id="prog"></div>
+
+<!-- ============ header — generated, identical on every page ============ -->
+<header id="hdr">
+  <div class="dock">
+    <a class="dbrand" href="index.html" aria-label="Markaz OUJ Performance, home">
+      <span class="plate plate--light plate--xs"><img class="dbrand__logo" src="icons/markaz-ouj.png" alt="" width="120" height="91"></span>
+      <span class="dbrand__txt">
+        <b class="dbt">Markaz OUJ</b>
+        <span class="dbs">Performance</span>
+      </span>
+    </a>
+    <span class="dock__rule" aria-hidden="true"></span>
+    <nav class="tabs" aria-label="Pages">
+      <a href="index.html">Home</a>
+      <a href="martial-arts.html">Academy</a>
+      <a href="store.html">Store</a>
+      <a href="about.html" class="on" aria-current="page">About</a>
+      <a href="wall-of-fame.html">Fame</a>
+    </nav>
+    <div class="nav-r">
+      <a class="btn btn-r btn-sm dock__cta" href="#contact">Work with us</a>
+      <button class="mbtn" id="mbtn" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
+        <i></i><i></i><i></i>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="navbd" id="navbd"></div>
+<div class="navpanel" id="navPanel">
+  <nav class="np-grid" aria-label="Pages">
+    <a href="index.html"><b>Home</b><span>Markaz OUJ Performance</span></a>
+    <a href="martial-arts.html"><b>The Academy</b><span>Markaz Martial Arts Academy</span></a>
+    <a href="store.html"><b>The Store</b><span>Markaz OUJ Store</span></a>
+    <a href="about.html"><b>About</b><span>The company and the people</span></a>
+    <a href="wall-of-fame.html"><b>Wall of Fame</b><span>Competition record</span></a>
+  </nav>
+  <div class="np-foot">
+    <a class="btn btn-o btn-sm" href="tel:03002672558">Call</a>
+    <a class="btn btn-r btn-sm" href="https://wa.me/923002672558">WhatsApp</a>
+  </div>
+</div>
+
+<section class="phero phero--cage" id="top">
+  <div class="cage" aria-hidden="true"></div>
+  <div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><i></i><span>About and team</span>
+    </nav>
+    <h1 class="rise">Building champions, on and off the field.</h1>
+    <p class="lead rise">Markaz OUJ Performance is a sports service provider and competition
+      organiser for schools, colleges, universities and corporate teams across Karachi. We
+      supply the coaches, the equipment, the tournaments and the camps, and we run
+      Markaz Martial Arts Academy and the Markaz OUJ Store underneath.</p>
+    <div class="hero-act rise">
+      <a class="btn btn-r" href="#contact">Work with us</a>
+      <a class="btn btn-o" href="martial-arts.html">See the academy</a>
+    </div>
+
+    <div class="board board--light rise">
+      <div data-ghost="6"><span class="board__k">Core services</span><b data-n="6">6</b><span>Coaching to martial arts</span></div>
+      <div data-ghost="25"><span class="board__k">Clients</span><b data-n="25" data-suffix="+">25+</b><span>Institutions and corporates</span></div>
+      <div data-ghost="4.1"><span class="board__k">Google</span><b>4.1</b><span>From 612 reviews</span></div>
+      <div data-ghost="16"><span class="board__k">Operating since</span><b data-n="2016">2016</b><span>Karachi, Pakistan</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CHAIRMAN ==================== -->
+<section id="chairman" class="tight">
+  <div class="wrap">
+    <div class="chair">
+      <div class="chair__ph"><img src="" alt="Abdul Samad Khan, Chairman of Markaz OUJ Performance"
+        id="chairImg" loading="lazy" decoding="async"></div>
+      <div class="chair__b">
+        <h2>Abdul Samad Khan</h2>
+        <div class="chair__role">Chairman</div>
+        <p>Markaz began with a frustration. Schools across Karachi wanted a real sports programme
+          and could not find anyone to run one end to end. A coach here, a supplier there, a
+          tournament organiser somewhere else, and nobody accountable when it fell apart.</p>
+        <p>So we built the whole thing under one roof. Certified coaches and PE teachers, the
+          equipment to go with them, the fixtures, the camps and the gradings.</p>
+        <blockquote>A child who learns to lose well on a Tuesday evening handles a great deal
+          more than sport by the time they are eighteen.</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== THE GROUP ==================== -->
+<section id="group">
+  <div class="wrap">
+    <div class="sh">
+      <h2>One parent company, three names.</h2>
+      <p>People meet us through whichever door suits them. It is worth being clear about how
+        the three fit together.</p>
+    </div>
+    <div class="cgrid cgrid--2" id="groupGrid"></div>
+  </div>
+</section>
+
+<!-- ==================== MISSION ==================== -->
+<section class="dark" id="mission">
+  <div class="wrap">
+    <div class="mv">
+      <div>
+        <h2>Our mission</h2>
+        <p>To make quality sports coaching, martial arts and fitness reachable for every student
+          and every professional in Karachi, and to use them to teach discipline, teamwork and
+          resilience rather than only technique.</p>
+      </div>
+      <div>
+        <h2>Our vision</h2>
+        <p>To be Pakistan's most trusted sports service partner: healthier institutions, and
+          athletes who are ready for what comes after school.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WHAT WE DO ==================== -->
+<section id="what">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Six services, done properly.</h2>
+      <p>Take one or take all six. Most institutions start with coaching and end up handing us
+        the calendar as well. Open any of these to see what it covers.</p>
+    </div>
+    <div class="cgrid" id="whatGrid"></div>
+    <p class="railhint">Swipe to see all six.</p>
+  </div>
+</section>
+
+<!-- ==================== WHO WE SERVE ==================== -->
+<section class="dark" id="serve">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Who we serve.</h2>
+      <p>Educational institutions and corporate teams. The work looks different in each; the
+        accountability does not. Open any of them for what a typical engagement involves.</p>
+    </div>
+    <div class="cgrid cgrid--sm" id="serveGrid"></div>
+  </div>
+</section>
+
+<!-- ==================== STORY ==================== -->
+<section id="story">
+  <div class="wrap">
+    <div class="sh">
+      <h2>How we got here.</h2>
+    </div>
+    <div class="tl" id="spine">
+      <div class="tl-rail"><i></i></div>
+      <div class="tl-row"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TEAM ==================== -->
+<section id="team">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Coaches, not contractors.</h2>
+      <p>Everyone who walks into your hall wearing a Markaz shirt is on our staff, has been
+        police-verified, and has been doing this for years.</p>
+    </div>
+    <div class="cgrid cgrid--sm" id="teamGrid"></div>
+    <p class="railhint">Swipe for the rest of the team.</p>
+  </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Come and see the floor.</h2>
+      <p>Open daily from 9:00 AM. Walk in, watch a session, and talk to a coach before you commit
+        to anything. Enquiring for an institution? Call ahead and we will have the right person
+        free.</p>
+    </div>
+    <div class="fac">
+      <div class="fac__ph"><img src="" alt="The Markaz training hall in Block 10, Federal B Area"
+        id="facImg" loading="lazy" decoding="async"></div>
+      <div class="fac__b">
+        <h3>Markaz Khel o Saqafat</h3>
+        <p>Block 10, Federal B Area, Gulberg Town, Karachi. Matted training hall, equipment store,
+          and the room where the competition squad trains four nights a week.</p>
+        <div class="facts">
+          <div><em>Phone</em><b>0300 267 2558</b></div>
+          <div><em>Open</em><b>Daily, 9:00 AM</b></div>
+        </div>
+        <div class="hero-act">
+          <a class="btn btn-r" href="https://wa.me/923002672558?text=Assalam%20o%20Alaikum%2C%20I%20would%20like%20to%20discuss%20a%20sports%20programme.">WhatsApp us</a>
+          <a class="btn btn-o" href="https://www.google.com/maps/search/?api=1&amp;query=Markaz+Khel+o+Saqafat+Block+10+Federal+B+Area+Karachi">Open in Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ footer — generated, identical on every page ============ -->
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <div class="ft-brand">
+          <span class="m plate plate--light plate--sm"><img src="icons/markaz-ouj.png" alt="Markaz OUJ Performance" width="120" height="91"></span>
+          <div><b>Markaz OUJ</b><span>Performance</span></div>
+        </div>
+        <p>Markaz OUJ Performance is the parent company: a sports service provider and
+          competition organiser for schools, colleges, universities and corporate teams
+          across Karachi. Markaz Martial Arts Academy and the Markaz OUJ Store sit
+          under it.</p>
+      </div>
+      <div>
+        <h5>About</h5>
+        <a href="#group">The three names</a><a href="#what">What we do</a><a href="#story">Our story</a><a href="#team">The team</a><a href="#contact">Find us</a>
+      </div>
+      <div>
+        <h5>Markaz OUJ</h5>
+        <a href="index.html">Home</a><a href="martial-arts.html">Martial Arts Academy</a>
+        <a href="store.html">OUJ Store</a><a href="about.html">About</a>
+        <a href="wall-of-fame.html">Wall of Fame</a>
+      </div>
+      <div>
+        <h5>Reach us</h5>
+        <a href="tel:03002672558">0300 267 2558</a>
+        <a href="https://wa.me/923002672558">WhatsApp</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Markaz+Khel+o+Saqafat+Block+10+Federal+B+Area+Karachi">Markaz Khel o Saqafat, Block 10, Federal B Area</a>
+        <a href="#top">Open daily from 9:00 AM</a>
+      </div>
+    </div>
+    <div class="ftmob">
+      <a href="tel:03002672558">0300 267 2558</a>
+      <a href="https://wa.me/923002672558">WhatsApp</a>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Markaz+Khel+o+Saqafat+Block+10+Federal+B+Area+Karachi">Directions</a>
+    </div>
+    <div class="ft-b">
+      <span>&copy; <span id="yr">2026</span> Markaz OUJ Performance</span>
+      <span>Karachi, Pakistan</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
