@@ -110,7 +110,7 @@
   --f-cond:'Chivo','Helvetica Neue',Arial,sans-serif;
   --f-num:'Inter Tight','Helvetica Neue',Arial,sans-serif;
   --f-brand:'Chivo','Helvetica Neue',Arial,sans-serif;
-  --nav:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  --nav-font:'Inter Tight','Helvetica Neue',Arial,sans-serif;
   --scr:'Chivo','Helvetica Neue',Arial,sans-serif;
 
   --bd:var(--line);
@@ -272,7 +272,7 @@ h1{font-family:var(--dsp);font-weight:900;font-size:clamp(40px,7.4vw,86px);
 
 .tabs{display:flex;align-items:center;gap:2px;min-width:0}
 .tabs a{position:relative;padding:9px 13px;border-radius:var(--r-pill);
-  font-family:var(--nav);font-weight:500;font-size:14px;color:var(--mut);
+  font-family:var(--nav-font);font-weight:500;font-size:14px;color:var(--mut);
   transition:color .2s var(--ez),background .2s var(--ez)}
 .tabs a:hover{color:var(--ink);background:rgba(11,21,51,.05)}
 .tabs a.on{color:var(--ink);font-weight:600}
@@ -6181,5 +6181,74 @@ three/build/three.module.js:
     </div>
   </div>
 </footer>
+
+<style id="layout-repair">
+/* ==================================================================
+   PATCH — LAYOUT REPAIR
+   1. --nav was declared twice: once as a length (nav height) and once
+      as a font stack. The font stack won, so every
+      calc(var(--nav) + Xpx) in the file became invalid and the browser
+      dropped the whole padding declaration -> hero text sat under the
+      fixed dock. The font var is now --nav-font and --nav is a length.
+   2. .wrap had no reliable gutter, so headings, cards and paragraphs
+      were glued to the screen edges.
+   3. The off-canvas menu panel was widening the page (sideways scroll).
+   ================================================================== */
+:root{ --gut:28px }
+@media (max-width:1100px){ :root{ --gut:24px } }
+@media (max-width:760px) { :root{ --gut:20px } }
+@media (max-width:400px) { :root{ --gut:16px } }
+
+/* no sideways scroll — clip, not hidden, so sticky still works */
+html,body{ overflow-x:clip }
+.navpanel{ max-width:100vw }
+.navbd{ max-width:100vw }
+
+/* the dock always sits above page content */
+header#hdr{ z-index:200 !important }
+
+/* one gutter for every container on the page */
+.wrap{
+  width:auto !important;
+  margin-inline:auto !important;
+  padding-left:max(var(--gut), env(safe-area-inset-left)) !important;
+  padding-right:max(var(--gut), env(safe-area-inset-right)) !important;
+}
+:root{ --nav:78px }
+@media (max-width:760px){ :root{ --nav:74px } }
+.wrap{ max-width:1220px }
+
+/* hero clearance under the floating dock */
+.phero{ padding-top:calc(var(--nav) + 54px) !important }
+@media (max-width:760px){ .phero{ padding-top:calc(var(--nav) + 40px) !important } }
+
+/* section numerals stay inside the viewport on phones */
+@media (max-width:900px){ .ghostn{ right:0 !important; left:auto !important } }
+
+
+/* section numerals fell back into normal flow on phones, so a 78px
+   "01" was sitting on top of the section logo. Put them back where the
+   desktop rule puts them: absolute, right-hand side, behind the copy. */
+.ghostn{
+  position:absolute !important; left:auto !important; right:0 !important;
+  top:4px !important; z-index:0 !important; pointer-events:none;
+}
+.sh,.sh-lg,.eyb,.wrap > .plate{ position:relative; z-index:2 }
+
+
+/* section numerals fell back into normal flow on phones, so a 78px
+   "01" was sitting on top of the section logo. Put them back where the
+   desktop rule puts them: absolute, right-hand side, behind the copy. */
+.ghostn{
+  position:absolute !important; left:auto !important; right:0 !important;
+  top:4px !important; z-index:0 !important; pointer-events:none;
+}
+.sh,.sh-lg,.eyb,.wrap > .plate{ position:relative; z-index:2 }
+
+/* hero numerals must clear the fixed dock, not hide behind it */
+.phero .ghostn{ top:calc(var(--nav) + 10px) !important }
+@media (max-width:760px){ .phero .ghostn{ top:calc(var(--nav) + 2px) !important } }
+@media (max-width:760px){ .phero .ghostn{ right:8px !important } }
+</style>
 </body>
 </html>
