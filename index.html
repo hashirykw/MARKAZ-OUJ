@@ -5660,7 +5660,7 @@ h3,h4,.pc h3,.prod h3,.tm h4,.tl-card h4,.np-grid b,.mo b,.nc b{
   --f-cond:'Chivo','Helvetica Neue',Arial,sans-serif;
   --f-num:'Inter Tight','Helvetica Neue',Arial,sans-serif;
   --f-brand:'Chivo','Helvetica Neue',Arial,sans-serif;
-  --nav:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  --nav-font:'Inter Tight','Helvetica Neue',Arial,sans-serif;
   --scr:'Chivo','Helvetica Neue',Arial,sans-serif;
 
   --bd:var(--line);
@@ -5822,7 +5822,7 @@ h1{font-family:var(--dsp);font-weight:900;font-size:clamp(40px,7.4vw,86px);
 
 .tabs{display:flex;align-items:center;gap:2px;min-width:0}
 .tabs a{position:relative;padding:9px 13px;border-radius:var(--r-pill);
-  font-family:var(--nav);font-weight:500;font-size:14px;color:var(--mut);
+  font-family:var(--nav-font);font-weight:500;font-size:14px;color:var(--mut);
   transition:color .2s var(--ez),background .2s var(--ez)}
 .tabs a:hover{color:var(--ink);background:rgba(11,21,51,.05)}
 .tabs a.on{color:var(--ink);font-weight:600}
@@ -14373,5 +14373,176 @@ equaliseSoon();
 
 </script>
 
+
+<style id="layout-repair">
+/* ==================================================================
+   PATCH — LAYOUT REPAIR
+   1. --nav was declared twice: once as a length (nav height) and once
+      as a font stack. The font stack won, so every
+      calc(var(--nav) + Xpx) in the file became invalid and the browser
+      dropped the whole padding declaration -> hero text sat under the
+      fixed dock. The font var is now --nav-font and --nav is a length.
+   2. .wrap had no reliable gutter, so headings, cards and paragraphs
+      were glued to the screen edges.
+   3. The off-canvas menu panel was widening the page (sideways scroll).
+   ================================================================== */
+:root{ --gut:28px }
+@media (max-width:1100px){ :root{ --gut:24px } }
+@media (max-width:760px) { :root{ --gut:20px } }
+@media (max-width:400px) { :root{ --gut:16px } }
+
+/* no sideways scroll — clip, not hidden, so sticky still works */
+html,body{ overflow-x:clip }
+.navpanel{ max-width:100vw }
+.navbd{ max-width:100vw }
+
+/* the dock always sits above page content */
+header#hdr{ z-index:200 !important }
+
+/* one gutter for every container on the page */
+.wrap{
+  width:auto !important;
+  margin-inline:auto !important;
+  padding-left:max(var(--gut), env(safe-area-inset-left)) !important;
+  padding-right:max(var(--gut), env(safe-area-inset-right)) !important;
+}
+/* index keeps its wider measure, but with a real gutter */
+.wrap{ max-width:1340px }
+@media (min-width:1800px){ .wrap{ max-width:1500px } }
+
+/* ==================================================================
+   HERO — top clearance
+   With --nav fixed, the original calc() paddings are valid again.
+   These re-state them so the hero can never sit under the dock,
+   whatever the breakpoint.
+   ================================================================== */
+.hero{ padding-top:calc(var(--nav) + 44px) !important }
+@media (max-width:900px){ .hero{ padding-top:calc(var(--nav) + 30px) !important } }
+@media (max-width:420px){ .hero{ padding-top:calc(var(--nav) + 22px) !important } }
+
+/* the eyebrow line above the H1 was the piece getting clipped */
+.hero .htag,.hero .hfact{ position:relative; z-index:3 }
+
+/* ---- section rhythm: 38px was too tight once the gutter came back --- */
+@media (max-width:620px){
+  section{ padding-top:56px; padding-bottom:56px }
+  section.tight{ padding-top:0 }
+}
+
+/* ---- horizontal card rails ----
+   The rail pulls itself out by 20px on each side to sit flush with the
+   gutter. That only works if the gutter is actually 20px, which it now
+   is — but tie it to the variable so it can never drift again. */
+@media (max-width:620px){
+  .cgrid,.cgrid--2,.cgrid--sm{
+    padding:2px var(--gut) 16px !important;
+    margin-inline:calc(var(--gut) * -1) !important;
+    scroll-padding-inline:var(--gut);
+    overscroll-behavior-x:contain;
+  }
+  .cgrid.stack{ padding:0 !important; margin-inline:0 !important }
+}
+
+/* section numerals were half off-screen on phones */
+@media (max-width:900px){
+  .ghostn{ right:0 !important; left:auto !important }
+}
+
+/* the small brand plate beside section numbers was bleeding off the
+   left edge on phones */
+@media (max-width:620px){
+  .sh .plate,.sh-logo{ margin-left:0 }
+}
+
+
+/* section numerals fell back into normal flow on phones, so a 78px
+   "01" was sitting on top of the section logo. Put them back where the
+   desktop rule puts them: absolute, right-hand side, behind the copy. */
+.ghostn{
+  position:absolute !important; left:auto !important; right:0 !important;
+  top:4px !important; z-index:0 !important; pointer-events:none;
+}
+.sh,.sh-lg,.eyb,.wrap > .plate{ position:relative; z-index:2 }
+
+
+/* section numerals fell back into normal flow on phones, so a 78px
+   "01" was sitting on top of the section logo. Put them back where the
+   desktop rule puts them: absolute, right-hand side, behind the copy. */
+.ghostn{
+  position:absolute !important; left:auto !important; right:0 !important;
+  top:4px !important; z-index:0 !important; pointer-events:none;
+}
+.sh,.sh-lg,.eyb,.wrap > .plate{ position:relative; z-index:2 }
+
+/* the hero eyebrow chip was wrapping onto two lines on wide screens */
+@media (min-width:760px){ .hero .htag{ white-space:nowrap } }
+
+/* ==================================================================
+   MOBILE MENU — same drawer as the inner pages
+   index had a centred white glass card; the rest of the site uses a
+   dark right-hand drawer. This makes them match.
+   ================================================================== */
+.navbd{
+  position:fixed !important; inset:0 !important; left:0 !important; top:0 !important;
+  width:auto !important; height:auto !important; z-index:198 !important;
+  background:rgba(11,21,51,.35) !important;
+  opacity:0; visibility:hidden;
+  transition:opacity .3s var(--ez), visibility .3s;
+  backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);
+}
+body.menu .navbd{ opacity:1; visibility:visible }
+
+.navpanel{
+  position:fixed !important; top:0 !important; right:0 !important; bottom:0 !important;
+  left:auto !important; z-index:199 !important;
+  width:min(360px,88vw) !important; max-width:none !important;
+  height:auto !important; max-height:none !important;
+  margin:0 !important; border:0 !important; border-radius:0 !important;
+  padding:88px 22px 26px !important;
+  background:var(--ink) !important; background-image:none !important;
+  backdrop-filter:none !important; -webkit-backdrop-filter:none !important;
+  box-shadow:-24px 0 60px -30px rgba(11,21,51,.7) !important;
+  color:#fff !important;
+  display:flex !important; flex-direction:column !important;
+  opacity:1 !important; visibility:hidden;
+  transform:translateX(100%) !important;
+  transition:transform .42s var(--ez2), visibility .42s !important;
+  overflow-y:auto; overscroll-behavior:contain;
+}
+body.menu .navpanel{ transform:none !important; visibility:visible }
+
+.np-grid{ display:flex !important; flex-direction:column !important; gap:0 !important }
+.np-grid a{
+  display:flex !important; flex-direction:column; align-items:flex-start; gap:2px;
+  padding:15px 0 !important; margin:0 !important;
+  background:none !important; border:0 !important; border-radius:0 !important;
+  border-bottom:1px solid rgba(255,255,255,.1) !important;
+  text-decoration:none;
+  transform:translateX(18px); opacity:0;
+  transition:transform .5s var(--ez2), opacity .4s var(--ez);
+}
+.np-grid a b{
+  font-family:var(--dsp); font-weight:900; font-size:22px;
+  letter-spacing:-.02em; color:#fff;
+}
+.np-grid a span{ font-size:12.5px; color:rgba(255,255,255,.42) }
+.np-grid a:hover b{ color:var(--red-lt) }
+.np-grid a:hover span{ color:rgba(255,255,255,.7) }
+
+body.menu .np-grid a{ transform:none; opacity:1 }
+.np-grid a:nth-child(1){ transition-delay:.06s }
+.np-grid a:nth-child(2){ transition-delay:.11s }
+.np-grid a:nth-child(3){ transition-delay:.16s }
+.np-grid a:nth-child(4){ transition-delay:.21s }
+.np-grid a:nth-child(5){ transition-delay:.26s }
+@media (prefers-reduced-motion:reduce){ .np-grid a{ transform:none; opacity:1 } }
+
+.np-foot{
+  margin-top:auto !important; padding-top:24px !important;
+  display:flex !important; gap:9px !important;
+  border-top:0 !important;
+}
+.np-foot .btn-o{ color:#fff !important; border-color:rgba(255,255,255,.24) !important }
+</style>
 </body>
 </html>
