@@ -1,0 +1,93 @@
+/* ==================================================================
+   STORE · CART PROMINENCE
+   The cart was an unstyled icon button. It is now a labelled pill in
+   the header, plus a sticky bar that appears once the cart has
+   something in it. Same drawer, same state, same localStorage key.
+   ================================================================== */
+
+/* ---------- header pill ---------- */
+.iconb.cartb{
+  position:relative;display:inline-flex;align-items:center;gap:8px;
+  height:40px;padding:0 15px 0 13px;border:0;cursor:pointer;
+  border-radius:var(--r-pill,100px);
+  font-family:var(--hd);font-weight:700;font-size:12.5px;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:#fff;background:var(--ink);
+  box-shadow:0 6px 18px -8px rgba(11,21,51,.55);
+  transition:background .24s var(--ez),transform .24s var(--ez2),
+             box-shadow .24s var(--ez);
+}
+.iconb.cartb:hover{background:var(--red);box-shadow:0 10px 26px -10px rgba(216,18,26,.6)}
+.iconb.cartb:active{transform:scale(.97)}
+.iconb.cartb svg{
+  width:19px;height:19px;flex:none;fill:none;stroke:currentColor;
+  stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;
+}
+.cartb__lbl{display:inline}
+
+/* count badge — hidden at zero, so an empty cart stays quiet */
+.cartb__n{
+  min-width:21px;height:21px;padding:0 6px;display:none;
+  align-items:center;justify-content:center;
+  border-radius:var(--r-pill,100px);
+  background:var(--red);color:#fff;
+  font-size:12px;font-weight:700;letter-spacing:0;
+}
+.iconb.cartb:hover .cartb__n{background:#fff;color:var(--red)}
+.cartb__n.on{display:inline-flex}
+
+/* the nudge when something is added */
+@keyframes cartbump{
+  0%{transform:scale(1)} 35%{transform:scale(1.09)}
+  70%{transform:scale(.97)} 100%{transform:scale(1)}
+}
+.iconb.cartb.bump{animation:cartbump .42s var(--ez2)}
+
+/* ---------- sticky bar ---------- */
+#cartBar{
+  position:fixed;left:50%;bottom:16px;z-index:120;
+  transform:translate(-50%,140%);
+  width:min(560px,calc(100% - 24px));
+  display:flex;align-items:center;gap:14px;
+  padding:11px 12px 11px 20px;
+  border-radius:var(--r-pill,100px);
+  background-image:linear-gradient(150deg,rgba(20,32,70,.97),rgba(11,21,51,.99));
+  box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 22px 54px -14px rgba(11,21,51,.6);
+  transition:transform .5s var(--ez2),opacity .3s var(--ez);
+  opacity:0;pointer-events:none;
+}
+#cartBar.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+#cartBar .cb__t{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+#cartBar .cb__n{
+  font-family:var(--hd);font-weight:600;font-size:10.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);
+}
+#cartBar .cb__p{
+  font-family:var(--num,var(--dsp));font-weight:700;font-size:17px;
+  color:#fff;letter-spacing:.01em;white-space:nowrap;
+}
+#cartBar .cb__go{
+  flex:none;height:42px;padding:0 22px;border:0;cursor:pointer;
+  border-radius:var(--r-pill,100px);background:var(--red);color:#fff;
+  font-family:var(--hd);font-weight:700;font-size:12.5px;
+  letter-spacing:.14em;text-transform:uppercase;
+  transition:background .22s var(--ez),transform .22s var(--ez2);
+}
+#cartBar .cb__go:hover{background:var(--red-dk)}
+#cartBar .cb__go:active{transform:scale(.97)}
+
+/* keep the bar clear of the drawer while it is open */
+body.cart-open #cartBar{transform:translate(-50%,140%);opacity:0;pointer-events:none}
+
+@media (max-width:560px){
+  .cartb__lbl{display:none}
+  .iconb.cartb{padding:0 12px;gap:6px}
+  #cartBar{left:0;right:0;bottom:0;width:auto;transform:translateY(140%);
+    border-radius:20px 20px 0 0;padding:12px 14px calc(12px + env(safe-area-inset-bottom));}
+  #cartBar.on{transform:translateY(0)}
+  body.cart-open #cartBar{transform:translateY(140%)}
+}
+@media (prefers-reduced-motion:reduce){
+  #cartBar{transition:opacity .2s linear}
+  .iconb.cartb.bump{animation:none}
+}
