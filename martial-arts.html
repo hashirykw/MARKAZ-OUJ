@@ -6787,6 +6787,84 @@ h1,h2,h3,.hero h1,.sh h2,.ph h2,.bt.feat h3,.qbox b{
 .dbrand .dbt,.dbrand .dbs{ transition:color .26s var(--r-ez) }
 @media (max-width:420px){ .dbrand__txt .dbs{ display:none } }
 
+/* ---------- 2b · DOCK CONTROLS · CTA + MENU BUTTON -------------
+   .mbtn had been redeclared about fifteen times, ending on
+   display:grid with a stray flex-direction that does nothing on a
+   grid, so the three bars were spaced by implicit row sizing rather
+   than a real gap. The bars are rebuilt on one flex column with an
+   exact gap, and the X-transform distance is derived from that gap
+   instead of the 5.8px left over from an older bar height.
+   The CTA is pinned to the same control height so the two line up. */
+header#hdr .nav-r{ align-items:center }
+header#hdr .nav-r > *{ align-self:center }
+
+header#hdr .mbtn,.mbtn{
+  display:inline-flex !important;
+  flex-direction:column !important;
+  align-items:center;
+  justify-content:center;
+  gap:4.5px !important;
+  width:var(--u-ctrl,40px) !important;
+  height:var(--u-ctrl,40px) !important;
+  min-width:var(--u-ctrl,40px) !important;
+  min-height:var(--u-ctrl,40px) !important;
+  padding:0 !important;
+  flex:none;
+  border-radius:50%;
+  background:rgba(255,255,255,.74);
+  border:1px solid var(--u-line,rgba(11,21,51,.12));
+  box-shadow:0 2px 8px rgba(11,21,51,.07);
+  transition:background .26s var(--r-ez),border-color .26s var(--r-ez),
+             box-shadow .26s var(--r-ez),transform .2s var(--r-ez);
+}
+header#hdr .mbtn i,.mbtn i{
+  display:block;
+  width:17px !important;
+  height:2px !important;
+  margin:0 !important;
+  flex:none;
+  border-radius:2px;
+  background:var(--u-ink,#0B1533);
+  transform-origin:center;
+  transition:transform .34s var(--r-ez),opacity .18s var(--r-ez);
+}
+header#hdr .mbtn:hover,.mbtn:hover{
+  background:#fff;
+  border-color:rgba(216,18,26,.42);
+  box-shadow:0 4px 14px rgba(11,21,51,.12);
+  transform:none;
+}
+/* bar height 2px + gap 4.5px = 6.5px between bar centres */
+body.menu header#hdr .mbtn i:nth-child(1),body.menu .mbtn i:nth-child(1){
+  transform:translateY(6.5px) rotate(45deg);
+}
+body.menu header#hdr .mbtn i:nth-child(2),body.menu .mbtn i:nth-child(2){
+  opacity:0;transform:scaleX(.25);
+}
+body.menu header#hdr .mbtn i:nth-child(3),body.menu .mbtn i:nth-child(3){
+  transform:translateY(-6.5px) rotate(-45deg);
+}
+body.menu header#hdr .mbtn,body.menu .mbtn{
+  background:var(--u-ink,#0B1533);
+  border-color:var(--u-ink,#0B1533);
+}
+body.menu header#hdr .mbtn i,body.menu .mbtn i{ background:#fff }
+
+/* The dock CTA was centring its label with line-height on an
+   inline-block, so the optical padding added for flex buttons pushed
+   it off. Put it on flex like every other button and exempt it. */
+header#hdr .dock__cta,.dock__cta{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  height:var(--u-ctrl,40px) !important;
+  line-height:1 !important;
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  white-space:nowrap;
+  text-indent:.06em;
+}
+
 /* ---------- 3 · HERO · MASCOT / TEXT SEPARATION ----------------
    .mascot carried 20+ conflicting declarations including
    margin-right:-3%, margin-block:-44px and --mk-lift:-34px, which
@@ -6998,9 +7076,23 @@ a,button,[role=button]{ -webkit-tap-highlight-color:transparent }
 .btn{ justify-content:center;text-align:center;line-height:1 }
 .btn > svg{ flex:none;text-indent:0 }
 .hcta .btn{ justify-content:center }
-@media (max-width:575.98px){
+@media (max-width:767.98px){
   .btn{ min-height:44px }
   .tabs a,.card__open{ min-height:44px }
+
+  /* Optical centring on small screens.
+     .btn is line-height:1 + text-transform:uppercase, so the box is one
+     em tall but the glyphs only occupy baseline-to-cap-height. The
+     descender space underneath is never filled, which leaves the label
+     sitting visibly high in the pill. Half a descender of top padding
+     drops the cap block onto the true optical centre. Nudge --btn-optic
+     up or down if it needs a hair more or less. */
+  .btn{
+    --btn-optic:.16em;
+    padding-top:var(--btn-optic);
+    align-items:center;
+  }
+  .btn > svg{ margin-top:calc(var(--btn-optic) / -2 - 1px) }
 }
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto }
