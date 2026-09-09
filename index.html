@@ -61,6 +61,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="ouj.png">
 <link rel="manifest" href="site.webmanifest">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preload" as="image" href="ouj.png" fetchpriority="high"><noscript></noscript>
@@ -68,7 +69,8 @@
 
 <noscript></noscript>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;600;700;900&family=Inter+Tight:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..700&display=swap">
 <style>
 /* ===== index.legacy.css ===== */
 /* index.html — the original inline stylesheet, lifted out verbatim.
@@ -7121,7 +7123,7 @@ html body{font-family:var(--bdy)}
      its cards the same way and they all open looking the same. */
   function sheetHTML(d) {
     return (d.img ? '<div class="sheet__ph"><img src="' + d.img + '" alt="' +
-              esc(d.title || '') + '" decoding="async"></div>' : '') +
+              esc(d.title || '') + '" decoding="async" loading="lazy"></div>' : '') +
       '<div class="sheet__b">' +
         '<h3>' + esc(d.title || '') + '</h3>' +
         (d.sub ? '<div class="sub">' + esc(d.sub) + '</div>' : '') +
@@ -7977,6 +7979,276 @@ body.chap-open{overflow:hidden}
 .lb:not(.on),.navbd:not(.on),.ov:not(.on){pointer-events:none}
 
 </style>
+
+<style id="ouj-refine">
+/* ==================================================================
+   OUJ REFINEMENT LAYER  ·  appended last, wins the cascade
+   Everything in this block is additive. Delete the whole
+   this whole block (id ouj-refine) to revert to the previous build.
+   ================================================================== */
+
+/* ---------- 1 · TYPE SYSTEM ------------------------------------
+   --dsp was declared seven times across four fonts (Anton, Archivo,
+   Playfair Display, Chivo) while only Chivo + Inter Tight were ever
+   downloaded. Archivo variable is now loaded for real, so the
+   'wdth' axis the headings ask for actually resolves.            */
+:root:root:root{
+  --dsp :'Archivo','Inter Tight',system-ui,-apple-system,sans-serif;
+  --dsp2:'Archivo','Inter Tight',system-ui,-apple-system,sans-serif;
+  --hd  :'Inter Tight',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --bdy :'Inter Tight',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r-ez:cubic-bezier(.22,.92,.28,1);
+}
+@supports not (font-variation-settings:'wght' 700){
+  :root:root:root{ --dsp:'Archivo','Arial Black',system-ui,sans-serif }
+}
+
+h1,h2,h3,.hero h1,.sh h2,.ph h2,.bt.feat h3,.qbox b{
+  font-family:var(--dsp);
+  font-variation-settings:'wdth' 108,'wght' 800;
+  font-synthesis-weight:none;
+}
+.hero h1{ font-variation-settings:'wdth' 112,'wght' 880 }
+
+/* ---------- 2 · NAVBAR WORDMARK -------------------------------- */
+.dbrand__txt{ display:flex;flex-direction:column;justify-content:center;gap:1px;min-width:0 }
+.dbrand__txt .dbt{
+  font-family:var(--dsp);
+  font-variation-settings:'wdth' 106,'wght' 780;
+  font-size:clamp(15px,1.12vw,18.5px);
+  line-height:.98;letter-spacing:-.014em;
+  text-transform:uppercase;white-space:nowrap;
+  color:var(--u-ink,#0B1533);
+}
+.dbrand__txt .dbs{
+  font-family:var(--hd);
+  font-size:clamp(8px,.62vw,9.6px);
+  font-weight:600;line-height:1;
+  letter-spacing:.26em;text-transform:uppercase;
+  color:var(--u-mut,#6B7690);white-space:nowrap;
+}
+.dbrand:hover .dbt{ color:var(--u-red,#D8121A) }
+.dbrand .dbt,.dbrand .dbs{ transition:color .26s var(--r-ez) }
+@media (max-width:420px){ .dbrand__txt .dbs{ display:none } }
+
+/* ---------- 3 · HERO · MASCOT / TEXT SEPARATION ----------------
+   .mascot carried 20+ conflicting declarations including
+   margin-right:-3%, margin-block:-44px and --mk-lift:-34px, which
+   pulled the figure into the copy column. Neutralised here and
+   given one predictable rule per breakpoint.                     */
+.hero .wrap{ position:relative;z-index:2 }
+.hero-in{ position:relative;z-index:3 }
+.hero-visw{ position:relative;z-index:1;align-self:center }
+
+.mascot{
+  margin-right:0 !important;
+  margin-block:0 !important;
+  --mk-lift:0px !important;
+  min-height:0 !important;
+  height:auto !important;
+  transform:none !important;
+  display:grid;place-items:center;
+}
+.mascot::before{ height:150% !important;opacity:.42 !important }
+.mk-rig{
+  width:100% !important;
+  max-width:min(100%,clamp(240px,26vw,400px)) !important;
+  height:auto !important;margin-inline:auto !important;
+}
+
+@media (min-width:992px){
+  .hero-grid{ align-items:center }
+  .hero-grid > .hero-in{ padding-right:clamp(28px,3.6vw,64px) }
+  .hero-in{ max-width:min(100%,640px) }
+  .hero h1{ font-size:clamp(44px,5.2vw,78px) !important;line-height:.92 !important }
+  .mk-rig{ max-width:min(100%,clamp(280px,25vw,410px)) !important }
+}
+@media (max-width:991.98px){
+  .hero-grid{ row-gap:clamp(20px,4vw,34px) }
+  .hero-visw{ margin-top:6px }
+  .mk-rig{ max-width:min(74vw,330px) !important }
+  .hero h1{ font-size:clamp(38px,10vw,62px) !important;line-height:.94 !important }
+}
+@media (max-width:575.98px){
+  .mk-rig{ max-width:min(66vw,260px) !important }
+  .hero h1{ font-size:clamp(34px,11.2vw,50px) !important }
+}
+/* the canvas artwork sits behind everything, never over the copy */
+.hero > #scene{ z-index:0 }
+
+/* ---------- 4 · PHOTO TILE CAPTIONS ---------------------------
+   .cap span was white-space:nowrap + text-overflow:ellipsis on
+   desktop ("PE & AFTER-SCHO…") and a full-wrap block on mobile,
+   giving three ragged lines. One stacked layout at every size.  */
+.phero-vis .cap,.cap{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  justify-content:center;
+  gap:3px !important;
+  white-space:normal !important;
+  overflow:visible !important;
+  min-height:0 !important;
+  padding:10px 14px !important;
+  row-gap:2px;
+}
+.cap b{
+  display:block !important;
+  white-space:normal !important;
+  font-family:var(--dsp);
+  font-variation-settings:'wdth' 104,'wght' 760;
+  font-size:clamp(12.5px,1.02vw,14.5px) !important;
+  line-height:1.06 !important;letter-spacing:.002em;
+  text-transform:uppercase;
+}
+.cap span{
+  display:block !important;
+  white-space:normal !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+  font-size:clamp(9px,.72vw,10.5px) !important;
+  letter-spacing:.16em;line-height:1.28;
+  text-wrap:balance;
+}
+@media (max-width:420px){
+  .phero-vis .cap,.cap{ left:8px !important;right:8px !important;bottom:8px !important;padding:8px 11px !important }
+  .cap span{ letter-spacing:.12em }
+}
+
+/* ---------- 5 · TILES BECOME REAL CONTROLS -------------------- */
+.phero-vis[data-oujtap]{
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .5s var(--r-ez),box-shadow .5s var(--r-ez);
+}
+.phero-vis[data-oujtap]:hover,
+.phero-vis[data-oujtap].is-live{ transform:translateY(-4px) }
+.phero-vis[data-oujtap]:hover img,
+.phero-vis[data-oujtap].is-live img{ filter:grayscale(0) contrast(1.04);transform:scale(1.045) }
+.phero-vis[data-oujtap]:focus-visible{ outline:3px solid var(--u-red,#D8121A);outline-offset:3px }
+
+/* the "open" affordance */
+.ouj-plus{
+  position:absolute;top:12px;right:12px;z-index:3;
+  width:32px;height:32px;border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(11,21,51,.12);
+  box-shadow:0 6px 16px rgba(11,21,51,.14);
+  opacity:0;transform:scale(.82) translateY(-4px);
+  transition:opacity .38s var(--r-ez),transform .38s var(--r-ez);
+  pointer-events:none;
+}
+.ouj-plus svg{ width:15px;height:15px;fill:none;stroke:#0B1533;stroke-width:2.1;stroke-linecap:round }
+[data-oujtap]:hover .ouj-plus,
+[data-oujtap].is-live .ouj-plus,
+[data-oujtap]:focus-visible .ouj-plus{ opacity:1;transform:none }
+@media (max-width:420px){ .ouj-plus{ width:28px;height:28px;top:9px;right:9px } }
+
+/* ---------- 6 · SCROLL-ACTIVATED HOVER STATES ----------------
+   Touch devices never fire :hover, so every card's reveal state
+   was dead on mobile. .is-live is applied by IntersectionObserver
+   as the card reaches the middle of the viewport, on every device. */
+.card--tap.is-live,.pc.is-live,.prod.is-live{
+  border-color:rgba(11,21,51,.22);
+  box-shadow:0 18px 40px rgba(11,21,51,.13);
+}
+.lift.is-live{ transform:translateY(-5px) }
+.card--tap.is-live .card__open{ opacity:1;transform:none }
+.pc.is-live .n{ color:var(--u-red,#D8121A) }
+.card--tap,.pc,.prod,.lift{
+  transition:transform .5s var(--r-ez),box-shadow .5s var(--r-ez),border-color .5s var(--r-ez);
+}
+/* on a real pointer, hover still wins instantly */
+@media (hover:hover) and (pointer:fine){
+  .card--tap.is-live:not(:hover),
+  .pc.is-live:not(:hover),
+  .prod.is-live:not(:hover){ box-shadow:0 12px 28px rgba(11,21,51,.09) }
+}
+
+/* ---------- 7 · DETAIL SHEET (dependency-free) ---------------- */
+#oujSheet{
+  position:fixed;inset:0;z-index:1200;display:none;
+  align-items:center;justify-content:center;padding:18px;
+}
+#oujSheet.on{ display:flex }
+#oujSheet .ojm__bd{
+  position:absolute;inset:0;background:rgba(8,14,34,.52);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  opacity:0;transition:opacity .34s var(--r-ez);
+}
+#oujSheet.in .ojm__bd{ opacity:1 }
+#oujSheet .ojm__sh{
+  position:relative;width:min(100%,640px);max-height:88vh;overflow:auto;
+  background:#fff;border-radius:26px;
+  border:1px solid rgba(11,21,51,.10);
+  box-shadow:0 40px 90px rgba(11,21,51,.30);
+  opacity:0;transform:translateY(22px) scale(.985);
+  transition:opacity .38s var(--r-ez),transform .38s var(--r-ez);
+  -webkit-overflow-scrolling:touch;
+}
+#oujSheet.in .ojm__sh{ opacity:1;transform:none }
+#oujSheet .ojm__ph{
+  height:clamp(150px,26vw,220px);background-size:cover;background-position:center;
+  border-radius:26px 26px 0 0;
+}
+#oujSheet .ojm__x{
+  position:absolute;top:12px;right:12px;z-index:4;
+  width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;
+  background:rgba(255,255,255,.94);box-shadow:0 6px 18px rgba(11,21,51,.2);
+  display:grid;place-items:center;
+}
+#oujSheet .ojm__x svg{ width:17px;height:17px;fill:none;stroke:#0B1533;stroke-width:2.2;stroke-linecap:round }
+#oujSheet .ojm__b{ padding:clamp(20px,3vw,30px) }
+#oujSheet .ojm__e{
+  font-family:var(--hd);font-size:10.5px;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--u-red,#D8121A);
+}
+#oujSheet h3{
+  font-family:var(--dsp);font-variation-settings:'wdth' 108,'wght' 820;
+  font-size:clamp(23px,3vw,32px);line-height:1.04;margin:.34em 0 .5em;
+  text-transform:uppercase;letter-spacing:-.01em;color:#0B1533;
+}
+#oujSheet .ojm__p{ font-family:var(--bdy);font-size:15px;line-height:1.62;color:#3A4258;margin:0 }
+#oujSheet .ojm__m{
+  margin-top:14px;font-family:var(--hd);font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--u-mut,#6B7690);
+}
+#oujSheet .ojm__c{ display:flex;flex-wrap:wrap;gap:7px;margin-top:16px }
+#oujSheet .ojm__c span{
+  font-family:var(--hd);font-size:11px;font-weight:600;
+  padding:6px 11px;border-radius:999px;
+  background:rgba(11,21,51,.05);border:1px solid rgba(11,21,51,.09);color:#38405A;
+}
+#oujSheet .ojm__f{ display:flex;flex-wrap:wrap;gap:9px;margin-top:22px }
+#oujSheet .ojm__f a{
+  font-family:var(--hd);font-size:13.5px;font-weight:600;
+  padding:11px 19px;border-radius:999px;text-decoration:none;
+  transition:transform .24s var(--r-ez),opacity .24s var(--r-ez);
+}
+#oujSheet .ojm__f a:hover{ transform:translateY(-2px) }
+#oujSheet .ojm__f .p{ background:var(--u-red,#D8121A);color:#fff }
+#oujSheet .ojm__f .s{ background:rgba(11,21,51,.06);color:#0B1533 }
+body.ouj-lock{ overflow:hidden }
+
+/* ---------- 8 · POLISH ---------------------------------------- */
+html{ scroll-behavior:smooth }
+:where(a,button,[role=button],[tabindex]):focus-visible{
+  outline:3px solid var(--u-red,#D8121A);outline-offset:2px;border-radius:6px;
+}
+img{ max-width:100% }
+a,button,[role=button]{ -webkit-tap-highlight-color:transparent }
+@media (max-width:575.98px){
+  .btn,.tabs a,.card__open{ min-height:44px;display:inline-flex;align-items:center }
+}
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto }
+  #oujSheet .ojm__sh,#oujSheet .ojm__bd,.ouj-plus,
+  .card--tap,.pc,.prod,.lift,.phero-vis[data-oujtap]{ transition:none !important }
+  .lift.is-live,.phero-vis[data-oujtap].is-live{ transform:none !important }
+}
+
+</style>
 </head>
 <body data-page="index" data-sitenav="off" data-siterv="off" class="booting">
 <div id="boot" aria-hidden="true">
@@ -7994,7 +8266,7 @@ body.chap-open{overflow:hidden}
 <!-- ==================== PRELOADER ==================== -->
 <div id="pre">
   <div class="pre-in">
-    <img src="ouj.png" alt="" class="lg" data-logo="ouj" width="420" height="484" decoding="async">
+    <img src="ouj.png" alt="" class="lg" data-logo="ouj" width="420" height="484" decoding="async" loading="lazy">
     <b>Markaz OUJ</b><span>Performance</span>
     <div class="pre-bar"><i id="preBar"></i></div>
     <span class="pre-pct" id="prePct">00%</span>
@@ -8157,16 +8429,16 @@ body.chap-open{overflow:hidden}
     <div class="row g-3 g-xl-4">
       <div class="col-12 col-lg-7" data-rv>
         <div class="phero-vis" style="aspect-ratio:16/10">
-          <img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=1000&q=72" alt="Coaching session run by Markaz OUJ Performance" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=1000&q=72" alt="Coaching session run by Markaz OUJ Performance" loading="lazy" decoding="async">
           <div class="cap"><b>Markaz OUJ Performance</b><span>Coaching · Equipment · Events · Since 2014</span></div>
         </div>
       </div>
       <div class="col-12 col-lg-5">
         <div class="row g-3">
-          <div class="col-6"><div class="phero-vis" style="aspect-ratio:1/1"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1000&q=72" alt="School sports program" loading="lazy"><div class="cap"><b>Schools</b><span>PE &amp; after-school</span></div></div></div>
-          <div class="col-6"><div class="phero-vis" style="aspect-ratio:1/1"><img src="https://images.unsplash.com/photo-1544216717-3bbf52512659?w=1000&q=72" alt="Female-only session" loading="lazy"><div class="cap"><b>Female only</b><span>Closed session</span></div></div></div>
-          <div class="col-6"><div class="phero-vis" style="aspect-ratio:1/1"><img src="https://images.unsplash.com/photo-1517438476312-10d79c077509?w=1000&q=72" alt="Corporate fitness session" loading="lazy"><div class="cap"><b>Corporates</b><span>Fitness &amp; wellness</span></div></div></div>
-          <div class="col-6"><div class="phero-vis" style="aspect-ratio:1/1"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&q=72" alt="Martial arts training" loading="lazy"><div class="cap"><b>Martial arts</b><span>Taekwondo · Self defence</span></div></div></div>
+          <div class="col-6"><div class="phero-vis" style="aspect-ratio:1/1"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1000&q=72" alt="School sports program" loading="lazy" decoding="async"><div class="cap"><b>Schools</b><span>PE &amp; after-school</span></div></div></div>
+          <div class="col-6"><div class="phero-vis" style="aspect-ratio:1/1"><img src="https://images.unsplash.com/photo-1544216717-3bbf52512659?w=1000&q=72" alt="Female-only session" loading="lazy" decoding="async"><div class="cap"><b>Female only</b><span>Closed session</span></div></div></div>
+          <div class="col-6"><div class="phero-vis" style="aspect-ratio:1/1"><img src="https://images.unsplash.com/photo-1517438476312-10d79c077509?w=1000&q=72" alt="Corporate fitness session" loading="lazy" decoding="async"><div class="cap"><b>Corporates</b><span>Fitness &amp; wellness</span></div></div></div>
+          <div class="col-6"><div class="phero-vis" style="aspect-ratio:1/1"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&q=72" alt="Martial arts training" loading="lazy" decoding="async"><div class="cap"><b>Martial arts</b><span>Taekwondo · Self defence</span></div></div></div>
         </div>
       </div>
     </div>
@@ -8224,25 +8496,25 @@ body.chap-open{overflow:hidden}
                data-p="The competition cut with the ribbed collar, in the weight that survives a full grading cycle. Sized from kids through adult; the Markaz patch is stitched on free at the counter before you take it home."
                data-meta="Taekwondo · Rs 4,500" data-chips="Sizes 000&ndash;7|Ribbed collar|Patch stitched free"
                data-photo="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=1200&q=72"
-               data-wa="Assalam o Alaikum, I want to ask about the WTF Dobok in the OUJ Store."><div class="prod__ph"><img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=1200&q=72" alt="WTF Dobok" loading="lazy"><span class="prod__tag r">Best seller</span></div><div class="prod__in"><div class="prod__cat">Taekwondo</div><h3>WTF Dobok</h3><p>Ribbed-collar competition cut. Markaz patch stitched free.</p><div class="prod__foot"><div class="prod__price">Rs 4,500</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
+               data-wa="Assalam o Alaikum, I want to ask about the WTF Dobok in the OUJ Store."><div class="prod__ph"><img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=1200&q=72" alt="WTF Dobok" loading="lazy" decoding="async"><span class="prod__tag r">Best seller</span></div><div class="prod__in"><div class="prod__cat">Taekwondo</div><h3>WTF Dobok</h3><p>Ribbed-collar competition cut. Markaz patch stitched free.</p><div class="prod__foot"><div class="prod__price">Rs 4,500</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
       <div class="col-6 col-lg-3" data-rv style="--i:1"><article class="prod" data-modal data-accent="b" data-ghost="02"
                data-e="OUJ Store" data-h="Boxing Gloves 16oz"
                data-p="Denser knuckle foam and a long cuff, which is what makes 16oz the sparring standard rather than just a heavier bag glove. Required kit before a coach will put you in live rounds."
                data-meta="Boxing · Rs 4,800" data-chips="16oz|Sparring grade|Long cuff"
                data-photo="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1000&q=72"
-               data-wa="Assalam o Alaikum, I want to ask about the 16oz boxing gloves in the OUJ Store."><div class="prod__ph"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1000&q=72" alt="Boxing gloves" loading="lazy"><span class="prod__tag b">Sparring</span></div><div class="prod__in"><div class="prod__cat">Boxing</div><h3>Boxing Gloves 16oz</h3><p>Denser knuckle foam and a long cuff. Required for sparring.</p><div class="prod__foot"><div class="prod__price">Rs 4,800</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
+               data-wa="Assalam o Alaikum, I want to ask about the 16oz boxing gloves in the OUJ Store."><div class="prod__ph"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1000&q=72" alt="Boxing gloves" loading="lazy" decoding="async"><span class="prod__tag b">Sparring</span></div><div class="prod__in"><div class="prod__cat">Boxing</div><h3>Boxing Gloves 16oz</h3><p>Denser knuckle foam and a long cuff. Required for sparring.</p><div class="prod__foot"><div class="prod__price">Rs 4,800</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
       <div class="col-6 col-lg-3" data-rv style="--i:2"><article class="prod" data-modal data-accent="r" data-ghost="03"
                data-e="OUJ Store" data-h="Shin Guards"
                data-p="A moulded shin plate with a padded instep, so the foot is covered as well as the bone. Sizes S through XL — the coaches will tell you which one you actually need before you buy."
                data-meta="Protective gear · Rs 3,800" data-chips="Sizes S&ndash;XL|Moulded plate|Padded instep"
                data-photo="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=1000&q=72"
-               data-wa="Assalam o Alaikum, I want to ask about shin guards in the OUJ Store."><div class="prod__ph"><img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=1000&q=72" alt="Shin guards" loading="lazy"></div><div class="prod__in"><div class="prod__cat">Protective gear</div><h3>Shin Guards</h3><p>Moulded shin plate with a padded instep. Sizes S&ndash;XL.</p><div class="prod__foot"><div class="prod__price">Rs 3,800</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
+               data-wa="Assalam o Alaikum, I want to ask about shin guards in the OUJ Store."><div class="prod__ph"><img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=1000&q=72" alt="Shin guards" loading="lazy" decoding="async"></div><div class="prod__in"><div class="prod__cat">Protective gear</div><h3>Shin Guards</h3><p>Moulded shin plate with a padded instep. Sizes S&ndash;XL.</p><div class="prod__foot"><div class="prod__price">Rs 3,800</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
       <div class="col-6 col-lg-3" data-rv style="--i:3"><article class="prod" data-modal data-accent="b" data-ghost="04"
                data-e="OUJ Store" data-h="OUJ Performance Hoodie"
                data-p="380gsm brushed fleece with the OUJ mark on the chest. Squad and institution orders can be run with your own name or crest on the back — minimum quantities apply."
                data-meta="Apparel · Rs 4,900" data-chips="380gsm fleece|Squad orders|Custom backs"
                data-photo="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1000&q=72"
-               data-wa="Assalam o Alaikum, I want to ask about the OUJ Performance Hoodie."><div class="prod__ph"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1000&q=72" alt="OUJ hoodie" loading="lazy"><span class="prod__tag">OUJ</span></div><div class="prod__in"><div class="prod__cat">Apparel</div><h3>OUJ Performance Hoodie</h3><p>380gsm brushed fleece with the OUJ mark on the chest.</p><div class="prod__foot"><div class="prod__price">Rs 4,900</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
+               data-wa="Assalam o Alaikum, I want to ask about the OUJ Performance Hoodie."><div class="prod__ph"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1000&q=72" alt="OUJ hoodie" loading="lazy" decoding="async"><span class="prod__tag">OUJ</span></div><div class="prod__in"><div class="prod__cat">Apparel</div><h3>OUJ Performance Hoodie</h3><p>380gsm brushed fleece with the OUJ mark on the chest.</p><div class="prod__foot"><div class="prod__price">Rs 4,900</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
     </div>
 
     <p class="note">Partner schools, colleges and corporates get institution pricing across the full range, setup included.</p>
@@ -8354,7 +8626,7 @@ body.chap-open{overflow:hidden}
 
     <div class="row g-4 g-lg-5 split">
       <div class="col-12 col-lg-6" data-rv>
-        <div class="split-vis"><img src="https://images.unsplash.com/photo-1583473848882-f9a5bc7fd2ee?w=1000&q=72" alt="Abdul Samad Khan, Chairman" loading="lazy"></div>
+        <div class="split-vis"><img src="https://images.unsplash.com/photo-1583473848882-f9a5bc7fd2ee?w=1000&q=72" alt="Abdul Samad Khan, Chairman" loading="lazy" decoding="async"></div>
       </div>
       <div class="col-12 col-lg-6" data-rv>
         <p style="color:var(--mut);font-size:15px;margin-bottom:16px">Markaz OUJ Performance is chaired by Abdul Samad Khan, a renowned personality in the sports field. Under him we supply certified coaches and PE teachers, equipment, tournaments, camps and fitness programs &mdash; with one vision behind all of it: to be Pakistan&rsquo;s most trusted sports service partner, creating healthier institutions and future-ready athletes.</p>
@@ -8392,7 +8664,7 @@ body.chap-open{overflow:hidden}
                  data-p="Chairman of Markaz OUJ Performance and a renowned personality in the sports field. Fourth Dan black belt, Kukkiwon certified and a qualified grading examiner. He sets the coaching standard every program is delivered against." data-meta="Chairman · 4th Dan"
                  data-photo="https://images.unsplash.com/photo-1583473848882-f9a5bc7fd2ee?w=1000&q=72"
                  data-wa="Assalam o Alaikum, I want to ask about a program with Abdul Samad Khan at Markaz OUJ Performance.">
-          <div class="tm__ph"><img src="https://images.unsplash.com/photo-1583473848882-f9a5bc7fd2ee?w=1000&q=72" alt="Abdul Samad Khan" loading="lazy"></div>
+          <div class="tm__ph"><img src="https://images.unsplash.com/photo-1583473848882-f9a5bc7fd2ee?w=1000&q=72" alt="Abdul Samad Khan" loading="lazy" decoding="async"></div>
           <span class="tm__bdg ">Chairman</span>
           <div class="tm__in"><h4>Abdul Samad Khan</h4><div class="tm__rl">Chairman · 4th Dan</div>
             <p class="tm__note">Sets the standard across every program.</p></div>
@@ -8405,7 +8677,7 @@ body.chap-open{overflow:hidden}
                  data-p="First Dan black belt and our coaching lead. Handles PE and coach placements in schools, the after-school programs and the evening batches here. Came up through the Markaz kids batch himself." data-meta="Coaching &amp; PE · 1st Dan"
                  data-photo="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=1000&q=72"
                  data-wa="Assalam o Alaikum, I want to ask about training with Hamza Raza at Markaz OUJ Performance.">
-          <div class="tm__ph"><img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=1000&q=72" alt="Hamza Raza" loading="lazy"></div>
+          <div class="tm__ph"><img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=1000&q=72" alt="Hamza Raza" loading="lazy" decoding="async"></div>
           <span class="tm__bdg b">Coaching &amp; PE</span>
           <div class="tm__in"><h4>Hamza Raza</h4><div class="tm__rl">Coaching &amp; PE · 1st Dan</div>
             <p class="tm__note">School programs and evening batches.</p></div>
@@ -8418,7 +8690,7 @@ body.chap-open{overflow:hidden}
                  data-p="Runs event organising end to end — inter-school, inter-college and corporate tournaments, summer camps and the competition calendar. Walked into the kids batch at eleven and moved into coaching after his second amateur bout." data-meta="Events · Camps and tournaments"
                  data-photo="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&q=72"
                  data-wa="Assalam o Alaikum, I want to ask about training with Bilal Ahmed at Markaz OUJ Performance.">
-          <div class="tm__ph"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&q=72" alt="Bilal Ahmed" loading="lazy"></div>
+          <div class="tm__ph"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&q=72" alt="Bilal Ahmed" loading="lazy" decoding="async"></div>
           <span class="tm__bdg k">Events</span>
           <div class="tm__in"><h4>Bilal Ahmed</h4><div class="tm__rl">Events &amp; camps</div>
             <p class="tm__note">Plans tournaments, galas and summer camps.</p></div>
@@ -8431,7 +8703,7 @@ body.chap-open{overflow:hidden}
                  data-p="Leads the female-only sessions and the self-defence workshops we run for schools and corporate teams — grip breaks, distance management and escapes, drilled every cycle. Blue belt in grappling and a regional gold medallist." data-meta="Female programs &amp; self-defence"
                  data-photo="https://images.unsplash.com/photo-1544216717-3bbf52512659?w=1000&q=72"
                  data-wa="Assalam o Alaikum, I want to ask about training with Fatima Noor at Markaz OUJ Performance.">
-          <div class="tm__ph"><img src="https://images.unsplash.com/photo-1544216717-3bbf52512659?w=1000&q=72" alt="Fatima Noor" loading="lazy"></div>
+          <div class="tm__ph"><img src="https://images.unsplash.com/photo-1544216717-3bbf52512659?w=1000&q=72" alt="Fatima Noor" loading="lazy" decoding="async"></div>
           <span class="tm__bdg b">Self-defence</span>
           <div class="tm__in"><h4>Fatima Noor</h4><div class="tm__rl">Female programs lead</div>
             <p class="tm__note">Female-only classes and self-defence.</p></div>
@@ -8459,35 +8731,35 @@ body.chap-open{overflow:hidden}
     </div>
     <div class="mosaic" data-rv>
       <figure class="mo mo-a" tabindex="0" data-lb="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=1600&q=72" data-cap="Belt ceremony — Monthly Grading Day">
-        <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=1200&q=72" alt="Belt ceremony" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=1200&q=72" alt="Belt ceremony" loading="lazy" decoding="async">
         <figcaption><b>Belt ceremony</b><i>Monthly Grading Day</i></figcaption>
       </figure>
       <figure class="mo " tabindex="0" data-lb="https://images.unsplash.com/photo-1517438476312-10d79c077509?w=1600&q=72" data-cap="Bag work — Evening striking batch">
-        <img src="https://images.unsplash.com/photo-1517438476312-10d79c077509?w=1000&q=72" alt="Bag work" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1517438476312-10d79c077509?w=1000&q=72" alt="Bag work" loading="lazy" decoding="async">
         <figcaption><b>Bag work</b><i>Evening striking batch</i></figcaption>
       </figure>
       <figure class="mo " tabindex="0" data-lb="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1600&q=72" data-cap="School program — PE and after-school">
-        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1000&q=72" alt="School program" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1000&q=72" alt="School program" loading="lazy" decoding="async">
         <figcaption><b>School program</b><i>PE &amp; after-school</i></figcaption>
       </figure>
       <figure class="mo mo-d" tabindex="0" data-lb="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=1600&q=72" data-cap="Sparring — Coach-supervised rounds">
-        <img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=1000&q=72" alt="Sparring" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=1000&q=72" alt="Sparring" loading="lazy" decoding="async">
         <figcaption><b>Sparring</b><i>Coach-supervised rounds</i></figcaption>
       </figure>
       <figure class="mo mo-f" tabindex="0" data-lb="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=72" data-cap="Summer camp — Skill development">
-        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&q=72" alt="Summer camp" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&q=72" alt="Summer camp" loading="lazy" decoding="async">
         <figcaption><b>Summer camp</b><i>Skill development</i></figcaption>
       </figure>
       <figure class="mo " tabindex="0" data-lb="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=72" data-cap="Ground work — Positional rounds">
-        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1000&q=72" alt="Ground work" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1000&q=72" alt="Ground work" loading="lazy" decoding="async">
         <figcaption><b>Ground work</b><i>Positional rounds</i></figcaption>
       </figure>
       <figure class="mo mo-g" tabindex="0" data-lb="https://images.unsplash.com/photo-1544216717-3bbf52512659?w=1600&q=72" data-cap="Female-only — Closed session">
-        <img src="https://images.unsplash.com/photo-1544216717-3bbf52512659?w=1000&q=72" alt="Female-only" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1544216717-3bbf52512659?w=1000&q=72" alt="Female-only" loading="lazy" decoding="async">
         <figcaption><b>Female-only</b><i>Closed session</i></figcaption>
       </figure>
       <figure class="mo " tabindex="0" data-lb="https://images.unsplash.com/photo-1583473848882-f9a5bc7fd2ee?w=1600&q=72" data-cap="Head coach — Correcting a stance">
-        <img src="https://images.unsplash.com/photo-1583473848882-f9a5bc7fd2ee?w=1000&q=72" alt="Head coach" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1583473848882-f9a5bc7fd2ee?w=1000&q=72" alt="Head coach" loading="lazy" decoding="async">
         <figcaption><b>Chairman</b><i>On the floor</i></figcaption>
       </figure>
     </div>
@@ -8601,7 +8873,7 @@ body.chap-open{overflow:hidden}
     <div class="ft">
       <div>
         <div class="ft-brand">
-          <span class="m plate plate--light plate--sm"><img src="markaz.png" alt="Markaz OUJ Performance" width="120" height="91"></span>
+          <span class="m plate plate--light plate--sm"><img src="markaz.png" alt="Markaz OUJ Performance" width="120" height="91" loading="lazy" decoding="async"></span>
           <div><b>Markaz OUJ</b><span>Performance</span></div>
         </div>
         <p>Markaz OUJ Performance is the parent company: a sports service provider and
@@ -8672,9 +8944,9 @@ body.chap-open{overflow:hidden}
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content ad-content overflow-hidden">
       <div class="ad-top position-relative">
-        <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=1200&q=72" alt="Markaz">
+        <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=1200&q=72" alt="Markaz" loading="lazy" decoding="async">
         <span class="ad-tag">First class free</span>
-        <span class="ad-lg ouj-lg"><img src="ouj.png" alt="" data-logo="ouj" width="140" height="161" decoding="async"></span>
+        <span class="ad-lg ouj-lg"><img src="ouj.png" alt="" data-logo="ouj" width="140" height="161" decoding="async" loading="lazy"></span>
         <div class="ad-h" id="adH">Your first<br>class is on us</div>
         <button type="button" class="btn-close ad-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -9255,7 +9527,7 @@ window.CDM = { show(){}, hide(){} };
   box.className='lb'; box.setAttribute('aria-hidden','true');
   box.innerHTML='<button class="cl" aria-label="Close">&times;</button>'+
                 '<button class="lb-n lb-prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>'+
-                '<figure class="lb-f"><img alt=""><figcaption></figcaption></figure>'+
+                '<figure class="lb-f"><img alt="" loading="lazy" decoding="async"><figcaption></figcaption></figure>'+
                 '<button class="lb-n lb-next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>';
   document.body.appendChild(box);
   const img=$('img',box), cap=$('figcaption',box);
@@ -13495,7 +13767,7 @@ three/build/three.module.js:
     <section class="mkc-panel" id="mkcPanel" role="dialog" aria-label="Chat" aria-hidden="true">
       <header class="mkc-head">
         <span class="mkc-av ouj-lg" aria-hidden="true">
-          <img src="ouj.png" alt="" data-logo="ouj" width="40" height="46" decoding="async">
+          <img src="ouj.png" alt="" data-logo="ouj" width="40" height="46" decoding="async" loading="lazy">
           <svg viewBox="0 0 24 24" hidden>
             <path d="M12 2.6l7 2.6v6.1c0 4.3-2.9 7.6-7 8.9-4.1-1.3-7-4.6-7-8.9V5.2l7-2.6z"/>
             <path d="M9.1 12.1h5.8M9.1 9.4h5.8M9.1 14.8h3.6"/>
@@ -14984,7 +15256,7 @@ equaliseSoon();
 /* ------------------------------------------------------------------
    LOGO RESOLUTION
    The two marks live in the repo as `ouj` and `markaz`, but not
-   necessarily as .png. Each <img data-logo> is tried against the common
+   necessarily as .png. Each <img data-logo loading="lazy" decoding="async" alt=""> is tried against the common
    extensions in turn and settles on the first that decodes; once one
    works the answer is reused for every other copy of that mark. If none
    resolve, the existing `.lg-miss` monogram takes over so the layout
@@ -15487,6 +15759,277 @@ body.menu .np-grid a{ transform:none; opacity:1 }
   } else {
     init();
   }
+})();
+
+</script>
+
+<script id="ouj-refine-js">
+/* ==================================================================
+   OUJ REFINEMENT LAYER · behaviour
+   1. boot-overlay failsafe          3. tappable photo tiles
+   2. scroll-activated card states   4. dependency-free detail sheet
+   Delete this whole block (id ouj-refine-js) to revert.
+   ================================================================== */
+(function () {
+  'use strict';
+  var RM = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* ---------- 1 · boot overlay failsafe -------------------------
+     body.booting hides the page until the loader script clears it.
+     If any script above throws, the visitor is left staring at the
+     splash forever. Hard release after 2.2s, and on first paint.  */
+  function unboot() {
+    document.body.classList.remove('booting');
+    var b = document.getElementById('boot');
+    if (b) { b.style.transition = 'opacity .4s'; b.style.opacity = '0';
+             setTimeout(function () { b.style.display = 'none'; }, 460); }
+  }
+  setTimeout(function () {
+    if (document.body.classList.contains('booting')) unboot();
+  }, 2200);
+  addEventListener('error', function () {
+    if (document.body.classList.contains('booting')) unboot();
+  });
+
+  /* ---------- 2 · scroll-activated hover states ------------------
+     Every reveal on this site was written as :hover only, so on a
+     phone nothing ever revealed. .is-live mirrors those states and
+     is driven by the viewport instead of the pointer.             */
+  var LIVE = '.card--tap,.pc,.prod,.lift,.phero-vis[data-oujtap],.tl-card,.phcard,.ct-card';
+  var io = null;
+  if ('IntersectionObserver' in window) {
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        e.target.classList.toggle('is-live', e.isIntersecting);
+      });
+    }, { rootMargin: '-22% 0px -22% 0px', threshold: 0 });
+  }
+  function watch(root) {
+    if (!io) return;
+    $$(LIVE, root).forEach(function (el) {
+      if (el.dataset.oujWatched) return;
+      el.dataset.oujWatched = '1';
+      io.observe(el);
+    });
+  }
+
+  /* ---------- 3 · detail sheet ---------------------------------- */
+  var sheet, lastFocus = null;
+  function buildSheet() {
+    if (sheet) return sheet;
+    sheet = document.createElement('div');
+    sheet.id = 'oujSheet';
+    sheet.setAttribute('role', 'dialog');
+    sheet.setAttribute('aria-modal', 'true');
+    sheet.setAttribute('aria-hidden', 'true');
+    sheet.innerHTML =
+      '<div class="ojm__bd" data-ojm-close></div>' +
+      '<div class="ojm__sh" role="document">' +
+        '<button class="ojm__x" data-ojm-close aria-label="Close">' +
+          '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+        '<div class="ojm__ph" id="ojmPh"></div>' +
+        '<div class="ojm__b">' +
+          '<div class="ojm__e" id="ojmE"></div>' +
+          '<h3 id="ojmH" tabindex="-1"></h3>' +
+          '<p class="ojm__p" id="ojmP"></p>' +
+          '<div class="ojm__m" id="ojmM"></div>' +
+          '<div class="ojm__c" id="ojmC"></div>' +
+          '<div class="ojm__f" id="ojmF"></div>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(sheet);
+    sheet.addEventListener('click', function (e) {
+      if (e.target.closest('[data-ojm-close]')) close();
+    });
+    return sheet;
+  }
+  function open(d) {
+    buildSheet();
+    lastFocus = document.activeElement;
+    var set = function (id, v) {
+      var n = document.getElementById(id);
+      n.textContent = v || '';
+      n.style.display = v ? '' : 'none';
+    };
+    var ph = document.getElementById('ojmPh');
+    ph.style.backgroundImage = d.photo ? 'url("' + d.photo + '")' : '';
+    ph.style.display = d.photo ? '' : 'none';
+    set('ojmE', d.eyebrow); set('ojmH', d.title);
+    set('ojmP', d.lead);    set('ojmM', d.meta);
+
+    var c = document.getElementById('ojmC');
+    c.innerHTML = '';
+    (d.chips || []).forEach(function (t) {
+      var s = document.createElement('span'); s.textContent = t; c.appendChild(s);
+    });
+    c.style.display = (d.chips || []).length ? '' : 'none';
+
+    var f = document.getElementById('ojmF');
+    f.innerHTML = '';
+    var wa = document.createElement('a');
+    wa.className = 'p'; wa.textContent = 'Ask on WhatsApp';
+    wa.target = '_blank'; wa.rel = 'noopener';
+    wa.href = 'https://wa.me/923002672558?text=' +
+      encodeURIComponent(d.wa || ('Assalam o Alaikum, I want to ask about ' + (d.title || 'your services') + '.'));
+    f.appendChild(wa);
+    var call = document.createElement('a');
+    call.className = 's'; call.textContent = 'Call 0300 2672558';
+    call.href = 'tel:03002672558';
+    f.appendChild(call);
+
+    sheet.classList.add('on');
+    sheet.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('ouj-lock');
+    requestAnimationFrame(function () { sheet.classList.add('in'); });
+    setTimeout(function () { document.getElementById('ojmH').focus(); }, RM ? 0 : 200);
+  }
+  function close() {
+    if (!sheet || !sheet.classList.contains('on')) return;
+    sheet.classList.remove('in');
+    sheet.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('ouj-lock');
+    setTimeout(function () { sheet.classList.remove('on'); }, RM ? 0 : 340);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close();
+    if (e.key !== 'Tab' || !sheet || !sheet.classList.contains('on')) return;
+    var f = $$('a[href],button:not([disabled])', sheet);
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  /* ---------- 4 · copy for the home-page photo tiles -------------
+     These four tiles were decorative: no link, no handler, and a
+     caption clipped to "PE & AFTER-SCHO…". They now carry the real
+     detail instead of trying to fit it on one line.               */
+  var TILE = {
+    'schools': {
+      eyebrow: 'Who we serve',
+      title: 'Schools',
+      lead: 'Certified coaches and PE teachers placed on your campus for timetabled physical education and after-school programs. We handle the session plans, the equipment and the term reporting, so PE runs to a standard instead of running on whoever is free that period.',
+      meta: 'Primary · Secondary · O and A Level',
+      chips: ['Term-based placement', 'On your campus', 'Session plans', 'Progress reports'],
+      wa: 'Assalam o Alaikum, I want to ask about coaching and PE teachers for our school.'
+    },
+    'female only': {
+      eyebrow: 'Who we serve',
+      title: 'Female-only sessions',
+      lead: 'Closed sessions with female coaches, in a private hall, with no mixed attendance. Self-defence, fitness and martial arts taught to the same syllabus as every other class. Widely requested by girls schools and by working women who want to train without an audience.',
+      meta: 'Girls schools · Colleges · Private groups',
+      chips: ['Female coaches', 'Private hall', 'Self-defence focus', 'Closed attendance'],
+      wa: 'Assalam o Alaikum, I want to ask about female-only sessions.'
+    },
+    'corporates': {
+      eyebrow: 'Who we serve',
+      title: 'Corporate fitness & wellness',
+      lead: 'Employee fitness, strength and conditioning, and wellness sessions run at your office or at our floor. Built around desk-bound teams — mobility, posture and general conditioning rather than gym theatre. Also covers corporate sports days and inter-department tournaments.',
+      meta: 'Offices · Banks · Corporate campuses',
+      chips: ['On-site or at ours', 'Employee wellness', 'Sports days', 'Flexible timing'],
+      wa: 'Assalam o Alaikum, I want to ask about corporate fitness and wellness sessions.'
+    },
+    'martial arts': {
+      eyebrow: 'The academy',
+      title: 'Martial arts & self defence',
+      lead: 'Taekwondo, boxing, kickboxing and MMA on one matted floor in Block 10, Federal B Area, taught since 2016 by coaches who have competed themselves. Ten graded belts white to black, tested by our own panel three times a year. First class is free and nobody is put into sparring on day one.',
+      meta: 'Block 10 · Federal B Area · Since 2016',
+      chips: ['Taekwondo', 'Boxing', 'Kickboxing', 'MMA', 'First class free'],
+      wa: 'Assalam o Alaikum, I want a free trial class at the academy.'
+    }
+  };
+
+  function enhanceTiles(root) {
+    $$('.phero-vis', root).forEach(function (t) {
+      if (t.dataset.oujtap || t.hasAttribute('data-modal')) return;
+
+      var cap = t.querySelector('.cap');
+      var img = t.querySelector('img');
+      if (!cap || !img) return;
+
+      var b = cap.querySelector('b');
+      var sp = cap.querySelector('span');
+      var name = (b && b.textContent || '').trim();
+      var sub = (sp && sp.textContent || '').trim();
+      var key = name.toLowerCase();
+      var data = TILE[key];
+
+      // decorative hero tiles with no detail to show are left alone
+      if (!data && !sub) return;
+
+      t.dataset.oujtap = '1';
+      t.setAttribute('role', 'button');
+      t.setAttribute('tabindex', '0');
+      t.setAttribute('aria-label', name + (sub ? ' — ' + sub : '') + '. Open details.');
+
+      var plus = document.createElement('span');
+      plus.className = 'ouj-plus';
+      plus.setAttribute('aria-hidden', 'true');
+      plus.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>';
+      t.appendChild(plus);
+
+      var payload = data || {
+        eyebrow: 'Markaz OUJ Performance',
+        title: name,
+        lead: sub,
+        meta: '',
+        chips: []
+      };
+      payload.photo = img.getAttribute('src') || '';
+
+      var fire = function (e) { e.preventDefault(); open(payload); };
+      t.addEventListener('click', fire);
+      t.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') fire(e);
+      });
+    });
+  }
+
+  /* ---------- 5 · keyboard access for existing modal cards ------- */
+  function enhanceExisting(root) {
+    $$('[data-modal]', root).forEach(function (c) {
+      if (c.dataset.oujKb) return;
+      c.dataset.oujKb = '1';
+      if (c.tagName === 'BUTTON' || c.tagName === 'A') return;
+      if (!c.hasAttribute('tabindex')) c.setAttribute('tabindex', '0');
+      if (!c.hasAttribute('role')) c.setAttribute('role', 'button');
+      c.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); }
+      });
+    });
+  }
+
+  /* ---------- 6 · run, and re-run for JS-injected content --------
+     martial-arts, about and wall-of-fame build their cards in
+     script after load, so a single pass on DOMContentLoaded misses
+     most of them.                                                 */
+  function pass(root) {
+    watch(root || document);
+    enhanceTiles(root || document);
+    enhanceExisting(root || document);
+  }
+  function start() {
+    pass(document);
+    [400, 1200, 2600].forEach(function (t) { setTimeout(function () { pass(document); }, t); });
+    if ('MutationObserver' in window) {
+      var mo = new MutationObserver(function (muts) {
+        var hit = false;
+        muts.forEach(function (m) {
+          Array.prototype.forEach.call(m.addedNodes, function (n) {
+            if (n.nodeType === 1) hit = true;
+          });
+        });
+        if (hit) { clearTimeout(start._t); start._t = setTimeout(function () { pass(document); }, 140); }
+      });
+      mo.observe(document.body, { childList: true, subtree: true });
+    }
+  }
+  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', start);
+  else start();
+
+  window.OUJSheet = { open: open, close: close };
 })();
 
 </script>
