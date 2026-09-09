@@ -1,0 +1,13 @@
+{
+  "name": "Markaz OUJ Performance",
+  "short_name": "Markaz OUJ",
+  "description": "Sports programmes, coaching, equipment and martial arts across Karachi.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#F7F8FC",
+  "theme_color": "#0B1533",
+  "icons": [
+    { "src": "markaz.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "markaz.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
