@@ -8159,13 +8159,6 @@ h1,h2,h3,.hero h1,.sh h2,.ph h2,.bt.feat h3,.qbox b{
 .card--tap,.pc,.prod,.lift{
   transition:transform .5s var(--r-ez),box-shadow .5s var(--r-ez),border-color .5s var(--r-ez);
 }
-/* on a real pointer, hover still wins instantly */
-@media (hover:hover) and (pointer:fine){
-  .card--tap.is-live:not(:hover),
-  .pc.is-live:not(:hover),
-  .prod.is-live:not(:hover){ box-shadow:0 12px 28px rgba(11,21,51,.09) }
-}
-
 /* ---------- 7 · DETAIL SHEET (dependency-free) ---------------- */
 #oujSheet{
   position:fixed;inset:0;z-index:1200;display:none;
@@ -8238,8 +8231,20 @@ html{ scroll-behavior:smooth }
 }
 img{ max-width:100% }
 a,button,[role=button]{ -webkit-tap-highlight-color:transparent }
+/* letter-spacing adds a trailing space after the last glyph, so
+   flex-centred label text sits left of true centre. Half the tracking
+   is given back as an indent. Display is left alone — changing it to
+   inline-flex without justify-content left-aligned .tabs and
+   .card__open on small screens. */
+.btn,.btn-r,.btn-k,.btn-o,.btn-b,.btn-sm,.tabs a,.card__open,.mkc-chip,.chip{
+  text-indent:.06em;
+}
+.btn{ justify-content:center;text-align:center;line-height:1 }
+.btn > svg{ flex:none;text-indent:0 }
+.hcta .btn{ justify-content:center }
 @media (max-width:575.98px){
-  .btn,.tabs a,.card__open{ min-height:44px;display:inline-flex;align-items:center }
+  .btn{ min-height:44px }
+  .tabs a,.card__open{ min-height:44px }
 }
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto }
@@ -8248,6 +8253,183 @@ a,button,[role=button]{ -webkit-tap-highlight-color:transparent }
   .lift.is-live,.phero-vis[data-oujtap].is-live{ transform:none !important }
 }
 
+
+/* ---------- 9 · SCROLL-ACTIVATED MIRRORS ----------
+   Generated from this page's own :hover rules — 75 of them.
+   Every card reveal now fires on scroll as well as on hover. */
+.lift.is-live{transform:translateY(-7px);box-shadow:var(--s3);border-color:var(--blue)}
+.pc.is-live::after{transform:scaleX(1)}
+.pc.is-live .n{-webkit-text-stroke-color:var(--red)}
+.pc.is-live .lk{gap:12px}
+.slot.is-live{border-color:var(--red);transform:translateX(5px);box-shadow:var(--s2)}
+.sqc.is-live .ph img{filter:grayscale(.2) contrast(1.06);transform:scale(1.06)}
+.pc.is-live,
+.pth.is-live,
+.bt.is-live,
+.slot.is-live,
+.ev.is-live,
+.sqc.is-live,
+.tl-card.is-live{background:rgba(255,255,255,.88) !important;
+  border-color:var(--blue) !important;
+  box-shadow:var(--g-sh-hi), var(--g-hi) !important;}
+.bt.feat.is-live{background:var(--ink) !important;border-color:var(--ink) !important}
+.phcard.is-live > .ph-bg{opacity:.46;transform:scale(1.05)}
+.bt.feat.is-live .ph-bg{opacity:.44}
+.mo.is-live{transform:translateY(-6px);border-color:var(--blue);box-shadow:var(--g-sh-hi);outline:none}
+.mo.is-live img{filter:grayscale(0) contrast(1);transform:scale(1.07)}
+.mo.is-live::after{opacity:.7}
+.mo.is-live figcaption i{opacity:1;transform:none}
+.mo.is-live .veil{opacity:.68}
+.pc.is-live::after{transform:scaleX(1);opacity:1}
+.nc.is-live{transform:translateY(-8px);box-shadow:var(--lg-shadow-hi) !important;background-image:var(--lg-fill-2) !important}
+.nc.is-live .nc-ph{opacity:.42;transform:scale(1.06)}
+.nc.is-live::before{opacity:1}
+.nc.is-live .nc-tab{transform:scale(1.08) rotate(-4deg)}
+.nc.is-live .nc-go{gap:12px}
+.nc.is-live .nc-go::after{transform:translate(3px,-3px)}
+@media(min-width:768px){.pr-hot.is-live{transform:translateY(-20px)}}
+@media(min-width:768px){.pr-hot.is-live{transform:translateY(-23px)}}
+@media(min-width:768px){.pr-hot.is-live{transform:translateY(-25px)}}
+@media (hover:none){.lift.is-live{transform:none;box-shadow:var(--s1)}}
+@media (min-width:901px){.pdeck.in .pdeck__c.is-live{transform:translateX(calc(var(--i) * -14%)) translateZ(calc(var(--i) * -74px + 40px)) rotateY(-18deg);
+    border-color:var(--blue);}}
+.mo.is-live::before{opacity:.9;inset:10px}
+.bt[data-go].is-live::after{opacity:1;transform:translate(2px,-2px)}
+@media (hover:none){.pdeck.in .pdeck__c.is-live{transform:none}}
+.phero-vis.is-live img{filter:grayscale(.15) contrast(1.02);transform:scale(1.05)}
+.prod.is-live{transform:translateY(-8px);box-shadow:var(--lg-shadow-hi) !important;background-image:var(--lg-fill-2) !important}
+.prod.is-live::before{opacity:1}
+.prod.is-live .prod__ph img{filter:grayscale(0) contrast(1);transform:scale(1.07)}
+.prod.is-live .prod__buy{transform:scale(1.12) rotate(-8deg);background:var(--red-dk)}
+.tm.is-live{transform:translateY(-7px);box-shadow:var(--s3);border-color:var(--blue)}
+.tm.is-live .tm__ph img{filter:grayscale(.1) contrast(1.02);transform:scale(1.06)}
+.lift.is-live,
+.pc.is-live,
+.prod.is-live,
+.tm.is-live{will-change:transform}
+.pc.is-live,
+.pth.is-live,
+.bt.is-live,
+.slot.is-live{transform:translateY(-6px);border-color:var(--blue);
+  box-shadow:0 22px 48px rgba(18,64,200,.16);}
+.prod.is-live{transform:translateY(-8px);box-shadow:0 26px 54px rgba(18,64,200,.18)}
+.tm.is-live{transform:translateY(-7px);box-shadow:0 26px 54px rgba(11,21,51,.22)}
+.mo.is-live{transform:translateY(-5px) scale(1.012);box-shadow:0 24px 52px rgba(11,21,51,.22)}
+@media (hover:none){.lift.is-live,
+.pc.is-live,
+.pth.is-live,
+.bt.is-live,
+.prod.is-live,
+.tm.is-live,
+.slot.is-live,
+.mo.is-live{transform:none;box-shadow:var(--s1);}}
+html.is-scrolling .prod.is-live,
+html.is-scrolling .pc.is-live,
+html.is-scrolling .tm.is-live{transform:none !important}
+@media (hover:hover) and (pointer:fine){.pc.is-live,
+.prod.is-live,
+.tm.is-live,
+.tl-card.is-live,
+.slot.is-live,
+.ev.is-live,
+.sqc.is-live,
+.pth.is-live,
+.nc.is-live,
+.qbox.is-live,
+.ct-card.is-live,
+.mo.is-live,
+.bfc.is-live{transform:translateY(var(--card-lift)) scale(1.006);
+    z-index:6;
+    border-color:var(--silver-line) !important;
+    
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.98),
+      inset 0 0 0 1px rgba(255,255,255,.55),
+      0 0 0 1px rgba(196,206,226,.55),
+      0 28px 56px -20px rgba(11,21,51,.30),
+      0 10px 20px -12px rgba(11,21,51,.20) !important;}}
+@media (hover:hover) and (pointer:fine){.pc.is-live,
+.prod.is-live,
+.tm.is-live,
+.tl-card.is-live,
+.slot.is-live,
+.ev.is-live,
+.sqc.is-live,
+.pth.is-live,
+.nc.is-live,
+.qbox.is-live,
+.ct-card.is-live,
+.bfc.is-live{background-image:
+      radial-gradient(300px circle at var(--mx,50%) var(--my,0%),
+                      rgba(255,255,255,.70),rgba(255,255,255,0) 62%),
+      var(--lg-fill) !important;}}
+@media (hover:hover) and (pointer:fine){.pg > [data-rv]:has(.pc.is-live),
+.row > [data-rv]:has(.bt.is-live),
+.row > [data-rv]:has(.tm.is-live),
+.row > [data-rv]:has(.prod.is-live){position:relative; z-index:6}}
+@media (hover:hover) and (pointer:fine){.tl-item:has(.tl-card.is-live){z-index:6}}
+@media (hover:hover) and (pointer:fine){.pc.is-live .n{-webkit-text-stroke-width:1.6px}}
+@media (hover:hover) and (pointer:fine){.pc.is-live .lk{gap:12px}}
+@media (prefers-reduced-motion:reduce){.pc.is-live,
+.prod.is-live,
+.tm.is-live,
+.tl-card.is-live,
+.slot.is-live,
+.ev.is-live,
+.sqc.is-live{transform:none}}
+footer .ft-brand .bt.is-live{transform:none !important; box-shadow:none !important;
+  background:none !important; background-image:none !important;
+  border:0 !important; padding:0 !important; z-index:auto !important;}
+@media (hover:hover) and (pointer:fine){.pc.is-live::after,
+.tm.is-live::after,
+.tl-card.is-live::after,
+.slot.is-live::after,
+.sqc.is-live::after,
+.bfc.is-live::after{transform:scaleX(1)}}
+@media (hover:hover) and (pointer:fine){.pc.is-live,
+.prod.is-live,
+.tm.is-live,
+.tl-card.is-live,
+.slot.is-live,
+.ev.is-live,
+.sqc.is-live,
+.pth.is-live,
+.nc.is-live,
+.qbox.is-live,
+.ct-card.is-live,
+.mo.is-live,
+.bfc.is-live{border-color:rgba(216,18,26,.34) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,1),
+      0 0 0 1px rgba(216,18,26,.16),
+      0 30px 60px -22px rgba(11,21,51,.34),
+      0 14px 28px -18px rgba(216,18,26,.34) !important;}}
+@media (hover:hover) and (pointer:fine){.pc.is-live::before,
+.prod.is-live::before,
+.tm.is-live::before,
+.tl-card.is-live::before{background:var(--rim-hot) !important;opacity:1;}}
+.card--tap.is-live{border-color:var(--ink);box-shadow:var(--s2)}
+.card--feature.card--tap.is-live{box-shadow:var(--s3)}
+.card--tap.is-live .card__ph img{transform:scale(1.04)}
+.card--tap.is-live .card__open{opacity:1;transform:none}
+.card--tap.is-live .card__open{background:var(--red);border-color:var(--red)}
+.card--tap.is-live .card__open svg{stroke:#fff}
+.row-i.is-live{background:var(--mist)}
+.row-i.card--tap.is-live{background:var(--mist)}
+.belt.card--tap.is-live{border-color:var(--ink);box-shadow:var(--s2);transform:translateY(-3px)}
+.belt.belt--black.card--tap.is-live{border-color:var(--red)}
+.card--tap.is-live::after{opacity:1}
+.card--feature.card--tap.is-live{box-shadow:var(--s3),0 0 0 1px rgba(11,21,51,.06)}
+.row-i.is-live::before{transform:scaleY(1)}
+.tl-item.is-live .tl-node{transform:scale(1.15);box-shadow:0 0 0 9px rgba(216,18,26,.14)}
+.tl-item.is-live .tl-node.b{box-shadow:0 0 0 9px rgba(18,64,200,.14)}
+.tl-card.is-live{border-color:var(--ink);box-shadow:var(--s3)}
+.tl-card.is-live .ph-bg{opacity:.44;filter:grayscale(0);transform:scale(1.07)}
+.dark .tl-card.is-live{border-color:rgba(255,255,255,.4)}
+.tl-card.is-live .ph-bg,
+.ev.is-live .ph-bg{opacity:.44}
+.jrn__c.is-live{transform:translateY(-3px);border-color:rgba(11,21,51,.16);
+  box-shadow:0 22px 44px -26px rgba(11,21,51,.4);}
 </style>
 </head>
 <body data-page="index" data-sitenav="off" data-siterv="off" class="booting">
@@ -15764,6 +15946,7 @@ body.menu .np-grid a{ transform:none; opacity:1 }
 </script>
 
 <script id="ouj-refine-js">
+window.OUJ_LIVE='.belt,.bfc,.bt,.card--feature,.card--tap,.ct-card,.ev,.jrn__c,.lift,.mo,.nc,.pc,.pdeck__c,.phcard,.phero-vis,.pr-hot,.prod,.pth,.qbox,.row-i,.slot,.sqc,.tl-card,.tl-item,.tm,.phero-vis[data-oujtap],.lift,.pc,.prod';
 /* ==================================================================
    OUJ REFINEMENT LAYER · behaviour
    1. boot-overlay failsafe          3. tappable photo tiles
@@ -15796,14 +15979,17 @@ body.menu .np-grid a{ transform:none; opacity:1 }
      Every reveal on this site was written as :hover only, so on a
      phone nothing ever revealed. .is-live mirrors those states and
      is driven by the viewport instead of the pointer.             */
-  var LIVE = '.card--tap,.pc,.prod,.lift,.phero-vis[data-oujtap],.tl-card,.phcard,.ct-card';
+  /* the selector list is generated per page from that page's own hover
+     rules, so nothing is missed. Falls back to the common set. */
+  var LIVE = window.OUJ_LIVE ||
+    '.card--tap,.pc,.prod,.lift,.phero-vis[data-oujtap],.tl-card,.phcard,.ct-card';
   var io = null;
   if ('IntersectionObserver' in window) {
     io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         e.target.classList.toggle('is-live', e.isIntersecting);
       });
-    }, { rootMargin: '-22% 0px -22% 0px', threshold: 0 });
+    }, { rootMargin: '-12% 0px -12% 0px', threshold: 0 });
   }
   function watch(root) {
     if (!io) return;
