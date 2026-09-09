@@ -17,10 +17,10 @@
 <meta name="twitter:title" content="About and Team | Markaz OUJ Performance, Karachi">
 <meta name="twitter:description" content="Markaz OUJ Performance is a Karachi sports service provider chaired by Abdul Samad Khan: coaching and PE teachers, equipment, event organizing, summer camps, fitness training and martial arts for schools, colleges, universities and corporate teams.">
 <meta name="twitter:image" content="icons/og-cover.jpg">
-<link rel="icon" href="markaz.png" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="markaz.png">
-<link rel="icon" type="image/png" sizes="16x16" href="markaz.png">
-<link rel="apple-touch-icon" sizes="180x180" href="markaz.png">
+<link rel="icon" href="ouj.png" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="ouj.png">
+<link rel="icon" type="image/png" sizes="16x16" href="ouj.png">
+<link rel="apple-touch-icon" sizes="180x180" href="ouj.png">
 <link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2497,13 +2497,13 @@ header#hdr .dock__cta{max-width:none}
    snapping lets them scroll freely and still settle sensibly, with
    momentum and end padding so the last card is never half-cut.
    ================================================================== */
-.sq,.deck,.dstrip,.fbar,.mkc-chips,.chips{
+.sq,.deck,.dstrip,.fbar,.mkc-chips,.chips,.tl-row,.cgrid{
   scroll-snap-type:x proximity !important;
   -webkit-overflow-scrolling:touch;
   overscroll-behavior-x:contain;
   scroll-padding-left:20px;
 }
-.sq > *,.deck > *,.dstrip > *,.fbar > *{scroll-snap-align:start}
+.sq > *,.deck > *,.dstrip > *,.fbar > *,.tl-row > *,.cgrid > *{scroll-snap-align:start}
 /* the last card gets room to clear the right edge */
 .sq::after,.deck::after{content:'';flex:0 0 12px}
 @media (max-width:760px){
@@ -2624,6 +2624,161 @@ header#hdr .dock__cta{max-width:none}
   header#hdr .dock__cta{max-width:none;padding:0 16px;font-size:11.5px}
 }
 
+/* ==================================================================
+   STORY CHAPTERS — preview cards that open a reading modal
+   ================================================================== */
+.jrn__c--tap{cursor:pointer;display:flex;flex-direction:column}
+.jrn__c--tap:focus-visible{outline:2px solid var(--u-red);outline-offset:3px}
+.jrn__prev{
+  margin:0 0 16px !important;color:var(--txt,#3A4256);
+  font-size:15.5px;line-height:1.72;
+}
+.jrn__more{
+  margin-top:auto;display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--hd,inherit);font-weight:700;font-size:12px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--u-red);
+}
+.jrn__more svg{
+  width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .32s var(--u-ez);
+}
+.jrn__c--tap:hover .jrn__more svg{transform:translateX(4px)}
+.jrn__c--dark .jrn__prev{color:rgba(255,255,255,.72)}
+.jrn__c--dark .jrn__more{color:var(--red-lt,#FF4D57)}
+
+/* the modal */
+.chapov{position:fixed;inset:0;z-index:300;display:flex;
+  align-items:center;justify-content:center;padding:24px;
+  opacity:0;visibility:hidden;transition:opacity .3s var(--u-ez),visibility .3s}
+.chapov.on{opacity:1;visibility:visible}
+.chapov__bd{position:absolute;inset:0;background:rgba(8,14,34,.62);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.chapov__sheet{
+  position:relative;width:min(720px,100%);max-height:86vh;
+  background:#fff;border-radius:24px;overflow:hidden;
+  box-shadow:0 40px 90px -30px rgba(11,21,51,.6);
+  transform:translateY(14px) scale(.985);
+  transition:transform .34s var(--u-ez);
+}
+.chapov.on .chapov__sheet{transform:none}
+.chapov__in{
+  padding:clamp(28px,4vw,44px);overflow-y:auto;max-height:86vh;
+  -webkit-overflow-scrolling:touch;outline:none;
+}
+.chapov__in h3{
+  font-family:var(--dsp,inherit);font-weight:900;
+  font-size:clamp(23px,3.2vw,32px);line-height:1.1;letter-spacing:-.024em;
+  color:var(--u-ink);margin:0 0 16px;
+}
+.chapov__in p{
+  margin:0 0 15px;font-size:16px;line-height:1.8;
+  color:var(--txt,#3A4256);max-width:64ch;
+}
+.chapov__in .jrn__yr{margin-bottom:14px}
+.chapov__x{
+  position:absolute;top:14px;right:14px;z-index:2;
+  display:grid;place-items:center;width:38px;height:38px;
+  border-radius:50%;background:rgba(11,21,51,.06);
+  border:1px solid var(--u-line);cursor:pointer;
+  transition:background .24s var(--u-ez);
+}
+.chapov__x:hover{background:rgba(11,21,51,.12)}
+.chapov__x svg{width:16px;height:16px;fill:none;stroke:var(--u-ink);
+  stroke-width:2.2;stroke-linecap:round}
+body.chap-open{overflow:hidden}
+@media (max-width:560px){
+  .chapov{padding:0;align-items:flex-end}
+  .chapov__sheet{width:100%;max-height:90vh;border-radius:22px 22px 0 0}
+  .chapov__in{max-height:90vh;padding:30px 22px 34px}
+  .chapov__in p{font-size:15.5px;line-height:1.76}
+}
+
+/* ==================================================================
+   RAILS — grab cursor for mouse drag; touch keeps native momentum
+   ================================================================== */
+.rail-drag{cursor:grab}
+.rail-drag.is-drag{cursor:grabbing;scroll-behavior:auto;scroll-snap-type:none}
+.rail-drag.is-drag *{user-select:none}
+.sq,.deck,.dstrip,.fbar,.mkc-chips,.chips,.tl-row,.cgrid{
+  touch-action:pan-x pan-y;
+  scroll-behavior:smooth;
+}
+
+/* ==================================================================
+   STAT BOARD — a stronger, redder hover
+   ================================================================== */
+.board > div::before{height:4px;background:var(--u-red)}
+.board > div:hover{
+  background:#fff;transform:translateY(-4px);
+  box-shadow:0 26px 46px -24px rgba(216,18,26,.42),
+             0 3px 0 rgba(216,18,26,.08) inset;
+}
+.board > div:hover .board__k{color:var(--u-red)}
+.board > div:hover b{transform:translateY(-1px)}
+.board b{transition:transform .32s var(--u-ez),color .32s var(--u-ez)}
+.board > div:hover[data-ghost]::after{
+  color:rgba(216,18,26,.10);transform:translateY(-5px) scale(1.03);
+}
+.board--dark > div:hover{
+  background:#101d42;
+  box-shadow:0 26px 46px -24px rgba(0,0,0,.7),
+             0 3px 0 rgba(216,18,26,.22) inset;
+}
+.board--dark > div:hover .board__k{color:var(--red-lt,#FF4D57)}
+.board--dark > div:hover[data-ghost]::after{color:rgba(216,18,26,.18)}
+
+/* ==================================================================
+   HERO TOP GAP — the bar is 64px plus a 14px inset, so the old
+   `--nav + 54px` runs left a visible dead band under the capsule.
+   ================================================================== */
+@media (max-width:900px){
+  .phero{padding-top:calc(var(--nav,78px) + 14px) !important}
+  .hero{padding-top:calc(var(--nav,78px) + 10px) !important}
+}
+@media (max-width:560px){
+  .phero{padding-top:calc(var(--nav,78px) + 6px) !important}
+  .hero{padding-top:calc(var(--nav,78px) + 4px) !important}
+  .crumb{margin-bottom:14px}
+}
+
+/* the chapter pill must not stretch inside the flex column */
+.jrn__c .jrn__yr,.chapov__in .jrn__yr{align-self:flex-start;width:-moz-fit-content;width:fit-content}
+
+
+/* the events and card rows were missed by the first pass: still on
+   mandatory snap, so they fought the finger and clipped the last card */
+.tl-row,.cgrid{
+  scroll-snap-type:x proximity !important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+  touch-action:pan-x pan-y;
+  scroll-behavior:smooth;
+}
+@media (max-width:760px){
+  .tl-row,.cgrid{
+    padding-left:20px;padding-right:20px;margin-inline:-20px;
+    scroll-padding-left:20px;
+  }
+  .tl-row > *,.cgrid > *{flex:0 0 min(82vw,330px)}
+}
+
+/* ==================================================================
+   CHAT LAUNCHER — the container is only a positioning frame, but it
+   is a visible 366x606 box with pointer-events:auto, so on phones it
+   swallowed taps across most of the lower screen. Only its children
+   should be interactive.
+   ================================================================== */
+#mkChat{pointer-events:none}
+#mkChat > *{pointer-events:auto}
+.mkc-panel[aria-hidden="true"],
+.mkc-panel:not(.on){pointer-events:none}
+.mkc-panel.on{pointer-events:auto}
+
+/* same class of bug: full-screen overlays that are only visually
+   hidden still hit-test unless they opt out */
+.lb:not(.on),.navbd:not(.on),.ov:not(.on){pointer-events:none}
+
 </style>
 </head>
 <body data-page="about" class="booting">
@@ -2643,7 +2798,7 @@ header#hdr .dock__cta{max-width:none}
 <header id="hdr">
   <div class="dock">
     <a class="dbrand" href="index.html" aria-label="Markaz OUJ Performance, home">
-      <span class="plate plate--light plate--xs"><img class="dbrand__logo" src="markaz.png" alt="" width="120" height="91"></span>
+      <span class="plate plate--light plate--xs"><img class="dbrand__logo" src="ouj.png" alt="" width="120" height="91"></span>
       <span class="dbrand__txt">
         <b class="dbt">Markaz OUJ</b>
         <span class="dbs">Performance</span>
@@ -2987,5 +3142,165 @@ header#hdr .dock__cta{max-width:none}
     </div>
   </div>
 </footer>
+
+<script id="unified-shell-js">
+/* ==================================================================
+   UNIFIED SHELL — behaviour shared by every page.
+   1. Founder story chapters collapse to preview cards that open in
+      a reading modal.
+   2. Horizontal rails follow the finger (and the mouse) instead of
+      relying on a flick.
+   ================================================================== */
+(function () {
+  'use strict';
+
+  /* ---------------- 1. story chapters -> preview + modal ---------- */
+  function buildChapters() {
+    var cards = document.querySelectorAll('.jrn__c');
+    if (!cards.length || document.getElementById('chapOv')) return;
+
+    var ov = document.createElement('div');
+    ov.className = 'chapov';
+    ov.id = 'chapOv';
+    ov.setAttribute('role', 'dialog');
+    ov.setAttribute('aria-modal', 'true');
+    ov.setAttribute('aria-hidden', 'true');
+    ov.innerHTML =
+      '<div class="chapov__bd" data-chap-close></div>' +
+      '<div class="chapov__sheet" role="document">' +
+        '<button class="chapov__x" data-chap-close aria-label="Close">' +
+          '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
+        '</button>' +
+        '<div class="chapov__in" id="chapIn" tabindex="-1"></div>' +
+      '</div>';
+    document.body.appendChild(ov);
+
+    var sheet = ov.querySelector('.chapov__in');
+    var lastFocus = null;
+
+    function open(html) {
+      sheet.innerHTML = html;
+      ov.classList.add('on');
+      ov.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('chap-open');
+      sheet.scrollTop = 0;
+      sheet.focus();
+    }
+    function close() {
+      ov.classList.remove('on');
+      ov.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('chap-open');
+      if (lastFocus) lastFocus.focus();
+    }
+
+    ov.addEventListener('click', function (e) {
+      if (e.target.closest('[data-chap-close]')) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && ov.classList.contains('on')) close();
+    });
+
+    Array.prototype.forEach.call(cards, function (card) {
+      var full = card.innerHTML;
+      var eyebrow = card.querySelector('.jrn__yr');
+      var head = card.querySelector('h3');
+      var paras = card.querySelectorAll('p');
+      if (!head || !paras.length) return;
+
+      /* the preview keeps the first paragraph, trimmed to a clean stop */
+      var text = paras[0].textContent.trim();
+      if (text.length > 168) {
+        var cut = text.slice(0, 168);
+        var stop = cut.lastIndexOf(' ');
+        text = cut.slice(0, stop > 120 ? stop : 168).replace(/[,;:.\s]+$/, '') + '…';
+      }
+      var count = paras.length + (card.querySelector('.jrn__q') ? 1 : 0);
+
+      card.innerHTML =
+        (eyebrow ? '<div class="jrn__yr">' + eyebrow.innerHTML + '</div>' : '') +
+        '<h3>' + head.innerHTML + '</h3>' +
+        '<p class="jrn__prev">' + text + '</p>' +
+        '<span class="jrn__more">' +
+          'Read the full chapter' +
+          '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' +
+        '</span>';
+
+      card.classList.add('jrn__c--tap');
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-label', head.textContent.trim() + ' — read the full chapter');
+
+      function fire() { lastFocus = card; open(full); }
+      card.addEventListener('click', fire);
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fire(); }
+      });
+    });
+  }
+
+  /* ---------------- 2. rails that follow the finger --------------- */
+  function dragRails() {
+    var rails = document.querySelectorAll(
+      '.sq,.deck,.dstrip,.fbar,.mkc-chips,.chips,.tl-row,.cgrid,[data-rail]'
+    );
+
+    Array.prototype.forEach.call(rails, function (rail) {
+      if (rail.dataset.railReady) return;
+      rail.dataset.railReady = '1';
+      rail.classList.add('rail-drag');
+
+      var down = false, moved = false, startX = 0, startScroll = 0, id = null;
+
+      rail.addEventListener('pointerdown', function (e) {
+        /* touch already scrolls natively and does it better — only take
+           over for mouse and pen, so momentum is never fought */
+        if (e.pointerType === 'touch') return;
+        if (e.button !== 0) return;
+        down = true; moved = false;
+        startX = e.clientX;
+        startScroll = rail.scrollLeft;
+        id = e.pointerId;
+        rail.classList.add('is-drag');
+      });
+
+      rail.addEventListener('pointermove', function (e) {
+        if (!down || e.pointerId !== id) return;
+        var dx = e.clientX - startX;
+        if (!moved && Math.abs(dx) > 4) {
+          moved = true;
+          if (rail.setPointerCapture) rail.setPointerCapture(id);
+        }
+        if (moved) { e.preventDefault(); rail.scrollLeft = startScroll - dx; }
+      });
+
+      function release(e) {
+        if (!down || (e && e.pointerId !== id)) return;
+        down = false;
+        rail.classList.remove('is-drag');
+        if (moved) {
+          /* swallow the click that ends a drag */
+          rail.addEventListener('click', function stop(ev) {
+            ev.stopPropagation(); ev.preventDefault();
+            rail.removeEventListener('click', stop, true);
+          }, true);
+        }
+        moved = false;
+      }
+      rail.addEventListener('pointerup', release);
+      rail.addEventListener('pointercancel', release);
+      rail.addEventListener('pointerleave', release);
+    });
+  }
+
+  function init() { buildChapters(); dragRails(); }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+</script>
 </body>
 </html>
