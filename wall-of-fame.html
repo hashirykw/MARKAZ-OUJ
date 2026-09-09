@@ -25,7 +25,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;600;700;900&family=Inter+Tight:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..700&display=swap">
 <style>
 /* ===== site.css ===== */
 /* ==================================================================
@@ -1635,7 +1636,7 @@ body.menu .np-grid a{transform:none;opacity:1}
      its cards the same way and they all open looking the same. */
   function sheetHTML(d) {
     return (d.img ? '<div class="sheet__ph"><img src="' + d.img + '" alt="' +
-              esc(d.title || '') + '" decoding="async"></div>' : '') +
+              esc(d.title || '') + '" decoding="async" loading="lazy"></div>' : '') +
       '<div class="sheet__b">' +
         '<h3>' + esc(d.title || '') + '</h3>' +
         (d.sub ? '<div class="sub">' + esc(d.sub) + '</div>' : '') +
@@ -1936,7 +1937,7 @@ window.Markaz.ready(function () {
     var s = deck[at];
     M.sheetRaw(
       '<div class="gview">' +
-        '<img src="' + s.full + '" alt="' + esc(s.t) + '" decoding="async">' +
+        '<img src="' + s.full + '" alt="' + esc(s.t) + '" decoding="async" loading="lazy">' +
         '<button class="gnav p" data-step="-1" aria-label="Previous frame">' +
           '<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>' +
         '<button class="gnav n" data-step="1" aria-label="Next frame">' +
@@ -2748,6 +2749,276 @@ body.chap-open{overflow:hidden}
 .lb:not(.on),.navbd:not(.on),.ov:not(.on){pointer-events:none}
 
 </style>
+
+<style id="ouj-refine">
+/* ==================================================================
+   OUJ REFINEMENT LAYER  ·  appended last, wins the cascade
+   Everything in this block is additive. Delete the whole
+   this whole block (id ouj-refine) to revert to the previous build.
+   ================================================================== */
+
+/* ---------- 1 · TYPE SYSTEM ------------------------------------
+   --dsp was declared seven times across four fonts (Anton, Archivo,
+   Playfair Display, Chivo) while only Chivo + Inter Tight were ever
+   downloaded. Archivo variable is now loaded for real, so the
+   'wdth' axis the headings ask for actually resolves.            */
+:root:root:root{
+  --dsp :'Archivo','Inter Tight',system-ui,-apple-system,sans-serif;
+  --dsp2:'Archivo','Inter Tight',system-ui,-apple-system,sans-serif;
+  --hd  :'Inter Tight',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --bdy :'Inter Tight',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r-ez:cubic-bezier(.22,.92,.28,1);
+}
+@supports not (font-variation-settings:'wght' 700){
+  :root:root:root{ --dsp:'Archivo','Arial Black',system-ui,sans-serif }
+}
+
+h1,h2,h3,.hero h1,.sh h2,.ph h2,.bt.feat h3,.qbox b{
+  font-family:var(--dsp);
+  font-variation-settings:'wdth' 108,'wght' 800;
+  font-synthesis-weight:none;
+}
+.hero h1{ font-variation-settings:'wdth' 112,'wght' 880 }
+
+/* ---------- 2 · NAVBAR WORDMARK -------------------------------- */
+.dbrand__txt{ display:flex;flex-direction:column;justify-content:center;gap:1px;min-width:0 }
+.dbrand__txt .dbt{
+  font-family:var(--dsp);
+  font-variation-settings:'wdth' 106,'wght' 780;
+  font-size:clamp(15px,1.12vw,18.5px);
+  line-height:.98;letter-spacing:-.014em;
+  text-transform:uppercase;white-space:nowrap;
+  color:var(--u-ink,#0B1533);
+}
+.dbrand__txt .dbs{
+  font-family:var(--hd);
+  font-size:clamp(8px,.62vw,9.6px);
+  font-weight:600;line-height:1;
+  letter-spacing:.26em;text-transform:uppercase;
+  color:var(--u-mut,#6B7690);white-space:nowrap;
+}
+.dbrand:hover .dbt{ color:var(--u-red,#D8121A) }
+.dbrand .dbt,.dbrand .dbs{ transition:color .26s var(--r-ez) }
+@media (max-width:420px){ .dbrand__txt .dbs{ display:none } }
+
+/* ---------- 3 · HERO · MASCOT / TEXT SEPARATION ----------------
+   .mascot carried 20+ conflicting declarations including
+   margin-right:-3%, margin-block:-44px and --mk-lift:-34px, which
+   pulled the figure into the copy column. Neutralised here and
+   given one predictable rule per breakpoint.                     */
+.hero .wrap{ position:relative;z-index:2 }
+.hero-in{ position:relative;z-index:3 }
+.hero-visw{ position:relative;z-index:1;align-self:center }
+
+.mascot{
+  margin-right:0 !important;
+  margin-block:0 !important;
+  --mk-lift:0px !important;
+  min-height:0 !important;
+  height:auto !important;
+  transform:none !important;
+  display:grid;place-items:center;
+}
+.mascot::before{ height:150% !important;opacity:.42 !important }
+.mk-rig{
+  width:100% !important;
+  max-width:min(100%,clamp(240px,26vw,400px)) !important;
+  height:auto !important;margin-inline:auto !important;
+}
+
+@media (min-width:992px){
+  .hero-grid{ align-items:center }
+  .hero-grid > .hero-in{ padding-right:clamp(28px,3.6vw,64px) }
+  .hero-in{ max-width:min(100%,640px) }
+  .hero h1{ font-size:clamp(44px,5.2vw,78px) !important;line-height:.92 !important }
+  .mk-rig{ max-width:min(100%,clamp(280px,25vw,410px)) !important }
+}
+@media (max-width:991.98px){
+  .hero-grid{ row-gap:clamp(20px,4vw,34px) }
+  .hero-visw{ margin-top:6px }
+  .mk-rig{ max-width:min(74vw,330px) !important }
+  .hero h1{ font-size:clamp(38px,10vw,62px) !important;line-height:.94 !important }
+}
+@media (max-width:575.98px){
+  .mk-rig{ max-width:min(66vw,260px) !important }
+  .hero h1{ font-size:clamp(34px,11.2vw,50px) !important }
+}
+/* the canvas artwork sits behind everything, never over the copy */
+.hero > #scene{ z-index:0 }
+
+/* ---------- 4 · PHOTO TILE CAPTIONS ---------------------------
+   .cap span was white-space:nowrap + text-overflow:ellipsis on
+   desktop ("PE & AFTER-SCHO…") and a full-wrap block on mobile,
+   giving three ragged lines. One stacked layout at every size.  */
+.phero-vis .cap,.cap{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  justify-content:center;
+  gap:3px !important;
+  white-space:normal !important;
+  overflow:visible !important;
+  min-height:0 !important;
+  padding:10px 14px !important;
+  row-gap:2px;
+}
+.cap b{
+  display:block !important;
+  white-space:normal !important;
+  font-family:var(--dsp);
+  font-variation-settings:'wdth' 104,'wght' 760;
+  font-size:clamp(12.5px,1.02vw,14.5px) !important;
+  line-height:1.06 !important;letter-spacing:.002em;
+  text-transform:uppercase;
+}
+.cap span{
+  display:block !important;
+  white-space:normal !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+  font-size:clamp(9px,.72vw,10.5px) !important;
+  letter-spacing:.16em;line-height:1.28;
+  text-wrap:balance;
+}
+@media (max-width:420px){
+  .phero-vis .cap,.cap{ left:8px !important;right:8px !important;bottom:8px !important;padding:8px 11px !important }
+  .cap span{ letter-spacing:.12em }
+}
+
+/* ---------- 5 · TILES BECOME REAL CONTROLS -------------------- */
+.phero-vis[data-oujtap]{
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .5s var(--r-ez),box-shadow .5s var(--r-ez);
+}
+.phero-vis[data-oujtap]:hover,
+.phero-vis[data-oujtap].is-live{ transform:translateY(-4px) }
+.phero-vis[data-oujtap]:hover img,
+.phero-vis[data-oujtap].is-live img{ filter:grayscale(0) contrast(1.04);transform:scale(1.045) }
+.phero-vis[data-oujtap]:focus-visible{ outline:3px solid var(--u-red,#D8121A);outline-offset:3px }
+
+/* the "open" affordance */
+.ouj-plus{
+  position:absolute;top:12px;right:12px;z-index:3;
+  width:32px;height:32px;border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(11,21,51,.12);
+  box-shadow:0 6px 16px rgba(11,21,51,.14);
+  opacity:0;transform:scale(.82) translateY(-4px);
+  transition:opacity .38s var(--r-ez),transform .38s var(--r-ez);
+  pointer-events:none;
+}
+.ouj-plus svg{ width:15px;height:15px;fill:none;stroke:#0B1533;stroke-width:2.1;stroke-linecap:round }
+[data-oujtap]:hover .ouj-plus,
+[data-oujtap].is-live .ouj-plus,
+[data-oujtap]:focus-visible .ouj-plus{ opacity:1;transform:none }
+@media (max-width:420px){ .ouj-plus{ width:28px;height:28px;top:9px;right:9px } }
+
+/* ---------- 6 · SCROLL-ACTIVATED HOVER STATES ----------------
+   Touch devices never fire :hover, so every card's reveal state
+   was dead on mobile. .is-live is applied by IntersectionObserver
+   as the card reaches the middle of the viewport, on every device. */
+.card--tap.is-live,.pc.is-live,.prod.is-live{
+  border-color:rgba(11,21,51,.22);
+  box-shadow:0 18px 40px rgba(11,21,51,.13);
+}
+.lift.is-live{ transform:translateY(-5px) }
+.card--tap.is-live .card__open{ opacity:1;transform:none }
+.pc.is-live .n{ color:var(--u-red,#D8121A) }
+.card--tap,.pc,.prod,.lift{
+  transition:transform .5s var(--r-ez),box-shadow .5s var(--r-ez),border-color .5s var(--r-ez);
+}
+/* on a real pointer, hover still wins instantly */
+@media (hover:hover) and (pointer:fine){
+  .card--tap.is-live:not(:hover),
+  .pc.is-live:not(:hover),
+  .prod.is-live:not(:hover){ box-shadow:0 12px 28px rgba(11,21,51,.09) }
+}
+
+/* ---------- 7 · DETAIL SHEET (dependency-free) ---------------- */
+#oujSheet{
+  position:fixed;inset:0;z-index:1200;display:none;
+  align-items:center;justify-content:center;padding:18px;
+}
+#oujSheet.on{ display:flex }
+#oujSheet .ojm__bd{
+  position:absolute;inset:0;background:rgba(8,14,34,.52);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  opacity:0;transition:opacity .34s var(--r-ez);
+}
+#oujSheet.in .ojm__bd{ opacity:1 }
+#oujSheet .ojm__sh{
+  position:relative;width:min(100%,640px);max-height:88vh;overflow:auto;
+  background:#fff;border-radius:26px;
+  border:1px solid rgba(11,21,51,.10);
+  box-shadow:0 40px 90px rgba(11,21,51,.30);
+  opacity:0;transform:translateY(22px) scale(.985);
+  transition:opacity .38s var(--r-ez),transform .38s var(--r-ez);
+  -webkit-overflow-scrolling:touch;
+}
+#oujSheet.in .ojm__sh{ opacity:1;transform:none }
+#oujSheet .ojm__ph{
+  height:clamp(150px,26vw,220px);background-size:cover;background-position:center;
+  border-radius:26px 26px 0 0;
+}
+#oujSheet .ojm__x{
+  position:absolute;top:12px;right:12px;z-index:4;
+  width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;
+  background:rgba(255,255,255,.94);box-shadow:0 6px 18px rgba(11,21,51,.2);
+  display:grid;place-items:center;
+}
+#oujSheet .ojm__x svg{ width:17px;height:17px;fill:none;stroke:#0B1533;stroke-width:2.2;stroke-linecap:round }
+#oujSheet .ojm__b{ padding:clamp(20px,3vw,30px) }
+#oujSheet .ojm__e{
+  font-family:var(--hd);font-size:10.5px;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--u-red,#D8121A);
+}
+#oujSheet h3{
+  font-family:var(--dsp);font-variation-settings:'wdth' 108,'wght' 820;
+  font-size:clamp(23px,3vw,32px);line-height:1.04;margin:.34em 0 .5em;
+  text-transform:uppercase;letter-spacing:-.01em;color:#0B1533;
+}
+#oujSheet .ojm__p{ font-family:var(--bdy);font-size:15px;line-height:1.62;color:#3A4258;margin:0 }
+#oujSheet .ojm__m{
+  margin-top:14px;font-family:var(--hd);font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--u-mut,#6B7690);
+}
+#oujSheet .ojm__c{ display:flex;flex-wrap:wrap;gap:7px;margin-top:16px }
+#oujSheet .ojm__c span{
+  font-family:var(--hd);font-size:11px;font-weight:600;
+  padding:6px 11px;border-radius:999px;
+  background:rgba(11,21,51,.05);border:1px solid rgba(11,21,51,.09);color:#38405A;
+}
+#oujSheet .ojm__f{ display:flex;flex-wrap:wrap;gap:9px;margin-top:22px }
+#oujSheet .ojm__f a{
+  font-family:var(--hd);font-size:13.5px;font-weight:600;
+  padding:11px 19px;border-radius:999px;text-decoration:none;
+  transition:transform .24s var(--r-ez),opacity .24s var(--r-ez);
+}
+#oujSheet .ojm__f a:hover{ transform:translateY(-2px) }
+#oujSheet .ojm__f .p{ background:var(--u-red,#D8121A);color:#fff }
+#oujSheet .ojm__f .s{ background:rgba(11,21,51,.06);color:#0B1533 }
+body.ouj-lock{ overflow:hidden }
+
+/* ---------- 8 · POLISH ---------------------------------------- */
+html{ scroll-behavior:smooth }
+:where(a,button,[role=button],[tabindex]):focus-visible{
+  outline:3px solid var(--u-red,#D8121A);outline-offset:2px;border-radius:6px;
+}
+img{ max-width:100% }
+a,button,[role=button]{ -webkit-tap-highlight-color:transparent }
+@media (max-width:575.98px){
+  .btn,.tabs a,.card__open{ min-height:44px;display:inline-flex;align-items:center }
+}
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto }
+  #oujSheet .ojm__sh,#oujSheet .ojm__bd,.ouj-plus,
+  .card--tap,.pc,.prod,.lift,.phero-vis[data-oujtap]{ transition:none !important }
+  .lift.is-live,.phero-vis[data-oujtap].is-live{ transform:none !important }
+}
+
+</style>
 </head>
 <body data-page="fame" class="booting">
 <div id="boot" aria-hidden="true">
@@ -2904,7 +3175,7 @@ body.chap-open{overflow:hidden}
     <div class="ft">
       <div>
         <div class="ft-brand">
-          <span class="m plate plate--light plate--sm"><img src="markaz.png" alt="Markaz OUJ Performance" width="120" height="91"></span>
+          <span class="m plate plate--light plate--sm"><img src="markaz.png" alt="Markaz OUJ Performance" width="120" height="91" loading="lazy" decoding="async"></span>
           <div><b>Markaz OUJ</b><span>Performance</span></div>
         </div>
         <p>Markaz OUJ Performance is the parent company: a sports service provider and
@@ -3188,6 +3459,277 @@ header#hdr{ z-index:200 !important }
   } else {
     init();
   }
+})();
+
+</script>
+
+<script id="ouj-refine-js">
+/* ==================================================================
+   OUJ REFINEMENT LAYER · behaviour
+   1. boot-overlay failsafe          3. tappable photo tiles
+   2. scroll-activated card states   4. dependency-free detail sheet
+   Delete this whole block (id ouj-refine-js) to revert.
+   ================================================================== */
+(function () {
+  'use strict';
+  var RM = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* ---------- 1 · boot overlay failsafe -------------------------
+     body.booting hides the page until the loader script clears it.
+     If any script above throws, the visitor is left staring at the
+     splash forever. Hard release after 2.2s, and on first paint.  */
+  function unboot() {
+    document.body.classList.remove('booting');
+    var b = document.getElementById('boot');
+    if (b) { b.style.transition = 'opacity .4s'; b.style.opacity = '0';
+             setTimeout(function () { b.style.display = 'none'; }, 460); }
+  }
+  setTimeout(function () {
+    if (document.body.classList.contains('booting')) unboot();
+  }, 2200);
+  addEventListener('error', function () {
+    if (document.body.classList.contains('booting')) unboot();
+  });
+
+  /* ---------- 2 · scroll-activated hover states ------------------
+     Every reveal on this site was written as :hover only, so on a
+     phone nothing ever revealed. .is-live mirrors those states and
+     is driven by the viewport instead of the pointer.             */
+  var LIVE = '.card--tap,.pc,.prod,.lift,.phero-vis[data-oujtap],.tl-card,.phcard,.ct-card';
+  var io = null;
+  if ('IntersectionObserver' in window) {
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        e.target.classList.toggle('is-live', e.isIntersecting);
+      });
+    }, { rootMargin: '-22% 0px -22% 0px', threshold: 0 });
+  }
+  function watch(root) {
+    if (!io) return;
+    $$(LIVE, root).forEach(function (el) {
+      if (el.dataset.oujWatched) return;
+      el.dataset.oujWatched = '1';
+      io.observe(el);
+    });
+  }
+
+  /* ---------- 3 · detail sheet ---------------------------------- */
+  var sheet, lastFocus = null;
+  function buildSheet() {
+    if (sheet) return sheet;
+    sheet = document.createElement('div');
+    sheet.id = 'oujSheet';
+    sheet.setAttribute('role', 'dialog');
+    sheet.setAttribute('aria-modal', 'true');
+    sheet.setAttribute('aria-hidden', 'true');
+    sheet.innerHTML =
+      '<div class="ojm__bd" data-ojm-close></div>' +
+      '<div class="ojm__sh" role="document">' +
+        '<button class="ojm__x" data-ojm-close aria-label="Close">' +
+          '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+        '<div class="ojm__ph" id="ojmPh"></div>' +
+        '<div class="ojm__b">' +
+          '<div class="ojm__e" id="ojmE"></div>' +
+          '<h3 id="ojmH" tabindex="-1"></h3>' +
+          '<p class="ojm__p" id="ojmP"></p>' +
+          '<div class="ojm__m" id="ojmM"></div>' +
+          '<div class="ojm__c" id="ojmC"></div>' +
+          '<div class="ojm__f" id="ojmF"></div>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(sheet);
+    sheet.addEventListener('click', function (e) {
+      if (e.target.closest('[data-ojm-close]')) close();
+    });
+    return sheet;
+  }
+  function open(d) {
+    buildSheet();
+    lastFocus = document.activeElement;
+    var set = function (id, v) {
+      var n = document.getElementById(id);
+      n.textContent = v || '';
+      n.style.display = v ? '' : 'none';
+    };
+    var ph = document.getElementById('ojmPh');
+    ph.style.backgroundImage = d.photo ? 'url("' + d.photo + '")' : '';
+    ph.style.display = d.photo ? '' : 'none';
+    set('ojmE', d.eyebrow); set('ojmH', d.title);
+    set('ojmP', d.lead);    set('ojmM', d.meta);
+
+    var c = document.getElementById('ojmC');
+    c.innerHTML = '';
+    (d.chips || []).forEach(function (t) {
+      var s = document.createElement('span'); s.textContent = t; c.appendChild(s);
+    });
+    c.style.display = (d.chips || []).length ? '' : 'none';
+
+    var f = document.getElementById('ojmF');
+    f.innerHTML = '';
+    var wa = document.createElement('a');
+    wa.className = 'p'; wa.textContent = 'Ask on WhatsApp';
+    wa.target = '_blank'; wa.rel = 'noopener';
+    wa.href = 'https://wa.me/923002672558?text=' +
+      encodeURIComponent(d.wa || ('Assalam o Alaikum, I want to ask about ' + (d.title || 'your services') + '.'));
+    f.appendChild(wa);
+    var call = document.createElement('a');
+    call.className = 's'; call.textContent = 'Call 0300 2672558';
+    call.href = 'tel:03002672558';
+    f.appendChild(call);
+
+    sheet.classList.add('on');
+    sheet.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('ouj-lock');
+    requestAnimationFrame(function () { sheet.classList.add('in'); });
+    setTimeout(function () { document.getElementById('ojmH').focus(); }, RM ? 0 : 200);
+  }
+  function close() {
+    if (!sheet || !sheet.classList.contains('on')) return;
+    sheet.classList.remove('in');
+    sheet.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('ouj-lock');
+    setTimeout(function () { sheet.classList.remove('on'); }, RM ? 0 : 340);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close();
+    if (e.key !== 'Tab' || !sheet || !sheet.classList.contains('on')) return;
+    var f = $$('a[href],button:not([disabled])', sheet);
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  /* ---------- 4 · copy for the home-page photo tiles -------------
+     These four tiles were decorative: no link, no handler, and a
+     caption clipped to "PE & AFTER-SCHO…". They now carry the real
+     detail instead of trying to fit it on one line.               */
+  var TILE = {
+    'schools': {
+      eyebrow: 'Who we serve',
+      title: 'Schools',
+      lead: 'Certified coaches and PE teachers placed on your campus for timetabled physical education and after-school programs. We handle the session plans, the equipment and the term reporting, so PE runs to a standard instead of running on whoever is free that period.',
+      meta: 'Primary · Secondary · O and A Level',
+      chips: ['Term-based placement', 'On your campus', 'Session plans', 'Progress reports'],
+      wa: 'Assalam o Alaikum, I want to ask about coaching and PE teachers for our school.'
+    },
+    'female only': {
+      eyebrow: 'Who we serve',
+      title: 'Female-only sessions',
+      lead: 'Closed sessions with female coaches, in a private hall, with no mixed attendance. Self-defence, fitness and martial arts taught to the same syllabus as every other class. Widely requested by girls schools and by working women who want to train without an audience.',
+      meta: 'Girls schools · Colleges · Private groups',
+      chips: ['Female coaches', 'Private hall', 'Self-defence focus', 'Closed attendance'],
+      wa: 'Assalam o Alaikum, I want to ask about female-only sessions.'
+    },
+    'corporates': {
+      eyebrow: 'Who we serve',
+      title: 'Corporate fitness & wellness',
+      lead: 'Employee fitness, strength and conditioning, and wellness sessions run at your office or at our floor. Built around desk-bound teams — mobility, posture and general conditioning rather than gym theatre. Also covers corporate sports days and inter-department tournaments.',
+      meta: 'Offices · Banks · Corporate campuses',
+      chips: ['On-site or at ours', 'Employee wellness', 'Sports days', 'Flexible timing'],
+      wa: 'Assalam o Alaikum, I want to ask about corporate fitness and wellness sessions.'
+    },
+    'martial arts': {
+      eyebrow: 'The academy',
+      title: 'Martial arts & self defence',
+      lead: 'Taekwondo, boxing, kickboxing and MMA on one matted floor in Block 10, Federal B Area, taught since 2016 by coaches who have competed themselves. Ten graded belts white to black, tested by our own panel three times a year. First class is free and nobody is put into sparring on day one.',
+      meta: 'Block 10 · Federal B Area · Since 2016',
+      chips: ['Taekwondo', 'Boxing', 'Kickboxing', 'MMA', 'First class free'],
+      wa: 'Assalam o Alaikum, I want a free trial class at the academy.'
+    }
+  };
+
+  function enhanceTiles(root) {
+    $$('.phero-vis', root).forEach(function (t) {
+      if (t.dataset.oujtap || t.hasAttribute('data-modal')) return;
+
+      var cap = t.querySelector('.cap');
+      var img = t.querySelector('img');
+      if (!cap || !img) return;
+
+      var b = cap.querySelector('b');
+      var sp = cap.querySelector('span');
+      var name = (b && b.textContent || '').trim();
+      var sub = (sp && sp.textContent || '').trim();
+      var key = name.toLowerCase();
+      var data = TILE[key];
+
+      // decorative hero tiles with no detail to show are left alone
+      if (!data && !sub) return;
+
+      t.dataset.oujtap = '1';
+      t.setAttribute('role', 'button');
+      t.setAttribute('tabindex', '0');
+      t.setAttribute('aria-label', name + (sub ? ' — ' + sub : '') + '. Open details.');
+
+      var plus = document.createElement('span');
+      plus.className = 'ouj-plus';
+      plus.setAttribute('aria-hidden', 'true');
+      plus.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>';
+      t.appendChild(plus);
+
+      var payload = data || {
+        eyebrow: 'Markaz OUJ Performance',
+        title: name,
+        lead: sub,
+        meta: '',
+        chips: []
+      };
+      payload.photo = img.getAttribute('src') || '';
+
+      var fire = function (e) { e.preventDefault(); open(payload); };
+      t.addEventListener('click', fire);
+      t.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') fire(e);
+      });
+    });
+  }
+
+  /* ---------- 5 · keyboard access for existing modal cards ------- */
+  function enhanceExisting(root) {
+    $$('[data-modal]', root).forEach(function (c) {
+      if (c.dataset.oujKb) return;
+      c.dataset.oujKb = '1';
+      if (c.tagName === 'BUTTON' || c.tagName === 'A') return;
+      if (!c.hasAttribute('tabindex')) c.setAttribute('tabindex', '0');
+      if (!c.hasAttribute('role')) c.setAttribute('role', 'button');
+      c.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); }
+      });
+    });
+  }
+
+  /* ---------- 6 · run, and re-run for JS-injected content --------
+     martial-arts, about and wall-of-fame build their cards in
+     script after load, so a single pass on DOMContentLoaded misses
+     most of them.                                                 */
+  function pass(root) {
+    watch(root || document);
+    enhanceTiles(root || document);
+    enhanceExisting(root || document);
+  }
+  function start() {
+    pass(document);
+    [400, 1200, 2600].forEach(function (t) { setTimeout(function () { pass(document); }, t); });
+    if ('MutationObserver' in window) {
+      var mo = new MutationObserver(function (muts) {
+        var hit = false;
+        muts.forEach(function (m) {
+          Array.prototype.forEach.call(m.addedNodes, function (n) {
+            if (n.nodeType === 1) hit = true;
+          });
+        });
+        if (hit) { clearTimeout(start._t); start._t = setTimeout(function () { pass(document); }, 140); }
+      });
+      mo.observe(document.body, { childList: true, subtree: true });
+    }
+  }
+  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', start);
+  else start();
+
+  window.OUJSheet = { open: open, close: close };
 })();
 
 </script>
