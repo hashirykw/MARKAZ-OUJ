@@ -2961,13 +2961,6 @@ h1,h2,h3,.hero h1,.sh h2,.ph h2,.bt.feat h3,.qbox b{
 .card--tap,.pc,.prod,.lift{
   transition:transform .5s var(--r-ez),box-shadow .5s var(--r-ez),border-color .5s var(--r-ez);
 }
-/* on a real pointer, hover still wins instantly */
-@media (hover:hover) and (pointer:fine){
-  .card--tap.is-live:not(:hover),
-  .pc.is-live:not(:hover),
-  .prod.is-live:not(:hover){ box-shadow:0 12px 28px rgba(11,21,51,.09) }
-}
-
 /* ---------- 7 · DETAIL SHEET (dependency-free) ---------------- */
 #oujSheet{
   position:fixed;inset:0;z-index:1200;display:none;
@@ -3040,8 +3033,20 @@ html{ scroll-behavior:smooth }
 }
 img{ max-width:100% }
 a,button,[role=button]{ -webkit-tap-highlight-color:transparent }
+/* letter-spacing adds a trailing space after the last glyph, so
+   flex-centred label text sits left of true centre. Half the tracking
+   is given back as an indent. Display is left alone — changing it to
+   inline-flex without justify-content left-aligned .tabs and
+   .card__open on small screens. */
+.btn,.btn-r,.btn-k,.btn-o,.btn-b,.btn-sm,.tabs a,.card__open,.mkc-chip,.chip{
+  text-indent:.06em;
+}
+.btn{ justify-content:center;text-align:center;line-height:1 }
+.btn > svg{ flex:none;text-indent:0 }
+.hcta .btn{ justify-content:center }
 @media (max-width:575.98px){
-  .btn,.tabs a,.card__open{ min-height:44px;display:inline-flex;align-items:center }
+  .btn{ min-height:44px }
+  .tabs a,.card__open{ min-height:44px }
 }
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto }
@@ -3050,6 +3055,30 @@ a,button,[role=button]{ -webkit-tap-highlight-color:transparent }
   .lift.is-live,.phero-vis[data-oujtap].is-live{ transform:none !important }
 }
 
+
+/* ---------- 9 · SCROLL-ACTIVATED MIRRORS ----------
+   Generated from this page's own :hover rules — 19 of them.
+   Every card reveal now fires on scroll as well as on hover. */
+.card--tap.is-live{border-color:var(--ink);box-shadow:var(--s2)}
+.card--feature.card--tap.is-live{box-shadow:var(--s3)}
+.card--tap.is-live .card__ph img{transform:scale(1.04)}
+.card--tap.is-live .card__open{opacity:1;transform:none}
+.card--tap.is-live .card__open{background:var(--red);border-color:var(--red)}
+.card--tap.is-live .card__open svg{stroke:#fff}
+.row-i.is-live{background:var(--mist)}
+.row-i.card--tap.is-live{background:var(--mist)}
+.belt.card--tap.is-live{border-color:var(--ink);box-shadow:var(--s2);transform:translateY(-3px)}
+.belt.belt--black.card--tap.is-live{border-color:var(--red)}
+.card--tap.is-live::after{opacity:1}
+.card--feature.card--tap.is-live{box-shadow:var(--s3),0 0 0 1px rgba(11,21,51,.06)}
+.row-i.is-live::before{transform:scaleY(1)}
+.tl-item.is-live .tl-node{transform:scale(1.15);box-shadow:0 0 0 9px rgba(216,18,26,.14)}
+.tl-item.is-live .tl-node.b{box-shadow:0 0 0 9px rgba(18,64,200,.14)}
+.tl-card.is-live{border-color:var(--ink);box-shadow:var(--s3)}
+.tl-card.is-live .ph-bg{opacity:.44;filter:grayscale(0);transform:scale(1.07)}
+.dark .tl-card.is-live{border-color:rgba(255,255,255,.4)}
+.jrn__c.is-live{transform:translateY(-3px);border-color:rgba(11,21,51,.16);
+  box-shadow:0 22px 44px -26px rgba(11,21,51,.4);}
 </style>
 </head>
 <body data-page="about" class="booting">
@@ -3575,6 +3604,7 @@ a,button,[role=button]{ -webkit-tap-highlight-color:transparent }
 </script>
 
 <script id="ouj-refine-js">
+window.OUJ_LIVE='.belt,.card--feature,.card--tap,.jrn__c,.row-i,.tl-card,.tl-item,.phero-vis[data-oujtap],.lift,.pc,.prod';
 /* ==================================================================
    OUJ REFINEMENT LAYER · behaviour
    1. boot-overlay failsafe          3. tappable photo tiles
@@ -3607,14 +3637,17 @@ a,button,[role=button]{ -webkit-tap-highlight-color:transparent }
      Every reveal on this site was written as :hover only, so on a
      phone nothing ever revealed. .is-live mirrors those states and
      is driven by the viewport instead of the pointer.             */
-  var LIVE = '.card--tap,.pc,.prod,.lift,.phero-vis[data-oujtap],.tl-card,.phcard,.ct-card';
+  /* the selector list is generated per page from that page's own hover
+     rules, so nothing is missed. Falls back to the common set. */
+  var LIVE = window.OUJ_LIVE ||
+    '.card--tap,.pc,.prod,.lift,.phero-vis[data-oujtap],.tl-card,.phcard,.ct-card';
   var io = null;
   if ('IntersectionObserver' in window) {
     io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         e.target.classList.toggle('is-live', e.isIntersecting);
       });
-    }, { rootMargin: '-22% 0px -22% 0px', threshold: 0 });
+    }, { rootMargin: '-12% 0px -12% 0px', threshold: 0 });
   }
   function watch(root) {
     if (!io) return;
