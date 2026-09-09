@@ -6735,6 +6735,12 @@ body.chap-open{overflow:hidden}
 .lb:not(.on),.navbd:not(.on),.ov:not(.on){pointer-events:none}
 
 </style>
+<script id="ouj-guard">
+(function(){try{
+  if(!window.matchMedia){window.matchMedia=function(q){return{matches:false,media:q,addListener:function(){},removeListener:function(){},addEventListener:function(){},removeEventListener:function(){}};};}
+  if(typeof window.wa!=='function'){window.wa=function(t){return 'https://wa.me/923002672558?text='+encodeURIComponent(t||'');};}
+}catch(e){}})();
+</script>
 
 <style id="ouj-refine">
 /* ==================================================================
@@ -7599,8 +7605,26 @@ window.OUJ_LIVE='.belt,.card--feature,.card--tap,.jrn__c,.row-i,.tl-card,.tl-ite
    ================================================================== */
 (function () {
   'use strict';
-  var RM = matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  /* every host API is reached defensively: on this page a single
+     ReferenceError at the top of an IIFE takes the whole file with it,
+     which is how a small environment quirk turns into a blank feature
+     and an uncaught error in the console. */
+  var RM = false;
+  try {
+    RM = !!(window.matchMedia &&
+            window.matchMedia('(prefers-reduced-motion:reduce)').matches);
+  } catch (e) {}
+  function guard(label, fn) {
+    try { return fn(); }
+    catch (e) {
+      if (window.console && console.warn) console.warn('[ouj-refine] ' + label, e);
+      return null;
+    }
+  }
+  var $$ = function (s, r) {
+    try { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+    catch (e) { return []; }
+  };
 
   /* ---------- 1 · boot overlay failsafe -------------------------
      body.booting hides the page until the loader script clears it.
@@ -7615,8 +7639,27 @@ window.OUJ_LIVE='.belt,.card--feature,.card--tap,.jrn__c,.row-i,.tl-card,.tl-ite
   setTimeout(function () {
     if (document.body.classList.contains('booting')) unboot();
   }, 2200);
-  addEventListener('error', function () {
-    if (document.body.classList.contains('booting')) unboot();
+  /* Record uncaught errors so they can be read back after the fact.
+     Type OUJ_ERRORS in the console to list them. */
+  window.OUJ_ERRORS = [];
+  window.addEventListener('error', function (e) {
+    try {
+      window.OUJ_ERRORS.push({
+        message: e.message,
+        source: (e.filename || '').split('/').pop() + ':' + e.lineno + ':' + e.colno,
+        stack: e.error && e.error.stack ? String(e.error.stack).split('\n')[1] : ''
+      });
+      if (window.console && console.warn) {
+        console.warn('[ouj] uncaught #' + window.OUJ_ERRORS.length + ':', e.message,
+                     '@', e.lineno + ':' + e.colno);
+      }
+    } catch (x) {}
+    if (document.body && document.body.classList.contains('booting')) unboot();
+  });
+  window.addEventListener('unhandledrejection', function (e) {
+    try {
+      window.OUJ_ERRORS.push({ message: 'unhandled promise: ' + (e.reason && e.reason.message || e.reason) });
+    } catch (x) {}
   });
 
   /* ---------- 2 · scroll-activated hover states ------------------
@@ -7628,8 +7671,8 @@ window.OUJ_LIVE='.belt,.card--feature,.card--tap,.jrn__c,.row-i,.tl-card,.tl-ite
   var LIVE = window.OUJ_LIVE ||
     '.card--tap,.pc,.prod,.lift,.phero-vis[data-oujtap],.tl-card,.phcard,.ct-card';
   var io = null;
-  if ('IntersectionObserver' in window) {
-    io = new IntersectionObserver(function (entries) {
+  if (typeof window.IntersectionObserver === 'function') {
+    io = new window.IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         e.target.classList.toggle('is-live', e.isIntersecting);
       });
@@ -7675,7 +7718,7 @@ window.OUJ_LIVE='.belt,.card--feature,.card--tap,.jrn__c,.row-i,.tl-card,.tl-ite
     return sheet;
   }
   function open(d) {
-    buildSheet();
+    if (!buildSheet()) return;
     lastFocus = document.activeElement;
     var set = function (id, v) {
       var n = document.getElementById(id);
@@ -7722,7 +7765,7 @@ window.OUJ_LIVE='.belt,.card--feature,.card--tap,.jrn__c,.row-i,.tl-card,.tl-ite
     setTimeout(function () { sheet.classList.remove('on'); }, RM ? 0 : 340);
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
-  addEventListener('keydown', function (e) {
+  window.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') close();
     if (e.key !== 'Tab' || !sheet || !sheet.classList.contains('on')) return;
     var f = $$('a[href],button:not([disabled])', sheet);
@@ -7836,15 +7879,16 @@ window.OUJ_LIVE='.belt,.card--feature,.card--tap,.jrn__c,.row-i,.tl-card,.tl-ite
      script after load, so a single pass on DOMContentLoaded misses
      most of them.                                                 */
   function pass(root) {
-    watch(root || document);
-    enhanceTiles(root || document);
-    enhanceExisting(root || document);
+    var r = root || document;
+    guard('watch', function () { watch(r); });
+    guard('enhanceTiles', function () { enhanceTiles(r); });
+    guard('enhanceExisting', function () { enhanceExisting(r); });
   }
   function start() {
     pass(document);
     [400, 1200, 2600].forEach(function (t) { setTimeout(function () { pass(document); }, t); });
-    if ('MutationObserver' in window) {
-      var mo = new MutationObserver(function (muts) {
+    if (typeof window.MutationObserver === 'function') {
+      var mo = new window.MutationObserver(function (muts) {
         var hit = false;
         muts.forEach(function (m) {
           Array.prototype.forEach.call(m.addedNodes, function (n) {
@@ -7856,10 +7900,24 @@ window.OUJ_LIVE='.belt,.card--feature,.card--tap,.jrn__c,.row-i,.tl-card,.tl-ite
       mo.observe(document.body, { childList: true, subtree: true });
     }
   }
-  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', start);
-  else start();
+  function boot() { guard('start', start); }
+  if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', boot);
+  else boot();
 
   window.OUJSheet = { open: open, close: close };
+
+  /* type OUJ_DIAG() in the console to see what this layer wired up */
+  window.OUJ_DIAG = function () {
+    return {
+      liveSelector : LIVE,
+      cardsWatched : $$('[data-ouj-watched]').length || $$(LIVE).length,
+      tilesWired   : $$('[data-oujtap]').length,
+      modalCards   : $$('[data-modal]').length,
+      sheetBuilt   : !!document.getElementById('oujSheet'),
+      reducedMotion: RM,
+      stillBooting : document.body.classList.contains('booting')
+    };
+  };
 })();
 
 </script>
