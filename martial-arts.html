@@ -6409,6 +6409,175 @@ header#hdr .dock__cta{max-width:none}
   header#hdr .dock{--u-ctrl:36px;--u-dock-pad-r:12px;column-gap:8px}
 }
 
+/* ==================================================================
+   MOBILE NAVBAR — the brand column could not shrink, so the control
+   cluster (justified to the end of an overflowing grid) landed on
+   top of the wordmark. Brand now shrinks and truncates; the search
+   button folds into the menu below 640px.
+   ================================================================== */
+@media (max-width:900px){
+  header#hdr .dock{
+    grid-template-columns:minmax(0,auto) minmax(0,1fr) auto;
+    column-gap:10px;
+  }
+  header#hdr .dbrand{min-width:0;overflow:hidden}
+  header#hdr .dbrand__txt{min-width:0}
+  header#hdr .dbrand__txt .dbt{
+    font-size:16px;letter-spacing:.06em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  header#hdr .dbrand__txt .dbs{
+    font-size:8.5px;letter-spacing:.2em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  header#hdr .nav-r{grid-column:3;gap:7px}
+}
+@media (max-width:640px){
+  /* search lives in the menu panel at this size */
+  header#hdr .srchb{display:none !important}
+  header#hdr .dock{--u-ctrl:36px;--u-dock-pad-r:12px;column-gap:8px}
+  header#hdr .dbrand .plate{width:36px;height:36px;border-radius:10px}
+  header#hdr .dbrand .plate img{width:26px;height:26px}
+  header#hdr .dbrand__txt .dbt{font-size:15px}
+  header#hdr .dock__cta{padding:0 13px;font-size:11px;letter-spacing:.08em}
+}
+@media (max-width:400px){
+  header#hdr .dbrand__txt .dbs{display:none}
+  header#hdr .dock__cta{padding:0 11px;font-size:10.5px}
+}
+
+/* ==================================================================
+   HORIZONTAL RAILS — mandatory snap made these feel locked. Proximity
+   snapping lets them scroll freely and still settle sensibly, with
+   momentum and end padding so the last card is never half-cut.
+   ================================================================== */
+.sq,.deck,.dstrip,.fbar,.mkc-chips,.chips{
+  scroll-snap-type:x proximity !important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+  scroll-padding-left:20px;
+}
+.sq > *,.deck > *,.dstrip > *,.fbar > *{scroll-snap-align:start}
+/* the last card gets room to clear the right edge */
+.sq::after,.deck::after{content:'';flex:0 0 12px}
+@media (max-width:760px){
+  .sq,.deck{
+    padding-left:20px;padding-right:20px;
+    margin-inline:-20px;
+    scroll-padding-left:20px;
+  }
+  .sq > *,.deck > *{flex:0 0 min(80vw,320px)}
+}
+
+/* ==================================================================
+   TOAST — this had no CSS anywhere in the file, so it rendered as a
+   bare div and its checkmark SVG fell back to 300x150 with a solid
+   fill, painting a large black triangle over the page.
+   ================================================================== */
+#toast{
+  position:fixed;left:50%;bottom:22px;transform:translate(-50%,14px);
+  z-index:400;display:flex;align-items:center;gap:10px;
+  max-width:calc(100vw - 32px);padding:12px 18px;
+  border-radius:100px;background:var(--u-ink);color:#fff;
+  font-family:var(--hd,inherit);font-weight:600;font-size:13.5px;
+  box-shadow:0 18px 40px -16px rgba(11,21,51,.7);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .28s var(--u-ez),transform .28s var(--u-ez),visibility .28s;
+}
+#toast.on{opacity:1;visibility:visible;transform:translate(-50%,0)}
+#toast svg{
+  width:17px;height:17px;flex:none;
+  fill:none !important;stroke:var(--red-lt,#FF4D57);
+  stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;
+}
+#toast span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ==================================================================
+   CART SHEET — header, body and footer had no horizontal padding on
+   small screens, so the totals sat flush against both edges.
+   ================================================================== */
+.pane__h,.pane__b,.pane__f{padding-left:20px;padding-right:20px}
+.pane__f{padding-top:16px;padding-bottom:20px}
+.sumline{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:14px;padding:7px 0;
+}
+.sumline b{text-align:right;white-space:nowrap}
+@media (max-width:420px){
+  .pane__h,.pane__b,.pane__f{padding-left:16px;padding-right:16px}
+}
+
+/* ==================================================================
+   BENTO PILLS — nowrap plus a fixed height truncated the subtitles on
+   narrow screens. Below 620px they stack instead of clipping.
+   ================================================================== */
+@media (max-width:620px){
+  .phero-vis .cap{
+    display:block;white-space:normal;min-height:0;
+    padding:10px 14px;
+  }
+  .phero-vis .cap b{display:block;white-space:normal}
+  .phero-vis .cap span{
+    display:block;white-space:normal;overflow:visible;
+    text-overflow:clip;margin-top:2px;
+  }
+}
+
+/* ---------- mobile breathing room + type ---------- */
+@media (max-width:640px){
+  .jrn__c{padding:22px 20px}
+  .jrn__c p{font-size:15px;line-height:1.72}
+  .jrn__q{padding:18px 18px 18px 20px;margin:18px 0}
+  .jrn__q p{font-size:15.5px;line-height:1.55}
+  .board > div{padding:18px 16px 20px;min-height:126px}
+  .board b{font-size:clamp(26px,8vw,38px)}
+  .board span:not(.board__k){font-size:12.5px}
+  .board .board__k{font-size:11.5px;margin-bottom:8px}
+}
+
+/* ---------- phone: hard guarantees on the dock ---------- */
+@media (max-width:640px){
+  /* the sound toggle joins search in the menu; the cart stays,
+     because it is the store's primary commerce control */
+  header#hdr .sndb{display:none !important}
+  header#hdr .dbrand{flex:0 1 auto;min-width:0}
+  header#hdr .dbrand__txt{flex:1 1 auto;min-width:0;overflow:hidden}
+  header#hdr .dbrand__txt .dbt,
+  header#hdr .dbrand__txt .dbs{min-width:0;max-width:100%}
+  header#hdr .dock__cta{
+    max-width:112px;overflow:hidden;text-overflow:ellipsis;
+    display:inline-block;line-height:var(--u-ctrl);text-align:center;
+  }
+}
+@media (max-width:400px){
+  header#hdr .dock__cta{max-width:96px;padding:0 10px}
+  header#hdr .dbrand .plate{width:34px;height:34px}
+  header#hdr .dbrand .plate img{width:24px;height:24px}
+}
+
+/* ---------- phone dock: two real tracks ----------
+   An `auto` brand track still resolved to max-content and pushed the
+   controls over it. Below 900px the bar is simply
+   [flexible brand | controls], so the wordmark is what gives way. */
+@media (max-width:900px){
+  header#hdr .dock{grid-template-columns:minmax(0,1fr) auto !important}
+  header#hdr .tabs{display:none !important}
+  header#hdr .nav-r{grid-column:2 !important}
+  header#hdr .dbrand{grid-column:1;max-width:100%}
+}
+
+/* ---------- ≤480px: badge only, full CTA label ----------
+   Truncating both the wordmark and the button read as broken. The
+   badge still links home, and dropping the lockup buys back enough
+   width for the CTA to say what it actually does. */
+@media (max-width:480px){
+  header#hdr .dbrand__txt{display:none}
+  header#hdr .dbrand{flex:0 0 auto}
+  header#hdr .dock{grid-template-columns:auto 1fr !important}
+  header#hdr .nav-r{justify-self:end}
+  header#hdr .dock__cta{max-width:none;padding:0 16px;font-size:11.5px}
+}
+
 </style>
 </head>
 <body data-page="academy" class="booting">
