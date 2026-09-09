@@ -17,10 +17,10 @@
 <meta name="twitter:title" content="Wall of Fame | Champions, Medals and Gallery, Markaz OUJ Performance">
 <meta name="twitter:description" content="The competition record of Markaz OUJ Performance, Karachi: medals from the Sindh Games, national and inter-club championships, the full honours roll, and a gallery of training, gradings, camps and tournament days.">
 <meta name="twitter:image" content="icons/og-cover.jpg">
-<link rel="icon" href="icons/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="icons/favicon-180.png">
+<link rel="icon" href="markaz.png" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="markaz.png">
+<link rel="icon" type="image/png" sizes="16x16" href="markaz.png">
+<link rel="apple-touch-icon" sizes="180x180" href="markaz.png">
 <link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1975,6 +1975,8 @@ window.Markaz.ready(function () {
   --u-line:rgba(11,21,51,.10);
   --u-ez:cubic-bezier(.22,.92,.28,1);
   --u-dock-h:64px;
+  --u-dock-pad-r:16px;   /* clears the capsule corner radius */
+  --u-ctrl:40px;
 }
 
 /* ---------- the floating capsule ---------- */
@@ -1993,8 +1995,12 @@ header#hdr .dock{
   pointer-events:auto;
   position:relative;margin:0 auto;
   width:min(1240px,calc(100% - 34px));height:var(--u-dock-h);
-  display:flex;align-items:center;gap:14px;
-  padding:0 10px 0 12px;
+  /* deterministic zones: brand | rule | tabs | controls.
+     A flex row with two competing auto margins let the right cluster
+     drift into the capsule's corner curve. */
+  display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;
+  align-items:center;column-gap:14px;
+  padding:0 var(--u-dock-pad-r) 0 12px;
   border-radius:100px;
   background-image:linear-gradient(150deg,rgba(255,255,255,.88) 0%,rgba(237,242,254,.66) 52%,rgba(255,255,255,.82) 100%);
   backdrop-filter:blur(min(28px,var(--bmax,28px))) saturate(1.5);
@@ -2058,8 +2064,8 @@ header#hdr .dock__rule{
 
 /* ---------- tabs: condensed caps, active = solid navy pill ---------- */
 header#hdr .tabs{
-  position:relative;display:flex;align-items:center;
-  gap:2px;margin:0 auto;padding:0;min-width:0;
+  position:relative;display:flex;align-items:center;justify-content:center;
+  gap:2px;margin:0;padding:0;min-width:0;grid-column:3;
 }
 header#hdr .tabs a{
   position:relative;z-index:1;display:inline-flex;align-items:center;
@@ -2079,11 +2085,14 @@ header#hdr .tabs a.on{
 }
 
 /* ---------- right cluster: circle, CTA, circle ---------- */
-header#hdr .nav-r{display:flex;align-items:center;gap:9px;flex:none;margin-left:auto}
+header#hdr .nav-r{
+  display:flex;align-items:center;gap:8px;
+  grid-column:4;justify-self:end;margin-left:0;min-width:0;
+}
 header#hdr .sndb,
 header#hdr .mbtn{
   display:grid;place-items:center;flex:none;
-  width:40px;height:40px;padding:0;border-radius:50%;
+  width:var(--u-ctrl);height:var(--u-ctrl);padding:0;border-radius:50%;
   background:rgba(255,255,255,.62);
   border:1px solid var(--u-line);
   box-shadow:none;cursor:pointer;
@@ -2104,7 +2113,7 @@ body.menu header#hdr .mbtn i:nth-child(3){transform:translateY(-5.8px) rotate(-4
 /* navy CTA with the red-tinted rim from the reference */
 header#hdr .dock__cta{
   display:inline-flex;align-items:center;justify-content:center;flex:none;
-  height:40px;padding:0 19px;border-radius:100px;
+  height:var(--u-ctrl);padding:0 19px;border-radius:100px;
   background:var(--u-ink) !important;color:#fff !important;
   border:1px solid rgba(216,18,26,.55) !important;
   font-family:var(--f-cond,var(--hd,inherit));
@@ -2370,7 +2379,7 @@ header#hdr .dock__cta:hover{
 header#hdr .iconb,
 header#hdr .cartb{
   position:relative;display:grid;place-items:center;flex:none;
-  width:40px;height:40px;padding:0;border-radius:50%;
+  width:var(--u-ctrl);height:var(--u-ctrl);padding:0;border-radius:50%;
   background:rgba(255,255,255,.62);
   border:1px solid var(--u-line);box-shadow:none;cursor:pointer;
   transition:background .28s var(--u-ez),border-color .28s var(--u-ez);
@@ -2388,6 +2397,30 @@ header#hdr .cartb__n{
   background:var(--u-red);color:#fff;
   font-family:var(--hd,inherit);font-weight:700;font-size:10.5px;line-height:1;
   border:2px solid #fff;
+}
+
+
+/* ---------- capsule fit: controls stay inside the corner curve ----------
+   The pill's radius is half its height, so near the top and bottom of the
+   bar the edge has already curved inwards. Right padding and control
+   height are tied to that, and the compact scroll state shrinks both. */
+header#hdr.sc .dock{--u-ctrl:36px;--u-dock-pad-r:14px}
+header#hdr .nav-r > *{flex:none}
+header#hdr .dock__cta{max-width:none}
+
+@media (max-width:1080px){
+  header#hdr .dock{--u-ctrl:38px;--u-dock-pad-r:14px;column-gap:10px}
+}
+@media (max-width:900px){
+  header#hdr .dock{
+    grid-template-columns:auto minmax(0,1fr) auto;
+    --u-ctrl:38px;
+  }
+  header#hdr .nav-r{grid-column:3}
+  header#hdr .dock__cta{padding:0 15px}
+}
+@media (max-width:560px){
+  header#hdr .dock{--u-ctrl:36px;--u-dock-pad-r:12px;column-gap:8px}
 }
 
 </style>
