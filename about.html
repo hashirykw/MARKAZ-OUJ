@@ -200,6 +200,7 @@
         placeholderTimes: false,
         area: 'Bahadurabad',
         id: 'ribat',
+        profile: 'Taekwondo at Ribat The Campus in Bahadurabad since June 2022, with separate boards for female and male students. Sir Asad Raza and Ms Areeba Hafeez take the classes, and the admission package covers registration and the uniform.',
         trial: { offered: true, label: 'Book a trial class', routeTo: 'branch' },
         name: 'Ribat Taekwondo Academy',
         tagline: '',
@@ -266,6 +267,7 @@
         placeholderTimes: true,
         area: 'Gulshan-e-Iqbal',
         id: 'unity',
+        profile: 'Taekwondo at the Harmain Residency Club House in Gulshan-e-Iqbal, run by Sir Asad Sheikh under the same supervision as every other campus.',
         trial: { offered: true, label: 'Book a free class', routeTo: 'branch' },
         name: 'Unity Taekwondo Academy',
         tagline: 'Training With Dignity',
@@ -307,6 +309,7 @@
       {
         placeholderTimes: false,   /* timings confirmed by the club */
         id: 'saad-bin-abi-waqas',
+        profile: 'An outdoor club at Saad bin Abi Waqas Park, opposite Aladdin Park, taught by Sir Usman and Ms Malaika. Girls train from age 3 to 15 and boys from 3 to 18.',
         trial: { offered: true, label: 'Book a free class', routeTo: 'branch' },
         name: 'Saad bin Abi Waqas Taekwondo Club',
         tagline: '',
@@ -354,6 +357,7 @@
         placeholderTimes: false,
         area: 'Bangalore Town',
         id: 'avicenna',
+        profile: 'On the school ground at The Avicenna School in Bangalore Town, twice a week: a girls-only hour first, then a co-ed hour, so families can send everyone on the same evening.',
         trial: { offered: true, label: 'Book a trial class', routeTo: 'branch' },
         name: 'Avicenna Taekwondo Dojang',
         tagline: 'At The Avicenna School',
@@ -387,6 +391,7 @@
       {
         area: 'Federal B Area',
         id: 'markaz-khel-o-saqafat',
+        profile: 'The main floor, and the one every other campus reports back to. Running since 2014 under Sir Abdul Samad Khan, with the female-only programme taught by Ms Areeba Hafeez.',
         name: 'Markaz Khel o Saqafat',
         tagline: 'The main campus',
         featured: true,
@@ -2712,13 +2717,13 @@ window.Markaz.ready(function () {
       body: 'Camps run through the holidays with a coach-to-child ratio that actually lets ' +
             'coaching happen. Half-day and full-day formats, on your premises or ours.',
       list: ['Half day and full day formats', 'Ratio capped so coaching is possible',
-             'On your premises or at Block 10', 'Daily report to parents'] },
+             'On your premises or at our campus', 'Daily report to parents'] },
     { i: 'heart', n: 'Fitness training', img: u(P.e, 1200, 520),
       s: 'Strength, conditioning and wellness programmes for corporate teams.',
       body: 'Employee fitness that people actually attend, because it is scheduled around the ' +
             'working day rather than against it. On your premises or ours.',
       list: ['Corporate wellness days', 'Ongoing weekly staff sessions',
-             'Baseline assessment at the start', 'On your premises or at Block 10'] },
+             'Baseline assessment at the start', 'On your premises or at our campus'] },
     { i: 'fist', n: 'Martial arts and self defense', img: u(P.i, 1200, 520),
       s: 'Taekwondo instruction and practical self defense for students and staff.',
       body: 'The academy programme, delivered at your site. Full Taekwondo with the grading ' +
@@ -2746,7 +2751,7 @@ window.Markaz.ready(function () {
              'Fitness and conditioning for squads', 'Event officials and medical cover arranged'] },
     { n: 'Corporates', s: 'Wellness days, self defense and staff fitness', img: u(P.e, 600, 750),
       body: 'Employee fitness that people actually attend, because it is scheduled around the ' +
-            'working day rather than against it. On your premises or at Block 10.',
+            'working day rather than against it. On your premises or at our campus.',
       list: ['Corporate wellness days', 'Weekly staff fitness sessions',
              'Self defense courses, women-only cohorts available',
              'Inter-department leagues and team building'] }
@@ -2754,12 +2759,12 @@ window.Markaz.ready(function () {
 
   var STORY = [
     { y: '2016', k: 'Academy', img: u(P.i, 900, 600),
-      h: 'The first squad', p: 'Markaz Martial Arts Academy opens in Block 10 and enters a ' +
+      h: 'The first squad', p: 'Markaz Martial Arts Academy opens at Markaz Khel o Saqafat and enters a ' +
         'competition squad the same year.',
       body: 'A hall, a set of mats and a Taekwondo class three evenings a week. The squad was ' +
             'entered into its first competition before the end of the year, which set the ' +
             'expectation everything since has been built on.',
-      list: ['Block 10, Federal B Area', 'Taekwondo only, three evenings a week',
+      list: ['Federal B Area', 'Taekwondo only, three evenings a week',
              'First competition squad entered'] },
     { y: '2018', k: 'Coaching', img: u(P.d, 900, 600),
       h: 'Schools start calling', p: 'Weekend classes turn into placed coaches when two Karachi ' +
@@ -2800,7 +2805,7 @@ window.Markaz.ready(function () {
 
   var TEAM = [
     { n: 'Abdul Samad Khan', r: 'Chairman', img: u(P.b, 600, 600, 'faces'),
-      s: 'Founded the academy in Block 10 and still takes the Saturday senior session.',
+      s: 'Founded the academy and still takes the Saturday senior session.',
       list: ['Runs the grading panel', 'Teaches Saturday seniors', 'At Markaz since 2016'] },
     { n: 'Imran Qureshi', r: 'Head coach, Taekwondo', img: u(P.f, 600, 600, 'faces'),
       s: 'Black belt IV Dan and a national referee. Selects the competition squad.',
@@ -2838,7 +2843,7 @@ window.Markaz.ready(function () {
              'Markaz Martial Arts Academy and the OUJ Store sit under it'] },
     { n: 'Markaz Martial Arts Academy', role: 'The academy',
       logo: 'markaz.png', href: 'martial-arts.html',
-      s: 'The teaching floor in Block 10. Taekwondo, boxing, kickboxing and MMA, plus the ' +
+      s: 'The teaching floor at the main campus. Taekwondo, boxing, kickboxing and MMA, plus the ' +
          'competition squad.',
       body: 'The academy is where Markaz started, in 2016, and it is still the part of the ' +
             'group most people meet first. Four disciplines on one matted floor, a ten-grade ' +
@@ -2942,7 +2947,7 @@ window.Markaz.ready(function () {
             'Performance and still teaches the Saturday senior session at the academy. The ' +
             'organisation is built around his conviction that a sports culture has to be grown ' +
             'from the grassroots up rather than bought in at the top.',
-      list: ['Chairs Markaz OUJ Performance', 'Founded the academy in Block 10 in 2016',
+      list: ['Chairs Markaz OUJ Performance', 'Founded the academy in 2016',
              'Runs the Taekwondo grading panel', 'Teaches the Saturday senior session'],
       cta: ['Work with us', '#contact']
     };
@@ -2968,7 +2973,7 @@ window.Markaz.ready(function () {
 {"@context":"https://schema.org","@type":"SportsActivityLocation","name":"Markaz OUJ Performance","sameAs":["https://www.instagram.com/markazmartialartsacademy/","https://www.facebook.com/mmamarkaz"],
 "slogan":"Building Champions, On and Off the Field","url":"https://markaz-ouj.com/about.html",
 "telephone":"+92-300-267-2558",
-"address":{"@type":"PostalAddress","streetAddress":"Markaz Khel o Saqafat, Block 10, Federal B Area","addressLocality":"Gulberg Town, Karachi","addressRegion":"Sindh","addressCountry":"PK"},
+"address":{"@type":"PostalAddress","streetAddress":"Markaz Khel o Saqafat, Ziauddin Road, Federal B Area","addressLocality":"Gulberg Town, Karachi","addressRegion":"Sindh","addressCountry":"PK"},
 "areaServed":{"@type":"City","name":"Karachi"},
 "employee":{"@type":"Person","name":"Abdul Samad Khan","jobTitle":"Chairman"},
 "openingHours":"Mo-Su 09:00-22:00"}
@@ -4977,11 +4982,11 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
         free.</p>
     </div>
     <div class="fac">
-      <div class="fac__ph"><img src="" alt="The Markaz training hall in Block 10, Federal B Area"
+      <div class="fac__ph"><img src="" alt="The Markaz training hall in Federal B Area"
         id="facImg" loading="lazy" decoding="async"></div>
       <div class="fac__b">
         <h3>Markaz Khel o Saqafat</h3>
-        <p>Block 10, Federal B Area, Gulberg Town, Karachi. Matted training hall, equipment store,
+        <p>Ziauddin Road, Federal B Area, Gulberg Town, Karachi. Matted training hall, equipment store,
           and the room where the competition squad trains four nights a week.</p>
         <div class="facts">
           <div><em>Phone</em><b>0300 267 2558</b></div>
@@ -4989,7 +4994,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
         </div>
         <div class="hero-act">
           <a class="btn btn-r" href="https://wa.me/923002672558?text=Assalam%20o%20Alaikum%2C%20I%20would%20like%20to%20discuss%20a%20sports%20programme.">WhatsApp us</a>
-          <a class="btn btn-o" href="https://www.google.com/maps/search/?api=1&amp;query=Markaz+Khel+o+Saqafat+Block+10+Federal+B+Area+Karachi">Open in Maps</a>
+          <a class="btn btn-o" href="https://maps.app.goo.gl/qaZARLHkjZftQ1Mf9">Open in Maps</a>
         </div>
       </div>
     </div>
@@ -5031,7 +5036,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
         <h5>Reach us</h5>
         <a href="tel:03002672558">0300 267 2558</a>
         <a href="https://wa.me/923002672558" target="_blank" rel="noopener">WhatsApp the desk</a>
-        <a href="https://maps.app.goo.gl/qaZARLHkjZftQ1Mf9" target="_blank" rel="noopener">Markaz e Khail o Saqafat<small>Ziauddin Road, Block 10, Federal B Area</small></a>
+        <a href="https://maps.app.goo.gl/qaZARLHkjZftQ1Mf9" target="_blank" rel="noopener">Markaz e Khail o Saqafat<small>Ziauddin Road, Federal B Area</small></a>
         <a href="https://www.instagram.com/markazmartialartsacademy/" target="_blank" rel="noopener">Instagram<small>@markazmartialartsacademy</small></a>
         <a href="https://www.facebook.com/mmamarkaz" target="_blank" rel="noopener">Facebook<small>facebook.com/mmamarkaz</small></a>
       </div>
@@ -5415,8 +5420,8 @@ window.OUJ_LIVE='.belt,.card--feature,.card--tap,.jrn__c,.row-i,.tl-card,.tl-ite
     'martial arts': {
       eyebrow: 'The academy',
       title: 'Martial arts & self defence',
-      lead: 'Taekwondo, boxing, kickboxing and MMA on one matted floor in Block 10, Federal B Area, taught since 2016 by coaches who have competed themselves. Ten graded belts white to black, tested by our own panel three times a year. First class is free and nobody is put into sparring on day one.',
-      meta: 'Block 10 · Federal B Area · Since 2016',
+      lead: 'Taekwondo, boxing, kickboxing and MMA on one matted floor in Federal B Area, taught since 2016 by coaches who have competed themselves. Ten graded belts white to black, tested by our own panel three times a year. First class is free and nobody is put into sparring on day one.',
+      meta: 'Federal B Area · Since 2016',
       chips: ['Taekwondo', 'Boxing', 'Kickboxing', 'MMA', 'First class free'],
       wa: 'Assalam o Alaikum, I want a free trial class at the academy.'
     }
@@ -5931,7 +5936,7 @@ img{height:auto}
       '<span><em>' + esc(label) + '</em><b>' + esc(value) + '</b></span></li>';
   }
 
-  function branchCard(b) {
+  function branchCard(b, full) {
     var med = MK.medals(b.id);
     var photos = MK.branchPhotos(b);
     var cover = photos[0] || (b.posters || [])[0];
@@ -5955,6 +5960,21 @@ img{height:auto}
     card.setAttribute('aria-haspopup', 'dialog');
     card.setAttribute('aria-label', b.name + ' — timetable, trainers, fees and directions');
 
+    /* the academy page shows the full club profile; the home page keeps
+       the short version */
+    var med2 = full && med.total ? '<li class="mkui-fact"><svg viewBox="0 0 24 24" aria-hidden="true">' +
+      '<circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 22l5-2.5L17 22l-1.5-8.5"/></svg>' +
+      '<span><em>Record</em><b>' + med.total + ' medals across ' + med.events + ' championships</b></span></li>' : '';
+    var fee2 = full && b.fee && b.fee.line ? '<li class="mkui-fact"><svg viewBox="0 0 24 24" aria-hidden="true">' +
+      '<rect x="3" y="6" width="18" height="12" rx="2.4"/><circle cx="12" cy="12" r="2.6"/></svg>' +
+      '<span><em>Fee</em><b>' + esc(b.fee.line) + '</b></span></li>' : '';
+    var more = full && (b.classes || []).length > 1
+      ? '<li class="mkui-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.4"/>' +
+        '<path d="M8 3v4M16 3v4M3 10h18"/></svg><span><em>Batches</em><b>' +
+        b.classes.filter(function (k) { return k.time && k.time !== '\u2014'; })
+          .map(function (k) { return (k.label ? k.label + ': ' : '') + k.days + ', ' + k.time; }).join(' · ') +
+        '</b></span></li>' : '';
+
     card.innerHTML =
       '<span class="mkui-camp__in">' +
         '<span class="mkui-camp__media' + (cover ? '' : ' mkui-camp__media--empty') + '">' +
@@ -5977,11 +5997,13 @@ img{height:auto}
               (sub ? '<span class="mkui-card__tag">' + esc(sub) + '</span>' : '') +
             '</span>' +
           '</span>' +
+          (full && b.profile ? '<p class="mkui-camp__about">' + esc(b.profile) + '</p>' : '') +
           '<ul class="mkui-camp__facts">' +
             fact('clock', 'Class times', when[0], when[1]) +
             fact('pin', 'Where', where[0], where[1]) +
             fact('age', 'Ages', ages[0], ages[1]) +
             fact('user', 'Trainers', coach[0], coach[1]) +
+            more + med2 + fee2 +
           '</ul>' +
           '<span class="mkui-camp__foot">' +
             '<span class="mkui-card__more">Timetable, fees and photos ' + ICON.arrow + '</span>' +
@@ -6424,17 +6446,18 @@ img{height:auto}
   function mountBranches() {
     $$('[data-mk-branches]').forEach(function (host) {
       var list = MK.branches();
+      var full = host.getAttribute('data-mk-branches') === 'full';
       host.className = ('mkui ' + (host.className || '').replace(/\bmkui\b/g, '')).trim();
       host.innerHTML = '';
       var mains = list.filter(function (b) { return b.isMainCampus || b.featured; });
       var rest = list.filter(function (b) { return !(b.isMainCampus || b.featured); });
       if (mains.length) {
         var top = el('div', 'mkui-campgrid mkui-campgrid--main');
-        mains.forEach(function (b) { top.appendChild(branchCard(b)); });
+        mains.forEach(function (b) { top.appendChild(branchCard(b, full)); });
         host.appendChild(top);
       }
       var g = el('div', 'mkui-campgrid');
-      rest.forEach(function (b) { g.appendChild(branchCard(b)); });
+      rest.forEach(function (b) { g.appendChild(branchCard(b, full)); });
       host.appendChild(g);
       watchBalance(g, 300, 3);
       markReady(host);
@@ -7552,6 +7575,10 @@ body section h2,body .mkui-h2{letter-spacing:-.024em!important;font-weight:800!i
   .ordmini{margin-bottom:14px;gap:6px}
   .ghostn{display:none}
 }
+/* the academy page carries a short profile on every club card */
+.mkui-camp__about{margin:0 0 14px;font:400 13.5px/1.6 var(--pk-bd);color:#48546F}
+.mkui-camp--main .mkui-camp__about{color:rgba(255,255,255,.78)}
+@container (min-width:620px){.mkui-camp__about{font-size:14.5px}}
 </style>
 <script id="markaz-polish-js" data-inlined="assets/markaz-polish.js">
 /* ==================================================================
