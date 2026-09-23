@@ -1,0 +1,1548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Control Panel — Markaz OUJ Performance</title>
+<link rel="icon" href="ouj.png" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Inter+Tight:wght@400..700&display=swap">
+<script data-inlined="assets/markaz-content.js">
+/* ==================================================================
+   MARKAZ OUJ — CONTENT LAYER
+   One source of truth for every number the owner is likely to change.
+
+   Before this existed, fees and timings were typed out by hand in at
+   least four places and had already drifted apart:
+     · martial-arts.html  Rs 4,500 / Rs 6,500, "no admission fee"
+     · index.html chat    Rs 2,500 / Rs 3,000, "admission Rs 1,000"
+     · index.html strip   "plus Rs 1,000 one-time admission"
+     · martial-arts       Taekwondo Mon/Wed/Fri
+     · index.html chat    Taekwondo Tue/Thu/Sat
+   Every page now reads from here instead, so there is exactly one
+   place to edit and nothing can drift again.
+
+   Load order: this file must come BEFORE any page script that reads
+   MARKAZ.*, so it sits high in <head> with no defer.
+
+   Storage, in priority order:
+     1. Supabase row  (set SUPABASE below — survives across devices)
+     2. localStorage  (works with zero setup, this browser only)
+     3. DEFAULTS      (shipped in this file)
+   ================================================================== */
+(function (root) {
+  'use strict';
+
+  var LS_KEY = 'markaz.content.v1';
+
+  /* ---------------------------------------------------------------
+     SUPABASE — fill these three in to make edits stick across devices.
+     Leave url blank and the whole thing runs on localStorage instead,
+     which is enough to demo the panel to the owner today.
+
+     Table expected:
+       create table site_content (
+         id text primary key,
+         content jsonb not null,
+         updated_at timestamptz default now()
+       );
+       -- anyone may read the live row
+       alter table site_content enable row level security;
+       create policy "public read" on site_content
+         for select using (true);
+       -- only signed-in users may write it
+       create policy "authed write" on site_content
+         for all using (auth.role() = 'authenticated')
+         with check (auth.role() = 'authenticated');
+     --------------------------------------------------------------- */
+  var SUPABASE = {
+    url: '',            // e.g. https://xxxxxxxx.supabase.co
+    anonKey: '',        // the public anon key, safe in client code
+    table: 'site_content',
+    row: 'live'
+  };
+
+  /* ---------------------------------------------------------------
+     DEFAULTS
+     Taken from martial-arts.html, which carried the fuller and more
+     recent set. HASHIR: confirm all of this with the owner before the
+     site goes live — the old index.html figures disagreed with it.
+     --------------------------------------------------------------- */
+  var DEFAULTS = {
+    contact: {
+      phoneDisplay: '0300 267 2558',
+      phoneDial: '03002672558',
+      whatsapp: '923002672558',
+      addressLine: 'Markaz e Khail o Saqafat, Ziauddin Road, Federal B Area, Block 10, Gulberg Town, Karachi',
+      mapsUrl: 'https://maps.app.goo.gl/qaZARLHkjZftQ1Mf9',
+      openingNote: 'Counter open during evening batches.',
+      /* Official Markaz Martial Arts Academy social accounts. Every icon,
+         footer and menu on the site reads these two links. */
+      social: {
+        instagram: 'https://www.instagram.com/markazmartialartsacademy/',
+        instagramHandle: '@markazmartialartsacademy',
+        facebook: 'https://www.facebook.com/mmamarkaz',
+        facebookHandle: 'Markaz Martial Arts Academy'
+      }
+    },
+
+    announcement: {
+      on: false,
+      text: '',
+      linkLabel: '',
+      linkUrl: ''
+    },
+
+    fees: {
+      admissionNote: 'No admission fee, no annual charge, no minimum term.',
+      siblingNote: 'Second sibling and onward: 15% off.',
+      groupNote: 'School and corporate programmes are quoted per group after a site visit.',
+      plans: [
+        { tag: 'Try it', n: 'First class', p: 'Free', per: '', pick: false,
+          l: ['One full session in any discipline', 'Pads and gloves lent to you',
+              'No form to fill in beforehand', 'Nothing to cancel afterwards'],
+          cta: 'Book a free class' },
+        { tag: 'Most taken', n: 'One discipline', p: 'Rs 4,500', per: 'a month', pick: true,
+          l: ['Any one class, as often as it runs', 'Uniform billed once, separately',
+              'Grading fee due only when you grade', 'Stop any month, no notice needed'],
+          cta: 'Enrol' },
+        { tag: 'Cross-train', n: 'All access', p: 'Rs 6,500', per: 'a month', pick: false,
+          l: ['Every class on the board', 'Includes open mat and conditioning',
+              'Eligible for squad selection', 'Stop any month, no notice needed'],
+          cta: 'Enrol' }
+      ]
+    },
+
+
+    /* ---------------------------------------------------------------
+       ORG — the hierarchy, corrected.
+
+         Markaz OUJ Performance          the parent company
+           └─ Markaz Martial Arts Academy   subsidiary, runs the martial
+                                            arts side and supervises every
+                                            club under it
+           └─ OUJ Store                     equipment arm
+         Markaz Khel o Saqafat           the venue / facility, not a company
+
+       These are four different things. Do not use "Markaz" on its own as
+       shorthand for any of them.
+       --------------------------------------------------------------- */
+    org: {
+      parent: 'Markaz OUJ Performance',
+      /* The parent runs everything, not just the dojang: competitions,
+         workshops, camps, school and corporate programmes, equipment,
+         and the martial arts side. Markaz Martial Arts Academy is one
+         arm of it, not the whole business. */
+      parentHandles: [
+        'Competitions and tournaments',
+        'Workshops and camps',
+        'School, college and corporate programmes',
+        'Coaching and PE placement',
+        'Equipment supply',
+        'Martial arts'
+      ],
+      martialArts: 'Markaz Martial Arts Academy',
+      /* The training arm. It teaches at several campuses; Markaz Khel o
+         Saqafat is the main one, the rest are host venues. These are
+         CAMPUSES, not separate businesses. */
+      martialArtsScope: 'Training and instruction across every campus',
+      mainCampus: 'Markaz Khel o Saqafat',
+      /* Taken from the disciplines already running on the timetable. */
+      disciplines: ['Taekwondo', 'Boxing', 'Kickboxing', 'MMA'],
+      /* Why the satellite campuses exist — this is the positioning line,
+         not marketing copy invented for the site. */
+      campusPurpose: 'Smaller campuses across Karachi so students can train near home, all under Sir Abdul Samad Khan.',
+      store: 'OUJ Store',
+      venue: 'Markaz Khel o Saqafat',
+      relation: 'Markaz Martial Arts Academy is the martial arts arm of Markaz OUJ Performance.'
+    },
+
+    /* ---------------------------------------------------------------
+       LEADERSHIP — one record for the man who heads every branch.
+       studentsTaught is a STATED figure, not a computed one, so it is
+       marked approximate and rendered as "50,000+" rather than a precise
+       count the academy would have to defend. Confirm the scope with
+       Sir Samad before this goes live: across the whole Markaz network
+       over the years, or taught by him personally? The two claims read
+       very differently to a parent.
+       --------------------------------------------------------------- */
+    leadership: {
+      name: 'Abdul Samad Khan',
+      honorific: 'Sir',
+      role: 'Chairman',
+      rank: '4th Dan',
+      since: '2014',
+      featured: true,
+      studentsTaught: 50000,
+      studentsTaughtApprox: true,
+      note: 'Heads every academy and club in the Markaz network.'
+    },
+
+    /* ---------------------------------------------------------------
+       CAMPUSES — the places Markaz Martial Arts Academy teaches.
+
+       Markaz Khel o Saqafat is the main campus. The others are host
+       venues running under the same academy and the same supervision;
+       they are not separate businesses.
+       Markaz Martial Arts Academy is the head school.
+
+       Shape notes:
+         classes[]      a branch can run several batches on different
+                        days for different groups — Ribat runs four —
+                        so timings are a list, never one days/time pair.
+         contact        branches at third-party venues have their own
+                        number and site; blank means fall back to the
+                        Markaz contact block above.
+         achievements[] feeds the medal tallies; totals are computed,
+                        never typed, so they cannot go stale.
+         photos[].show  false keeps a photo out of the build. Used where
+                        consent has not been confirmed yet.
+       --------------------------------------------------------------- */
+    branches: [
+      {
+        /* timings confirmed by Ribat's own class posters */
+        placeholderTimes: false,
+        area: 'Bahadurabad',
+        id: 'ribat',
+        trial: { offered: true, label: 'Book a trial class', routeTo: 'branch' },
+        name: 'Ribat Taekwondo Academy',
+        tagline: '',
+        since: 'June 2022',
+        academy: 'Markaz Martial Arts Academy',
+        supervisor: 'Abdul Samad Khan',
+        trainers: [
+          { name: 'Asad Raza', title: 'Sir' },
+          { name: 'Areeba Hafeez', title: 'Ms', scope: 'Female-only classes' }
+        ],
+        ages: '5 to 45, separate classes for male and female',
+        classes: [
+          { label: 'Female only',                days: 'Monday & Thursday',  time: '5:00 – 6:00 PM', ages: '5+' },
+          { label: 'Female only',                days: 'Monday & Thursday',  time: '6:00 – 7:00 PM', ages: '5+' },
+          { label: 'Male and hearing impaired',  days: 'Wednesday & Friday', time: '6:00 – 7:00 PM', ages: '10+' }
+        ],
+        fee: { line: 'Admission package Rs 7,000', note: 'Includes registration fee and uniform.' },
+        location: 'Ribat The Campus, 74800 Alamgir Road, Delhi Mercantile Society, Karachi',
+        mapsUrl: 'https://maps.app.goo.gl/EZmn6y5NG5k4A5Ba9',
+        contact: {
+          whatsapp: '923192009490',
+          phoneDisplay: '0319 200 9490',
+          phones: [
+            { number: '0319 200 9490', whatsapp: '923192009490', name: 'Front desk' },
+            { number: '0340 267 1017', whatsapp: '923402671017', name: 'Ms Areeba Hafeez' }
+          ],
+          website: 'https://www.ribat.com.pk'
+        },
+        affiliations: [
+          'Markaz Martial Arts Academy',
+          'Taekwondo Karachi (TK)',
+          'District East Taekwondo Karachi (DETK)',
+          'Sindh Taekwondo Association (STA)',
+          'Pakistan Taekwondo Federation (PTF)'
+        ],
+        achievements: [
+          { event: 'Dungal Submission',                              date: 'Nov 2022', g: 2, s: 3, b: 0 },
+          { event: "Cougar's Taekwondo Championship",                date: 'Sep 2023', g: 1, s: 2, b: 0 },
+          { event: 'Chong Hong Legacy Cup, Season 3',                date: 'Nov 2023', g: 1, s: 3, b: 4 },
+          { event: '4th Alliance Taekwondo Championship',            date: 'Jul 2024', g: 2, s: 6, b: 0 },
+          { event: 'Dungal Takedown Wars',                           date: 'Sep 2024', g: 2, s: 1, b: 0 },
+          { event: 'Master Masroor Zaman Taekwondo Championship',    date: 'May 2025', g: 0, s: 2, b: 1 },
+          { event: 'Chong Hong Legacy Cup, Season 4',                date: 'Aug 2025', g: 5, s: 7, b: 6 },
+          { event: '5th Alliance Taekwondo Championship',            date: 'Nov 2025', g: 5, s: 2, b: 0 },
+          { event: '3rd Online International Taekwondo Lovers Championship', date: 'Dec 2025', g: 1, s: 4, b: 7 },
+          { event: 'Mohsin-e-Pakistan Taekwondo Championship',       date: 'Jan 2026', g: 1, s: 2, b: 7 },
+          { event: '11th Blazone Taekwondo Championship',            date: 'Feb 2026', g: 0, s: 1, b: 6 }
+        ],
+        milestones: ['A student appeared in the Dan grading test'],
+        logo: 'images/ribat-logo',
+        photos: [
+          /* the banner in this photo reads "Ribat Taekwondo Academy — Belt Promotion Ceremony" */
+          { src: 'images/markaz-female-belt-ceremony', alt: 'Ribat Taekwondo Academy belt promotion ceremony', consent: 'faces blurred' },
+          { src: 'images/ribat-poster-girls', alt: 'Ribat Taekwondo Academy, girls classes' },
+          { src: 'images/ribat-poster-boys',  alt: 'Ribat Taekwondo Academy, boys classes' }
+        ],
+        posters: [
+          { src: 'images/ribat-poster-girls', alt: 'Ribat Taekwondo Academy, martial arts for girls' },
+          { src: 'images/ribat-poster-boys',  alt: 'Ribat Taekwondo Academy, martial arts for boys' }
+        ],
+        show: true
+      },
+      {
+        placeholderTimes: true,
+        area: 'Gulshan-e-Iqbal',
+        id: 'unity',
+        trial: { offered: true, label: 'Book a free class', routeTo: 'branch' },
+        name: 'Unity Taekwondo Academy',
+        tagline: 'Training With Dignity',
+        since: '',
+        academy: 'Markaz Martial Arts Academy',
+        supervisor: 'Abdul Samad Khan',
+        trainers: [
+          { name: 'Asad Sheikh', title: 'Sir' }
+        ],
+        ages: '',
+        classes: [
+          { label: '', days: 'Wednesday & Friday', time: '5:30 – 7:30 PM', ages: '' }
+        ],
+        fee: { line: '', note: '' },
+        location: 'Harmain Residency Club House, Block 1, Gulshan-e-Iqbal, Karachi',
+        mapsUrl: '',
+        /* Facebook page is "Unity Taekwondo Academy" — waiting on the link
+           itself, so nothing is guessed here. */
+        contact: {
+          whatsapp: '923351214816',
+          phoneDisplay: '0335 121 4816',
+          phones: [
+            { number: '0335 121 4816', whatsapp: '923351214816', name: 'Sir Asad Sheikh' }
+          ],
+          instagram: 'https://www.instagram.com/unity.fighters'
+        },
+        affiliations: ['Markaz Martial Arts Academy', 'District East'],
+        achievements: [],
+        milestones: [],
+        logo: 'images/unity-logo',
+        photos: [
+          { src: 'images/unity-class',        alt: 'Unity Taekwondo Academy students in stance during a class' },
+          { src: 'images/unity-certificates', alt: 'Unity Taekwondo Academy students with their grading certificates' },
+          { src: 'images/unity-medals',       alt: 'Unity Taekwondo Academy students with their tournament medals' }
+        ],
+        posters: [],
+        show: true
+      },
+      {
+        placeholderTimes: false,   /* timings confirmed by the club */
+        id: 'saad-bin-abi-waqas',
+        trial: { offered: true, label: 'Book a free class', routeTo: 'branch' },
+        name: 'Saad bin Abi Waqas Taekwondo Club',
+        tagline: '',
+        since: '',
+        academy: 'Markaz Martial Arts Academy',
+        supervisor: 'Abdul Samad Khan',
+        trainers: [
+          { name: 'Usman',   title: 'Sir' },
+          { name: 'Malaika', title: 'Ms' }
+        ],
+        ages: 'Girls 3 to 15, boys 3 to 18',
+        classes: [
+          { label: '', days: 'Wednesday & Friday', time: '6:00 – 7:30 PM', ages: '' }
+        ],
+        fee: { line: '', note: '' },
+        area: 'Block 10-A',
+        locationPending: false,
+        location: 'Saad bin Abi Waqas Park, Block 10-A, opposite Aladdin Park, Karachi',
+        mapsUrl: 'https://maps.app.goo.gl/RGqQ6SuhEAHMkME46',
+        /* two coach numbers, given together — the desk has not said which
+           number belongs to which coach, so neither is labelled. */
+        contact: {
+          whatsapp: '923153990009',
+          phoneDisplay: '0315 399 0009',
+          phones: [
+            { number: '0315 399 0009', whatsapp: '923153990009' },
+            { number: '0323 335 2902', whatsapp: '923233352902' }
+          ],
+          instagram: 'https://www.instagram.com/sbawtaekwondo',
+          facebook: 'https://www.facebook.com/share/1E28jaw8pS/'
+        },
+        affiliations: ['Markaz Martial Arts Academy'],
+        achievements: [],
+        milestones: [],
+        logo: 'images/saad-logo',
+        photos: [
+          { src: 'images/saad-grading', alt: 'Saad bin Abi Waqas Taekwondo Club students with their grading certificates' },
+          { src: 'images/saad-awards',  alt: 'Saad bin Abi Waqas Taekwondo Club students with certificates, medals and a trophy' }
+        ],
+        posters: [],
+        show: true
+      },
+      {
+        /* Added Sept 2026 — details from the academy's own poster. */
+        placeholderTimes: false,
+        area: 'Bangalore Town',
+        id: 'avicenna',
+        trial: { offered: true, label: 'Book a trial class', routeTo: 'branch' },
+        name: 'Avicenna Taekwondo Dojang',
+        tagline: 'At The Avicenna School',
+        since: '',
+        academy: 'Markaz Martial Arts Academy',
+        supervisor: 'Abdul Samad Khan',
+        trainers: [],
+        ages: 'Girls-only 15 to 50, co-ed 5 to 40',
+        classes: [
+          { label: 'Girls only', days: 'Tuesday & Friday', time: '5:00 – 6:00 PM', ages: '15 to 50' },
+          { label: 'Co-ed',      days: 'Tuesday & Friday', time: '6:00 – 7:00 PM', ages: '5 to 40' }
+        ],
+        fee: { line: '', note: '' },
+        location: 'The Avicenna School (ground), 17-A Main Tipu Sultan Road, Al-Hamra Society, Block 1, Bangalore Town, Karachi',
+        mapsUrl: 'https://maps.app.goo.gl/GyHqaRxDFctvBXcv5',
+        contact: { whatsapp: '923130496906', phoneDisplay: '0313 049 6906',
+                   instagram: 'https://www.instagram.com/avicenna_taekwondo_dojang/' },
+        affiliations: ['Markaz Martial Arts Academy', 'The Avicenna School'],
+        achievements: [],
+        milestones: [],
+        logo: 'images/avicenna-logo',
+        photos: [
+          { src: 'images/avicenna-certificates', alt: 'Avicenna Taekwondo Dojang students with their certificates' },
+          { src: 'images/avicenna-class',        alt: 'Avicenna Taekwondo Dojang students lined up in class' }
+        ],
+        posters: [
+          { src: 'images/avicenna-poster', alt: 'Avicenna Taekwondo Dojang class timings poster' }
+        ],
+        show: true
+      },
+      {
+        area: 'Federal B Area',
+        id: 'markaz-khel-o-saqafat',
+        name: 'Markaz Khel o Saqafat',
+        tagline: 'The main campus',
+        featured: true,
+        isMainCampus: true,
+        academy: 'Markaz Martial Arts Academy',
+        since: '2014',
+        homeSchool: '',
+        parent: 'Markaz OUJ Performance',
+        supervisor: 'Abdul Samad Khan',
+        trainers: [
+          { name: 'Areeba Hafeez', title: 'Ms', scope: 'Female-only programme' }
+        ],
+        ages: 'From age 5, and a female-only batch for 8 to 45',
+        /* The female programme's board is confirmed. The general batches
+           are still being entered through admin.html — they stay marked
+           as being confirmed until the desk sends them. */
+        placeholderTimes: false,
+        classes: [
+          { label: 'Female only',     days: 'Tuesday, Wednesday & Friday', time: '5:00 – 7:00 PM', ages: '8 to 45' },
+          { label: 'General batches', days: 'Timings being confirmed',     time: '—',              ages: 'From 5' }
+        ],
+        fee: { line: '', note: '' },
+        location: 'Markaz e Khail o Saqafat, Ziauddin Road, Federal B Area, Block 10, Gulberg Town, Karachi',
+        isVenue: true,
+        mapsUrl: 'https://maps.app.goo.gl/qaZARLHkjZftQ1Mf9',
+        contact: {
+          whatsapp: '923402671017',
+          phoneDisplay: '0340 267 1017',
+          phones: [
+            { number: '0340 267 1017', whatsapp: '923402671017', name: 'Ms Areeba Hafeez — female programme' },
+            { number: '0300 267 2558', whatsapp: '923002672558', name: 'Front desk' }
+          ]
+        },
+        affiliations: ['Markaz OUJ Performance'],
+        achievements: [],
+        milestones: [],
+        logo: 'images/markaz',
+        photos: [
+          /* moved to Ribat — the banner in that photo is Ribat's own belt promotion ceremony */
+          { src: 'images/markaz-female-grading-1', alt: 'Students with their grading certificates', consent: 'PENDING', show: false },
+          { src: 'images/markaz-female-grading-2', alt: 'Students with their grading certificates', consent: 'PENDING', show: false }
+        ],
+        posters: [],
+        trial: { offered: true, label: 'Book a free class', routeTo: 'markaz' },
+        show: true
+      }
+    ],
+
+    /* ---------------------------------------------------------------
+       PROGRAMMES — camps, workshops, tournaments and gradings.
+
+       Status is DERIVED from the dates below, never typed. The old
+       events section on index.html had "Next up" pinned to a
+       championship dated 23 Aug 2026 with a countdown frozen at
+       00:00:00 — that is exactly what a hand-set "upcoming" flag does
+       a month later. Here the ribbon appears and disappears on its own.
+
+       Each entry can carry:
+         next    the edition that has not happened yet (null if none)
+         past[]  previous editions, each with its own photos
+       The card shows an "Upcoming" ribbon only while next is live.
+       Tapping it opens the details for next when there is one, then
+       the photos of previous editions underneath, in the same
+       lightbox the gallery section uses.
+       --------------------------------------------------------------- */
+    programmes: [
+      {
+        id: 'summer-camp',
+        name: 'Summer Camp',
+        kind: 'camp',
+        blurb: '',
+        next: null,
+        past: [],
+        show: true
+      },
+      {
+        id: 'inter-school-championship',
+        name: 'Inter-School Sports Championship',
+        kind: 'tournament',
+        blurb: 'Cricket, football, basketball and athletics across age groups, open to partner schools and colleges.',
+        next: null,
+        past: [ { label: '2026', date: '2026-08-23', venue: 'Markaz Martial Arts Academy', photos: [] } ],
+        show: true
+      },
+      {
+        id: 'corporate-fitness-challenge',
+        name: 'Corporate Fitness Challenge',
+        kind: 'workshop',
+        blurb: 'Full-day fitness and team-building session for corporate teams.',
+        next: null,
+        past: [ { label: '2026', date: '2026-09-06', venue: '', photos: [] } ],
+        show: true
+      },
+      {
+        id: 'female-self-defence-workshop',
+        name: 'Female-Only Self-Defence Workshop',
+        kind: 'workshop',
+        blurb: 'Open workshop for students, staff and families. No experience needed.',
+        next: { date: '', endDate: '', venue: '', ages: '', time: '', fee: '', note: '' },
+        past: [ { label: '2026', date: '2026-09-20', venue: '', photos: [] } ],
+        show: true
+      },
+      {
+        id: 'inter-academy-taekwondo',
+        name: 'Inter-Academy Taekwondo Tournament',
+        kind: 'tournament',
+        blurb: 'Karachi-wide tournament. Markaz fighters compete across divisions.',
+        next: { date: '2026-10-11', endDate: '', venue: '', ages: '', time: '', fee: '', note: '' },
+        past: [],
+        show: true
+      }
+    ],
+
+    schedule: {
+      note: 'Timings can shift around exam season.',
+      rows: [
+        { n: 'Taekwondo, kids 6 to 12',      d: 'Taekwondo',  w: 'Mon, Wed, Fri', t: '4:30 – 5:15 PM',      b: 'Kids' },
+        { n: 'Taekwondo, beginners',         d: 'Taekwondo',  w: 'Mon, Wed, Fri', t: '5:30 – 6:30 PM',      b: 'Adults' },
+        { n: 'Taekwondo, seniors',           d: 'Taekwondo',  w: 'Mon, Wed, Fri', t: '6:45 – 8:15 PM',      b: 'Adults' },
+        { n: 'Competition squad',            d: 'Taekwondo',  w: 'Tue, Thu',      t: '7:00 – 9:00 PM',      b: 'Squad' },
+        { n: 'Taekwondo, Saturday juniors',  d: 'Taekwondo',  w: 'Sat',           t: '10:00 – 11:00 AM',    b: 'Kids' },
+        { n: 'Boxing, fitness track',        d: 'Boxing',     w: 'Tue, Thu, Sat', t: '6:00 – 7:00 PM',      b: 'Adults' },
+        { n: 'Boxing, squad track',          d: 'Boxing',     w: 'Tue, Thu',      t: '8:00 – 9:30 PM',      b: 'Squad' },
+        { n: 'Kickboxing',                   d: 'Kickboxing', w: 'Mon, Wed, Sat', t: '7:00 – 8:15 PM',      b: 'Adults' },
+        { n: 'Kickboxing, women only',       d: 'Kickboxing', w: 'Sun',           t: '11:00 AM – 12:15 PM', b: 'Women' },
+        { n: 'MMA',                          d: 'MMA',        w: 'Wed, Sun',      t: '8:30 – 10:00 PM',     b: 'Adults' },
+        { n: 'MMA open mat',                 d: 'MMA',        w: 'Sat',           t: '7:00 – 8:30 PM',      b: 'Squad' },
+        { n: 'Strength and conditioning',    d: 'Boxing',     w: 'Mon, Thu',      t: '9:15 – 10:00 PM',     b: 'Adults' }
+      ]
+    }
+  };
+
+  /* ---------------------------------------------------------------- utils */
+  function isObj(v) { return v && typeof v === 'object' && !Array.isArray(v); }
+
+  function clone(v) {
+    return (typeof structuredClone === 'function') ? structuredClone(v)
+                                                   : JSON.parse(JSON.stringify(v));
+  }
+
+  /* arrays replace wholesale — a fee list with one plan removed must not
+     be merged back into a three-plan default */
+  function merge(base, over) {
+    if (!isObj(base) || !isObj(over)) return (over === undefined ? base : over);
+    var out = clone(base), k;
+    for (k in over) {
+      if (!Object.prototype.hasOwnProperty.call(over, k)) continue;
+      out[k] = isObj(base[k]) && isObj(over[k]) ? merge(base[k], over[k]) : clone(over[k]);
+    }
+    return out;
+  }
+
+  function readLocal() {
+    try { return JSON.parse(root.localStorage.getItem(LS_KEY)) || null; }
+    catch (e) { return null; }
+  }
+
+  function writeLocal(patch) {
+    try { root.localStorage.setItem(LS_KEY, JSON.stringify(patch)); return true; }
+    catch (e) { return false; }
+  }
+
+  /* path lookup: get('fees.plans.1.p') */
+  function pick(obj, path) {
+    return String(path).split('.').reduce(function (o, k) {
+      return (o === null || o === undefined) ? undefined : o[k];
+    }, obj);
+  }
+
+  var overrides = readLocal() || {};
+  var data = merge(DEFAULTS, overrides);
+
+  /* ---------------------------------------------------------------- binding
+     <span data-mk="contact.phoneDisplay"></span>        -> textContent
+     <a   data-mk-href="contact.mapsUrl">                -> href
+     <a   data-mk-href="contact.whatsapp" data-mk-wa="I want a free trial.">
+                                                         -> full wa.me link
+  */
+  function waLink(num, msg) {
+    return 'https://wa.me/' + num + '?text=' + encodeURIComponent(msg || '');
+  }
+
+  function apply(scope) {
+    var r = scope || root.document;
+    if (!r || !r.querySelectorAll) return;
+
+    r.querySelectorAll('[data-mk]').forEach(function (el) {
+      var v = pick(data, el.getAttribute('data-mk'));
+      if (v !== undefined && v !== null && typeof v !== 'object') el.textContent = String(v);
+    });
+
+    r.querySelectorAll('[data-mk-href]').forEach(function (el) {
+      var key = el.getAttribute('data-mk-href');
+      var v = pick(data, key);
+      if (v === undefined || v === null) return;
+      var wa = el.getAttribute('data-mk-wa');
+      el.setAttribute('href', wa !== null ? waLink(v, wa) : String(v));
+    });
+
+    r.querySelectorAll('[data-mk-tel]').forEach(function (el) {
+      var v = pick(data, el.getAttribute('data-mk-tel'));
+      if (v) el.setAttribute('href', 'tel:' + v);
+    });
+  }
+
+
+  /* ---------------------------------------------------------------- rewriters
+     The five pages contain ~70 hard-typed tel: and wa.me links. Rather than
+     hand-tagging every one, we rewrite them at runtime whenever the owner has
+     changed the number — the ?text= payload on each WhatsApp link is kept. */
+  function rewriteLinks(scope) {
+    var r = scope || root.document;
+    if (!r || !r.querySelectorAll) return;
+    var dialDefault = DEFAULTS.contact.phoneDial,
+        waDefault   = DEFAULTS.contact.whatsapp,
+        dial        = data.contact.phoneDial,
+        wa          = data.contact.whatsapp;
+
+    if (dial !== dialDefault) {
+      r.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
+        a.setAttribute('href', 'tel:' + dial);
+      });
+    }
+    if (wa !== waDefault) {
+      r.querySelectorAll('a[href*="wa.me/"]').forEach(function (a) {
+        a.setAttribute('href', a.getAttribute('href').replace(/wa\.me\/\d+/, 'wa.me/' + wa));
+      });
+    }
+  }
+
+  /* ---------------------------------------------------------------- announcement
+     Injected at the top of <body> on every page, only when switched on. */
+  function renderAnnouncement() {
+    var d = root.document;
+    if (!d || !d.body) return;
+    var old = d.getElementById('mk-announce');
+    if (old) old.remove();
+    var a = data.announcement;
+    if (!a || !a.on || !a.text) return;
+
+    var bar = d.createElement('div');
+    bar.id = 'mk-announce';
+    bar.setAttribute('role', 'status');
+    bar.style.cssText =
+      'position:relative;z-index:60;background:#0B1533;color:#fff;' +
+      'padding:calc(10px + env(safe-area-inset-top,0)) 16px 10px;' +
+      'font:600 14px/1.45 system-ui,sans-serif;text-align:center;' +
+      'display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap';
+
+    var span = d.createElement('span');
+    span.textContent = a.text;
+    bar.appendChild(span);
+
+    if (a.linkUrl && a.linkLabel) {
+      var link = d.createElement('a');
+      link.href = a.linkUrl;
+      link.textContent = a.linkLabel;
+      link.style.cssText =
+        'color:#0B1533;background:#D9A62B;text-decoration:none;border-radius:999px;' +
+        'padding:7px 14px;font-weight:800;white-space:nowrap;min-height:34px;' +
+        'display:inline-flex;align-items:center';
+      bar.appendChild(link);
+    }
+    d.body.insertBefore(bar, d.body.firstChild);
+  }
+
+
+  /* ---------------------------------------------------------------- medals
+     Totals are derived from achievements[], never typed, so a new
+     tournament result is one row and every tally updates itself. */
+  function medals(branchId) {
+    var list = branchId
+      ? [(data.branches || []).find(function (b) { return b.id === branchId; })].filter(Boolean)
+      : (data.branches || []);
+    var t = { gold: 0, silver: 0, bronze: 0, total: 0, events: 0 };
+    list.forEach(function (b) {
+      (b.achievements || []).forEach(function (a) {
+        t.gold += a.g || 0; t.silver += a.s || 0; t.bronze += a.b || 0; t.events += 1;
+      });
+    });
+    t.total = t.gold + t.silver + t.bronze;
+    return t;
+  }
+
+  function branches(opts) {
+    var o = opts || {};
+    return (data.branches || []).filter(function (b) {
+      return b.show !== false && (o.includeHeadSchool !== false || !b.atHeadSchool);
+    }).sort(function (a, b) {
+      /* the company that runs the others leads the list */
+      return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+    });
+  }
+
+  function branchPhotos(b) {
+    return (b.photos || []).filter(function (p) { return p.show !== false; });
+  }
+
+
+  /* ---------------------------------------------------------------- booking
+     The demo/trial picker asks for a branch, then a batch, then hands off
+     to WhatsApp. Branches at third-party venues (Ribat) take their own
+     enquiries; the rest route to the Markaz desk. */
+  function bookingTargets() {
+    return branches().map(function (b) {
+      var t = b.trial || {};
+      var own = (b.contact && b.contact.whatsapp) || '';
+      var to  = (t.routeTo === 'branch' && own) ? own : data.contact.whatsapp;
+      return {
+        id: b.id, name: b.name, location: b.location, mapsUrl: b.mapsUrl,
+        offered: t.offered !== false, label: t.label || 'Book a free class',
+        whatsapp: to, routedToBranch: to === own && !!own,
+        classes: (b.classes || []).filter(function (c) { return c.days; })
+      };
+    });
+  }
+
+  /* The message the parent actually sends. A bare line like "I want to
+     book a class" makes the desk ask four follow-up questions before
+     anything is settled, so the picker fills the whole thing in:
+     which branch, which batch, where, who, and how old. */
+  function bookingMessage(branchId, batchIndex, who) {
+    var t = bookingTargets().find(function (x) { return x.id === branchId; });
+    if (!t) return 'Assalam o Alaikum, I would like to book a class at Markaz.';
+    var c = (batchIndex === null || batchIndex === undefined) ? null : t.classes[batchIndex];
+    var d = who || {};
+    var L = [];
+
+    L.push('Assalam o Alaikum,');
+    L.push('');
+    L.push('I would like to book a ' + ((t.label || '').toLowerCase().indexOf('free') > -1 ? 'free trial class' : 'trial class') + '.');
+    L.push('');
+    L.push('Branch: ' + t.name);
+    if (c) {
+      if (c.label) L.push('Class: ' + c.label);
+      L.push('Days: ' + c.days);
+      L.push('Time: ' + c.time);
+      if (c.ages) L.push('Age group: ' + c.ages);
+    }
+    if (t.location) L.push('Location: ' + t.location);
+
+    if (d.name || d.age) {
+      L.push('');
+      if (d.name) L.push('Student name: ' + d.name);
+      if (d.age)  L.push('Age: ' + d.age);
+      if (d.forWhom) L.push('Booking for: ' + d.forWhom);
+    }
+    if (d.note) { L.push(''); L.push(d.note); }
+
+    L.push('');
+    L.push('Sent from the website.');
+    return L.join('\n');
+  }
+
+  function bookingLink(branchId, batchIndex, who) {
+    var t = bookingTargets().find(function (x) { return x.id === branchId; });
+    var num = t ? t.whatsapp : data.contact.whatsapp;
+    return waLink(num, bookingMessage(branchId, batchIndex, who));
+  }
+
+
+
+  /* ---------------------------------------------------------------- programmes
+     Status is computed against today, so a card cannot sit there
+     claiming "Upcoming" a month after the event. */
+  function toDate(v) {
+    if (!v) return null;
+    var d = new Date(v + 'T00:00:00');
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function programmeStatus(p) {
+    var n = p && p.next;
+    if (!n) return 'past';
+    /* next exists but no date yet: the academy has committed to running
+       it again and just has not fixed the day. That is a real state and
+       deserves its own label, not a blank card. */
+    if (!n.date) return 'announced';
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var start = toDate(n.date);
+    var end = toDate(n.endDate) || start;
+    if (!start) return 'past';
+    if (today > end) return 'past';
+    if (today >= start) return 'running';
+    return 'upcoming';
+  }
+
+  function daysUntil(p) {
+    var start = toDate(p && p.next && p.next.date);
+    if (!start) return null;
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    return Math.round((start - today) / 86400000);
+  }
+
+  /* The ribbon label. Blank means draw no ribbon at all. */
+  function programmeRibbon(p) {
+    var st = programmeStatus(p);
+    if (st === 'running')   return 'On now';
+    if (st === 'announced') return 'Dates to be announced';
+    if (st !== 'upcoming')  return '';
+    var d = daysUntil(p);
+    if (d === 0)  return 'Today';
+    if (d === 1)  return 'Tomorrow';
+    if (d <= 14)  return 'In ' + d + ' days';
+    if (d <= 60)  return 'Upcoming';
+    return 'Scheduled';
+  }
+
+  function programmes(kind) {
+    return (data.programmes || [])
+      .filter(function (p) { return p.show !== false && (!kind || p.kind === kind); })
+      .sort(function (a, b) {
+        var rank = { running: 0, upcoming: 1, announced: 2, past: 3 };
+        var ra = rank[programmeStatus(a)], rb = rank[programmeStatus(b)];
+        if (ra !== rb) return ra - rb;
+        return (daysUntil(a) === null ? 9e9 : daysUntil(a)) -
+               (daysUntil(b) === null ? 9e9 : daysUntil(b));
+      });
+  }
+
+  /* The single next dated event (running or upcoming). Both home-page
+     countdowns read this, so they can never disagree with the cards. */
+  function nextProgramme() {
+    return programmes().filter(function (p) {
+      var st = programmeStatus(p);
+      return (st === 'running' || st === 'upcoming') && p.next && p.next.date;
+    })[0] || null;
+  }
+
+  /* Every photo from previous editions, newest first, for the lightbox. */
+  function programmeGallery(p) {
+    var out = [];
+    (p.past || []).slice().reverse().forEach(function (ed) {
+      (ed.photos || []).forEach(function (ph) {
+        if (ph.show === false) return;
+        out.push({ src: ph.src, alt: ph.alt || (p.name + ', ' + (ed.label || '')), edition: ed.label });
+      });
+    });
+    return out;
+  }
+
+
+  /* ---------------------------------------------------------------- stats
+     The headline numbers. Everything except studentsTaught is derived
+     from the data above, so adding a branch or a tournament result
+     updates the strip without anyone editing a number. */
+  function stats() {
+    var m = medals();
+    var L = data.leadership || {};
+    var bs = branches();
+    var years = bs.map(function (b) {
+      var y = parseInt(String(b.since).replace(/\D+/g, '').slice(-4), 10);
+      return isNaN(y) ? null : y;
+    }).filter(Boolean);
+
+    return {
+      studentsTaught: L.studentsTaught || 0,
+      studentsTaughtLabel: L.studentsTaught
+        ? (L.studentsTaughtApprox ? L.studentsTaught.toLocaleString('en-US') + '+' : L.studentsTaught.toLocaleString('en-US'))
+        : '',
+      medals: m.total,
+      gold: m.gold, silver: m.silver, bronze: m.bronze,
+      championships: m.events,
+      branches: bs.length,
+      oldestSince: years.length ? Math.min.apply(null, years) : null
+    };
+  }
+
+  function announce() {
+    root.dispatchEvent(new CustomEvent('markaz:content', { detail: data }));
+    apply();
+    rewriteLinks();
+    renderAnnouncement();
+  }
+
+  /* ---------------------------------------------------------------- remote */
+  function configured() { return !!(SUPABASE.url && SUPABASE.anonKey); }
+
+  function pull() {
+    if (!configured()) return Promise.resolve(null);
+    var u = SUPABASE.url.replace(/\/+$/, '') +
+            '/rest/v1/' + SUPABASE.table +
+            '?id=eq.' + encodeURIComponent(SUPABASE.row) + '&select=content';
+    return fetch(u, {
+      headers: { apikey: SUPABASE.anonKey, Authorization: 'Bearer ' + SUPABASE.anonKey }
+    })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (rows) {
+        if (!rows || !rows.length || !rows[0].content) return null;
+        overrides = rows[0].content;
+        writeLocal(overrides);
+        data = merge(DEFAULTS, overrides);
+        announce();
+        return overrides;
+      })
+      .catch(function () { return null; });
+  }
+
+  /* token comes from the admin panel's Supabase sign-in */
+  function push(patch, accessToken) {
+    overrides = patch;
+    data = merge(DEFAULTS, overrides);
+    var localOk = writeLocal(overrides);
+    announce();
+
+    if (!configured() || !accessToken) {
+      return Promise.resolve({ ok: localOk, where: 'localStorage' });
+    }
+    var u = SUPABASE.url.replace(/\/+$/, '') + '/rest/v1/' + SUPABASE.table;
+    return fetch(u, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE.anonKey,
+        Authorization: 'Bearer ' + accessToken,
+        'Content-Type': 'application/json',
+        Prefer: 'resolution=merge-duplicates,return=minimal'
+      },
+      body: JSON.stringify([{ id: SUPABASE.row, content: overrides }])
+    }).then(function (r) {
+      return { ok: r.ok, where: r.ok ? 'Supabase' : 'localStorage only',
+               status: r.status, detail: r.ok ? '' : 'check the table name and RLS policies' };
+    }).catch(function (e) {
+      return { ok: false, where: 'localStorage only', detail: String(e) };
+    });
+  }
+
+  function signIn(email, password) {
+    if (!configured()) return Promise.reject(new Error('Supabase is not configured yet'));
+    return fetch(SUPABASE.url.replace(/\/+$/, '') + '/auth/v1/token?grant_type=password', {
+      method: 'POST',
+      headers: { apikey: SUPABASE.anonKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, password: password })
+    }).then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j.access_token) throw new Error(j.error_description || j.msg || 'Sign-in failed');
+        return j.access_token;
+      });
+  }
+
+  function reset() {
+    try { root.localStorage.removeItem(LS_KEY); } catch (e) {}
+    overrides = {};
+    data = clone(DEFAULTS);
+    announce();
+  }
+
+  var API = {
+    SUPABASE: SUPABASE,
+    DEFAULTS: DEFAULTS,
+    get data() { return data; },
+    get overrides() { return clone(overrides); },
+    get: function (path, fallback) {
+      var v = pick(data, path);
+      return v === undefined ? fallback : v;
+    },
+    wa: function (msg) { return waLink(data.contact.whatsapp, msg); },
+    tel: function () { return 'tel:' + data.contact.phoneDial; },
+    apply: apply,
+    rewriteLinks: rewriteLinks,
+    medals: medals,
+    stats: stats,
+    programmes: programmes,
+    programmeStatus: programmeStatus,
+    programmeRibbon: programmeRibbon,
+    programmeGallery: programmeGallery,
+    nextProgramme: nextProgramme,
+    social: function () { return (data.contact && data.contact.social) || {}; },
+    daysUntil: daysUntil,
+    bookingTargets: bookingTargets,
+    bookingLink: bookingLink,
+    bookingMessage: bookingMessage,
+    branches: branches,
+    branchPhotos: branchPhotos,
+    pull: pull,
+    push: push,
+    signIn: signIn,
+    reset: reset,
+    configured: configured,
+    onChange: function (fn) { root.addEventListener('markaz:content', function (e) { fn(e.detail); }); }
+  };
+
+  root.MARKAZ = API;
+
+  if (root.document) {
+    if (root.document.readyState === 'loading') {
+      root.document.addEventListener('DOMContentLoaded', function () {
+        apply(); rewriteLinks(); renderAnnouncement(); pull();
+      });
+    } else { apply(); rewriteLinks(); renderAnnouncement(); pull(); }
+  }
+})(window);
+
+</script>
+<style>
+:root{
+  --ink:#0B1533; --ink-2:#132250; --paper:#F2F4F7; --line:#DCE1EC;
+  --blue:#1240C8; --gold:#D9A62B; --red:#D1252C; --good:#1240C8;
+  --dim:#5C6784;
+  --hd:'Archivo',system-ui,sans-serif; --bd:'Inter Tight',system-ui,sans-serif;
+  --r:14px;
+}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.6 var(--bd);
+  padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0)}
+h1,h2,h3,legend{font-family:var(--hd);font-weight:800;letter-spacing:-.02em;margin:0}
+a{color:var(--blue)}
+img,svg{max-width:100%;height:auto;display:block}
+
+/* ---------- shell ---------- */
+.top{position:sticky;top:0;z-index:40;background:var(--ink);color:#fff;
+  padding:calc(14px + env(safe-area-inset-top,0)) 20px 14px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.top img{height:34px;width:auto;background:#fff;border-radius:8px;padding:4px}
+.top h1{font-size:18px;color:#fff}
+.top .sp{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap}
+.badge{font:700 11px/1 var(--hd);letter-spacing:.1em;text-transform:uppercase;
+  padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff}
+.badge.live{background:var(--good)}
+.badge.local{background:var(--gold);color:#3A2A00}
+
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 120px}
+
+/* ---------- gate ---------- */
+.gate{max-width:420px;margin:12vh auto;padding:30px 26px;background:#fff;
+  border:1px solid var(--line);border-radius:20px;box-shadow:0 22px 50px rgba(11,21,51,.12)}
+.gate h2{font-size:23px;margin-bottom:6px}
+.gate p{color:var(--dim);font-size:14.5px;margin:0 0 20px}
+
+/* ---------- form atoms ---------- */
+label{display:block;font:600 13px/1.4 var(--hd);letter-spacing:.04em;
+  text-transform:uppercase;color:var(--dim);margin:0 0 6px}
+input,textarea,select{
+  width:100%;font:400 15.5px/1.5 var(--bd);color:var(--ink);
+  padding:11px 13px;background:#fff;border:1.5px solid var(--line);
+  border-radius:11px;min-height:46px;transition:border-color .15s,box-shadow .15s}
+textarea{min-height:92px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(18,64,200,.14)}
+.field{margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:620px){.grid2{grid-template-columns:1fr}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font:700 14px/1 var(--hd);letter-spacing:.03em;
+  padding:13px 18px;min-height:46px;border-radius:11px;border:1.5px solid transparent;
+  cursor:pointer;text-decoration:none;transition:transform .12s,filter .15s}
+.btn:active{transform:translateY(1px)}
+.btn-p{background:var(--blue);color:#fff}
+.btn-p:hover{filter:brightness(1.1)}
+.btn-o{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-o:hover{border-color:var(--ink)}
+.btn-d{background:#fff;color:var(--red);border-color:#F0C4C6}
+.btn-sm{padding:8px 12px;min-height:38px;font-size:12.5px}
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px;margin:0 0 20px;
+  background:#fff;border:1px solid var(--line);border-radius:14px;
+  scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:1 0 auto;white-space:nowrap;background:none;border:none;
+  font:700 13.5px/1 var(--hd);letter-spacing:.03em;color:var(--dim);
+  padding:12px 15px;border-radius:10px;cursor:pointer;min-height:44px}
+.tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
+
+section[role=tabpanel]{display:none}
+section[role=tabpanel].on{display:block}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:20px;margin-bottom:16px}
+.card > h3{font-size:16px;margin-bottom:4px}
+.card > .hint{color:var(--dim);font-size:13.5px;margin:0 0 16px}
+
+.row{border:1px solid var(--line);border-radius:12px;padding:15px;margin-bottom:12px;
+  background:#FBFCFE}
+.row__hd{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.row__hd b{font:800 14px/1 var(--hd)}
+.row__hd .btn{margin-left:auto}
+
+.list-line{display:flex;gap:8px;margin-bottom:8px}
+.list-line input{flex:1}
+.list-line button{flex:0 0 auto}
+
+.note{background:#FFF8E6;border:1px solid #F0DFAE;border-left:4px solid var(--gold);
+  border-radius:10px;padding:14px 16px;font-size:14px;margin-bottom:20px}
+.note b{font-family:var(--hd)}
+
+/* ---------- save bar ---------- */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:rgba(255,255,255,.96);border-top:1px solid var(--line);
+  padding:12px 18px calc(12px + env(safe-area-inset-bottom,0));
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.bar .msg{font-size:13.5px;color:var(--dim);flex:1;min-width:140px}
+.bar .msg.ok{color:var(--good);font-weight:600}
+.bar .msg.err{color:var(--red);font-weight:600}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== GATE ===================== -->
+<div id="gate" class="gate">
+  <h2>Control Panel</h2>
+  <p id="gateHint">Sign in to edit the fees, timetable and contact details shown on the website.</p>
+  <form id="gateForm">
+    <div class="field" id="emailField" hidden>
+      <label for="gEmail">Email</label>
+      <input id="gEmail" type="email" autocomplete="username">
+    </div>
+    <div class="field">
+      <label for="gPass" id="gPassLabel">Passcode</label>
+      <input id="gPass" type="password" autocomplete="current-password" required>
+    </div>
+    <button class="btn btn-p" style="width:100%" type="submit">Sign in</button>
+    <p class="msg err" id="gateMsg" style="margin:12px 0 0;font-size:13.5px;color:var(--red)"></p>
+  </form>
+</div>
+
+<!-- ===================== PANEL ===================== -->
+<div id="panel" hidden>
+  <header class="top">
+    <img src="ouj.png" alt="Markaz OUJ Performance">
+    <h1>Control Panel</h1>
+    <div class="sp">
+      <span class="badge" id="modeBadge">checking…</span>
+      <a class="btn btn-o btn-sm" href="index.html" target="_blank" rel="noopener">View site</a>
+      <button class="btn btn-o btn-sm" id="signOut" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="note" id="modeNote"></div>
+
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true"  data-tab="contact">Contact</button>
+      <button role="tab" aria-selected="false" data-tab="fees">Fees</button>
+      <button role="tab" aria-selected="false" data-tab="schedule">Timetable</button>
+      <button role="tab" aria-selected="false" data-tab="banner">Announcement</button>
+      <button role="tab" aria-selected="false" data-tab="backup">Backup</button>
+    </div>
+
+    <!-- CONTACT -->
+    <section role="tabpanel" id="tab-contact" class="on">
+      <div class="card">
+        <h3>Contact details</h3>
+        <p class="hint">These feed every phone link, WhatsApp button and footer across all five pages.</p>
+        <div class="grid2">
+          <div class="field">
+            <label for="phoneDisplay">Phone, as shown</label>
+            <input id="phoneDisplay" data-bind="contact.phoneDisplay">
+          </div>
+          <div class="field">
+            <label for="phoneDial">Phone, for dialling</label>
+            <input id="phoneDial" data-bind="contact.phoneDial" inputmode="tel">
+          </div>
+        </div>
+        <div class="field">
+          <label for="whatsapp">WhatsApp number (country code, no +)</label>
+          <input id="whatsapp" data-bind="contact.whatsapp" inputmode="numeric" placeholder="923002672558">
+        </div>
+        <div class="field">
+          <label for="addressLine">Address</label>
+          <textarea id="addressLine" data-bind="contact.addressLine"></textarea>
+        </div>
+        <div class="field">
+          <label for="mapsUrl">Google Maps link</label>
+          <input id="mapsUrl" data-bind="contact.mapsUrl" type="url">
+        </div>
+        <div class="field">
+          <label for="openingNote">Opening note</label>
+          <input id="openingNote" data-bind="contact.openingNote">
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="socialIg">Instagram link</label>
+            <input id="socialIg" data-bind="contact.social.instagram" type="url" placeholder="https://www.instagram.com/markazmartialartsacademy/">
+          </div>
+          <div class="field">
+            <label for="socialFb">Facebook link</label>
+            <input id="socialFb" data-bind="contact.social.facebook" type="url" placeholder="https://www.facebook.com/mmamarkaz">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEES -->
+    <section role="tabpanel" id="tab-fees">
+      <div class="card">
+        <h3>Fee plans</h3>
+        <p class="hint">Shown on the Academy page and quoted by the chat assistant on the homepage. Both read from here, so they can no longer disagree.</p>
+        <div id="feeRows"></div>
+        <button class="btn btn-o btn-sm" type="button" id="addFee">+ Add a plan</button>
+      </div>
+      <div class="card">
+        <h3>Fee small print</h3>
+        <div class="field">
+          <label for="admissionNote">Admission / term line</label>
+          <input id="admissionNote" data-bind="fees.admissionNote">
+        </div>
+        <div class="field">
+          <label for="siblingNote">Sibling discount line</label>
+          <input id="siblingNote" data-bind="fees.siblingNote">
+        </div>
+        <div class="field">
+          <label for="groupNote">School &amp; corporate line</label>
+          <input id="groupNote" data-bind="fees.groupNote">
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section role="tabpanel" id="tab-schedule">
+      <div class="card">
+        <h3>Weekly timetable</h3>
+        <p class="hint">One row per class. Drives the Academy timetable and the chat assistant's answer on timings.</p>
+        <div id="schedRows"></div>
+        <button class="btn btn-o btn-sm" type="button" id="addSched">+ Add a class</button>
+      </div>
+      <div class="card">
+        <div class="field">
+          <label for="schedNote">Note under the timetable</label>
+          <input id="schedNote" data-bind="schedule.note">
+        </div>
+      </div>
+    </section>
+
+    <!-- BANNER -->
+    <section role="tabpanel" id="tab-banner">
+      <div class="card">
+        <h3>Announcement bar</h3>
+        <p class="hint">A strip across the top of every page. Use it for grading days, camp intakes or closures. Leave it off the rest of the time.</p>
+        <div class="field">
+          <label for="bannerOn">Show it?</label>
+          <select id="bannerOn" data-bind="announcement.on" data-type="bool">
+            <option value="false">Off</option>
+            <option value="true">On</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="bannerText">Message</label>
+          <input id="bannerText" data-bind="announcement.text" placeholder="Grading day on Saturday — register at the desk.">
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="bannerLabel">Button label</label>
+            <input id="bannerLabel" data-bind="announcement.linkLabel" placeholder="Register">
+          </div>
+          <div class="field">
+            <label for="bannerUrl">Button link</label>
+            <input id="bannerUrl" data-bind="announcement.linkUrl" type="url">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BACKUP -->
+    <section role="tabpanel" id="tab-backup">
+      <div class="card">
+        <h3>Backup and restore</h3>
+        <p class="hint">Copy this out before any big change. Paste it back to undo.</p>
+        <div class="field">
+          <label for="jsonBox">Current settings</label>
+          <textarea id="jsonBox" spellcheck="false" style="min-height:260px;font:400 13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-o btn-sm" type="button" id="copyJson">Copy</button>
+          <button class="btn btn-o btn-sm" type="button" id="loadJson">Load from box</button>
+          <button class="btn btn-d btn-sm" type="button" id="resetAll">Reset everything to defaults</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="bar">
+    <span class="msg" id="saveMsg">No unsaved changes.</span>
+    <button class="btn btn-o" type="button" id="revert">Discard</button>
+    <button class="btn btn-p" type="button" id="save">Save &amp; publish</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var MK = window.MARKAZ;
+  var $  = function(s,r){ return (r||document).querySelector(s); };
+  var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+
+  var DEMO_PASS_KEY = 'markaz.admin.pass';
+  var DEFAULT_DEMO_PASS = 'markaz2026';
+  var token = null;
+  var draft = null;
+  var dirty = false;
+
+  /* -------------------------------------------------- helpers */
+  function clone(v){ return JSON.parse(JSON.stringify(v)); }
+
+  function setPath(obj, path, val){
+    var ks = path.split('.'), last = ks.pop(), o = obj;
+    ks.forEach(function(k){ if(!o[k]) o[k] = {}; o = o[k]; });
+    o[last] = val;
+  }
+  function getPath(obj, path){
+    return path.split('.').reduce(function(o,k){ return o==null?undefined:o[k]; }, obj);
+  }
+
+  function mark(){
+    dirty = true;
+    var m = $('#saveMsg');
+    m.className = 'msg';
+    m.textContent = 'Unsaved changes.';
+  }
+
+  function esc(s){ return String(s==null?'':s); }
+
+  /* -------------------------------------------------- gate */
+  function gateSetup(){
+    var live = MK.configured();
+    $('#emailField').hidden = !live;
+    $('#gEmail').required = live;
+    $('#gPassLabel').textContent = live ? 'Password' : 'Passcode';
+    $('#gateHint').textContent = live
+      ? 'Sign in with the Supabase account for this site.'
+      : 'Supabase is not connected yet, so changes are saved to this browser only. Default passcode: ' + DEFAULT_DEMO_PASS;
+  }
+
+  $('#gateForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg = $('#gateMsg'); msg.textContent = '';
+    var pass = $('#gPass').value;
+
+    if(MK.configured()){
+      MK.signIn($('#gEmail').value.trim(), pass)
+        .then(function(t){ token = t; openPanel(); })
+        .catch(function(err){ msg.textContent = err.message || 'Sign-in failed.'; });
+      return;
+    }
+    var stored = null;
+    try{ stored = localStorage.getItem(DEMO_PASS_KEY); }catch(e2){}
+    if(pass === (stored || DEFAULT_DEMO_PASS)){ openPanel(); }
+    else { msg.textContent = 'Wrong passcode.'; }
+  });
+
+  function openPanel(){
+    $('#gate').hidden = true;
+    $('#panel').hidden = false;
+    draft = clone(MK.data);
+    var live = MK.configured();
+    var b = $('#modeBadge');
+    b.textContent = live ? 'Live' : 'This browser only';
+    b.className = 'badge ' + (live ? 'live' : 'local');
+    $('#modeNote').innerHTML = live
+      ? '<b>Connected.</b> Saving publishes to every visitor on every device.'
+      : '<b>Demo mode.</b> Supabase is not connected, so edits are stored in this browser only — ' +
+        'fine for showing the owner how it works, but they will not reach real visitors. ' +
+        'Add the project URL and anon key at the top of <code>assets/markaz-content.js</code> to go live.';
+    renderAll();
+  }
+
+  $('#signOut').addEventListener('click', function(){
+    if(dirty && !confirm('You have unsaved changes. Sign out anyway?')) return;
+    token = null; location.reload();
+  });
+
+  /* -------------------------------------------------- tabs */
+  $$('.tabs button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      $$('.tabs button').forEach(function(b){ b.setAttribute('aria-selected', String(b===btn)); });
+      $$('section[role=tabpanel]').forEach(function(s){ s.classList.remove('on'); });
+      $('#tab-' + btn.dataset.tab).classList.add('on');
+      if(btn.dataset.tab === 'backup') $('#jsonBox').value = JSON.stringify(draft, null, 2);
+    });
+  });
+
+  /* -------------------------------------------------- simple bound fields */
+  function renderSimple(){
+    $$('[data-bind]').forEach(function(el){
+      var v = getPath(draft, el.dataset.bind);
+      el.value = (el.dataset.type === 'bool') ? String(!!v) : esc(v);
+      if(el._wired) return;
+      el._wired = true;
+      el.addEventListener('input', function(){
+        setPath(draft, el.dataset.bind,
+                el.dataset.type === 'bool' ? (el.value === 'true') : el.value);
+        mark();
+      });
+      el.addEventListener('change', function(){
+        setPath(draft, el.dataset.bind,
+                el.dataset.type === 'bool' ? (el.value === 'true') : el.value);
+        mark();
+      });
+    });
+  }
+
+  /* -------------------------------------------------- fee rows */
+  function renderFees(){
+    var host = $('#feeRows'); host.innerHTML = '';
+    draft.fees.plans.forEach(function(plan, i){
+      var row = document.createElement('div');
+      row.className = 'row';
+      row.innerHTML =
+        '<div class="row__hd"><b>Plan ' + (i+1) + '</b>' +
+          '<button class="btn btn-d btn-sm" type="button" data-del="' + i + '">Remove</button></div>' +
+        '<div class="grid2">' +
+          '<div class="field"><label>Name</label><input data-f="n"></div>' +
+          '<div class="field"><label>Tag</label><input data-f="tag"></div>' +
+          '<div class="field"><label>Price</label><input data-f="p"></div>' +
+          '<div class="field"><label>Per</label><input data-f="per" placeholder="a month"></div>' +
+        '</div>' +
+        '<div class="field"><label>Button label</label><input data-f="cta"></div>' +
+        '<div class="field"><label>Highlight this plan?</label>' +
+          '<select data-f="pick"><option value="false">No</option><option value="true">Yes</option></select></div>' +
+        '<div class="field"><label>What it includes</label><div data-lines></div>' +
+          '<button class="btn btn-o btn-sm" type="button" data-addline>+ Add a line</button></div>';
+
+      row.querySelectorAll('[data-f]').forEach(function(inp){
+        var k = inp.dataset.f;
+        inp.value = (k === 'pick') ? String(!!plan.pick) : esc(plan[k]);
+        inp.addEventListener('input', function(){
+          plan[k] = (k === 'pick') ? (inp.value === 'true') : inp.value; mark();
+        });
+        inp.addEventListener('change', function(){
+          plan[k] = (k === 'pick') ? (inp.value === 'true') : inp.value; mark();
+        });
+      });
+
+      var lines = row.querySelector('[data-lines]');
+      function drawLines(){
+        lines.innerHTML = '';
+        (plan.l || []).forEach(function(txt, j){
+          var d = document.createElement('div');
+          d.className = 'list-line';
+          d.innerHTML = '<input><button class="btn btn-d btn-sm" type="button">&times;</button>';
+          d.querySelector('input').value = esc(txt);
+          d.querySelector('input').addEventListener('input', function(e){ plan.l[j] = e.target.value; mark(); });
+          d.querySelector('button').addEventListener('click', function(){
+            plan.l.splice(j,1); drawLines(); mark();
+          });
+          lines.appendChild(d);
+        });
+      }
+      drawLines();
+      row.querySelector('[data-addline]').addEventListener('click', function(){
+        plan.l = plan.l || []; plan.l.push(''); drawLines(); mark();
+      });
+      row.querySelector('[data-del]').addEventListener('click', function(){
+        if(!confirm('Remove this plan?')) return;
+        draft.fees.plans.splice(i,1); renderFees(); mark();
+      });
+      host.appendChild(row);
+    });
+  }
+
+  $('#addFee').addEventListener('click', function(){
+    draft.fees.plans.push({ tag:'', n:'New plan', p:'Rs 0', per:'a month', pick:false, l:[''], cta:'Enrol' });
+    renderFees(); mark();
+  });
+
+  /* -------------------------------------------------- schedule rows */
+  var FIELDS = [['n','Class'],['d','Discipline'],['w','Days'],['t','Time'],['b','Group']];
+
+  function renderSched(){
+    var host = $('#schedRows'); host.innerHTML = '';
+    draft.schedule.rows.forEach(function(r, i){
+      var row = document.createElement('div');
+      row.className = 'row';
+      row.innerHTML = '<div class="row__hd"><b>' + (i+1) + '</b>' +
+        '<button class="btn btn-d btn-sm" type="button">Remove</button></div>' +
+        '<div class="grid2">' + FIELDS.map(function(f){
+          return '<div class="field"><label>' + f[1] + '</label><input data-f="' + f[0] + '"></div>';
+        }).join('') + '</div>';
+      row.querySelectorAll('[data-f]').forEach(function(inp){
+        inp.value = esc(r[inp.dataset.f]);
+        inp.addEventListener('input', function(){ r[inp.dataset.f] = inp.value; mark(); });
+      });
+      row.querySelector('.row__hd button').addEventListener('click', function(){
+        draft.schedule.rows.splice(i,1); renderSched(); mark();
+      });
+      host.appendChild(row);
+    });
+  }
+
+  $('#addSched').addEventListener('click', function(){
+    draft.schedule.rows.push({ n:'', d:'', w:'', t:'', b:'' });
+    renderSched(); mark();
+  });
+
+  function renderAll(){ renderSimple(); renderFees(); renderSched(); }
+
+  /* -------------------------------------------------- save */
+  $('#save').addEventListener('click', function(){
+    var m = $('#saveMsg');
+    m.className = 'msg'; m.textContent = 'Saving…';
+    MK.push(draft, token).then(function(res){
+      if(res.ok){
+        dirty = false;
+        m.className = 'msg ok';
+        m.textContent = 'Saved to ' + res.where + '.';
+      } else {
+        m.className = 'msg err';
+        m.textContent = 'Saved locally, but not to Supabase' +
+          (res.detail ? ' — ' + res.detail : '') + '.';
+      }
+    });
+  });
+
+  $('#revert').addEventListener('click', function(){
+    if(dirty && !confirm('Discard your changes?')) return;
+    draft = clone(MK.data); dirty = false;
+    renderAll();
+    $('#saveMsg').className = 'msg';
+    $('#saveMsg').textContent = 'No unsaved changes.';
+  });
+
+  /* -------------------------------------------------- backup */
+  $('#copyJson').addEventListener('click', function(){
+    $('#jsonBox').value = JSON.stringify(draft, null, 2);
+    $('#jsonBox').select();
+    try{ navigator.clipboard.writeText($('#jsonBox').value); }catch(e){ document.execCommand('copy'); }
+    $('#saveMsg').textContent = 'Copied.';
+  });
+
+  $('#loadJson').addEventListener('click', function(){
+    try{
+      draft = JSON.parse($('#jsonBox').value);
+      renderAll(); mark();
+      $('#saveMsg').textContent = 'Loaded into the form — press Save to publish.';
+    }catch(e){
+      $('#saveMsg').className = 'msg err';
+      $('#saveMsg').textContent = 'That is not valid JSON.';
+    }
+  });
+
+  $('#resetAll').addEventListener('click', function(){
+    if(!confirm('Reset every field back to the values built into the site?')) return;
+    MK.reset(); draft = clone(MK.data); dirty = false; renderAll();
+    $('#saveMsg').className = 'msg ok';
+    $('#saveMsg').textContent = 'Reset to defaults.';
+  });
+
+  window.addEventListener('beforeunload', function(e){
+    if(dirty){ e.preventDefault(); e.returnValue = ''; }
+  });
+
+  gateSetup();
+  MK.pull().then(function(){ if(!$('#panel').hidden){ draft = clone(MK.data); renderAll(); } });
+})();
+</script>
+</body>
+</html>

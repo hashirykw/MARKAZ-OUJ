@@ -7,7 +7,17 @@
   "background_color": "#F7F8FC",
   "theme_color": "#0B1533",
   "icons": [
-    { "src": "markaz.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "markaz.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+    {
+      "src": "icons/markaz-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/markaz-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }
