@@ -10666,7 +10666,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
           and the OUJ Store sit under it.</p>
         <div class="mkui-social" data-mk-social="all"><a class="mkui-social__a mkui-social__a--instagram" href="https://www.instagram.com/markazmartialartsacademy/" target="_blank" rel="noopener" aria-label="Markaz Martial Arts Academy on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.3" cy="6.7" r="1.1" class="f"/></svg></a><a class="mkui-social__a mkui-social__a--facebook" href="https://www.facebook.com/mmamarkaz" target="_blank" rel="noopener" aria-label="Markaz Martial Arts Academy on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8.5v3h2.6V21" class="f"/></svg></a><a class="mkui-social__a mkui-social__a--whatsapp" href="https://wa.me/923002672558" target="_blank" rel="noopener" aria-label="Markaz Martial Arts Academy on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.7a7.9 7.9 0 01-11.8 6.9L4 20l1.5-4.1A7.9 7.9 0 1120 11.7z"/></svg></a></div>
       </div>
-      <nav class="mkft__col" aria-label="Pages">
+      <nav class="mkft__col mkft__col--pages" aria-label="Pages">
         <h5>Explore</h5>
         <a href="index.html">Home</a>
         <a href="martial-arts.html">Martial Arts Academy</a>
@@ -10674,8 +10674,9 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
         <a href="about.html">About us</a>
         <a href="wall-of-fame.html">Wall of Fame</a>
       </nav>
-      <nav class="mkft__col" aria-label="Campuses">
+      <nav class="mkft__col mkft__col--camp" aria-label="Campuses">
         <h5>Campuses</h5>
+        <a class="mkft__all" href="martial-arts.html#branches">All five campuses &rarr;</a>
         <a href="martial-arts.html#branch=markaz-khel-o-saqafat">Markaz Khel o Saqafat<small>Main campus &middot; Federal B Area</small></a>
         <a href="martial-arts.html#branch=ribat">Ribat Taekwondo Academy<small>Bahadurabad</small></a>
         <a href="martial-arts.html#branch=unity">Unity Taekwondo Academy<small>Gulshan-e-Iqbal</small></a>
@@ -19806,6 +19807,78 @@ html{scrollbar-width:thin;scrollbar-color:#C3CBDC transparent}
 body section h2,body .mkui-h2{letter-spacing:-.024em!important;font-weight:800!important}
 #coWho .pick__i{grid-row:1/3;align-self:start}
 #coWho .pick{align-items:start;row-gap:2px}
+
+/* ================================================== COMPACT FOOTER (phones)
+   The full footer ran over 1,100px on a phone — longer than the screen.
+   On small screens it drops to a brand line, the social row, two short
+   link columns and one base line. */
+@media (max-width:700px){
+  footer.mkft{padding:26px 0 calc(16px + env(safe-area-inset-bottom,0px))}
+  .mkft__about{display:none}
+  .mkft__brand{gap:10px;margin-bottom:14px}
+  .mkft__plate{width:42px;height:42px;border-radius:11px;padding:4px}
+  .mkft__brand b{font-size:15px}
+  .mkft__brand span{font-size:9.5px;letter-spacing:.14em;margin-top:2px}
+  .mkft__grid{grid-template-columns:1fr 1fr;gap:18px 14px}
+  .mkft__lead{grid-column:1/-1;margin-bottom:2px}
+  .mkft h5{margin:0 0 8px;font-size:10px;letter-spacing:.14em}
+  .mkft__col a,.mkft__col span.mkft__txt{padding:4px 0;font-size:13px;line-height:1.3}
+  .mkft__col a small{display:none}
+  .mkft__col--reach{grid-column:auto}
+  .mkft .mkui-social{gap:8px}
+  .mkft .mkui-social__a > svg{width:38px;height:38px;padding:9px;border-radius:10px}
+  .mkft__base{margin-top:18px;padding-top:14px;gap:4px 14px;font-size:11px;line-height:1.4}
+}
+@media (max-width:420px){
+  .mkft__col a,.mkft__col span.mkft__txt{font-size:12.5px}
+  .mkft__grid{gap:16px 10px}
+}
+
+/* ================================================== STORE HERO, TIGHTER */
+.phero{padding-top:14px}
+.phero .lead{max-width:60ch}
+.board{gap:10px}
+.board > div{padding:16px 16px 14px}
+@media (min-width:901px){
+  .phero h1{font-size:clamp(38px,4.6vw,62px);margin-bottom:10px}
+  .phero .lead{font-size:15px;line-height:1.62;margin-bottom:16px}
+  .board b{font-size:32px}
+}
+@media (max-width:900px){
+  .phero{padding-bottom:10px}
+  .phero h1{font-size:clamp(30px,7vw,42px)}
+  .phero .lead{font-size:14px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+  .board{grid-template-columns:1fr 1fr;gap:8px}
+  .board > div{padding:12px 12px 11px}
+  .board b{font-size:24px}
+  .board .board__k{font-size:9.5px}
+  .board > div > span:last-child{font-size:11px}
+  .ordmini li{padding:9px 10px}
+}
+.mkft__all{display:none}
+@media (max-width:700px){
+  .mkft__col--camp a:not(.mkft__all){display:none}
+  .mkft__all{display:block;font-weight:700}
+  .mkft__col--reach a:nth-child(n+5){display:none}   /* socials are already icons above */
+}
+@media (max-width:700px){
+  /* two tidy columns: pages on the left, campuses and contact on the right */
+  .mkft__grid{grid-template-columns:1fr 1fr;align-items:start}
+  .mkft__col--pages{grid-column:1;grid-row:2/4}
+  .mkft__col--camp{grid-column:2;grid-row:2}
+  .mkft__col--reach{grid-column:2;grid-row:3;margin-top:10px}
+  .mkft__base{margin-top:16px}
+}
+@media (max-width:900px){
+  .phero .lead{-webkit-line-clamp:3;margin-bottom:14px}
+  .phero .crumb{margin-bottom:6px}
+  .board > div{padding:10px 12px 9px;min-height:0}
+  .board > div::after,.board > div::before{opacity:.35}
+  .board b{font-size:22px;line-height:1.05}
+  .board > div > span:last-child{margin-top:2px}
+  .ordmini{margin-bottom:14px;gap:6px}
+  .ghostn{display:none}
+}
 </style>
 <script id="markaz-polish-js" data-inlined="assets/markaz-polish.js">
 /* ==================================================================
