@@ -10976,5 +10976,191 @@ section[id], [id^="branch"], .mkui-sec[id]{ scroll-margin-top:104px }
   *{ scroll-behavior:auto !important }
 }
 </style>
+<style id="mk-privacy-css">
+/* ==================================================================
+   STORED-DATA NOTICE
+     The site runs no analytics, no ads and no third-party trackers,
+     so this is an honest notice about the handful of things kept in
+     the visitor's own browser, not a consent gate for tracking that
+     does not exist. It states what is stored, why, and offers to
+     clear it. Reopens any time from the footer link.
+   ================================================================== */
+.mkpv{
+  position:fixed; z-index:1200;
+  left:clamp(12px,2vw,24px); bottom:clamp(12px,2vw,24px);
+  width:min(420px,calc(100vw - 24px));
+  background:rgba(255,255,255,.96);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  backdrop-filter:blur(14px) saturate(140%);
+  border:1px solid rgba(11,21,51,.12); border-radius:16px;
+  box-shadow:0 2px 4px rgba(11,21,51,.05),0 28px 60px -26px rgba(11,21,51,.5);
+  padding:16px 18px 15px; color:#16203C;
+  font-family:'Inter Tight','Archivo',system-ui,sans-serif;
+  opacity:0; transform:translateY(14px); pointer-events:none;
+  transition:opacity .45s cubic-bezier(.22,1,.36,1), transform .45s cubic-bezier(.22,1,.36,1);
+}
+.mkpv.is-on{ opacity:1; transform:none; pointer-events:auto }
+.mkpv__h{
+  display:flex; align-items:center; gap:8px; margin:0 0 6px;
+  font:800 12px/1 'Archivo','Inter Tight',system-ui,sans-serif;
+  letter-spacing:.15em; text-transform:uppercase; color:#D7263D;
+}
+.mkpv__h svg{ width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2;
+  stroke-linecap:round; stroke-linejoin:round; flex:0 0 15px }
+.mkpv p{ margin:0; font-size:13.4px; line-height:1.6; color:#3C4763 }
+.mkpv__row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:13px; align-items:center }
+.mkpv__btn{
+  font:700 12.5px/1 'Archivo','Inter Tight',system-ui,sans-serif;
+  letter-spacing:.04em; padding:10px 16px; border-radius:9px;
+  border:1px solid transparent; cursor:pointer; background:#0B1533; color:#fff;
+  transition:background .25s ease, color .25s ease, border-color .25s ease;
+}
+.mkpv__btn:hover{ background:#D7263D }
+.mkpv__btn--ghost{ background:transparent; color:#3C4763; border-color:rgba(11,21,51,.18) }
+.mkpv__btn--ghost:hover{ background:rgba(11,21,51,.05); color:#0B1533; border-color:rgba(11,21,51,.3) }
+.mkpv__btn--link{
+  background:none; border:0; padding:6px 2px; color:#1240C8;
+  text-decoration:underline; text-underline-offset:3px; letter-spacing:0;
+}
+.mkpv__btn--link:hover{ background:none; color:#D7263D }
+.mkpv__det{ margin-top:12px; border-top:1px solid rgba(11,21,51,.1); padding-top:12px; display:none }
+.mkpv.is-open .mkpv__det{ display:block }
+.mkpv__list{ list-style:none; margin:0; padding:0; display:grid; gap:9px }
+.mkpv__list li{ font-size:12.8px; line-height:1.5; color:#3C4763 }
+.mkpv__list b{ display:block; color:#16203C; font-weight:700; font-size:12.4px;
+  letter-spacing:.03em; text-transform:uppercase; margin-bottom:2px }
+.mkpv__note{ margin-top:11px !important; font-size:12.4px !important; color:#5A657F !important }
+.mkpv__x{
+  position:absolute; top:10px; right:10px; width:28px; height:28px;
+  display:grid; place-items:center; border:0; border-radius:8px;
+  background:transparent; color:#5A657F; cursor:pointer;
+}
+.mkpv__x:hover{ background:rgba(11,21,51,.07); color:#0B1533 }
+.mkpv__x svg{ width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round }
+
+/* keep clear of the chat button on small screens */
+@media (max-width:575.98px){
+  .mkpv{ left:12px; right:12px; width:auto; bottom:calc(12px + env(safe-area-inset-bottom,0px)); padding:14px 16px 13px }
+  .mkpv p{ font-size:13px }
+}
+body.mk-privacy-on .mkui-fab, body.mk-privacy-on #mkcFab{
+  transition:transform .45s cubic-bezier(.22,1,.36,1);
+}
+@media (max-width:575.98px){
+  body.mk-privacy-on .mkui-fab, body.mk-privacy-on #mkcFab{ transform:translateY(-118px) }
+}
+
+.mkft__base .mkpv-link{
+  background:none; border:0; padding:0; cursor:pointer; color:inherit;
+  font:inherit; text-decoration:underline; text-underline-offset:3px; opacity:.85;
+}
+.mkft__base .mkpv-link:hover{ opacity:1; color:#D9A62B }
+
+@media (prefers-reduced-motion:reduce){
+  .mkpv{ transition:none }
+}
+</style>
+<script id="mk-privacy-js">
+/* Stored-data notice — no dependencies, fails silently if storage is off. */
+(function (W, D) {
+  'use strict';
+  var KEY = 'mk_privacy_ack';
+  var FN_KEYS = ['mk_cart_v1', 'mkc_seen', 'mk-boot', 'mkui_fablabel'];
+
+  function seen() { try { return W.localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
+  function remember() { try { W.localStorage.setItem(KEY, '1'); } catch (e) {} }
+
+  var box = null;
+
+  function build() {
+    if (box) return box;
+    box = D.createElement('aside');
+    box.className = 'mkpv';
+    box.setAttribute('role', 'region');
+    box.setAttribute('aria-label', 'What this site stores in your browser');
+    box.innerHTML =
+      '<button class="mkpv__x" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+      '<p class="mkpv__h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l7 2.6v6.1c0 4.3-2.9 7.6-7 8.9-4.1-1.3-7-4.6-7-8.9V5.2l7-2.6z"/></svg>Cookies &amp; stored data</p>' +
+      '<p>This site keeps a couple of things in your own browser so the store basket and a few one-time notes survive a refresh. There is no analytics, no advertising and no third-party tracking.</p>' +
+      '<div class="mkpv__row">' +
+        '<button class="mkpv__btn" type="button" data-ok>Got it</button>' +
+        '<button class="mkpv__btn mkpv__btn--ghost" type="button" data-more aria-expanded="false">What is stored</button>' +
+      '</div>' +
+      '<div class="mkpv__det">' +
+        '<ul class="mkpv__list">' +
+          '<li><b>Your basket</b>Items you add in the OUJ Store, so the cart is still there when you come back. Kept on this device only.</li>' +
+          '<li><b>One-time notes</b>Remembers that you have already seen the welcome note and the chat tip, so they do not repeat.</li>' +
+          '<li><b>This notice</b>Remembers that you have read it.</li>' +
+        '</ul>' +
+        '<p class="mkpv__note">Nothing here identifies you and nothing is sent anywhere. Anything you send us goes through WhatsApp, which has its own privacy terms.</p>' +
+        '<div class="mkpv__row"><button class="mkpv__btn mkpv__btn--link" type="button" data-clear>Clear everything this site has stored</button></div>' +
+      '</div>';
+    D.body.appendChild(box);
+
+    box.addEventListener('click', function (e) {
+      var t = e.target.closest('button');
+      if (!t) return;
+      if (t.hasAttribute('data-ok') || t.classList.contains('mkpv__x')) { remember(); hide(); return; }
+      if (t.hasAttribute('data-more')) {
+        var open = box.classList.toggle('is-open');
+        t.setAttribute('aria-expanded', open ? 'true' : 'false');
+        t.textContent = open ? 'Hide details' : 'What is stored';
+        return;
+      }
+      if (t.hasAttribute('data-clear')) {
+        try {
+          FN_KEYS.concat([KEY]).forEach(function (k) { W.localStorage.removeItem(k); });
+          W.sessionStorage.clear();
+        } catch (err) {}
+        t.textContent = 'Cleared. Reload to start fresh.';
+        t.disabled = true;
+      }
+    });
+
+    D.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && box.classList.contains('is-on')) { remember(); hide(); }
+    });
+    return box;
+  }
+
+  function show() {
+    build();
+    requestAnimationFrame(function () {
+      box.classList.add('is-on');
+      D.body.classList.add('mk-privacy-on');
+    });
+  }
+  function hide() {
+    if (!box) return;
+    box.classList.remove('is-on', 'is-open');
+    D.body.classList.remove('mk-privacy-on');
+  }
+
+  /* footer link so it can be reopened at any time */
+  function footerLink() {
+    var base = D.querySelector('.mkft__base');
+    if (!base || base.querySelector('.mkpv-link')) return;
+    var wrap = D.createElement('span');
+    var b = D.createElement('button');
+    b.type = 'button';
+    b.className = 'mkpv-link';
+    b.textContent = 'Cookies & stored data';
+    b.addEventListener('click', function () {
+      show();
+      var more = box.querySelector('[data-more]');
+      if (more && !box.classList.contains('is-open')) more.click();
+    });
+    wrap.appendChild(b);
+    base.appendChild(wrap);
+  }
+
+  function boot() {
+    footerLink();
+    if (!seen()) setTimeout(show, 1400);
+  }
+  if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})(window, document);
+</script>
 </body>
 </html>
