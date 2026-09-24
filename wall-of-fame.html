@@ -8124,6 +8124,22 @@ h1, .h1{ overflow-wrap:break-word }
 /* in-page links land clear of the floating nav */
 section[id], [id^="branch"], .mkui-sec[id]{ scroll-margin-top:104px }
 
+/* ---- page hero headlines: 2-3 lines on a laptop, not 4 ---------
+   The inner heros cap the h1 at roughly 600px, which squeezes a long
+   title into four short lines while half the hero sits empty. Give it
+   the room the section already has and trim the size a notch. */
+@media (min-width:992px){
+  .phero h1, .ph h1{
+    font-size:clamp(38px,3.55vw,54px) !important;
+    max-width:min(64vw,900px) !important;
+    line-height:1.04 !important;
+  }
+  .phero .lead, .ph .lead{ max-width:min(52vw,660px) }
+}
+@media (min-width:1600px){
+  .phero h1, .ph h1{ max-width:min(58vw,980px) !important }
+}
+
 /* section headings share one size, not just one face */
 .sh h2, .mkui-h2{ font-size:clamp(27px,3.6vw,42px) !important }
 .sh h2 + p, .mkui-h2 + .mkui-sub{ margin-top:12px }
