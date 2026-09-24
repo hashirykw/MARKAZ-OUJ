@@ -44,5 +44,93 @@ a.b{display:inline-flex;align-items:center;min-height:48px;padding:14px 20px;
     <a class="b g" href="https://wa.me/923002672558?text=Assalam%20o%20Alaikum%2C%20I%20could%20not%20find%20a%20page%20on%20the%20website.">Message us</a>
   </div>
 </div>
+<style id="mk-type-unify">
+/* ==================================================================
+   MARKAZ TYPE + UX LAYER — identical on every page, loaded last.
+     1. one heading family (Archivo, the only display face the site
+        actually loads) with one weight and tracking ladder, so h1..h6
+        read the same on index, academy, store, about and fame
+     2. one eyebrow/kicker style
+     3. shared focus ring, selection colour and anchor offset
+   Nothing here changes copy or layout boxes — type and states only.
+   ================================================================== */
+
+/* ---- 1 · heading ladder ---------------------------------------- */
+:root{
+  --mk-dsp:'Archivo','Inter Tight',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mk-ui:'Inter Tight','Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+
+h1, .h1,
+h2, .h2, .mkui-h2,
+h3, .h3,
+h4, .h4, h5, .h5, h6, .h6,
+.sh h2, .sh h3, .chf h3, .prod h3, .tm h4, .ct-card h4, .svct__in h3,
+.mkui-cm__h, .board__k{
+  font-family:var(--mk-dsp) !important;
+  font-optical-sizing:auto;
+  text-wrap:balance;
+}
+
+h1, .h1{
+  font-weight:900 !important;
+  letter-spacing:-.032em !important;
+  line-height:1.02 !important;
+  text-transform:uppercase !important;
+}
+h2, .h2, .mkui-h2, .sh h2{
+  font-weight:800 !important;
+  letter-spacing:-.028em !important;
+  line-height:1.07 !important;
+  text-transform:uppercase !important;
+}
+h3, .h3{
+  font-weight:800 !important;
+  letter-spacing:-.016em !important;
+  line-height:1.16 !important;
+  text-transform:none !important;
+}
+h4, .h4, h5, .h5, h6, .h6{
+  font-weight:700 !important;
+  letter-spacing:-.008em !important;
+  line-height:1.22 !important;
+  text-transform:none !important;
+}
+
+/* long uppercase h1s need a little room back */
+h1, .h1{ overflow-wrap:break-word }
+@media (max-width:991.98px){
+  h1, .h1{ letter-spacing:-.028em !important }
+}
+
+/* ---- 2 · one eyebrow / kicker ---------------------------------- */
+.eyb, .mkui-kick, .lbl, .chf__eyb, .prod__cat, .tm__rl,
+.crumb, .evf-kind, .svct__go, .board__k{
+  font-family:var(--mk-ui) !important;
+  font-weight:700 !important;
+  letter-spacing:.15em !important;
+  text-transform:uppercase !important;
+}
+.tm__rl, .prod__cat{ letter-spacing:.11em !important }
+
+/* ---- 3 · shared interaction states ----------------------------- */
+:where(a,button,[role="button"],[tabindex="0"],input,select,textarea):focus-visible{
+  outline:2px solid var(--red,#D7263D);
+  outline-offset:3px;
+  border-radius:6px;
+}
+::selection{ background:rgba(215,38,61,.22); color:inherit }
+
+/* in-page links land clear of the floating nav */
+section[id], [id^="branch"], .mkui-sec[id]{ scroll-margin-top:104px }
+
+/* section headings share one size, not just one face */
+.sh h2, .mkui-h2{ font-size:clamp(27px,3.6vw,42px) !important }
+.sh h2 + p, .mkui-h2 + .mkui-sub{ margin-top:12px }
+
+@media (prefers-reduced-motion:reduce){
+  *{ scroll-behavior:auto !important }
+}
+</style>
 </body>
 </html>
