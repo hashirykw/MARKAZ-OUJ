@@ -175,6 +175,529 @@
     },
 
     /* ---------------------------------------------------------------
+       TEAM — one list for the whole site. The home page cards, the
+       About team grid, the Martial Arts coaches grid and the Wall of
+       Fame all read from here. Every line is as the person sent it.
+         img / wide   team photos (.webp) for the card and the details
+         campuses[]   links the person to their branch cards
+         record[]     their own medals: g / s / b counts per event;
+                      yr null means the year was not given
+         top          which record row leads their Wall of Fame card
+       --------------------------------------------------------------- */
+    team: [
+      {
+        "id": "abdul-samad-khan",
+        "chairman": true,
+        "n": "Abdul Samad Khan",
+        "hon": "Sir",
+        "r": "Chairman · 4th Dan",
+        "badge": "Chairman",
+        "img": "team-abdul-samad-khan",
+        "wide": "team-abdul-samad-khan-wide",
+        "s": "Training, competing and coaching since 1991, and the supervisor of every Markaz campus.",
+        "list": [
+          "Began martial arts in Class Two under Great Master Shahid Ali Siddiqui",
+          "Coached with Special Olympics Pakistan, and served as Head of Sports at The City School (PAF Chapter), Happy Home and Liberty",
+          "President of the Sindh Pickleball Association",
+          "Heads every academy and club in the Markaz network"
+        ],
+        "facts": [
+          [
+            "Grade",
+            "4th Dan"
+          ],
+          [
+            "On the mat since",
+            "1991"
+          ],
+          [
+            "Role",
+            "Chairman"
+          ]
+        ],
+        "campuses": [],
+        "record": []
+      },
+      {
+        "id": "master-iqbal",
+        "n": "Master Iqbal",
+        "aka": "Muhammad Jan",
+        "r": "4th Dan · Kukkiwon-certified master",
+        "badge": "4th Dan",
+        "img": "team-master-iqbal",
+        "wide": "team-master-iqbal-wide",
+        "s": "More than four decades in the martial arts. Boxing from 1974, a black belt in Bando, then Taekwondo from 1979, at sixteen, under Master Youn Tak Oh and Instructor Rashid Ghulam Ullah.",
+        "list": [
+          "Taekwondo black belt in 1981, now 4th Dan, certified by the Kukkiwon",
+          "Represented Pakistan at the 1988 International Championship in Karachi and won gold, competing against Korea and Thailand",
+          "Multiple national medals",
+          "Instructor at Haji Club for 14 to 16 years"
+        ],
+        "facts": [
+          [
+            "Grade",
+            "4th Dan, Kukkiwon"
+          ],
+          [
+            "Taekwondo since",
+            "1979"
+          ],
+          [
+            "Black belt",
+            "1981"
+          ]
+        ],
+        "campuses": [],
+        "top": 0,
+        "record": [
+          {
+            "ev": "International Championship, Karachi",
+            "yr": 1988,
+            "g": 1,
+            "rep": "Pakistan"
+          }
+        ]
+      },
+      {
+        "id": "areeba-hafeez",
+        "n": "Areeba Hafeez",
+        "r": "Head coach, female-only programme · 2nd Dan",
+        "badge": "Head coach",
+        "img": "team-areeba-hafeez",
+        "wide": "team-areeba-hafeez-wide",
+        "s": "Physical educationist, coach and event chief organiser. At Markaz since 2016 under Master Abdul Samad Khan: black belt in 2022, 2nd Dan in 2023.",
+        "list": [
+          "Head coach of the Markaz Martial Arts Academy female-only programme",
+          "Head coach at Ribat Taekwondo Academy",
+          "Event chief organiser, Markaz Martial Arts Academy",
+          "Physical educationist at The City School (Gulistan-e-Johar), and an archery trainer",
+          "M.Sc in Health, Physical Education and Sports Sciences",
+          "STA-certified referee and coach, with technical and rescue training across several sports",
+          "Has played Taekwondo, hockey, cricket, archery, boxing, kickboxing, tug of war and MMA"
+        ],
+        "facts": [
+          [
+            "Grade",
+            "2nd Dan, and Kukkiwon 1st Dan"
+          ],
+          [
+            "At Markaz since",
+            "2016"
+          ],
+          [
+            "Black belt",
+            "2022"
+          ]
+        ],
+        "campuses": [
+          {
+            "id": "markaz-khel-o-saqafat",
+            "name": "Markaz Khel o Saqafat"
+          },
+          {
+            "id": "ribat",
+            "name": "Ribat Taekwondo Academy"
+          }
+        ],
+        "top": 0,
+        "record": [
+          {
+            "ev": "Asia Open Taekwondo Championship",
+            "yr": 2025,
+            "s": 1,
+            "b": 1
+          },
+          {
+            "ev": "Online International Championship",
+            "yr": null,
+            "g": 1,
+            "b": 1
+          },
+          {
+            "ev": "Karachi Cage Fight League",
+            "yr": null,
+            "g": 2
+          },
+          {
+            "ev": "National Fight Championship",
+            "yr": null,
+            "s": 1,
+            "b": 1
+          },
+          {
+            "ev": "Intervarsity Taekwondo",
+            "yr": null,
+            "s": 1,
+            "b": 1
+          }
+        ]
+      },
+      {
+        "id": "yumna-binte-khalid",
+        "n": "Yumna Binte Khalid",
+        "r": "Sports Coordinator, The City School North · 2nd Dan",
+        "badge": "Medallist",
+        "img": "team-yumna-binte-khalid",
+        "wide": "team-yumna-binte-khalid-wide",
+        "s": "At Markaz Martial Arts Academy since 2014 and now a senior mentor there. Former captain of the University of Karachi Taekwondo team, she has represented the University of Karachi, HEC Pakistan, Pakistan WAPDA and Pakistan Railways.",
+        "list": [
+          "2nd Dan black belt, Kukkiwon, and ATU (Asian Taekwondo Union) seminar certified, Islamabad",
+          "Silver and bronze at the Combaxx 5th Asian Taekwondo Open Championship (G2), 2023, for HEC Pakistan",
+          "Bronze at the 34th National Games, Quetta 2023, and at the 16th Korean Ambassador Championship, 2024",
+          "Took part in the National Games 2025 for Pakistan WAPDA",
+          "Invited to represent Punjab University and Superior University at the HEC All Pakistan Inter-University Taekwondo Championships",
+          "Sports Coordinator at The City School, North Branch",
+          "Masters from the University of Karachi",
+          "Runs self-defence seminars for girls with the Department of Islamic Learning, The City of Knowledge Islamic Institute and Millions Smile Foundation",
+          "Invited as chief guest at events for young athletes"
+        ],
+        "facts": [
+          [
+            "Grade",
+            "2nd Dan, Kukkiwon"
+          ],
+          [
+            "At Markaz since",
+            "2014"
+          ],
+          [
+            "Represented",
+            "University of Karachi, HEC, WAPDA, Railways"
+          ]
+        ],
+        "campuses": [],
+        "top": 0,
+        "record": [
+          {
+            "ev": "Combaxx 5th Asian Taekwondo Open Championship (G2)",
+            "yr": 2023,
+            "s": 1,
+            "b": 1,
+            "rep": "HEC Pakistan"
+          },
+          {
+            "ev": "International Martial Arts Championship",
+            "yr": 2017,
+            "g": 1
+          },
+          {
+            "ev": "34th National Games, Quetta",
+            "yr": 2023,
+            "b": 1,
+            "rep": "HEC"
+          },
+          {
+            "ev": "16th Korean Ambassador Championship",
+            "yr": 2024,
+            "b": 1,
+            "rep": "WAPDA"
+          },
+          {
+            "ev": "15th Korean Ambassador Championship",
+            "yr": 2022,
+            "b": 3
+          },
+          {
+            "ev": "14th Korean Ambassador Championship",
+            "yr": 2019,
+            "b": 3
+          },
+          {
+            "ev": "13th Korean Ambassador Championship",
+            "yr": 2018,
+            "s": 1
+          },
+          {
+            "ev": "12th HEC Inter-University Championship",
+            "yr": 2024,
+            "b": 2
+          },
+          {
+            "ev": "HEC Inter-University Championship",
+            "yr": 2019,
+            "g": 1,
+            "b": 2
+          },
+          {
+            "ev": "HEC Inter-University Championship",
+            "yr": 2018,
+            "g": 1,
+            "b": 2
+          },
+          {
+            "ev": "HEC Inter-University Championship",
+            "yr": 2017,
+            "g": 2,
+            "s": 1,
+            "b": 3
+          },
+          {
+            "ev": "HEC Inter-University Championship",
+            "yr": 2016,
+            "b": 1
+          },
+          {
+            "ev": "University of Karachi Inter-University, Taekwondo",
+            "yr": 2017,
+            "g": 1,
+            "cat": "2017-18"
+          },
+          {
+            "ev": "University of Karachi Inter-University, Taekwondo",
+            "yr": 2016,
+            "g": 1,
+            "cat": "2016-17"
+          },
+          {
+            "ev": "University of Karachi Inter-University, Wushu",
+            "yr": 2016,
+            "s": 1,
+            "cat": "2016-17"
+          },
+          {
+            "ev": "Chong Hong Markaz",
+            "yr": 2023,
+            "g": 3
+          },
+          {
+            "ev": "All Karachi Championship",
+            "yr": 2017,
+            "g": 4
+          },
+          {
+            "ev": "24th Quaid-e-Azam Open",
+            "yr": 2017,
+            "g": 1
+          },
+          {
+            "ev": "9th KCTA Inter City",
+            "yr": 2015,
+            "g": 1
+          },
+          {
+            "ev": "2nd All Karachi Markaz",
+            "yr": 2015,
+            "g": 1
+          },
+          {
+            "ev": "1st All Karachi Markaz",
+            "yr": 2014,
+            "s": 1
+          }
+        ]
+      },
+      {
+        "id": "anumta-khan",
+        "n": "Anumta Khan",
+        "r": "Taekwondo coach · 1st Dan Kukkiwon",
+        "badge": "Coach",
+        "img": "team-anumta-khan",
+        "wide": "team-anumta-khan-wide",
+        "s": "Ten years of Taekwondo at Markaz Martial Arts Academy. She coaches at The Avicenna School and owns Avicenna Taekwondo Dojang.",
+        "list": [
+          "Kukkiwon-certified 1st Dan black belt and national Taekwondo player",
+          "Silver at the 7th Asian Taekwondo Open Championship",
+          "Bronze at the 13th Korean Ambassador National Taekwondo Championship",
+          "Taekwondo coach at The Avicenna School and owner of Avicenna Taekwondo Dojang",
+          "Photography diploma from Talha Ghouri Photography School; works with Salman Photography Studio",
+          "Photographer, graphic designer and editor; has completed her Intermediate"
+        ],
+        "facts": [
+          [
+            "Grade",
+            "1st Dan, Kukkiwon"
+          ],
+          [
+            "At Markaz",
+            "10 years"
+          ]
+        ],
+        "campuses": [
+          {
+            "id": "avicenna",
+            "name": "Avicenna Taekwondo Dojang"
+          }
+        ],
+        "top": 0,
+        "record": [
+          {
+            "ev": "7th Asian Taekwondo Open Championship",
+            "yr": null,
+            "s": 1
+          },
+          {
+            "ev": "13th Korean Ambassador National Taekwondo Championship",
+            "yr": null,
+            "b": 1
+          }
+        ]
+      },
+      {
+        "id": "muhammad-asad",
+        "n": "Muhammad Asad",
+        "r": "Founder and head coach, Unity Taekwondo Academy · 1st Dan",
+        "badge": "Head coach",
+        "img": "team-muhammad-asad",
+        "wide": "team-muhammad-asad-wide",
+        "s": "MSc physical educationist and university visiting lecturer. Markaz Martial Arts is his home school, where he spent eight years training and serving before founding Unity Taekwondo Academy.",
+        "list": [
+          "Founder and head coach, Unity Taekwondo Academy",
+          "Currently working with Elixir Taekwondo Team",
+          "National Intervarsity Taekwondo player and Kukkiwon-certified 1st Dan black belt",
+          "MSc in Physical Education; university visiting lecturer",
+          "Senior Cadet Officer, passed out from Junior Brigade Karachi with Elementary Military Training",
+          "Has worked as a sports coach and coordinator across several platforms",
+          "Worked closely with Sir Abdul Samad Khan, his mentor"
+        ],
+        "facts": [
+          [
+            "Grade",
+            "1st Dan, Kukkiwon"
+          ],
+          [
+            "At Markaz",
+            "8 years"
+          ]
+        ],
+        "campuses": [
+          {
+            "id": "unity",
+            "name": "Unity Taekwondo Academy"
+          }
+        ],
+        "record": []
+      },
+      {
+        "id": "malaika",
+        "n": "Malaika",
+        "r": "President, Saad bin Abi Waqas Taekwondo Club · 1st Dan",
+        "badge": "Club president",
+        "img": "team-malaika",
+        "wide": "team-malaika-wide",
+        "s": "Started at Markaz Martial Arts Academy in 2014, at eight, under Master Abdul Samad Khan. Black belt in 2022 and Kukkiwon 1st Dan in 2026.",
+        "list": [
+          "President of Saad bin Abi Waqas Taekwondo Club for a year and a half",
+          "Kukkiwon 1st Dan black belt, 2026",
+          "Studying for a Bachelor’s in Health, Physical Education and Sports Sciences at Hamdard University"
+        ],
+        "facts": [
+          [
+            "Grade",
+            "1st Dan, Kukkiwon"
+          ],
+          [
+            "At Markaz since",
+            "2014"
+          ],
+          [
+            "Black belt",
+            "2022"
+          ]
+        ],
+        "campuses": [
+          {
+            "id": "saad-bin-abi-waqas",
+            "name": "Saad bin Abi Waqas Taekwondo Club"
+          }
+        ],
+        "record": []
+      },
+      {
+        "id": "taha-ali",
+        "n": "Taha Ali",
+        "r": "Martial arts instructor · 1st Dan PTF",
+        "badge": "Instructor",
+        "img": "team-taha-ali",
+        "wide": "team-taha-ali-wide",
+        "s": "Karachi finance professional and athlete: a PTF-certified 1st Dan, national-level Taekwondo player and martial arts instructor.",
+        "list": [
+          "PTF-certified 1st Dan black belt, national-level player and martial arts instructor",
+          "Captained the Midas Pakistan futsal team",
+          "Senior Executive, Financial Reporting, at International Packaging Films Limited",
+          "Four years at Midas Safety during his CA articleship, 2022 to 2026",
+          "Has cleared the CA-Part qualification and placed 3rd in Round 1 of ICAP NFO 2025",
+          "O-Levels at Beaconhouse School System, where he served on the student council, then A-Levels",
+          "Edits and directs video for YouTube"
+        ],
+        "facts": [
+          [
+            "Grade",
+            "1st Dan, PTF"
+          ],
+          [
+            "Level",
+            "National"
+          ]
+        ],
+        "campuses": [],
+        "record": []
+      },
+      {
+        "id": "muhammad-abdullah-musharraf",
+        "n": "Muhammad Abdullah Musharraf",
+        "r": "National Taekwondo player · 1st Dan Kukkiwon",
+        "badge": "National player",
+        "img": "team-abdullah-musharraf",
+        "wide": "team-abdullah-musharraf-wide",
+        "s": "National Taekwondo player with 12 years in the sport, including the 13th Korean Ambassador National Taekwondo Championship.",
+        "list": [
+          "Kukkiwon-certified 1st Dan black belt",
+          "Computational Finance graduate, NED University",
+          "Works in business and product analysis and cybersecurity product strategy",
+          "Founder of Pink Lavana, Arzu, Art Fest and Stallion Community, and a co-founder across other ventures",
+          "Represented Pakistan in international youth tobacco-control advocacy",
+          "Invited onto television and radio to raise awareness for causes he works on"
+        ],
+        "facts": [
+          [
+            "Grade",
+            "1st Dan, Kukkiwon"
+          ],
+          [
+            "In the sport",
+            "12 years"
+          ]
+        ],
+        "campuses": [],
+        "record": []
+      },
+      {
+        "id": "usama",
+        "n": "Usama",
+        "r": "Sports teacher, DHA Creek Campus · Taekwondo",
+        "badge": "Sports teacher",
+        "img": "team-usama",
+        "wide": "team-usama-wide",
+        "s": "Sports teacher at DHA Creek Campus for the past seven years, and a sports event organiser. His sport is Taekwondo.",
+        "list": [
+          "Two-time silver medallist, Junior National U-17, Korean Ambassador Cup",
+          "Sports teacher at DHA Creek Campus for seven years",
+          "Sports event organiser"
+        ],
+        "facts": [
+          [
+            "Sport",
+            "Taekwondo"
+          ],
+          [
+            "Teaching",
+            "7 years"
+          ]
+        ],
+        "campuses": [],
+        "top": 0,
+        "record": [
+          {
+            "ev": "Korean Ambassador Cup, Junior National",
+            "yr": null,
+            "s": 2,
+            "cat": "U-17"
+          }
+        ]
+      }
+    ],
+
+    /* ---------------------------------------------------------------
        CAMPUSES — the places Markaz Martial Arts Academy teaches.
 
        Markaz Khel o Saqafat is the main campus. The others are host
@@ -209,7 +732,7 @@
         supervisor: 'Abdul Samad Khan',
         trainers: [
           { name: 'Asad Raza', title: 'Sir' },
-          { name: 'Areeba Hafeez', title: 'Ms', scope: 'Female-only classes' }
+          { name: 'Areeba Hafeez', title: 'Ms', scope: 'Head coach, female-only classes', profile: 'about.html#team=areeba-hafeez' }
         ],
         ages: '5 to 45, separate classes for male and female',
         classes: [
@@ -267,7 +790,7 @@
         placeholderTimes: true,
         area: 'Gulshan-e-Iqbal',
         id: 'unity',
-        profile: 'Taekwondo at the Harmain Residency Club House in Gulshan-e-Iqbal, run by Sir Asad Sheikh under the same supervision as every other campus.',
+        profile: 'Taekwondo at the Harmain Residency Club House in Gulshan-e-Iqbal, run by its founder and head coach, Sir Muhammad Asad, under the same supervision as every other campus.',
         trial: { offered: true, label: 'Book a free class', routeTo: 'branch' },
         name: 'Unity Taekwondo Academy',
         tagline: 'Training With Dignity',
@@ -275,7 +798,7 @@
         academy: 'Markaz Martial Arts Academy',
         supervisor: 'Abdul Samad Khan',
         trainers: [
-          { name: 'Asad Sheikh', title: 'Sir' }
+          { name: 'Muhammad Asad', title: 'Sir', scope: 'Founder and head coach', profile: 'about.html#team=muhammad-asad' }
         ],
         ages: '',
         classes: [
@@ -290,7 +813,7 @@
           whatsapp: '923351214816',
           phoneDisplay: '0335 121 4816',
           phones: [
-            { number: '0335 121 4816', whatsapp: '923351214816', name: 'Sir Asad Sheikh' }
+            { number: '0335 121 4816', whatsapp: '923351214816', name: 'Sir Muhammad Asad' }
           ],
           instagram: 'https://www.instagram.com/unity.fighters'
         },
@@ -318,7 +841,7 @@
         supervisor: 'Abdul Samad Khan',
         trainers: [
           { name: 'Usman',   title: 'Sir' },
-          { name: 'Malaika', title: 'Ms' }
+          { name: 'Malaika', title: 'Ms', scope: 'Club president', profile: 'about.html#team=malaika' }
         ],
         ages: 'Girls 3 to 15, boys 3 to 18',
         classes: [
@@ -364,7 +887,9 @@
         since: '',
         academy: 'Markaz Martial Arts Academy',
         supervisor: 'Abdul Samad Khan',
-        trainers: [],
+        trainers: [
+          { name: 'Anumta Khan', title: 'Ms', scope: 'Owner and coach', profile: 'about.html#team=anumta-khan' }
+        ],
         ages: 'Girls-only 15 to 50, co-ed 5 to 40',
         classes: [
           { label: 'Girls only', days: 'Tuesday & Friday', time: '5:00 – 6:00 PM', ages: '15 to 50' },
@@ -389,6 +914,36 @@
         show: true
       },
       {
+        /* New branch, added 5 Oct 2026. Timings as sent by the desk; no
+           direct line yet, so bookings route to the Markaz desk. */
+        placeholderTimes: false,
+        area: 'Nazimabad',
+        id: 'sms-martial-arts-club',
+        profile: 'A new Markaz branch on Eidgah Ground in Nazimabad, with classes three evenings a week.',
+        trial: { offered: true, label: 'Book a trial class', routeTo: 'markaz' },
+        name: 'SMS Martial Arts Club',
+        tagline: 'New branch',
+        since: '',
+        academy: 'Markaz Martial Arts Academy',
+        supervisor: 'Abdul Samad Khan',
+        trainers: [],
+        ages: '',
+        classes: [
+          { label: '', days: 'Wednesday, Thursday & Friday', time: '7:00 – 9:00 PM', ages: '' }
+        ],
+        fee: { line: '', note: '' },
+        location: 'Eidgah Ground, Nazimabad, Karachi',
+        mapsUrl: '',
+        contact: {},
+        affiliations: ['Markaz Martial Arts Academy'],
+        achievements: [],
+        milestones: [],
+        logo: '',
+        photos: [],
+        posters: [],
+        show: true
+      },
+      {
         area: 'Federal B Area',
         id: 'markaz-khel-o-saqafat',
         profile: 'The main floor, and the one every other campus reports back to. Running since 2014 under Sir Abdul Samad Khan, with the female-only programme taught by Ms Areeba Hafeez.',
@@ -402,7 +957,7 @@
         parent: 'Markaz OUJ Performance',
         supervisor: 'Abdul Samad Khan',
         trainers: [
-          { name: 'Areeba Hafeez', title: 'Ms', scope: 'Female-only programme' }
+          { name: 'Areeba Hafeez', title: 'Ms', scope: 'Head coach, female-only programme', profile: 'about.html#team=areeba-hafeez' }
         ],
         ages: 'From age 5, and a female-only batch for 8 to 45',
         /* The female programme's board is confirmed. The general batches
@@ -986,7 +1541,7 @@
 
 </script>
 <title>Wall of Fame | Medals, Champions &amp; Gallery | Markaz Martial Arts Academy Karachi</title>
-<meta name="description" content="The competition record of Markaz Martial Arts Academy: 84 medals across 11 championships, the Sindh Games, national and inter-club events, with photos from gradings and camps.">
+<meta name="description" content="The competition record of Markaz Martial Arts Academy and its athletes: 140 medals on record, from the National Games and Korean Ambassador championships to Asian opens and club tournaments, with photos from gradings and events.">
 <meta name="theme-color" content="#0B1533">
 <meta name="geo.region" content="PK-SD">
 <meta name="geo.placename" content="Karachi">
@@ -999,14 +1554,14 @@
 <link rel="alternate" hreflang="x-default" href="https://markaz-ouj.com/wall-of-fame.html">
 <link rel="canonical" href="https://markaz-ouj.com/wall-of-fame.html">
 <meta property="og:title" content="Wall of Fame | Medals, Champions & Gallery | Markaz Martial Arts Academy Karachi">
-<meta property="og:description" content="The competition record of Markaz Martial Arts Academy: 84 medals across 11 championships, the Sindh Games, national and inter-club events, with photos from gradings and camps.">
+<meta property="og:description" content="The competition record of Markaz Martial Arts Academy and its athletes: 140 medals on record, from the National Games and Korean Ambassador championships to Asian opens and club tournaments, with photos from gradings and events.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Markaz OUJ Performance">
 <meta property="og:locale" content="en_PK">
 <meta property="og:image" content="https://markaz-ouj.com/og-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Wall of Fame | Medals, Champions & Gallery | Markaz Martial Arts Academy Karachi">
-<meta name="twitter:description" content="The competition record of Markaz Martial Arts Academy: 84 medals across 11 championships, the Sindh Games, national and inter-club events, with photos from gradings and camps.">
+<meta name="twitter:description" content="The competition record of Markaz Martial Arts Academy and its athletes: 140 medals on record, from the National Games and Korean Ambassador championships to Asian opens and club tournaments, with photos from gradings and events.">
 <meta name="twitter:image" content="https://markaz-ouj.com/og-cover.jpg">
 <link rel="icon" href="ouj.png" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="ouj.png">
@@ -2703,154 +3258,141 @@ body.menu .np-grid a{transform:none;opacity:1}
 /* ==================================================================
    WALL OF FAME — data and behaviour
 
-   REPLACE ME FIRST
-   Every name, event and photograph below is a placeholder standing in
-   for the academy's real record. Swap FAME, EXTRA and DECKS for the
-   real thing, and put real files in img/fame/. Every figure on the
-   page is derived from these arrays, so nothing else needs editing.
+   Everything here is read from the content layer, so this page never
+   holds its own copy of anyone's record:
+     MARKAZ.get('team')      the people, their photos and their medals
+     MARKAZ.get('branches')  club results, from each campus's achievements[]
+   A result row carries g / s / b counts, so "3 bronzes" is one row. A row
+   sent without a year is listed under "Year not given" instead of a guess.
+   Every figure on the page is added up from these rows.
    ================================================================== */
 window.Markaz.ready(function () {
   'use strict';
 
   var M = window.Markaz;
+  var MK = window.MARKAZ;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
-  function u(id, w, h, focal) {
-    return 'https://images.unsplash.com/photo-' + id +
-      '?auto=format&fit=crop&w=' + w + '&h=' + h + '&q=74&crop=' + (focal || 'entropy');
-  }
-  var P = {
-    a: '1517438476312-10d79c077509', b: '1517836357463-d25dfeac3438',
-    c: '1521572163474-6864f9cf17ab', d: '1534438327276-14e5300c3a48',
-    e: '1544216717-3bbf52512659',    f: '1544367567-0f2fcb009e0b',
-    g: '1552674605-db6ffd4facb5',    h: '1555597673-b21d5c935865',
-    i: '1583473848882-f9a5bc7fd2ee', j: '1595078475328-1ab05d0a6a0e'
-  };
   var LABEL = { gold: 'Gold', silver: 'Silver', bronze: 'Bronze' };
+  var PLURAL = { gold: 'golds', silver: 'silvers', bronze: 'bronzes' };
+  var ORDER = ['gold', 'silver', 'bronze'];
+  var KEY = { gold: 'g', silver: 's', bronze: 'b' };
 
-  var FAME = [
-    { n:'Ahmed Raza',    d:'Taekwondo',  m:'gold',   yr:2025, ev:'Sindh Games', cat:'Under 58 kg, senior', belt:'Black belt I Dan', since:2019, img:u(P.a,640,800,'faces'), note:'Came through the beginner batch in 2019 and has not missed a season since. Won all four bouts in Karachi without dropping a round.' },
-    { n:'Hira Siddiqui', d:'Taekwondo',  m:'gold',   yr:2025, ev:'National Taekwondo Championship', cat:'Under 49 kg, senior', belt:'Black belt I Dan', since:2018, img:u(P.h,640,800,'faces'), note:'The academy\u2019s first national gold in the women\u2019s flyweight division. Trains with the evening squad four nights a week.' },
-    { n:'Bilal Nadeem',  d:'Boxing',     m:'silver', yr:2025, ev:'Karachi Divisional Championship', cat:'Under 64 kg', belt:'Squad track', since:2021, img:u(P.e,640,800,'faces'), note:'Moved across from the fitness floor in 2021. Lost the final on a split decision after stopping two opponents on the way there.' },
-    { n:'Ayesha Khan',   d:'Taekwondo',  m:'gold',   yr:2024, ev:'Inter-School Taekwondo Open', cat:'Under 46 kg, cadet', belt:'Red belt', since:2022, img:u(P.c,640,800,'faces'), note:'Fifteen, and already sparring with the senior squad. Represented her school and the academy in the same season.' },
-    { n:'Usman Tariq',   d:'Kickboxing', m:'bronze', yr:2024, ev:'All Pakistan Inter-Club Championship', cat:'Under 71 kg', belt:'Squad track', since:2020, img:u(P.f,640,800,'faces'), note:'Fought up a weight class after a late withdrawal and still came home with a medal.' },
-    { n:'Fatima Zehra',  d:'Taekwondo',  m:'silver', yr:2024, ev:'Sindh Games', cat:'Under 53 kg, junior', belt:'Black belt I Dan', since:2019, img:u(P.i,640,800,'faces'), note:'Graded to black belt and medalled at provincial level inside the same twelve months.' },
-    { n:'Hamza Sheikh',  d:'MMA',        m:'gold',   yr:2024, ev:'Markaz Open', cat:'Under 70 kg, amateur', belt:'Squad', since:2021, img:u(P.d,640,800,'faces'), note:'Grappling-first, and it showed: three submissions on the day, none past the second round.' },
-    { n:'Zainab Ali',    d:'Taekwondo',  m:'bronze', yr:2023, ev:'National Taekwondo Championship', cat:'Under 57 kg, senior', belt:'Black belt I Dan', since:2017, img:u(P.g,640,800,'faces'), note:'One of the longest-serving members of the squad, and the one the younger girls copy in warm-ups.' },
-    { n:'Saad Iqbal',    d:'Boxing',     m:'gold',   yr:2023, ev:'Karachi Divisional Championship', cat:'Under 60 kg', belt:'Squad track', since:2020, img:u(P.b,640,800,'faces'), note:'Won the division at his second attempt, a year after losing in the first round.' },
-    { n:'Mahnoor Abbas', d:'Taekwondo',  m:'silver', yr:2023, ev:'Inter-School Taekwondo Open', cat:'Under 44 kg, cadet', belt:'Blue belt', since:2022, img:u(P.j,640,800,'faces'), note:'Six months from her first class to her first podium, the fastest the academy has seen.' },
-    { n:'Danish Malik',  d:'Kickboxing', m:'silver', yr:2022, ev:'All Pakistan Inter-Club Championship', cat:'Under 67 kg', belt:'Squad track', since:2018, img:u(P.a,640,800,'entropy'), note:'Coaches the Saturday junior batch now, and still makes weight for the club card every year.' },
-    { n:'Areeba Hussain', d:'Taekwondo', m:'gold',   yr:2022, ev:'Sindh Games', cat:'Under 52 kg, junior', belt:'Black belt I Dan', since:2016, img:u(P.h,640,800,'entropy'), note:'On the wall since the very first season the academy entered a squad.' }
-  ];
+  var TEAM = (MK && MK.get('team')) || [];
+  var BRANCHES = (MK && MK.get('branches')) || [];
 
-  var EXTRA = [
-    { n:'Talha Junaid',   d:'Taekwondo',  m:'bronze', yr:2025, ev:'Karachi Divisional Championship', cat:'Under 63 kg, senior' },
-    { n:'Rida Naqvi',     d:'Taekwondo',  m:'silver', yr:2025, ev:'Inter-School Taekwondo Open', cat:'Under 41 kg, cadet' },
-    { n:'Owais Rehman',   d:'Boxing',     m:'bronze', yr:2024, ev:'Markaz Open', cat:'Under 69 kg' },
-    { n:'Sana Faisal',    d:'Taekwondo',  m:'gold',   yr:2024, ev:'Markaz Open', cat:'Under 49 kg, junior' },
-    { n:'Arsalan Yousuf', d:'MMA',        m:'silver', yr:2023, ev:'Markaz Open', cat:'Under 77 kg, amateur' },
-    { n:'Noor ul Ain',    d:'Taekwondo',  m:'bronze', yr:2022, ev:'Inter-School Taekwondo Open', cat:'Under 46 kg, cadet' }
-  ];
+  function count(r) { return (r.g || 0) + (r.s || 0) + (r.b || 0); }
+  function best(r) { return r.g ? 'gold' : (r.s ? 'silver' : 'bronze'); }
+  /* "Silver and bronze", "3 bronzes", "Gold, 2 silvers and a bronze" */
+  function haul(r) {
+    var parts = ORDER.filter(function (m) { return r[KEY[m]]; }).map(function (m) {
+      var n = r[KEY[m]];
+      return n === 1 ? LABEL[m].toLowerCase() : n + ' ' + PLURAL[m];
+    });
+    var s = parts.length > 1 ? parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] : (parts[0] || '');
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+  function detail(r) {
+    return [r.cat || '', r.rep ? 'for ' + r.rep : ''].filter(Boolean).join(', ');
+  }
 
-  var DECKS = {
-    'Competition': [
-      { t:'Final round, Sindh Games', img:u(P.a,640,820), full:u(P.a,1600,1200) },
-      { t:'Corner between rounds',    img:u(P.f,640,820), full:u(P.f,1600,1200) },
-      { t:'Weigh-in morning',         img:u(P.c,640,820), full:u(P.c,1600,1200) },
-      { t:'Medal ceremony',           img:u(P.h,640,820), full:u(P.h,1600,1200) },
-      { t:'Walking out',              img:u(P.e,640,820,'faces'), full:u(P.e,1600,1200,'faces') }
-    ],
-    'Training': [
-      { t:'Morning conditioning',     img:u(P.e,640,820), full:u(P.e,1600,1200) },
-      { t:'Pad work with the coach',  img:u(P.b,640,820), full:u(P.b,1600,1200) },
-      { t:'Kicking drills, juniors',  img:u(P.d,640,820), full:u(P.d,1600,1200) },
-      { t:'Sparring night',           img:u(P.f,640,820,'faces'), full:u(P.f,1600,1200,'faces') },
-      { t:'Bag rounds',               img:u(P.c,640,820,'faces'), full:u(P.c,1600,1200,'faces') }
-    ],
-    'Gradings': [
-      { t:'Black belt grading',       img:u(P.i,640,820), full:u(P.i,1600,1200) },
-      { t:'Belt ceremony at the academy',  img:u(P.g,640,820), full:u(P.g,1600,1200) },
-      { t:'Poomsae, senior grade',    img:u(P.i,640,820,'faces'), full:u(P.i,1600,1200,'faces') },
-      { t:'Breaking test',            img:u(P.d,640,820,'faces'), full:u(P.d,1600,1200,'faces') },
-      { t:'New black belts',          img:u(P.h,640,820,'faces'), full:u(P.h,1600,1200,'faces') }
-    ],
-    'Camps': [
-      { t:'Summer camp, week two',    img:u(P.j,640,820), full:u(P.j,1600,1200) },
-      { t:'Camp graduation',          img:u(P.j,640,820,'faces'), full:u(P.j,1600,1200,'faces') },
-      { t:'Warm-up laps',             img:u(P.f,640,820), full:u(P.f,1600,1200) },
-      { t:'Camp, last day',           img:u(P.g,640,820,'faces'), full:u(P.g,1600,1200,'faces') },
-      { t:'Shade break',              img:u(P.a,640,820,'faces'), full:u(P.a,1600,1200,'faces') }
-    ],
-    'Events': [
-      { t:'Inter-school squad, 2025', img:u(P.a,640,820,'faces'), full:u(P.a,1600,1200,'faces') },
-      { t:'Ringside, Markaz Open',    img:u(P.e,640,820,'faces'), full:u(P.e,1600,1200,'faces') },
-      { t:'Coaches before the card',  img:u(P.b,640,820,'faces'), full:u(P.b,1600,1200,'faces') },
-      { t:'The squad, end of season', img:u(P.h,640,820), full:u(P.h,1600,1200) },
-      { t:'Prize table',              img:u(P.c,640,820), full:u(P.c,1600,1200) }
-    ]
-  };
-  var CATS = Object.keys(DECKS);
+  /* ================= THE ROWS ================= */
+  var PEOPLE = TEAM.filter(function (t) { return (t.record || []).some(count); });
+  var ROWS = [];
+  PEOPLE.forEach(function (t) {
+    t.record.forEach(function (r) {
+      if (!count(r)) return;
+      var d = detail(r);
+      ROWS.push({ who: t.n, ev: r.ev, yr: r.yr || null, g: r.g || 0, s: r.s || 0, b: r.b || 0,
+                  sub: d ? d.charAt(0).toUpperCase() + d.slice(1) : '' });
+    });
+  });
+  BRANCHES.forEach(function (br) {
+    if (br.show === false) return;
+    (br.achievements || []).forEach(function (a) {
+      var y = parseInt(String(a.date || '').replace(/\D+/g, '').slice(-4), 10);
+      ROWS.push({ who: br.name, ev: a.event, yr: isNaN(y) ? null : y,
+                  g: a.g || 0, s: a.s || 0, b: a.b || 0,
+                  sub: 'Club result' + (a.date ? ', ' + a.date : '') });
+    });
+  });
 
-  /* ================= FIGURES, ALL DERIVED ================= */
-  var ALL = FAME.concat(EXTRA);
-  var uniq = function (a) { return a.filter(function (v, i) { return a.indexOf(v) === i; }); };
-  var tally = function (m) { return ALL.filter(function (p) { return p.m === m; }).length; };
-  [['#tG', '#bG', tally('gold')], ['#tS', '#bS', tally('silver')],
-   ['#tB', '#bB', tally('bronze')],
-   ['#tA', '#bA', uniq(ALL.map(function (p) { return p.n; })).length]]
+  /* ================= FIGURES, ALL ADDED UP ================= */
+  var TOT = { g: 0, s: 0, b: 0 };
+  ROWS.forEach(function (r) { TOT.g += r.g; TOT.s += r.s; TOT.b += r.b; });
+  [['#tG', '#bG', TOT.g], ['#tS', '#bS', TOT.s], ['#tB', '#bB', TOT.b], ['#tA', '#bA', PEOPLE.length]]
   .forEach(function (x) {
     var el = $(x[0]); el.dataset.n = x[2]; el.textContent = x[2];
     $(x[1]).setAttribute('data-ghost', x[2]);
   });
 
   /* ================= THE SQUAD ================= */
+  function lead(p) { return p.record[p.top || 0] || p.record[0]; }
+  function has(p, m) { return p.record.some(function (r) { return r[KEY[m]]; }); }
+  function line(r) {
+    var d = detail(r);
+    return haul(r) + ': ' + r.ev + (r.yr ? ', ' + r.yr : '') + (d ? ' (' + d + ')' : '');
+  }
+  var DISC = PEOPLE.map(function (p) { return p.d || 'Taekwondo'; })
+    .filter(function (v, i, a) { return a.indexOf(v) === i; });
+
   var view = { d: 'all', m: 'all' };
   function paintWall() {
-    var list = FAME.filter(function (p) {
-      return (view.d === 'all' || p.d === view.d) && (view.m === 'all' || p.m === view.m);
+    var list = PEOPLE.filter(function (p) {
+      return (view.d === 'all' || (p.d || 'Taekwondo') === view.d) && (view.m === 'all' || has(p, view.m));
     });
     $('#wCount').textContent = list.length;
     $('#wNone').hidden = list.length > 0;
     $('#wall').hidden = list.length === 0;
     $('#wall').innerHTML = list.map(function (p) {
-      return '<article class="card card--tap champ" data-m="' + p.m + '" data-k="' +
-        FAME.indexOf(p) + '" role="button" tabindex="0" aria-label="Open the record for ' +
+      var r = lead(p), m = best(r);
+      return '<article class="card card--tap champ" data-m="' + m + '" data-k="' +
+        PEOPLE.indexOf(p) + '" role="button" tabindex="0" aria-label="Open the record for ' +
         esc(p.n) + '">' +
-        '<div class="card__ph"><img src="' + p.img + '" alt="' + esc(p.n) +
-          '" loading="lazy" decoding="async" width="640" height="800"></div>' +
-        '<span class="medal"><i></i>' + LABEL[p.m] + '</span>' + M.openGlyph +
+        '<div class="card__ph"><img src="' + esc(p.img) + '.webp" alt="' + esc(p.n) +
+          '" loading="lazy" decoding="async" width="480" height="480"></div>' +
+        '<span class="medal"><i></i>' + LABEL[m] + '</span>' + M.openGlyph +
         '<div class="card__b"><h3>' + esc(p.n) + '</h3>' +
-          '<div class="ev">' + esc(p.ev) + '</div>' +
-          '<div class="card__foot"><span>' + esc(p.d) + '</span>' +
-            '<strong class="yr">' + p.yr + '</strong></div>' +
+          '<div class="ev">' + esc(r.ev) + '</div>' +
+          '<div class="card__foot"><span>' + esc(p.d || 'Taekwondo') + '</span>' +
+            '<strong class="yr">' + (r.yr || '') + '</strong></div>' +
         '</div></article>';
     }).join('');
     M.live($('#wall'));
   }
 
-  M.cards('#wall', FAME, function (p) {
+  M.cards('#wall', PEOPLE, function (p) {
+    var r = lead(p);
+    var n = p.record.reduce(function (a, x) { return a + count(x); }, 0);
+    var facts = [['Grade', p.grade || (p.facts && p.facts[0] ? p.facts[0][1] : '')], ['Medals listed', String(n)]];
+    (p.facts || []).forEach(function (f) { if (/since|At Markaz/.test(f[0])) facts.push(f); });
     return {
-      title: p.n, sub: LABEL[p.m] + ' at the ' + p.ev + ', ' + p.yr,
-      img: p.img.replace(/w=\d+/, 'w=1200').replace(/h=\d+/, 'h=520'),
-      body: p.note,
-      facts: [['Discipline', p.d], ['Category', p.cat], ['Grade', p.belt],
-              ['At Markaz since', String(p.since)]]
+      title: p.n + (p.aka ? ' (' + p.aka + ')' : ''),
+      sub: haul(r) + ' at the ' + r.ev + (r.yr ? ', ' + r.yr : ''),
+      img: (p.wide || p.img) + '.webp',
+      body: p.s,
+      facts: facts.filter(function (f) { return f[1]; }),
+      list: p.record.filter(count).map(line),
+      cta: ['Full profile', 'about.html#team=' + p.id]
     };
   });
 
-  M.chips('#wDisc',
-    [{ v: 'all', l: 'All disciplines', n: FAME.length }].concat(
-      ['Taekwondo', 'Boxing', 'Kickboxing', 'MMA'].map(function (d) {
-        return { v: d, l: d, n: FAME.filter(function (p) { return p.d === d; }).length };
+  if (DISC.length > 1) {
+    M.chips('#wDisc',
+      [{ v: 'all', l: 'All disciplines', n: PEOPLE.length }].concat(DISC.map(function (d) {
+        return { v: d, l: d, n: PEOPLE.filter(function (p) { return (p.d || 'Taekwondo') === d; }).length };
       })),
-    function (v) { view.d = v; paintWall(); });
+      function (v) { view.d = v; paintWall(); });
+  } else {
+    $('#wDisc').hidden = true;
+  }
 
   M.chips('#wMedal',
-    [{ v: 'all', l: 'Any medal' }].concat(['gold', 'silver', 'bronze'].map(function (m) {
-      return { v: m, l: LABEL[m], n: FAME.filter(function (p) { return p.m === m; }).length };
+    [{ v: 'all', l: 'Any medal' }].concat(ORDER.map(function (m) {
+      return { v: m, l: LABEL[m], n: PEOPLE.filter(function (p) { return has(p, m); }).length };
     })),
     function (v) { view.m = v; paintWall(); });
 
@@ -2858,21 +3400,60 @@ window.Markaz.ready(function () {
 
   /* ================= HONOURS ROLL ================= */
   var years = {};
-  ALL.forEach(function (p) { (years[p.yr] = years[p.yr] || []).push(p); });
-  $('#rollList').innerHTML = Object.keys(years).sort(function (a, b) { return b - a; })
-    .map(function (y) {
-      var order = { gold: 0, silver: 1, bronze: 2 };
-      var rows = years[y].slice().sort(function (a, b) { return order[a.m] - order[b.m]; });
-      return '<div><div class="rollyr"><b>' + y + '</b><i></i><span>' + rows.length +
-        (rows.length === 1 ? ' result' : ' results') + '</span></div>' +
-        rows.map(function (p) {
-          return '<div class="rrow" data-m="' + p.m + '"><i></i><b>' + esc(p.n) + '</b>' +
-            '<span>' + esc(p.ev) + '</span><em>' + esc(p.cat) + '</em>' +
-            '<u>' + LABEL[p.m] + '</u></div>';
-        }).join('') + '</div>';
-    }).join('');
+  ROWS.forEach(function (r) { var k = r.yr || 'none'; (years[k] = years[k] || []).push(r); });
+  var keys = Object.keys(years).filter(function (k) { return k !== 'none'; })
+    .sort(function (a, b) { return b - a; });
+  if (years.none) keys.push('none');
+  $('#rollList').innerHTML = keys.map(function (y) {
+    var rows = years[y].slice().sort(function (a, b) {
+      return ORDER.indexOf(best(a)) - ORDER.indexOf(best(b)) || count(b) - count(a);
+    });
+    return '<div><div class="rollyr' + (y === 'none' ? ' rollyr--none' : '') + '"><b>' +
+      (y === 'none' ? 'Year not given' : y) + '</b><i></i><span>' + rows.length +
+      (rows.length === 1 ? ' result' : ' results') + '</span></div>' +
+      rows.map(function (r) {
+        return '<div class="rrow" data-m="' + best(r) + '"><i></i><b>' + esc(r.who) + '</b>' +
+          '<span>' + esc(r.ev) + '</span><em>' + esc(r.sub) + '</em>' +
+          '<u>' + esc(haul(r)) + '</u></div>';
+      }).join('') + '</div>';
+  }).join('');
 
-  /* ================= THE GALLERY DECK ================= */
+  /* ================= THE GALLERY DECK =================
+     Real frames only: team and campus photos already on the site. The two
+     main-campus grading photos stay out until their consent is confirmed. */
+  var DECKS = {
+    'Medals': [
+      { t: 'Yumna Binte Khalid on the podium for Pakistan Railways', img: 'fame-yumna-railways.webp' },
+      { t: 'Yumna Binte Khalid receiving a medal',                    img: 'fame-yumna-medal-ceremony.webp' },
+      { t: 'Yumna Binte Khalid with her medal, in WAPDA colours',     img: 'fame-yumna-wapda-1.webp' },
+      { t: 'Yumna Binte Khalid with her medal',                       img: 'fame-yumna-wapda-2.webp' },
+      { t: 'Unity Taekwondo Academy students with their tournament medals', img: 'unity-medals.webp' }
+    ],
+    'Gradings': [
+      { t: 'Ribat Taekwondo Academy belt promotion ceremony',         img: 'markaz-female-belt-ceremony.webp' },
+      { t: 'Saad bin Abi Waqas Taekwondo Club students with their grading certificates', img: 'saad-grading.webp' },
+      { t: 'Saad bin Abi Waqas Taekwondo Club students with certificates, medals and a trophy', img: 'saad-awards.webp' },
+      { t: 'Avicenna Taekwondo Dojang students with their certificates', img: 'avicenna-certificates.webp' },
+      { t: 'Unity Taekwondo Academy students with their grading certificates', img: 'unity-certificates.webp' }
+    ],
+    'Classes': [
+      { t: 'Avicenna Taekwondo Dojang students lined up in class',    img: 'avicenna-class.webp' },
+      { t: 'Unity Taekwondo Academy students in stance during a class', img: 'unity-class.webp' }
+    ],
+    'Events': [
+      { t: 'Students Olympic Taekwondo Championship 2026, organised by Markaz OUJ Performance', img: 'fame-students-olympic-2026.webp' },
+      { t: 'Yumna Binte Khalid at a Taekwondo event',                 img: 'fame-yumna-arena.webp' }
+    ],
+    'Archive': [
+      { t: '6th Intercity KCDTA Taekwondo Championship, 2012',        img: 'fame-kcdta-2012.webp' },
+      { t: 'Master Iqbal (Muhammad Jan) with his medal, from his competing years', img: 'fame-master-iqbal-archive.webp' }
+    ]
+  };
+  Object.keys(DECKS).forEach(function (k) {
+    DECKS[k].forEach(function (s) { s.full = s.img; });
+  });
+  var CATS = Object.keys(DECKS);
+
   var cat = CATS[0], deck = [], hot = -1;
   var TILT = [-4, 2.4, -1.4, 3.2, -2.2];
   var DROP = [10, 0, 16, 2, 12];
@@ -3035,7 +3616,7 @@ window.Markaz.ready(function () {
    "@id": "https://markaz-ouj.com/wall-of-fame.html#webpage",
    "url": "https://markaz-ouj.com/wall-of-fame.html",
    "name": "Wall of Fame | Medals, Champions & Gallery | Markaz Martial Arts Academy Karachi",
-   "description": "The competition record of Markaz Martial Arts Academy: 84 medals across 11 championships, the Sindh Games, national and inter-club events, with photos from gradings and camps.",
+   "description": "The competition record of Markaz Martial Arts Academy and its athletes: 140 medals on record, from the National Games and Korean Ambassador championships to Asian opens and club tournaments, with photos from gradings and events.",
    "inLanguage": "en-PK",
    "isPartOf": {
     "@id": "https://markaz-ouj.com/#website"
@@ -4795,6 +5376,10 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
 .mkui-h2{max-width:min(100%,17em);text-wrap:balance}
 .mkui-sub{max-width:min(100%,64ch)}
 
+
+/* campus initial when a branch has no logo yet */
+.mkui-ini{display:grid;place-items:center;width:100%;height:100%;font:800 26px/1 var(--pk-hd,inherit);color:var(--pk-ink,#0B1533);font-style:normal}
+.mkui-pick__lg .mkui-ini,.mkui-cdmc__logo .mkui-ini,.mkui-sel__logo .mkui-ini{font-size:16px}
 </style>
 </head>
 <body data-page="fame" class="booting">
@@ -4859,9 +5444,9 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
       <a href="index.html">Home</a><i></i><span>Wall of Fame</span>
     </nav>
     <h1 class="rise">Every medal here started with a beginner.</h1>
-    <p class="lead rise">The competition record of Markaz OUJ Performance and the squad that
-      trains at Markaz Martial Arts Academy — podiums from the Sindh Games, national and
-      inter-club championships, and the ordinary Tuesday evenings on the floor behind them.</p>
+    <p class="lead rise">The competition record of Markaz Martial Arts Academy and the people
+      who train there, from the National Games and Korean Ambassador championships to Asian
+      opens, inter-university events and club tournaments.</p>
     <div class="hero-act rise">
       <a class="btn btn-r" href="#gallery">See the gallery</a>
       <a class="btn btn-o" href="martial-arts.html">Train with the squad</a>
@@ -4881,8 +5466,8 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
   <div class="wrap">
     <div class="sh">
       <h2>The people on the wall.</h2>
-      <p>Filter by discipline or by what they came home with. Open anyone for the full record:
-        belt, category, and where the result was won.</p>
+      <p>Filter by what they came home with. Open anyone for their full record, exactly as
+        they sent it.</p>
     </div>
 
     <div class="frail">
@@ -4906,7 +5491,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
   <div class="wrap">
     <div class="sh">
       <h2>The full record, season by season.</h2>
-      <p>Including the results that never made it in front of a camera.</p>
+      <p>Individual medals and club results together. Anything sent without a year is listed at the end.</p>
     </div>
     <div class="roll" id="rollList"></div>
   </div>
@@ -4917,8 +5502,8 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
   <div class="wrap">
     <div class="sh">
       <h2>Inside the room.</h2>
-      <p>Gradings, sparring nights, tournament mornings and the camps in between. Open any frame
-        to see it full size.</p>
+      <p>Medals, gradings, classes and championship days from Markaz campuses and athletes.
+        Open any frame to see it full size.</p>
     </div>
 
     <div class="frail">
@@ -4971,12 +5556,13 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
       </nav>
       <nav class="mkft__col mkft__col--camp" aria-label="Campuses">
         <h5>Campuses</h5>
-        <a class="mkft__all" href="martial-arts.html#branches">All five campuses &rarr;</a>
+        <a class="mkft__all" href="martial-arts.html#branches">All six campuses &rarr;</a>
         <a href="martial-arts.html#branch=markaz-khel-o-saqafat">Markaz Khel o Saqafat<small>Main campus &middot; Federal B Area</small></a>
         <a href="martial-arts.html#branch=ribat">Ribat Taekwondo Academy<small>Bahadurabad</small></a>
         <a href="martial-arts.html#branch=unity">Unity Taekwondo Academy<small>Gulshan-e-Iqbal</small></a>
-        <a href="martial-arts.html#branch=saad-bin-abi-waqas">Saad bin Abi Waqas Taekwondo Club<small>Address being confirmed</small></a>
+        <a href="martial-arts.html#branch=saad-bin-abi-waqas">Saad bin Abi Waqas Taekwondo Club<small>Block 10-A</small></a>
         <a href="martial-arts.html#branch=avicenna">Avicenna Taekwondo Dojang<small>Bangalore Town</small></a>
+        <a href="martial-arts.html#branch=sms-martial-arts-club">SMS Martial Arts Club<small>Nazimabad</small></a>
       </nav>
       <div class="mkft__col mkft__col--reach">
         <h5>Reach us</h5>
@@ -5895,6 +6481,12 @@ img{height:auto}
     if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) { lastFocus.focus(); } }
   }
 
+  /* a trainer's name in a campus card opens their team profile; close
+     the campus card first so the profile is not hidden behind it */
+  D.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('[data-mk-profile]')) closeModal();
+  });
+
   /* ================================================================ LIGHTBOX */
   var lb, lbImg, lbCap, lbSet = [], lbAt = 0;
 
@@ -6119,7 +6711,8 @@ img{height:auto}
     T.push(tile('user', 'Trainers', (b.trainers && b.trainers.length)
       ? b.trainers.map(function (t) {
           var nm = esc(((t.title ? t.title + ' ' : '') + (t.name || t)).trim());
-          return '<span class="mkui-cm__tr">' + nm + (t.scope ? '<small>' + esc(t.scope) + '</small>' : '') + '</span>';
+          return '<span class="mkui-cm__tr">' + (t.profile ? '<a class="mkui-cm__lnk" href="' + esc(t.profile) + '" data-mk-profile>' + nm + '</a>' : nm) +
+            (t.scope ? '<small>' + esc(t.scope) + '</small>' : '') + '</span>';
         }).join('')
       : '<span class="tbc">Coach details being confirmed</span>'));
     T.push(tile('age', 'Age group', b.ages ? esc(b.ages) : '<span class="tbc">Ask the desk</span>'));
@@ -6205,7 +6798,7 @@ img{height:auto}
         (cover ? pic(cover.src, cover.alt) : (b.logo ? '<span class="mkui-camp__crest">' + logoImg(b.logo, '') + '</span>' : '')) +
         '<span class="mkui-cm__shade"></span>' +
         '<div class="mkui-cm__id">' +
-          '<span class="mkui-cm__logo" data-initial="' + esc(b.name.charAt(0)) + '">' + (b.logo ? logoImg(b.logo, '') : '') + '</span>' +
+          '<span class="mkui-cm__logo" data-initial="' + esc(b.name.charAt(0)) + '">' + (b.logo ? logoImg(b.logo, '') : '<b class="mkui-ini">' + esc(b.name.charAt(0)) + '</b>') + '</span>' +
           '<span class="mkui-cm__tt">' +
             '<span class="mkui-cm__tags">' +
               (main ? '<span class="gold">Main campus</span>' : '') +
@@ -6247,7 +6840,7 @@ img{height:auto}
           var b = (MK.get('branches') || []).find(function (x) { return x.id === t.id; }) || {};
           var pend = b.placeholderTimes || !t.classes.length;
           return '<button type="button" data-b="' + esc(t.id) + '">' +
-            '<span class="mkui-pick__lg" data-initial="' + esc(t.name.charAt(0)) + '">' + (b.logo ? logoImg(b.logo, '') : '') + '</span>' +
+            '<span class="mkui-pick__lg" data-initial="' + esc(t.name.charAt(0)) + '">' + (b.logo ? logoImg(b.logo, '') : '<b class="mkui-ini">' + esc(b.name.charAt(0)) + '</b>') + '</span>' +
             '<span style="min-width:0"><b>' + esc(t.name) + (b.isMainCampus ? ' <i class="main">Main</i>' : '') + '</b>' +
             '<span>' + esc(b.area ? b.area + ' · ' : '') + esc(t.location || 'Location on request') + '</span></span>' +
             '<i>' + (pend ? 'Ask the desk' : t.classes.length + ' batch' + (t.classes.length > 1 ? 'es' : '')) + '</i></button>';
@@ -6420,7 +7013,7 @@ img{height:auto}
         '<div class="mkui-cdmc__list">' + camps.map(function (b) {
           var k = (b.classes || [])[0];
           return '<div class="mkui-cdmc__row">' +
-            '<span class="mkui-cdmc__logo" data-initial="' + esc(b.name.charAt(0)) + '">' + (b.logo ? logoImg(b.logo, '') : '') + '</span>' +
+            '<span class="mkui-cdmc__logo" data-initial="' + esc(b.name.charAt(0)) + '">' + (b.logo ? logoImg(b.logo, '') : '<b class="mkui-ini">' + esc(b.name.charAt(0)) + '</b>') + '</span>' +
             '<div class="mkui-cdmc__t"><b>' + esc(b.name) + (b.isMainCampus ? '<i class="main">Main</i>' : '') + '</b>' +
               '<span' + (b.placeholderTimes || !k ? ' class="tbc"' : '') + '>' + esc(b.area || 'Karachi') +
               (b.placeholderTimes || !k ? ' · timetable being confirmed' : ' · ' + esc(k.days) + ', ' + esc(k.time)) + '</span></div>' +
@@ -6595,7 +7188,7 @@ img{height:auto}
     if (!o.value) return '<span class="mkui-sel__txt">' + esc(o.text) + '</span>';
     var b = sel.classList.contains('mkui-campussel') ? branchOf(o.value) : null;
     if (!b) return '<span class="mkui-sel__txt">' + esc(o.text) + '</span>';
-    return '<span class="mkui-sel__logo" data-initial="' + esc(b.name.charAt(0)) + '">' + (b.logo ? logoImg(b.logo, '') : '') + '</span>' +
+    return '<span class="mkui-sel__logo" data-initial="' + esc(b.name.charAt(0)) + '">' + (b.logo ? logoImg(b.logo, '') : '<b class="mkui-ini">' + esc(b.name.charAt(0)) + '</b>') + '</span>' +
       '<span class="mkui-sel__txt"><b>' + esc(b.name) + '</b><small>' +
         esc(b.isMainCampus ? 'Main campus · ' + (b.area || '') : (b.area || 'Address being confirmed')) + '</small></span>';
   }
