@@ -365,6 +365,24 @@ header#hdr .dock,.dock{border-radius:16px !important}
 .chf__side::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(11,21,51,0) 34%,rgba(11,21,51,.55) 62%,rgba(11,21,51,.94) 100%)}
 .chf__id{position:relative;z-index:2}
+.chf__photo{object-position:50% 42%}
+/* 4. Team photos are shown whole, not zoomed crops: portrait 4:5 frames,
+      full colour, each framed on the person by its object-position. */
+.tm .card__ph,.coach .card__ph,.champ .card__ph,.tm__ph{aspect-ratio:4/5 !important;height:auto !important;min-height:0 !important}
+.tm .card__ph img,.coach .card__ph img,.champ .card__ph img,.tm__ph img{width:100%;height:100%;object-fit:cover;filter:none !important}
+.split-vis img{filter:none !important}
+.split-vis img[src*="team-abdul-samad-khan"]{object-position:50% 50%}
+.mo img[src*="team-abdul-samad-khan"]{object-position:50% 40%}
+/* 5. Contact form: the "Interested in" picker shared the .ph class with the
+      page heroes and inherited ~150px of top padding. The campus picker
+      sat 38px left of every other field. */
+.sel-btn.ph{padding:0 46px 0 16px !important}
+.frm .mkui-sel{margin-left:38px;width:calc(100% - 38px)}
+.frm .dropdown.sel{display:block;width:100%}
+@media (max-width:575.98px){ .frm .mkui-sel{margin-left:0;width:100%}
+  .frm .dropdown.sel,.frm .dropdown.sel .sel-btn,#frm #selProg .sel-btn{width:100% !important;margin-left:0 !important} }
+/* 6. The founder photo on the home page is shown whole in a portrait frame */
+.split-vis:has(img[src*="team-abdul-samad-khan"]){aspect-ratio:4/5}
 /* 3. Phones: the page-links grid in the footer ran ~320px past the screen
       edge on three pages, so the whole page could be dragged sideways. */
 .np-grid{max-width:100%;min-width:0}
