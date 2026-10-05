@@ -343,5 +343,34 @@ section[id], [id^="branch"], .mkui-sec[id]{ scroll-margin-top:104px }
   *{ scroll-behavior:auto !important }
 }
 </style>
+
+<style id="mk-audit">
+/* ==================================================================
+   AUDIT · 5 Oct 2026
+   1. No capsule buttons: every button, tab, chip and field gets a
+      squared radius; badges and tags a tighter one.
+   2. The chairman card now carries his photo, with a scrim so the
+      name stays readable.
+   ================================================================== */
+:root{--r-pill:10px !important}
+.btn,.mbtn,.fbtn,.srchb,.chips button,.days button,.ladder button,.fbar button,.cf-chip,.mkc-chip,.mkc-act,
+.mkui-chip,.tabs a,.tabs__ind,header#hdr .tabs a,header#hdr .dock__cta,.nav-pills,.nav-pills .nav-link,.fee__more,
+.spg__expand,.vopt,.pchip,.bkbar__pre button,.selw.is-themed .sel-btn,.ftmob a,#oujSheet .ojm__f a,.sheet__x,.gnav,
+.card__open,.mkui-fablabel,.srch input,.mkc-bar input,.selw select,.mkui-btn{border-radius:10px !important}
+.tm__bdg,.champ .medal,.card__tag,.prod__tag,.prod__stk,.htag,.ad-tag,.fee__tag,.pr-badge,.cdm-chips span,.prog__meta span,
+.mkui-ribbon,.tl-kind,.evf-kind,.rrow u,.row-i u,.sqc .bdg,.belt-rank,.jrn__yr,.tier span,.pt span,.mk-label,.oid,
+.ev .kd,.cfc .cnt,.cfc .exp,.tm__yrs,#oujSheet .ojm__c span{border-radius:6px !important}
+header#hdr .dock,.dock{border-radius:16px !important}
+.chf__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.chf__side::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(11,21,51,0) 34%,rgba(11,21,51,.55) 62%,rgba(11,21,51,.94) 100%)}
+.chf__id{position:relative;z-index:2}
+/* 3. Phones: the page-links grid in the footer ran ~320px past the screen
+      edge on three pages, so the whole page could be dragged sideways. */
+.np-grid{max-width:100%;min-width:0}
+.np-grid > *{min-width:0;max-width:100%}
+.np-grid a b,.np-grid a span{overflow-wrap:anywhere}
+html,body{overflow-x:clip}
+</style>
 </body>
 </html>

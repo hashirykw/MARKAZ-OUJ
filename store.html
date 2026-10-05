@@ -6697,14 +6697,10 @@ var KEYC = 'ouj_checkout_v1';    /* a half-filled checkout, so it is not retyped
 /* Delivery is not priced on the page — it depends on the consignment size
    and where it is going, so it is confirmed when we confirm the order. */
 
-var IMG = function(id){ return 'https://images.unsplash.com/photo-'+id+'?w=900&q=72'; };
-var P = {
-  ma:'1595078475328-1ab05d0a6a0e', gym:'1534438327276-14e5300c3a48',
-  fit:'1517438476312-10d79c077509', school:'1544367567-0f2fcb009e0b',
-  fem:'1544216717-3bbf52512659',    field:'1552674605-db6ffd4facb5',
-  team:'1521572163474-6864f9cf17ab', run:'1517836357463-d25dfeac3438',
-  court:'1555597673-b21d5c935865',   port:'1583473848882-f9a5bc7fd2ee'
-};
+/* Product pictures are local files. Until a product has its own photo it
+   shows the artwork for its category (art-store-*.svg); a basket saved
+   before this change still points at an old id, so that gets a neutral one. */
+var IMG = function(f){ return /\.(svg|webp|jpe?g|png)$/i.test(f || '') ? f : 'art-store-package.svg'; };
 
 /* ---------- the catalogue ---------- */
 var CATS = ['Cricket','Football','Basketball','Athletics','Taekwondo','Swimming',
@@ -6713,7 +6709,7 @@ var CATS = ['Cricket','Football','Basketball','Athletics','Taekwondo','Swimming'
 
 var ITEMS = [
 /* -- Cricket -- */
-{id:'ck-bat-kw', n:'Kashmir Willow Match Bat', c:'Cricket', p:4800, was:5600, img:P.field,
+{id:'ck-bat-kw', n:'Kashmir Willow Match Bat', c:'Cricket', p:4800, was:5600, img:'art-store-cricket.svg',
  tag:'Best seller', tc:'r', feat:1, stock:'in',
  d:'A grade-two Kashmir willow bat with a mid blade profile — the one our school squads take through a full season without a crack.',
  l:'Pressed and knocked-in before it ships, so it plays from the first net rather than after a fortnight of mallet work. The mid sweet spot suits front-foot players and school-age batters still finding their range, and the short handle keeps the pick-up light enough for under-14s. Every bat is checked by a coach before it leaves the counter.',
@@ -6721,14 +6717,14 @@ var ITEMS = [
  sp:[['Willow','Kashmir, grade 2'],['Weight','1.15 – 1.25 kg'],['Handle','Cane, rubber grip'],['Ships','Knocked-in']],
  v:{Size:['Size 4','Size 5','Size 6','Harrow','Short handle']}},
 
-{id:'ck-ball', n:'Leather Match Ball (pack of 6)', c:'Cricket', p:5400, img:P.field, stock:'in',
+{id:'ck-ball', n:'Leather Match Ball (pack of 6)', c:'Cricket', p:5400, img:'art-store-cricket.svg', stock:'in',
  d:'Four-piece hand-stitched leather balls that keep their shape and seam through a full 40-over game.',
  l:'Alum-tanned leather with a raised, hand-stitched seam and a cork-and-wool core. These are the balls we hand out at inter-school tournaments — they hold colour and shape long enough to see a two-innings match through. Sold as a box of six so a squad can run parallel nets.',
  sizes:['135g youth','156g senior'], uses:['Schools','Clubs','Tournaments'],
  sp:[['Construction','4-piece, hand stitched'],['Weight','135g / 156g'],['Pack','6 balls'],['Colour','Red']],
  v:{Weight:['135g youth','156g senior']}},
 
-{id:'ck-pads', n:'Batting Pads & Gloves Set', c:'Cricket', p:6900, was:7800, img:P.field, stock:'in',
+{id:'ck-pads', n:'Batting Pads & Gloves Set', c:'Cricket', p:6900, was:7800, img:'art-store-cricket.svg', stock:'in',
  d:'Lightweight PU pads with a moulded knee roll, paired with sausage-finger gloves. Sized for school through senior.',
  l:'The pads run high-density foam over a PU face with three straps and a moulded knee roll, so they stay square when a batter runs. Gloves are sausage-finger with a split-leather palm — the pairing schools buy most because it kits a batter completely in one line item.',
  sizes:['Youth','Boys','Mens'], uses:['Schools','Clubs','Individuals'],
@@ -6736,7 +6732,7 @@ var ITEMS = [
  v:{Size:['Youth','Boys','Mens'],Hand:['Right-hand bat','Left-hand bat']}},
 
 /* -- Football -- */
-{id:'fb-ball', n:'Match Football, Size 5', c:'Football', p:3200, img:P.team, stock:'in', feat:1,
+{id:'fb-ball', n:'Match Football, Size 5', c:'Football', p:3200, img:'art-store-ball-football.svg', stock:'in', feat:1,
  tag:'Coach pick', tc:'b',
  d:'Thermally bonded 32-panel match ball with a butyl bladder — holds pressure through a week of sessions.',
  l:'Thermally bonded rather than stitched, so it takes on far less water on a wet ground and keeps a true flight. The butyl bladder holds pressure for weeks rather than days, which matters when a school stores forty balls in a cage between PE periods. Sizes 3 and 4 available for junior sections.',
@@ -6744,7 +6740,7 @@ var ITEMS = [
  sp:[['Panels','32, thermally bonded'],['Bladder','Butyl'],['Weight','410 – 450 g'],['Surface','Grass / turf']],
  v:{Size:['Size 3 (u8)','Size 4 (u12)','Size 5 (senior)']}},
 
-{id:'fb-boot', n:'Turf Training Boots', c:'Football', p:5900, img:P.team, stock:'low',
+{id:'fb-boot', n:'Turf Training Boots', c:'Football', p:5900, img:'art-store-shoe.svg', stock:'low',
  d:'Moulded-stud boots built for hard grounds and artificial turf, which is what most Karachi schools actually play on.',
  l:'A synthetic upper over a moulded multi-stud outsole — the right sole for the packed-earth and turf grounds our schools use, where a bladed boot chews itself up in a term. Reinforced toe box for kids who scuff. Runs true to size; order a half up if worn with thick socks.',
  sizes:['UK 1','UK 2','UK 3','UK 4','UK 5','UK 6','UK 7','UK 8','UK 9','UK 10'],
@@ -6752,7 +6748,7 @@ var ITEMS = [
  sp:[['Outsole','Moulded TF studs'],['Upper','Synthetic, reinforced toe'],['Ground','Turf / hard'],['Sizes','UK 1 – 10']],
  v:{Size:['UK 1','UK 2','UK 3','UK 4','UK 5','UK 6','UK 7','UK 8','UK 9','UK 10']}},
 
-{id:'fb-cone', n:'Training Cone & Marker Set', c:'Football', p:2400, img:P.field, stock:'in',
+{id:'fb-cone', n:'Training Cone & Marker Set', c:'Football', p:2400, img:'art-store-ball-football.svg', stock:'in',
  d:'Fifty discs and twenty tall cones in a carry bag — a full session grid for one PE period.',
  l:'The set a coach actually needs to run a session: fifty flat discs in four colours for grids and channels, twenty 23cm cones for gates and slaloms, and a mesh bag that fits in a store cupboard. Flexible PVC, so a boot through one of them bends rather than snaps.',
  sizes:['Standard set'], uses:['Schools','Clubs','Camps'],
@@ -6760,14 +6756,14 @@ var ITEMS = [
  v:{}},
 
 /* -- Basketball -- */
-{id:'bb-ball', n:'Indoor / Outdoor Basketball', c:'Basketball', p:3600, img:P.court, stock:'in',
+{id:'bb-ball', n:'Indoor / Outdoor Basketball', c:'Basketball', p:3600, img:'art-store-ball-basketball.svg', stock:'in',
  d:'Composite-leather ball with a deep channel grip that works on both a sports hall and a rough school court.',
  l:'The composite cover takes a school court better than genuine leather, which shreds outdoors, and grips better than rubber, which skids indoors. Deep pebbled channels give a young player something to hold. Size 7 for senior boys, size 6 for girls and under-14, size 5 for primary.',
  sizes:['Size 5','Size 6','Size 7'], uses:['Schools','Colleges','Clubs'],
  sp:[['Cover','Composite leather'],['Use','Indoor and outdoor'],['Sizes','5 / 6 / 7'],['Inflation','7 – 9 PSI']],
  v:{Size:['Size 5 (primary)','Size 6 (u14 / girls)','Size 7 (senior)']}},
 
-{id:'bb-hoop', n:'Wall-Mount Hoop & Net', c:'Basketball', p:12500, img:P.court, stock:'low',
+{id:'bb-hoop', n:'Wall-Mount Hoop & Net', c:'Basketball', p:12500, img:'art-store-ball-basketball.svg', stock:'low',
  d:'Heavy-gauge steel ring with a spring flex and an all-weather net, plus the mounting plate.',
  l:'A 16mm solid steel ring on a spring flex mount, so a dunk moves the rim instead of the wall. Comes with the backing plate, bolts and an all-weather braided net. We fit these on campus as part of a ground package — installation is quoted separately once we have seen the wall.',
  sizes:['Standard 45cm'], uses:['Schools','Colleges'],
@@ -6775,7 +6771,7 @@ var ITEMS = [
  v:{}},
 
 /* -- Athletics -- */
-{id:'at-spike', n:'Sprint Spikes', c:'Athletics', p:7400, img:P.run, stock:'in',
+{id:'at-spike', n:'Sprint Spikes', c:'Athletics', p:7400, img:'art-store-shoe.svg', stock:'in',
  d:'Light sprint shoe with a six-pin plate and a set of 6mm pyramid spikes in the box.',
  l:'A stripped-back upper over a stiff forefoot plate — built for 100m through 400m on a synthetic track. Ships with a spanner and a full set of 6mm pyramid pins, plus blanks for warm-ups on tarmac. Not for cross-country; ask us about the distance shoe instead.',
  sizes:['UK 3','UK 4','UK 5','UK 6','UK 7','UK 8','UK 9','UK 10'],
@@ -6783,14 +6779,14 @@ var ITEMS = [
  sp:[['Plate','6-pin forefoot'],['Spikes','6 mm pyramid, included'],['Event','60 m – 400 m'],['Surface','Synthetic track']],
  v:{Size:['UK 3','UK 4','UK 5','UK 6','UK 7','UK 8','UK 9','UK 10']}},
 
-{id:'at-hurdle', n:'Adjustable Training Hurdle (set of 6)', c:'Athletics', p:8900, img:P.run, stock:'in',
+{id:'at-hurdle', n:'Adjustable Training Hurdle (set of 6)', c:'Athletics', p:8900, img:'art-store-run.svg', stock:'in',
  d:'Six collapsible hurdles adjusting from 30cm to 84cm, so one set covers primary through senior.',
  l:'Steel frame with a folding top bar that gives way on contact — the point is that a student who clips one keeps running instead of going down. Height pins at 30, 45, 60, 76 and 84cm cover every school age group off one set, and they nest flat for storage.',
  sizes:['Set of 6'], uses:['Schools','Colleges','Camps'],
  sp:[['Heights','30 / 45 / 60 / 76 / 84 cm'],['Frame','Powder-coated steel'],['Top bar','Collapsing on contact'],['Pack','6 hurdles']],
  v:{}},
 
-{id:'at-relay', n:'Relay Baton Set & Stopwatch', c:'Athletics', p:2900, img:P.run, stock:'in',
+{id:'at-relay', n:'Relay Baton Set & Stopwatch', c:'Athletics', p:2900, img:'art-store-stopwatch.svg', stock:'in',
  d:'Eight aluminium batons in four colours with a 100-lap digital stopwatch for the coach.',
  l:'Anodised aluminium batons at regulation 30cm and 50g, in four house colours so heats sort themselves out. The stopwatch stores 100 splits and has a lanyard that survives a season — small things, but they are what a sports day actually runs on.',
  sizes:['Standard set'], uses:['Schools','Colleges','Camps'],
@@ -6798,7 +6794,7 @@ var ITEMS = [
  v:{}},
 
 /* -- Taekwondo & martial arts -- */
-{id:'tk-dobok', n:'WTF Taekwondo Dobok', c:'Taekwondo', p:5200, img:P.ma, stock:'in', feat:1,
+{id:'tk-dobok', n:'WTF Taekwondo Dobok', c:'Taekwondo', p:5200, img:'art-store-karate.svg', stock:'in', feat:1,
  tag:'Academy issue', tc:'b',
  d:'The dobok our own students grade in — ribbed collar, 8oz poly-cotton, holds a crease through a full syllabus.',
  l:'WTF-cut with the V-neck collar, in an 8oz poly-cotton that breathes in a Karachi summer and survives weekly washing. White collar for kup grades, black collar for poom and dan. Sizes run 110cm to 190cm; if you are between two, take the larger — they shrink about two per cent on the first wash.',
@@ -6808,7 +6804,7 @@ var ITEMS = [
  v:{Size:['110 cm','120 cm','130 cm','140 cm','150 cm','160 cm','170 cm','180 cm','190 cm'],
     Collar:['White (kup)','Black (poom / dan)']}},
 
-{id:'tk-belt', n:'Grading Belt', c:'Taekwondo', p:900, img:P.ma, stock:'in',
+{id:'tk-belt', n:'Grading Belt', c:'Taekwondo', p:900, img:'art-store-karate.svg', stock:'in',
  d:'Colour-fast cotton belt in every grade from white to black, stitched in eight rows.',
  l:'Eight-row stitched cotton at 4.5cm wide — stiff enough to hold a knot through sparring, soft enough for a beginner to tie. Colour-fast, so a yellow belt is still yellow after a term. Ordered in bulk for grading days; tell us the grade split and we sort them into bundles.',
  sizes:['#000 (200cm)','#00 (220cm)','#0 (240cm)','#1 (260cm)','#2 (280cm)','#3 (300cm)'],
@@ -6817,14 +6813,14 @@ var ITEMS = [
  v:{Grade:['White','Yellow','Green','Blue','Red','Black'],
     Length:['#000 (200cm)','#00 (220cm)','#0 (240cm)','#1 (260cm)','#2 (280cm)','#3 (300cm)']}},
 
-{id:'tk-guard', n:'Sparring Guard Set', c:'Taekwondo', p:8600, was:9900, img:P.ma, stock:'in',
+{id:'tk-guard', n:'Sparring Guard Set', c:'Taekwondo', p:8600, was:9900, img:'art-store-karate.svg', stock:'in',
  d:'Chest guard, headgear, shin-and-instep, forearm and groin guard — everything a student needs for a sparring class.',
  l:'The full five-piece set, reversible chest guard in red and blue so one purchase covers both corners at a competition. EVA foam over a moulded shell, with elastic that has actually been tested on kids who grow. This is the set our coaches make mandatory before a student steps into contact work.',
  sizes:['XS','S','M','L','XL'], uses:['Academy students','Schools','Clubs'],
  sp:[['Pieces','Chest, head, shin, forearm, groin'],['Chest','Reversible red / blue'],['Foam','EVA over moulded shell'],['Sizes','XS – XL']],
  v:{Size:['XS (u10)','S (u13)','M (u16)','L','XL']}},
 
-{id:'tk-pad', n:'Coaching Kick Paddle (pair)', c:'Taekwondo', p:3400, img:P.ma, stock:'in',
+{id:'tk-pad', n:'Coaching Kick Paddle (pair)', c:'Taekwondo', p:3400, img:'art-store-karate.svg', stock:'in',
  d:'Double-layer clapper paddles with a shock-absorbing core — the ones you hear across the hall.',
  l:'A double leaf that claps loud on a clean strike, so a student hears the difference between a technique that landed and one that did not. PU face over a shock core, with a wrist strap for the coach. Sold in pairs because nobody holds one.',
  sizes:['Standard'], uses:['Academy students','Schools','Clubs'],
@@ -6832,28 +6828,28 @@ var ITEMS = [
  v:{}},
 
 /* -- Fitness & gym -- */
-{id:'ft-mat', n:'Training Mat, 10 mm', c:'Fitness & gym', p:2200, img:P.gym, stock:'in',
+{id:'ft-mat', n:'Training Mat, 10 mm', c:'Fitness & gym', p:2200, img:'art-store-barbell.svg', stock:'in',
  d:'High-density NBR mat that does not slide on a tiled hall floor, with a carry strap.',
  l:'Ten millimetres of closed-cell NBR — enough for floor work and core sessions on a hard hall floor without the squash you get from cheap foam. Textured on both faces so it grips tile, and closed-cell so sweat wipes off rather than soaking in. Bulk orders come colour-coded by house.',
  sizes:['183 × 61 cm'], uses:['Schools','Corporates','Individuals'],
  sp:[['Thickness','10 mm'],['Size','183 × 61 cm'],['Material','Closed-cell NBR'],['Extras','Carry strap']],
  v:{Colour:['Navy','Red','Grey','Teal']}},
 
-{id:'ft-band', n:'Resistance Band Set', c:'Fitness & gym', p:2800, img:P.gym, stock:'in',
+{id:'ft-band', n:'Resistance Band Set', c:'Fitness & gym', p:2800, img:'art-store-barbell.svg', stock:'in',
  d:'Five latex loops from light to extra heavy, with door anchor, handles and a mesh bag.',
  l:'The kit that makes a conditioning session possible without a rack. Five graded loops, two handles, ankle straps and a door anchor — enough for a full-body circuit in a classroom, which is what most school programs actually have room for. Natural latex, so check for allergies before a bulk order.',
  sizes:['5-band set'], uses:['Schools','Corporates','Individuals'],
  sp:[['Bands','5, light to X-heavy'],['Resistance','4 – 23 kg'],['Includes','Handles, anchor, straps'],['Material','Natural latex']],
  v:{}},
 
-{id:'ft-rope', n:'Speed Skipping Rope (pack of 12)', c:'Fitness & gym', p:4200, img:P.fit, stock:'in',
+{id:'ft-rope', n:'Speed Skipping Rope (pack of 12)', c:'Fitness & gym', p:4200, img:'art-store-jump-rope.svg', stock:'in',
  d:'Adjustable steel-core ropes with ball bearings — twelve of them, which is one PE class.',
  l:'A coated steel cable on ball-bearing handles, so it spins fast enough for double-unders and does not kink like a plastic rope. Length adjusts with a grub screw, so one rope fits a class of mixed heights. Twelve to a pack because that is a workable station count for a forty-minute period.',
  sizes:['Pack of 12'], uses:['Schools','Corporates','Camps'],
  sp:[['Cable','Coated steel core'],['Handles','Ball bearing'],['Length','Adjustable to 3 m'],['Pack','12 ropes']],
  v:{}},
 
-{id:'ft-dumb', n:'Neoprene Dumbbell Pair', c:'Fitness & gym', p:3900, img:P.gym, stock:'in',
+{id:'ft-dumb', n:'Neoprene Dumbbell Pair', c:'Fitness & gym', p:3900, img:'art-store-barbell.svg', stock:'in',
  d:'Hex-cast dumbbells with a neoprene skin — they do not roll, and they do not mark a hall floor.',
  l:'Cast iron under a neoprene coat, hex-ended so they sit still on the floor instead of rolling into someone. The coating means they can be used in a hall or a carpeted corporate room without leaving marks. Sold in pairs from 2kg to 10kg.',
  sizes:['2 kg','3 kg','4 kg','5 kg','8 kg','10 kg'], uses:['Corporates','Schools','Individuals'],
@@ -6861,7 +6857,7 @@ var ITEMS = [
  v:{Weight:['2 kg','3 kg','4 kg','5 kg','8 kg','10 kg']}},
 
 /* -- Team kits -- */
-{id:'kt-jersey', n:'Custom Team Jersey', c:'Team kits', p:2600, img:P.team, stock:'in', feat:1,
+{id:'kt-jersey', n:'Custom Team Jersey', c:'Team kits', p:2600, img:'art-store-shirt-sport.svg', stock:'in', feat:1,
  tag:'Made to order', tc:'g',
  d:'Sublimated polyester jersey printed with your crest, colours, names and numbers. Minimum order eleven.',
  l:'Full sublimation rather than heat transfer, so the crest does not crack off after six washes — it is dyed into the fabric. 150gsm interlock polyester with mesh side panels. Send us a crest in any format and we mock it up before printing; the artwork proof comes back within two working days and nothing prints until you sign it off.',
@@ -6869,21 +6865,21 @@ var ITEMS = [
  sp:[['Print','Full sublimation'],['Fabric','150 gsm interlock poly'],['Minimum','11 pieces'],['Lead time','7 – 10 working days']],
  v:{Size:['XS','S','M','L','XL','XXL'],Sleeve:['Short sleeve','Sleeveless','Long sleeve']}},
 
-{id:'kt-short', n:'Match Shorts', c:'Team kits', p:1400, img:P.team, stock:'in',
+{id:'kt-short', n:'Match Shorts', c:'Team kits', p:1400, img:'art-store-shirt-sport.svg', stock:'in',
  d:'Lightweight polyester shorts with a drawcord waist, matched to the jersey colourway.',
  l:'Cut a touch longer than a club short, which is what schools here ask for. Elastic waist with an internal drawcord, side pockets on request, and the same sublimation process as the jersey so the colours actually match rather than nearly matching.',
  sizes:['XS','S','M','L','XL','XXL'], uses:['Schools','Colleges','Clubs'],
  sp:[['Fabric','130 gsm poly'],['Waist','Elastic + drawcord'],['Minimum','11 pieces'],['Lead time','7 – 10 working days']],
  v:{Size:['XS','S','M','L','XL','XXL']}},
 
-{id:'kt-track', n:'Squad Tracksuit', c:'Team kits', p:6800, was:7900, img:P.school, stock:'in',
+{id:'kt-track', n:'Squad Tracksuit', c:'Team kits', p:6800, was:7900, img:'art-store-shirt-sport.svg', stock:'in',
  d:'Two-piece training tracksuit with the institution crest — what a squad travels in.',
  l:'A brushed-back poly-cotton jacket and pant with a taped zip, ribbed cuffs and an embroidered crest on the chest. This is what a team turns up in at an inter-school event, and it does more for how a squad carries itself than most people expect. Embroidery, not print, on the crest.',
  sizes:['XS','S','M','L','XL','XXL'], uses:['Schools','Colleges','Clubs'],
  sp:[['Pieces','Jacket + pant'],['Fabric','Brushed poly-cotton'],['Crest','Embroidered'],['Minimum','11 sets']],
  v:{Size:['XS','S','M','L','XL','XXL'],Colour:['Navy / red','Black / gold','Royal / white']}},
 
-{id:'kt-bib', n:'Training Bib Set (pack of 12)', c:'Team kits', p:3100, img:P.team, stock:'in',
+{id:'kt-bib', n:'Training Bib Set (pack of 12)', c:'Team kits', p:3100, img:'art-store-shirt-sport.svg', stock:'in',
  d:'Twelve numbered mesh bibs in one colour, with a drawstring bag.',
  l:'Open mesh so they go over a full kit without cooking anyone, numbered 1 to 12 so a coach can call a player rather than a colour. One size covers most school ages. Order two packs in different colours and a PE teacher can split a class in ten seconds.',
  sizes:['Pack of 12'], uses:['Schools','Colleges','Camps'],
@@ -6891,7 +6887,7 @@ var ITEMS = [
  v:{Colour:['Red','Blue','Yellow','Green']}},
 
 /* -- Protective gear -- */
-{id:'pg-shin', n:'Shin Guards with Ankle Sleeve', c:'Protective gear', p:1900, img:P.team, stock:'in',
+{id:'pg-shin', n:'Shin Guards with Ankle Sleeve', c:'Protective gear', p:1900, img:'art-store-shield.svg', stock:'in',
  d:'Moulded shell guards inside a compression sleeve, so nothing shifts mid-game.',
  l:'The sleeve is the point — slip-in guards move, and a guard that has slid sideways protects nothing. Moulded PP shell over EVA backing, in a compression sleeve with a padded ankle. Sized by height rather than age, which is more honest for a mixed squad.',
  sizes:['S (120–140 cm)','M (140–160 cm)','L (160–180 cm)','XL (180 cm+)'],
@@ -6899,7 +6895,7 @@ var ITEMS = [
  sp:[['Shell','Moulded PP'],['Backing','EVA foam'],['Fit','Compression sleeve'],['Sizing','By height']],
  v:{Size:['S (120–140 cm)','M (140–160 cm)','L (160–180 cm)','XL (180 cm+)']}},
 
-{id:'pg-helmet', n:'Cricket Helmet, Steel Grille', c:'Protective gear', p:6400, img:P.field, stock:'low',
+{id:'pg-helmet', n:'Cricket Helmet, Steel Grille', c:'Protective gear', p:6400, img:'art-store-helmet.svg', stock:'low',
  tag:'Safety kit', tc:'r',
  d:'BS7928-pattern helmet with a fixed steel grille and an adjustable harness. Non-negotiable for hard-ball cricket.',
  l:'Fixed grille at the tested gap, ABS shell over EPS liner, with a rear harness that adjusts through about four centimetres so it grows with a player for a season or two. We will not sell a school hard balls without helmets in the same order — that is a standing policy, not an upsell.',
@@ -6907,14 +6903,14 @@ var ITEMS = [
  sp:[['Pattern','BS7928 style'],['Grille','Fixed steel'],['Shell','ABS over EPS'],['Harness','Adjustable rear']],
  v:{Size:['Junior 51–54 cm','Youth 54–57 cm','Senior 57–61 cm']}},
 
-{id:'pg-mouth', n:'Mouthguard (pack of 10)', c:'Protective gear', p:2100, img:P.ma, stock:'in',
+{id:'pg-mouth', n:'Mouthguard (pack of 10)', c:'Protective gear', p:2100, img:'art-store-shield.svg', stock:'in',
  d:'Boil-and-bite guards in a vented case — ten to a pack for a sparring or contact group.',
  l:'Dual-density EVA that moulds in about thirty seconds of hot water. Each comes in its own vented case, which is what stops a class of fourteen-year-olds losing them by week three. Junior and senior sizes; a class order usually needs both.',
  sizes:['Junior','Senior'], uses:['Academy students','Schools','Clubs'],
  sp:[['Type','Boil and bite'],['Material','Dual-density EVA'],['Pack','10, each cased'],['Sizes','Junior / senior']],
  v:{Size:['Junior','Senior']}},
 
-{id:'pg-kit', n:'First Aid & Ice Kit', c:'Protective gear', p:4600, img:P.fit, stock:'in',
+{id:'pg-kit', n:'First Aid & Ice Kit', c:'Protective gear', p:4600, img:'art-store-first-aid-kit.svg', stock:'in',
  d:'A ground-side kit built around what actually happens at school sport — sprains, scrapes and knocks.',
  l:'Not a generic office box. Six instant ice packs, cohesive bandage, kinesiology tape, saline pods, a splint, blister care and a laminated card for the three calls a coach might have to make. Assembled here, and we restock it on the same order as your equipment.',
  sizes:['Ground-side kit'], uses:['Schools','Colleges','Clubs','Camps'],
@@ -6923,21 +6919,21 @@ var ITEMS = [
 
 /* -- School packages -- */
 {id:'sp-pe', n:'PE Starter Package, 40 students', c:'School packages', p:64000, was:78000,
- img:P.school, stock:'in', feat:1, tag:'Saves Rs 14,000', tc:'g',
+ img:'art-store-school.svg', stock:'in', feat:1, tag:'Saves Rs 14,000', tc:'g',
  d:'Everything a school needs to run PE properly from day one — balls, cones, bibs, ropes, mats and the first aid kit.',
  l:'The package we build for a school starting a program from nothing: eight footballs, six basketballs, two bib packs, a full cone and marker set, twelve skipping ropes, ten mats, a hurdle set and the ground-side first aid kit. Priced about eighteen per cent under buying the same list item by item, and it lands as one delivery with one invoice. Bigger cohort? Use the builder below instead.',
  sizes:['40 students'], uses:['Schools','Colleges'],
  sp:[['Covers','Up to 40 students'],['Includes','Balls, cones, bibs, ropes, mats, hurdles, first aid'],['Delivery','One consignment'],['Invoice','Single, institution']],
  v:{}},
 
-{id:'sp-tkd', n:'Taekwondo Class Package, 20 students', c:'School packages', p:98000, img:P.ma, stock:'in',
+{id:'sp-tkd', n:'Taekwondo Class Package, 20 students', c:'School packages', p:98000, img:'art-store-school.svg', stock:'in',
  d:'Twenty doboks, twenty belts, ten sparring sets, paddles and mats — a martial arts program in one line.',
  l:'What it takes to start Taekwondo on a campus: twenty doboks in a size split you give us, twenty white belts, ten full sparring guard sets for contact work, four pairs of coaching paddles and twenty mats. Our coaches deliver it and run the first session, so the school sees the program working before the term starts.',
  sizes:['20 students'], uses:['Schools','Colleges'],
  sp:[['Covers','20 students'],['Includes','Doboks, belts, guards, paddles, mats'],['Extra','First session run by our coach'],['Sizing','Split confirmed before dispatch']],
  v:{}},
 
-{id:'sp-camp', n:'Summer Camp Kit, 30 children', c:'School packages', p:52000, img:P.school, stock:'in',
+{id:'sp-camp', n:'Summer Camp Kit, 30 children', c:'School packages', p:52000, img:'art-store-tent.svg', stock:'in',
  d:'A mixed-sport camp in a box — cricket, football, basketball, athletics and the safety gear.',
  l:'Built for the break: soft-ball cricket sets, four footballs, four basketballs, relay batons and hurdles, cones, bibs, thirty water bottles and the first aid kit. Everything sized for five-to-thirteens, and nothing in it needs a full-size ground. This is the kit our own camps run on.',
  sizes:['30 children'], uses:['Schools','Camps'],
@@ -6945,21 +6941,21 @@ var ITEMS = [
  v:{}},
 
 /* -- more cricket -- */
-{id:'ck-stump', n:'Spring-Return Stump Set', c:'Cricket', p:3800, img:P.field, stock:'in',
+{id:'ck-stump', n:'Spring-Return Stump Set', c:'Cricket', p:3800, img:'art-store-cricket.svg', stock:'in',
  d:'Three spring-loaded stumps on a moulded base with bails — no digging, no hammer, no ground damage.',
  l:'The set a PE teacher can carry out and set up alone. Spring-return stumps snap back upright after a hit instead of scattering across the outfield, and the moulded base means no holes in a school ground the cricket team shares with football. Bails included, regulation spacing marked on the base.',
  sizes:['Junior','Full size'], uses:['Schools','Clubs','Camps'],
  sp:[['Stumps','3, spring return'],['Base','Moulded, weighted'],['Bails','Included'],['Setup','No tools']],
  v:{Size:['Junior','Full size']}},
 
-{id:'ck-bag', n:'Wheeled Cricket Kit Bag', c:'Cricket', p:7200, img:P.field, stock:'in',
+{id:'ck-bag', n:'Wheeled Cricket Kit Bag', c:'Cricket', p:7200, img:'art-store-cricket.svg', stock:'in',
  d:'A full kit in one wheeled bag — bat sleeve, boot compartment and a vented pad section.',
  l:'Ninety litres with inline wheels and a pull handle, so a fourteen-year-old can move their own kit. Separate bat sleeve, ventilated boot compartment at the base and a mesh pocket that lets pads dry rather than stew. Reinforced at the corners, which is where every cheap bag gives out first.',
  sizes:['90 L'], uses:['Schools','Clubs','Individuals'],
  sp:[['Capacity','90 litres'],['Wheels','Inline, reinforced'],['Sections','Bat, boots, pads'],['Fabric','600D polyester']],
  v:{Colour:['Navy','Black','Red']}},
 
-{id:'ck-soft', n:'Soft Cricket Ball Set (pack of 12)', c:'Cricket', p:2600, img:P.field, stock:'in',
+{id:'ck-soft', n:'Soft Cricket Ball Set (pack of 12)', c:'Cricket', p:2600, img:'art-store-cricket.svg', stock:'in',
  d:'Twelve wind-and-tennis balls for primary cricket and indoor nets, where a hard ball has no business.',
  l:'Six wind balls and six taped tennis balls. This is what primary sections and beginner nets should be using — you can coach a full technique with them and nobody needs a helmet. They also survive a hall floor, which a hard ball does not.',
  sizes:['Pack of 12'], uses:['Schools','Camps'],
@@ -6967,21 +6963,21 @@ var ITEMS = [
  v:{}},
 
 /* -- more football -- */
-{id:'fb-glove', n:'Goalkeeper Gloves', c:'Football', p:3400, img:P.team, stock:'in',
+{id:'fb-glove', n:'Goalkeeper Gloves', c:'Football', p:3400, img:'art-store-ball-football.svg', stock:'in',
  d:'Four-millimetre latex palm with finger-spine protection and a wrap wrist strap.',
  l:'A 4mm German latex palm that grips a wet ball, over a backhand with removable finger spines — the thing that stops a young keeper bending a finger back on a hard shot. Wrap-around wrist strap so it stays on. Latex is a consumable; expect a season of hard use.',
  sizes:['5','6','7','8','9','10'], uses:['Schools','Clubs','Individuals'],
  sp:[['Palm','4 mm latex'],['Spines','Removable'],['Wrist','Wrap strap'],['Sizes','5 – 10']],
  v:{Size:['5 (u10)','6 (u12)','7 (u14)','8','9','10']}},
 
-{id:'fb-goal', n:'Portable Goal, 8 × 5 ft', c:'Football', p:16500, img:P.field, stock:'low',
+{id:'fb-goal', n:'Portable Goal, 8 × 5 ft', c:'Football', p:16500, img:'art-store-ball-football.svg', stock:'low',
  d:'A pop-up steel goal with a net and ground pegs — carried out by two people, up in five minutes.',
  l:'Powder-coated steel tube with snap couplings, so it assembles without tools and breaks down into a bag at the end of the session. Eight by five is the right size for u12 and small-sided games, which is most of what a school ground can actually hold. Comes with the net and six ground pegs.',
  sizes:['8 × 5 ft'], uses:['Schools','Colleges','Camps'],
  sp:[['Size','8 × 5 ft'],['Frame','Powder-coated steel'],['Assembly','Tool-free couplings'],['Includes','Net, 6 pegs, bag']],
  v:{}},
 
-{id:'fb-ladder', n:'Agility Ladder & Hurdle Set', c:'Football', p:2700, img:P.run, stock:'in',
+{id:'fb-ladder', n:'Agility Ladder & Hurdle Set', c:'Football', p:2700, img:'art-store-ball-football.svg', stock:'in',
  d:'A six-metre ladder with twelve mini hurdles — the footwork station every session starts with.',
  l:'Adjustable rungs on a six-metre webbing ladder, plus twelve 15cm mini hurdles for knee lift and lateral work. Rolls into its own bag. It is the cheapest way to add a proper warm-up station to a PE period, and it works for football, cricket and athletics alike.',
  sizes:['6 m set'], uses:['Schools','Clubs','Corporates','Camps'],
@@ -6989,21 +6985,21 @@ var ITEMS = [
  v:{}},
 
 /* -- swimming -- */
-{id:'sw-gog', n:'Anti-Fog Swim Goggles', c:'Swimming', p:1600, img:P.fit, stock:'in',
+{id:'sw-gog', n:'Anti-Fog Swim Goggles', c:'Swimming', p:1600, img:'art-store-swimming.svg', stock:'in',
  d:'Polycarbonate lenses with a silicone seal and a split strap that actually stays put.',
  l:'Anti-fog coated polycarbonate with a soft silicone gasket and a split back strap — the split is what stops them riding up on a turn. UV tint on the smoke version for outdoor pools. Junior and senior fits; the junior is a genuinely smaller frame, not just a shorter strap.',
  sizes:['Junior','Senior'], uses:['Schools','Individuals'],
  sp:[['Lens','Polycarbonate, anti-fog'],['Seal','Silicone gasket'],['Strap','Split, adjustable'],['Tint','Clear or smoke']],
  v:{Size:['Junior','Senior'],Tint:['Clear','Smoke (UV)']}},
 
-{id:'sw-cap', n:'Silicone Swim Cap (pack of 10)', c:'Swimming', p:2900, img:P.fit, stock:'in',
+{id:'sw-cap', n:'Silicone Swim Cap (pack of 10)', c:'Swimming', p:2900, img:'art-store-swimming.svg', stock:'in',
  d:'Ten seamless silicone caps — enough for a squad, and they do not pull hair the way latex does.',
  l:'Moulded silicone rather than latex: thicker, longer-lasting, and it does not drag on hair, which is the single reason students refuse to wear the cheap ones. Available plain or printed with the school crest on orders over fifty.',
  sizes:['Pack of 10'], uses:['Schools','Colleges'],
  sp:[['Material','Seamless silicone'],['Pack','10 caps'],['Fit','One size, adult and youth'],['Printing','From 50 pieces']],
  v:{Colour:['Navy','Red','Black','White']}},
 
-{id:'sw-board', n:'Kickboard & Pull Buoy Set', c:'Swimming', p:2200, img:P.fit, stock:'in',
+{id:'sw-board', n:'Kickboard & Pull Buoy Set', c:'Swimming', p:2200, img:'art-store-swimming.svg', stock:'in',
  d:'EVA kickboard and pull buoy — the two pieces every learn-to-swim programme is built on.',
  l:'Closed-cell EVA, so neither waterlogs over a term. The kickboard has contoured hand cut-outs for smaller hands and the buoy is the standard figure-eight. Between them they let one coach run a mixed-ability lane properly.',
  sizes:['Set'], uses:['Schools','Colleges','Camps'],
@@ -7011,21 +7007,21 @@ var ITEMS = [
  v:{}},
 
 /* -- indoor & table -- */
-{id:'in-tt', n:'Table Tennis Bat & Ball Set', c:'Indoor & table', p:3200, img:P.court, stock:'in',
+{id:'in-tt', n:'Table Tennis Bat & Ball Set', c:'Indoor & table', p:3200, img:'art-store-ping-pong.svg', stock:'in',
  d:'Four five-ply bats, a retractable net and six three-star balls — a table becomes a match in a minute.',
  l:'Five-ply blades with a 1.8mm inverted rubber, which is enough for a school player to learn spin on and cheap enough to replace when one goes missing. The clamp net fits any table up to 5cm thick, so it works on a dining table during a camp as well as on a proper board.',
  sizes:['4-bat set'], uses:['Schools','Corporates','Camps'],
  sp:[['Bats','4, five-ply'],['Rubber','1.8 mm inverted'],['Balls','6 × three-star, 40 mm'],['Net','Clamp, fits to 5 cm']],
  v:{}},
 
-{id:'in-bad', n:'Badminton Racquet Set', c:'Indoor & table', p:4600, img:P.court, stock:'in',
+{id:'in-bad', n:'Badminton Racquet Set', c:'Indoor & table', p:4600, img:'art-store-ping-pong.svg', stock:'in',
  d:'Four aluminium racquets, a full-width net and a tube of shuttles, in one carry bag.',
  l:'Aluminium shaft and head, strung at a forgiving tension so a beginner gets the shuttle over rather than fighting the racquet. Six nylon shuttles, which last far longer than feather in a school setting, and a 6.1m net with poles. The whole thing goes up on a hall floor or a playground.',
  sizes:['4-racquet set'], uses:['Schools','Corporates','Camps'],
  sp:[['Racquets','4, aluminium'],['Shuttles','6 nylon'],['Net','6.1 m + poles'],['Bag','Included']],
  v:{}},
 
-{id:'in-carrom', n:'Tournament Carrom Board', c:'Indoor & table', p:8400, img:P.court, stock:'in',
+{id:'in-carrom', n:'Tournament Carrom Board', c:'Indoor & table', p:8400, img:'art-store-sport-billiard.svg', stock:'in',
  d:'A 33-inch ply board with a lacquered playing surface, full coin set, striker and powder.',
  l:'Thirty-three inches across with a hardwood frame and a properly lacquered surface — the difference between a board that glides and one that drags after a month. Comes with the coin set, two strikers and boric powder. Every school we supply ends up wanting a second one.',
  sizes:['33 inch'], uses:['Schools','Corporates','Camps'],
@@ -7033,14 +7029,14 @@ var ITEMS = [
  v:{}},
 
 /* -- more athletics -- */
-{id:'at-throw', n:'Shot Put & Discus Set', c:'Athletics', p:11500, img:P.run, stock:'low',
+{id:'at-throw', n:'Shot Put & Discus Set', c:'Athletics', p:11500, img:'art-store-run.svg', stock:'low',
  d:'Competition-weight shot and discus in the school age brackets, with a measuring tape.',
  l:'Cast-iron shot in 3kg, 4kg and 5kg and rubber-rimmed discus in 0.75kg and 1kg — the weights that actually appear on an inter-school programme here. The rubber rim on the discus is deliberate: it will not chew up a grass ground or a student who catches one. Fifty-metre fibreglass tape included.',
  sizes:['School set'], uses:['Schools','Colleges'],
  sp:[['Shot','3 / 4 / 5 kg cast iron'],['Discus','0.75 / 1 kg, rubber rim'],['Tape','50 m fibreglass'],['Events','u14 through senior']],
  v:{}},
 
-{id:'at-block', n:'Starting Blocks', c:'Athletics', p:9800, img:P.run, stock:'in',
+{id:'at-block', n:'Starting Blocks', c:'Athletics', p:9800, img:'art-store-run.svg', stock:'in',
  d:'Adjustable aluminium blocks with a spiked rail — the piece that makes sprint coaching real.',
  l:'Aluminium rail with eleven pedal positions and adjustable pedal angle, on spikes for a synthetic track or grass. Until a school has a set, sprint starts are guesswork; with one, a coach can actually teach the drive phase. Folds flat and carries by the rail.',
  sizes:['Single set'], uses:['Schools','Colleges'],
@@ -7048,14 +7044,14 @@ var ITEMS = [
  v:{}},
 
 /* -- more taekwondo -- */
-{id:'tk-board', n:'Rebreakable Breaking Boards (set of 3)', c:'Taekwondo', p:5600, img:P.ma, stock:'in',
+{id:'tk-board', n:'Rebreakable Breaking Boards (set of 3)', c:'Taekwondo', p:5600, img:'art-store-karate.svg', stock:'in',
  d:'Three graded plastic boards that snap and reset — grading practice without a truck of pine.',
  l:'Yellow, blue and red at rising resistance, so a student can work up through the grades and a grading panel can test properly. They snap with the same crack as pine and clip back together in a second. One set replaces roughly two hundred wooden boards over its life.',
  sizes:['Set of 3'], uses:['Academy students','Schools','Clubs'],
  sp:[['Boards','3, graded resistance'],['Levels','Yellow / blue / red'],['Reset','Snap together'],['Life','~200 wooden boards']],
  v:{}},
 
-{id:'tk-mitt', n:'Focus Mitts (pair)', c:'Taekwondo', p:3900, img:P.ma, stock:'in',
+{id:'tk-mitt', n:'Focus Mitts (pair)', c:'Taekwondo', p:3900, img:'art-store-karate.svg', stock:'in',
  d:'Curved leather mitts with a padded wrist wrap — for hand work, where the paddles do not reach.',
  l:'A pre-curved striking face over layered foam, with a full wrist wrap so the coach holding them is not the one getting injured. Synthetic leather that wipes down. Paired with the kick paddles, this is the whole pad kit a Taekwondo class needs.',
  sizes:['Standard'], uses:['Academy students','Schools','Clubs'],
@@ -7063,21 +7059,21 @@ var ITEMS = [
  v:{}},
 
 /* -- more fitness -- */
-{id:'ft-kb', n:'Cast Kettlebell', c:'Fitness & gym', p:4400, img:P.gym, stock:'in',
+{id:'ft-kb', n:'Cast Kettlebell', c:'Fitness & gym', p:4400, img:'art-store-barbell.svg', stock:'in',
  d:'Single-cast iron with a wide, smooth handle and a flat base that sits still on a hall floor.',
  l:'Cast in one piece rather than welded, with a handle wide enough for two hands and machined smooth so it does not tear a beginner\u2019s palms. The flat base is the detail that matters in a school hall — it will not roll off into someone. 4kg to 16kg.',
  sizes:['4 kg','6 kg','8 kg','12 kg','16 kg'], uses:['Corporates','Schools','Individuals'],
  sp:[['Build','Single cast iron'],['Handle','Wide, machined'],['Base','Flat, non-roll'],['Range','4 – 16 kg']],
  v:{Weight:['4 kg','6 kg','8 kg','12 kg','16 kg']}},
 
-{id:'ft-med', n:'Slam Medicine Ball', c:'Fitness & gym', p:3600, img:P.gym, stock:'in',
+{id:'ft-med', n:'Slam Medicine Ball', c:'Fitness & gym', p:3600, img:'art-store-barbell.svg', stock:'in',
  d:'A dead-bounce rubber ball with a textured grip — throw it down and it stays down.',
  l:'Sand-filled with a thick rubber shell, so it lands flat instead of rebounding into a face. The textured surface holds in a sweaty hand. This is the one piece of conditioning kit that works equally for a corporate session and an under-16 squad.',
  sizes:['3 kg','5 kg','7 kg','9 kg'], uses:['Corporates','Schools','Clubs'],
  sp:[['Fill','Sand, dead bounce'],['Shell','Textured rubber'],['Range','3 – 9 kg'],['Use','Slams, throws, carries']],
  v:{Weight:['3 kg','5 kg','7 kg','9 kg']}},
 
-{id:'ft-roll', n:'Foam Roller & Massage Ball', c:'Fitness & gym', p:2400, img:P.gym, stock:'in',
+{id:'ft-roll', n:'Foam Roller & Massage Ball', c:'Fitness & gym', p:2400, img:'art-store-barbell.svg', stock:'in',
  d:'A 45cm EVA roller with a lacrosse-style ball — recovery kit for after the season starts hurting.',
  l:'High-density EVA at 45cm, firm enough to actually do something and short enough to fit in a kit bag. The ball handles the spots a roller cannot reach. We put these in every corporate wellness package because desk-bound backs need them more than athletes do.',
  sizes:['45 cm'], uses:['Corporates','Schools','Individuals'],
@@ -7085,14 +7081,14 @@ var ITEMS = [
  v:{}},
 
 /* -- more team kit -- */
-{id:'kt-sock', n:'Team Socks (pack of 11)', c:'Team kits', p:3300, img:P.team, stock:'in',
+{id:'kt-sock', n:'Team Socks (pack of 11)', c:'Team kits', p:3300, img:'art-store-shirt-sport.svg', stock:'in',
  d:'Eleven pairs of ribbed match socks with a cushioned sole and an arch band.',
  l:'Ribbed leg for grip over a shin guard, cushioned footbed and a compressive arch band so they do not concertina inside a boot. Sold as a squad of eleven in the colourway you pick, so the team actually matches on match day.',
  sizes:['Junior','Youth','Senior'], uses:['Schools','Colleges','Clubs'],
  sp:[['Pack','11 pairs'],['Leg','Ribbed, over-guard'],['Sole','Cushioned + arch band'],['Sizes','Junior / youth / senior']],
  v:{Size:['Junior','Youth','Senior'],Colour:['Navy','Red','Black','White']}},
 
-{id:'kt-pack', n:'Squad Backpack', c:'Team kits', p:4200, img:P.school, stock:'in',
+{id:'kt-pack', n:'Squad Backpack', c:'Team kits', p:4200, img:'art-store-shirt-sport.svg', stock:'in',
  d:'Thirty litres with a wet compartment, a boot pocket and the crest embroidered on the front.',
  l:'A padded laptop sleeve for the school run and a separate vented base compartment for boots and a wet kit, so the two never meet. Embroidered crest, name panel inside the lid. Ordered alongside the tracksuit it makes a squad look like a squad on a coach.',
  sizes:['30 L'], uses:['Schools','Colleges','Clubs'],
@@ -7100,7 +7096,7 @@ var ITEMS = [
  v:{Colour:['Navy / red','Black / gold','Royal / white']}},
 
 /* -- more protective -- */
-{id:'pg-knee', n:'Volleyball & Court Knee Pads', c:'Protective gear', p:1700, img:P.court, stock:'in',
+{id:'pg-knee', n:'Volleyball & Court Knee Pads', c:'Protective gear', p:1700, img:'art-store-shield.svg', stock:'in',
  d:'Sleeve pads with a high-density insert over the cap — for hall floors, which do not forgive.',
  l:'A compression sleeve holding a moulded EVA insert over the patella, with a breathable back panel so they can be worn a whole session. Court sports on a tiled or concrete hall floor cause more knee injuries at school level than contact sport does; these are the cheapest fix there is.',
  sizes:['S','M','L'], uses:['Schools','Colleges','Clubs'],
@@ -7108,21 +7104,21 @@ var ITEMS = [
  v:{Size:['S','M','L']}},
 
 /* -- ground & facility -- */
-{id:'gr-mark', n:'Ground Marking Kit', c:'Ground & facility', p:14500, img:P.field, stock:'in',
+{id:'gr-mark', n:'Ground Marking Kit', c:'Ground & facility', p:14500, img:'art-store-cone.svg', stock:'in',
  d:'A wheeled line marker with twenty litres of pitch paint, a measuring wheel and corner flags.',
  l:'What it takes to turn a field into a pitch on a Friday afternoon. The wheeled marker lays a clean 75mm line, the paint is water-based and safe on grass, and the measuring wheel means the pitch is actually the size it is supposed to be. Four corner flags included. We refill the paint on your equipment order.',
  sizes:['Complete kit'], uses:['Schools','Colleges'],
  sp:[['Marker','Wheeled, 75 mm line'],['Paint','20 L water-based'],['Wheel','Measuring, to 100 m'],['Flags','4 corner']],
  v:{}},
 
-{id:'gr-score', n:'Portable Scoreboard', c:'Ground & facility', p:9600, img:P.court, stock:'in',
+{id:'gr-score', n:'Portable Scoreboard', c:'Ground & facility', p:9600, img:'art-store-scoreboard.svg', stock:'in',
  d:'A double-sided flip scoreboard on a folding stand — readable from the far touchline.',
  l:'Weatherproof flip digits at 150mm, double sided so both sets of supporters can read it, on a stand that folds and carries. No batteries, no cables, nothing to break — which is why it still works three seasons in, unlike every electronic one we have seen at a school.',
  sizes:['Standard'], uses:['Schools','Colleges','Clubs'],
  sp:[['Digits','150 mm, flip'],['Sides','Double'],['Stand','Folding, weatherproof'],['Power','None needed']],
  v:{}},
 
-{id:'gr-water', n:'Water Bottle Rack & 12 Bottles', c:'Ground & facility', p:5800, img:P.school, stock:'in',
+{id:'gr-water', n:'Water Bottle Rack & 12 Bottles', c:'Ground & facility', p:5800, img:'art-store-bottle.svg', stock:'in',
  d:'Twelve one-litre squeeze bottles in a wire carry rack — the touchline kit nobody budgets for.',
  l:'One-litre BPA-free bottles with a long push-pull spout so they can be used without touching the mouth, in a wire rack that carries all twelve in one hand. Number them and a squad stops sharing bottles, which is a bigger deal in a Karachi summer than most schools plan for.',
  sizes:['Rack of 12'], uses:['Schools','Colleges','Clubs','Camps'],
@@ -7130,7 +7126,7 @@ var ITEMS = [
  v:{}},
 
 /* -- one more package -- */
-{id:'sp-meet', n:'Athletics Meet Package', c:'School packages', p:74000, was:86000, img:P.run,
+{id:'sp-meet', n:'Athletics Meet Package', c:'School packages', p:74000, was:86000, img:'art-store-school.svg',
  stock:'in', feat:1, tag:'Sports day in a box', tc:'g',
  d:'Everything a sports day runs on — hurdles, blocks, throws, batons, marking kit, scoreboard and water.',
  l:'We built this after watching three schools borrow half a sports day from each other. It is the hurdle set, starting blocks, the shot and discus set, relay batons and stopwatch, the ground marking kit, the portable scoreboard and the water rack — one delivery, one invoice, about fourteen per cent under the item-by-item price. Our team can run the day with you the first year.',
@@ -7139,35 +7135,35 @@ var ITEMS = [
  v:{}},
 
 /* -- balancing out the thin shelves -- */
-{id:'bb-stand', n:'Portable Hoop on a Weighted Base', c:'Basketball', p:34000, img:P.court, stock:'low',
+{id:'bb-stand', n:'Portable Hoop on a Weighted Base', c:'Basketball', p:34000, img:'art-store-ball-basketball.svg', stock:'low',
  d:'A height-adjustable hoop on a fillable base — a court anywhere there is flat ground.',
  l:'The pole telescopes from 7ft to 10ft, so the same unit serves a primary section and a senior team, and the base fills with sand or water for about 90kg of ballast. Wheels on the back edge mean two people can tip and move it. For schools without a marked court, this is the cheapest way to start a basketball programme.',
  sizes:['7 – 10 ft'], uses:['Schools','Colleges','Corporates'],
  sp:[['Height','7 – 10 ft, adjustable'],['Base','Sand or water, ~90 kg'],['Board','112 cm polycarbonate'],['Moves','Tip-and-roll wheels']],
  v:{}},
 
-{id:'bb-net', n:'Replacement Net & Pump Kit', c:'Basketball', p:1800, img:P.court, stock:'in',
+{id:'bb-net', n:'Replacement Net & Pump Kit', c:'Basketball', p:1800, img:'art-store-ball-basketball.svg', stock:'in',
  d:'Four all-weather nets, a dual-action pump, spare needles and a pressure gauge.',
  l:'The consumables that stop a court going quiet. Four braided nets rated for outdoor sun, a dual-action pump that inflates on both strokes, six spare needles and a gauge so balls sit at the right 7 to 9 PSI instead of rock hard. Every school we supply reorders this one first.',
  sizes:['Kit'], uses:['Schools','Colleges','Clubs'],
  sp:[['Nets','4, all-weather braided'],['Pump','Dual action'],['Needles','6 spare'],['Gauge','Analogue, 0 – 15 PSI']],
  v:{}},
 
-{id:'bb-sleeve', n:'Shooting Sleeve & Arm Guard', c:'Basketball', p:1300, img:P.court, stock:'in',
+{id:'bb-sleeve', n:'Shooting Sleeve & Arm Guard', c:'Basketball', p:1300, img:'art-store-ball-basketball.svg', stock:'in',
  d:'A compression sleeve with a padded forearm panel, for players who spend a lot of time on the floor.',
  l:'Graduated compression through the forearm with a thin foam panel over the elbow — enough to take the sting out of a hall floor without restricting a shot. Breathable knit, so it can be worn a whole game. Sold singly; most players want one.',
  sizes:['S','M','L'], uses:['Schools','Colleges','Individuals'],
  sp:[['Knit','Graduated compression'],['Padding','Foam elbow panel'],['Sold','Singly'],['Sizes','S / M / L']],
  v:{Size:['S','M','L'],Arm:['Left','Right']}},
 
-{id:'sw-bag', n:'Mesh Swim Kit Bag', c:'Swimming', p:1400, img:P.fit, stock:'in',
+{id:'sw-bag', n:'Mesh Swim Kit Bag', c:'Swimming', p:1400, img:'art-store-swimming.svg', stock:'in',
  d:'A drawstring mesh bag that lets a wet costume and towel breathe instead of turning a locker sour.',
  l:'Open mesh with a coated base, so water drains out and the bag itself dries. Big enough for a towel, costume, cap and goggles, small enough to hang on a peg. Name panel on the front. It is a small thing, but it is the difference between kit that dries and kit that gets thrown away.',
  sizes:['Standard'], uses:['Schools','Camps','Individuals'],
  sp:[['Body','Open mesh'],['Base','Coated, drains'],['Closure','Drawstring, shoulder carry'],['Panel','Name label']],
  v:{Colour:['Navy','Red','Black']}},
 
-{id:'in-chess', n:'Tournament Chess Set (pack of 6)', c:'Indoor & table', p:5400, img:P.court, stock:'in',
+{id:'in-chess', n:'Tournament Chess Set (pack of 6)', c:'Indoor & table', p:5400, img:'art-store-chess-knight.svg', stock:'in',
  d:'Six weighted Staunton sets on roll-up vinyl boards — a whole indoor games period in one box.',
  l:'Weighted plastic Staunton pieces with a 3.75in king on 51mm-square roll-up boards, so they store flat and survive being sat on. Six sets covers twelve students at once, which is what an indoor games period or a rained-off PE lesson actually needs. Spare queens included.',
  sizes:['Pack of 6'], uses:['Schools','Colleges','Camps'],
@@ -7901,7 +7897,7 @@ $('#bdAdd').addEventListener('click', function(){
     n:$('#bkType').value + ' — ' + instName(),
     sub:r.heads + ' students · ' + r.units + ' units · tier ' + r.tier.l
         + (when ? ' · needed by ' + when : ''),
-    img:P.school, price:r.net, qty:1, units:r.units,
+    img:'art-store-chess-knight.svg', price:r.net, qty:1, units:r.units,
     lines:r.lines.map(function(l){ return {n:l.n + ' (' + l.per + ' each)', q:l.q, t:l.t}; })
   });
   persist(); bump();
@@ -11737,6 +11733,35 @@ section[id], [id^="branch"], .mkui-sec[id]{ scroll-margin-top:104px }
 @media (prefers-reduced-motion:reduce){
   *{ scroll-behavior:auto !important }
 }
+</style>
+
+<style id="mk-audit">
+/* ==================================================================
+   AUDIT · 5 Oct 2026
+   1. No capsule buttons: every button, tab, chip and field gets a
+      squared radius; badges and tags a tighter one.
+   2. The chairman card now carries his photo, with a scrim so the
+      name stays readable.
+   ================================================================== */
+:root{--r-pill:10px !important}
+.btn,.mbtn,.fbtn,.srchb,.chips button,.days button,.ladder button,.fbar button,.cf-chip,.mkc-chip,.mkc-act,
+.mkui-chip,.tabs a,.tabs__ind,header#hdr .tabs a,header#hdr .dock__cta,.nav-pills,.nav-pills .nav-link,.fee__more,
+.spg__expand,.vopt,.pchip,.bkbar__pre button,.selw.is-themed .sel-btn,.ftmob a,#oujSheet .ojm__f a,.sheet__x,.gnav,
+.card__open,.mkui-fablabel,.srch input,.mkc-bar input,.selw select,.mkui-btn{border-radius:10px !important}
+.tm__bdg,.champ .medal,.card__tag,.prod__tag,.prod__stk,.htag,.ad-tag,.fee__tag,.pr-badge,.cdm-chips span,.prog__meta span,
+.mkui-ribbon,.tl-kind,.evf-kind,.rrow u,.row-i u,.sqc .bdg,.belt-rank,.jrn__yr,.tier span,.pt span,.mk-label,.oid,
+.ev .kd,.cfc .cnt,.cfc .exp,.tm__yrs,#oujSheet .ojm__c span{border-radius:6px !important}
+header#hdr .dock,.dock{border-radius:16px !important}
+.chf__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.chf__side::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(11,21,51,0) 34%,rgba(11,21,51,.55) 62%,rgba(11,21,51,.94) 100%)}
+.chf__id{position:relative;z-index:2}
+/* 3. Phones: the page-links grid in the footer ran ~320px past the screen
+      edge on three pages, so the whole page could be dragged sideways. */
+.np-grid{max-width:100%;min-width:0}
+.np-grid > *{min-width:0;max-width:100%}
+.np-grid a b,.np-grid a span{overflow-wrap:anywhere}
+html,body{overflow-x:clip}
 </style>
 </body>
 </html>

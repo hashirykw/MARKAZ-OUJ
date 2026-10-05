@@ -1570,7 +1570,6 @@
 <link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..700&display=swap">
 <style>
@@ -3272,23 +3271,13 @@ window.Markaz.ready(function () {
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
-  function u(id, w, h, focal) {
-    return 'https://images.unsplash.com/photo-' + id +
-      '?auto=format&fit=crop&w=' + w + '&h=' + h + '&q=74&crop=' + (focal || 'entropy');
-  }
-  var P = {
-    a: '1517438476312-10d79c077509', b: '1517836357463-d25dfeac3438',
-    c: '1521572163474-6864f9cf17ab', d: '1534438327276-14e5300c3a48',
-    e: '1544216717-3bbf52512659',    f: '1544367567-0f2fcb009e0b',
-    g: '1552674605-db6ffd4facb5',    h: '1555597673-b21d5c935865',
-    i: '1583473848882-f9a5bc7fd2ee', j: '1595078475328-1ab05d0a6a0e'
-  };
+  /* every picture on this page is a local file */
 
   /* ---------------- the four disciplines ---------------- */
   var PROGRAMMES = [
     {
       id: 'taekwondo', n: 'Taekwondo', who: 'Ages 6 and up',
-      img: u(P.i, 900, 560), big: u(P.i, 1200, 520),
+      img: 'unity-class.webp', big: 'unity-class.webp',
       s: 'The academy started here in 2016 and it is still the largest class on the floor. ' +
          'World Taekwondo rules, graded to black belt by our own panel.',
       body: 'Every session runs the same shape so you always know what you are walking into: ' +
@@ -3308,7 +3297,7 @@ window.Markaz.ready(function () {
     },
     {
       id: 'boxing', n: 'Boxing', who: 'Ages 14 and up',
-      img: u(P.e, 900, 560), big: u(P.e, 1200, 520),
+      img: 'art-boxing.svg', big: 'art-boxing.svg',
       s: 'Footwork, guard and combinations, then rounds. Two tracks share the class: one that ' +
          'never spars and one that fights on the club card.',
       body: 'You choose your track on day one and you can change it whenever you like. The ' +
@@ -3326,7 +3315,7 @@ window.Markaz.ready(function () {
     },
     {
       id: 'kickboxing', n: 'Kickboxing', who: 'Adults, all levels',
-      img: u(P.f, 900, 560), big: u(P.f, 1200, 520),
+      img: 'art-kickboxing.svg', big: 'art-kickboxing.svg',
       s: 'Hands and legs together. The most popular class for adults who want hard ' +
          'conditioning with a real skill attached, and the natural crossover for both camps.',
       body: 'If you have done Taekwondo you already have the legs and need the hands. If you ' +
@@ -3344,7 +3333,7 @@ window.Markaz.ready(function () {
     },
     {
       id: 'mma', n: 'MMA', who: 'Adults, 18 and up',
-      img: u(P.d, 900, 560), big: u(P.d, 1200, 520),
+      img: 'art-mma.svg', big: 'art-mma.svg',
       s: 'Striking, clinch and ground in one session. The hardest class on the timetable and ' +
          'deliberately the smallest.',
       body: 'Adults only, and we ask for about three months of striking or grappling somewhere ' +
@@ -3364,7 +3353,7 @@ window.Markaz.ready(function () {
 
   /* ---------------- the first month ---------------- */
   var STEPS = [
-    { d: 'Day one', k: 'Trial', img: u(P.f, 900, 600),
+    { d: 'Day one', k: 'Trial', img: 'avicenna-class.webp',
       h: 'Walk in', p: 'Come to any class in loose clothes. We lend you pads and gloves. ' +
         'You train the whole session, not a watered-down version of it.',
       body: 'There is no form to fill in and nobody takes your number at the door. You warm ' +
@@ -3373,7 +3362,7 @@ window.Markaz.ready(function () {
             'the floor would suit you better.',
       list: ['Any class on the board, any day', 'Pads and gloves lent to you',
              'No booking needed, though it helps', 'Nothing to cancel afterwards'] },
-    { d: 'Week one', k: 'Enrol', img: u(P.e, 900, 600),
+    { d: 'Week one', k: 'Enrol', img: 'unity-class.webp',
       h: 'Decide', p: 'If you want to carry on you enrol at the desk. One month at a time, ' +
         'nothing to sign, and you can stop whenever you like.',
       body: 'Fees are monthly and there is no admission charge, no annual charge and no ' +
@@ -3381,7 +3370,7 @@ window.Markaz.ready(function () {
             'you about it.',
       list: ['Rs 4,500 a month for one discipline', 'Rs 6,500 for everything on the board',
              '15% off from the second sibling', 'Stop any month, no notice'] },
-    { d: 'Week three', k: 'Kit', img: u(P.a, 900, 600),
+    { d: 'Week three', k: 'Kit', img: 'shirt-markaz.webp',
       h: 'Get kitted', p: 'You buy your own uniform or wraps. We tell you exactly what you ' +
         'need and nothing you do not.',
       body: 'Kit comes from the Markaz OUJ Store at the price we buy it for our own squad. ' +
@@ -3389,7 +3378,7 @@ window.Markaz.ready(function () {
             'gloves and a gumshield. Shin guards come later, and only if you spar.',
       list: ['Taekwondo: dobok and belt', 'Boxing: wraps, gloves, gumshield',
              'Kickboxing: add shin guards at month two', 'MMA: gloves and rash guard'] },
-    { d: 'Week eight', k: 'Grade', img: u(P.i, 900, 600),
+    { d: 'Week eight', k: 'Grade', img: 'saad-grading.webp',
       h: 'Get tested', p: 'Your coach either enters you for the first grading or tells you ' +
         'plainly what is still missing.',
       body: 'Taekwondo gradings run three times a year in front of the Markaz panel. Nobody ' +
@@ -13291,6 +13280,35 @@ section[id], [id^="branch"], .mkui-sec[id]{ scroll-margin-top:104px }
 @media (prefers-reduced-motion:reduce){
   *{ scroll-behavior:auto !important }
 }
+</style>
+
+<style id="mk-audit">
+/* ==================================================================
+   AUDIT · 5 Oct 2026
+   1. No capsule buttons: every button, tab, chip and field gets a
+      squared radius; badges and tags a tighter one.
+   2. The chairman card now carries his photo, with a scrim so the
+      name stays readable.
+   ================================================================== */
+:root{--r-pill:10px !important}
+.btn,.mbtn,.fbtn,.srchb,.chips button,.days button,.ladder button,.fbar button,.cf-chip,.mkc-chip,.mkc-act,
+.mkui-chip,.tabs a,.tabs__ind,header#hdr .tabs a,header#hdr .dock__cta,.nav-pills,.nav-pills .nav-link,.fee__more,
+.spg__expand,.vopt,.pchip,.bkbar__pre button,.selw.is-themed .sel-btn,.ftmob a,#oujSheet .ojm__f a,.sheet__x,.gnav,
+.card__open,.mkui-fablabel,.srch input,.mkc-bar input,.selw select,.mkui-btn{border-radius:10px !important}
+.tm__bdg,.champ .medal,.card__tag,.prod__tag,.prod__stk,.htag,.ad-tag,.fee__tag,.pr-badge,.cdm-chips span,.prog__meta span,
+.mkui-ribbon,.tl-kind,.evf-kind,.rrow u,.row-i u,.sqc .bdg,.belt-rank,.jrn__yr,.tier span,.pt span,.mk-label,.oid,
+.ev .kd,.cfc .cnt,.cfc .exp,.tm__yrs,#oujSheet .ojm__c span{border-radius:6px !important}
+header#hdr .dock,.dock{border-radius:16px !important}
+.chf__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.chf__side::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(11,21,51,0) 34%,rgba(11,21,51,.55) 62%,rgba(11,21,51,.94) 100%)}
+.chf__id{position:relative;z-index:2}
+/* 3. Phones: the page-links grid in the footer ran ~320px past the screen
+      edge on three pages, so the whole page could be dragged sideways. */
+.np-grid{max-width:100%;min-width:0}
+.np-grid > *{min-width:0;max-width:100%}
+.np-grid a b,.np-grid a span{overflow-wrap:anywhere}
+html,body{overflow-x:clip}
 </style>
 </body>
 </html>

@@ -1570,7 +1570,6 @@
 <link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..700&display=swap">
 <style>
@@ -3234,17 +3233,7 @@ window.Markaz.ready(function () {
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
-  function u(id, w, h, focal) {
-    return 'https://images.unsplash.com/photo-' + id +
-      '?auto=format&fit=crop&w=' + w + '&h=' + h + '&q=74&crop=' + (focal || 'entropy');
-  }
-  var P = {
-    a: '1517438476312-10d79c077509', b: '1517836357463-d25dfeac3438',
-    c: '1521572163474-6864f9cf17ab', d: '1534438327276-14e5300c3a48',
-    e: '1544216717-3bbf52512659',    f: '1544367567-0f2fcb009e0b',
-    g: '1552674605-db6ffd4facb5',    h: '1555597673-b21d5c935865',
-    i: '1583473848882-f9a5bc7fd2ee', j: '1595078475328-1ab05d0a6a0e'
-  };
+  /* every picture on this page is a local file */
 
   var IC = {
     whistle: '<path d="M4 10h9l6-3v10l-6-3H4z"/><circle cx="7" cy="17" r="3"/>',
@@ -3256,39 +3245,39 @@ window.Markaz.ready(function () {
   };
 
   var SERVICES = [
-    { i: 'whistle', n: 'Coaching and PE teachers', img: u(P.d, 1200, 520),
+    { i: 'whistle', n: 'Coaching and PE teachers', img: 'avicenna-class.webp',
       s: 'Certified coaches and PE teachers placed on your site for the full term.',
       body: 'We place staff inside your timetable rather than sending a visitor once a week. ' +
             'The same coach turns up all term, reports to your head of sport, and is covered ' +
             'by us when they are ill.',
       list: ['Placed for the full term, not per session', 'Police-verified and insured by us',
              'Cover arranged by us, not by you', 'Reports into your head of sport'] },
-    { i: 'kit', n: 'Sports equipment', img: u(P.a, 1200, 520),
+    { i: 'kit', n: 'Sports equipment', img: 'art-equipment.svg',
       s: 'Supply and setup for every major sport, without the retail markup.',
       body: 'We buy for our own academy, so we buy at volume and we know which gear survives a ' +
             'season of school use and which does not. Delivery across Karachi takes two to ' +
             'five days.',
       list: ['Priced below retail on volume', 'Delivered across Karachi in 2 to 5 days',
              'Installation and setup included', 'Replacement schedule planned with you'] },
-    { i: 'trophy', n: 'Event organizing', img: u(P.g, 1200, 520),
+    { i: 'trophy', n: 'Event organizing', img: 'fame-students-olympic-2026.webp',
       s: 'Inter-school, inter-college, university and corporate tournaments, end to end.',
       body: 'Fixtures, officials, kit, medals and the day itself. You give us the dates and the ' +
             'number of teams; we hand back a run sheet and then run it.',
       list: ['Fixtures and draw management', 'Qualified officials booked by us',
              'Medals, certificates and photography', 'One run sheet, one point of contact'] },
-    { i: 'sun', n: 'Summer camps', img: u(P.j, 1200, 520),
+    { i: 'sun', n: 'Summer camps', img: 'art-camps.svg',
       s: 'Holiday skill camps in cricket, football, basketball, athletics and martial arts.',
       body: 'Camps run through the holidays with a coach-to-child ratio that actually lets ' +
             'coaching happen. Half-day and full-day formats, on your premises or ours.',
       list: ['Half day and full day formats', 'Ratio capped so coaching is possible',
              'On your premises or at our campus', 'Daily report to parents'] },
-    { i: 'heart', n: 'Fitness training', img: u(P.e, 1200, 520),
+    { i: 'heart', n: 'Fitness training', img: 'art-fitness.svg',
       s: 'Strength, conditioning and wellness programmes for corporate teams.',
       body: 'Employee fitness that people actually attend, because it is scheduled around the ' +
             'working day rather than against it. On your premises or ours.',
       list: ['Corporate wellness days', 'Ongoing weekly staff sessions',
              'Baseline assessment at the start', 'On your premises or at our campus'] },
-    { i: 'fist', n: 'Martial arts and self defense', img: u(P.i, 1200, 520),
+    { i: 'fist', n: 'Martial arts and self defense', img: 'markaz-female-belt-ceremony.webp',
       s: 'Taekwondo instruction and practical self defense for students and staff.',
       body: 'The academy programme, delivered at your site. Full Taekwondo with the grading ' +
             'ladder, or a six-week practical self defense course with no grading and no ' +
@@ -3298,22 +3287,22 @@ window.Markaz.ready(function () {
   ];
 
   var SERVE = [
-    { n: 'Schools', s: 'PE timetables, house sport, inter-school fixtures', img: u(P.d, 600, 750),
+    { n: 'Schools', s: 'PE timetables, house sport, inter-school fixtures', img: 'art-schools.svg',
       body: 'The most common engagement: a coach or PE teacher placed on your timetable for the ' +
             'full term, the equipment to run it, and a fixture calendar we organise ourselves.',
       list: ['Placed coaches and PE teachers', 'Equipment supply and setup',
              'Inter-school fixtures organised end to end', 'Summer and winter camps'] },
-    { n: 'Colleges', s: 'Squads, gradings and the annual sports week', img: u(P.a, 600, 750),
+    { n: 'Colleges', s: 'Squads, gradings and the annual sports week', img: 'art-colleges.svg',
       body: 'Colleges tend to want squads rather than timetabled classes, plus one large event ' +
             'a year that has to run without anything going wrong.',
       list: ['Squad coaching by discipline', 'Sports week planned and run',
              'Martial arts and self defense courses', 'Officials and equipment provided'] },
-    { n: 'Universities', s: 'Inter-varsity events and facility programming', img: u(P.g, 600, 750),
+    { n: 'Universities', s: 'Inter-varsity events and facility programming', img: 'art-universities.svg',
       body: 'Larger fixtures with more moving parts, and facilities that need a programme ' +
             'rather than a booking sheet.',
       list: ['Inter-varsity tournaments', 'Facility programming and scheduling',
              'Fitness and conditioning for squads', 'Event officials and medical cover arranged'] },
-    { n: 'Corporates', s: 'Wellness days, self defense and staff fitness', img: u(P.e, 600, 750),
+    { n: 'Corporates', s: 'Wellness days, self defense and staff fitness', img: 'art-corporates.svg',
       body: 'Employee fitness that people actually attend, because it is scheduled around the ' +
             'working day rather than against it. On your premises or at our campus.',
       list: ['Corporate wellness days', 'Weekly staff fitness sessions',
@@ -3322,7 +3311,7 @@ window.Markaz.ready(function () {
   ];
 
   var STORY = [
-    { y: '2016', k: 'Academy', img: u(P.i, 900, 600),
+    { y: '2016', k: 'Academy', img: 'avicenna-class.webp',
       h: 'The first squad', p: 'Markaz Martial Arts Academy opens at Markaz Khel o Saqafat and enters a ' +
         'competition squad the same year.',
       body: 'A hall, a set of mats and a Taekwondo class three evenings a week. The squad was ' +
@@ -3330,35 +3319,35 @@ window.Markaz.ready(function () {
             'expectation everything since has been built on.',
       list: ['Federal B Area', 'Taekwondo only, three evenings a week',
              'First competition squad entered'] },
-    { y: '2018', k: 'Coaching', img: u(P.d, 900, 600),
+    { y: '2018', k: 'Coaching', img: 'unity-class.webp',
       h: 'Schools start calling', p: 'Weekend classes turn into placed coaches when two Karachi ' +
         'schools ask for a PE teacher on the timetable.',
       body: 'The request was not for a visitor once a week but for someone on the timetable all ' +
             'term who reported to the head of sport. That is still the shape of the service.',
       list: ['First two school placements', 'Coaches on the timetable, not visiting',
              'Cover arranged by us'] },
-    { y: '2020', k: 'Store', img: u(P.a, 900, 600),
+    { y: '2020', k: 'Store', img: 'shirt-ouj.webp',
       h: 'Equipment, out of necessity', p: 'The store opens because institutions kept asking ' +
         'where to buy gear that would survive a season.',
       body: 'We were already buying at volume for the academy and knew which equipment lasts a ' +
             'school year and which does not. The store simply passed that on.',
       list: ['Every major sport, not only martial arts', 'Volume pricing passed on',
              'Delivery across Karachi'] },
-    { y: '2022', k: 'Events', img: u(P.g, 900, 600),
+    { y: '2022', k: 'Events', img: 'fame-students-olympic-2026.webp',
       h: 'Running the calendar', p: 'The first full inter-school tournament run end to end by ' +
         'Markaz, from fixtures to medals.',
       body: 'Organising rather than attending. Fixtures, officials, kit, medals and the day ' +
             'itself, which is the part that decides whether anyone comes back next year.',
       list: ['Fixtures and draw managed by us', 'Officials booked by us',
              'Medals, certificates and photography'] },
-    { y: '2024', k: 'Group', img: u(P.e, 900, 600),
+    { y: '2024', k: 'Group', img: 'saad-awards.webp',
       h: 'One company, six services', p: 'Markaz OUJ Performance brings coaching, equipment, ' +
         'events, camps, fitness and martial arts under a single name.',
       body: 'The parent company was formalised so institutions had one contract and one number ' +
             'to call, with the academy and the store sitting underneath it.',
       list: ['Markaz OUJ Performance as parent', 'Markaz Martial Arts Academy underneath',
              'Markaz OUJ Store underneath', 'Chaired by Abdul Samad Khan'] },
-    { y: 'Now', k: 'Today', img: u(P.h, 900, 600),
+    { y: 'Now', k: 'Today', img: 'team-abdul-samad-khan-wide.webp',
       h: 'Twenty-five institutions', p: 'Schools, colleges, universities and corporate teams ' +
         'across Karachi, and a squad that keeps adding to the wall.',
       body: 'Six services, four kinds of client, and a competition calendar we run rather than ' +
@@ -3426,8 +3415,8 @@ window.Markaz.ready(function () {
   });
 
   /* ================= RENDER ================= */
-  $('#chairImg').src = u(P.b, 840, 1000, 'faces');
-  $('#facImg').src = u(P.g, 900, 700);
+  $('#chairImg').src = 'team-abdul-samad-khan-portrait.webp';
+  $('#facImg').src = 'art-venue.webp';
 
   $('#whatGrid').innerHTML = SERVICES.map(function (s, k) {
     return '<article class="card card--tap svc" data-k="' + k + '" role="button" tabindex="0" ' +
@@ -3489,7 +3478,7 @@ window.Markaz.ready(function () {
   M.cards('.chair', [{}], function () {
     return {
       title: 'Abdul Samad Khan', sub: 'Chairman, Markaz OUJ Performance',
-      img: u(P.b, 1200, 520, 'faces'),
+      img: 'team-abdul-samad-khan-wide.webp',
       body: 'A renowned figure in Pakistani sport, Abdul Samad Khan chairs Markaz OUJ ' +
             'Performance and still teaches the Saturday senior session at the academy. The ' +
             'organisation is built around his conviction that a sports culture has to be grown ' +
@@ -8997,6 +8986,35 @@ section[id], [id^="branch"], .mkui-sec[id]{ scroll-margin-top:104px }
 @media (prefers-reduced-motion:reduce){
   *{ scroll-behavior:auto !important }
 }
+</style>
+
+<style id="mk-audit">
+/* ==================================================================
+   AUDIT · 5 Oct 2026
+   1. No capsule buttons: every button, tab, chip and field gets a
+      squared radius; badges and tags a tighter one.
+   2. The chairman card now carries his photo, with a scrim so the
+      name stays readable.
+   ================================================================== */
+:root{--r-pill:10px !important}
+.btn,.mbtn,.fbtn,.srchb,.chips button,.days button,.ladder button,.fbar button,.cf-chip,.mkc-chip,.mkc-act,
+.mkui-chip,.tabs a,.tabs__ind,header#hdr .tabs a,header#hdr .dock__cta,.nav-pills,.nav-pills .nav-link,.fee__more,
+.spg__expand,.vopt,.pchip,.bkbar__pre button,.selw.is-themed .sel-btn,.ftmob a,#oujSheet .ojm__f a,.sheet__x,.gnav,
+.card__open,.mkui-fablabel,.srch input,.mkc-bar input,.selw select,.mkui-btn{border-radius:10px !important}
+.tm__bdg,.champ .medal,.card__tag,.prod__tag,.prod__stk,.htag,.ad-tag,.fee__tag,.pr-badge,.cdm-chips span,.prog__meta span,
+.mkui-ribbon,.tl-kind,.evf-kind,.rrow u,.row-i u,.sqc .bdg,.belt-rank,.jrn__yr,.tier span,.pt span,.mk-label,.oid,
+.ev .kd,.cfc .cnt,.cfc .exp,.tm__yrs,#oujSheet .ojm__c span{border-radius:6px !important}
+header#hdr .dock,.dock{border-radius:16px !important}
+.chf__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.chf__side::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(11,21,51,0) 34%,rgba(11,21,51,.55) 62%,rgba(11,21,51,.94) 100%)}
+.chf__id{position:relative;z-index:2}
+/* 3. Phones: the page-links grid in the footer ran ~320px past the screen
+      edge on three pages, so the whole page could be dragged sideways. */
+.np-grid{max-width:100%;min-width:0}
+.np-grid > *{min-width:0;max-width:100%}
+.np-grid a b,.np-grid a span{overflow-wrap:anywhere}
+html,body{overflow-x:clip}
 </style>
 </body>
 </html>
