@@ -563,6 +563,10 @@
           [
             "At Markaz",
             "8 years"
+          ],
+          [
+            "Coaching",
+            "8 years"
           ]
         ],
         "campuses": [
@@ -621,9 +625,9 @@
         "list": [
           "PTF-certified 1st Dan black belt, national-level player and martial arts instructor",
           "Captained the Midas Pakistan futsal team",
-          "Senior Executive, Financial Reporting, at International Packaging Films Limited",
-          "Four years at Midas Safety during his CA articleship, 2022 to 2026",
-          "Has cleared the CA-Part qualification and placed 3rd in Round 1 of ICAP NFO 2025",
+          "Senior Executive, Financial Reporting, at International Packaging Films Limited, handling month-end close, trial balance analysis, forex impacts and group consolidation",
+          "Four years at Midas Safety during his CA articleship, 2022 to 2026, on receivables, payables and intercompany reconciliations in SAP S/4HANA",
+          "Began CA in 2019; has cleared the CA-Part qualification and placed 3rd in Round 1 of ICAP NFO 2025",
           "O-Levels at Beaconhouse School System, where he served on the student council, then A-Levels",
           "Edits and directs video for YouTube"
         ],
@@ -924,33 +928,46 @@
         show: true
       },
       {
-        /* New branch, added 5 Oct 2026. Timings as sent by the desk; no
-           direct line yet, so bookings route to the Markaz desk. */
+        /* New branch, added 5 Oct 2026; filled in 7 Oct 2026 from the
+           academy's own poster (name, disciplines, coach, numbers).
+           Still to come from the desk: ages, fee, maps link, and which
+           number belongs to whom, so neither number is labelled. */
         placeholderTimes: false,
         area: 'Nazimabad',
         id: 'sms-martial-arts-club',
-        profile: 'A new Markaz branch on Eidgah Ground in Nazimabad, with classes three evenings a week.',
-        trial: { offered: true, label: 'Book a trial class', routeTo: 'markaz' },
-        name: 'SMS Martial Arts Club',
+        profile: 'A new Markaz branch on Eidgah Ground in Nazimabad, coached by Sir Ahmed Raza. Boys and girls train Taekwondo, wrestling, boxing, MMA and self defence, three evenings a week.',
+        trial: { offered: true, label: 'Book a trial class', routeTo: 'branch' },
+        name: 'SMS Mix Martial Art Academy',
         tagline: 'New branch',
         since: '',
         academy: 'Markaz Martial Arts Academy',
         supervisor: 'Abdul Samad Khan',
-        trainers: [],
+        trainers: [
+          { name: 'Ahmed Raza', title: 'Sir', scope: 'Coach' }
+        ],
         ages: '',
         classes: [
-          { label: '', days: 'Wednesday, Thursday & Friday', time: '7:00 – 9:00 PM', ages: '' }
+          { label: 'Boys & girls', days: 'Wednesday, Thursday & Friday', time: '7:00 – 9:00 PM', ages: '' }
         ],
         fee: { line: '', note: '' },
         location: 'Eidgah Ground, Nazimabad, Karachi',
         mapsUrl: '',
-        contact: {},
+        contact: {
+          whatsapp: '923219202808',
+          phoneDisplay: '0321 920 2808',
+          phones: [
+            { number: '0321 920 2808', whatsapp: '923219202808' },
+            { number: '0315 275 3474', whatsapp: '923152753474' }
+          ]
+        },
         affiliations: ['Markaz Martial Arts Academy'],
         achievements: [],
         milestones: [],
         logo: '',
         photos: [],
-        posters: [],
+        posters: [
+          { src: 'sms-poster', alt: 'SMS Mix Martial Art Academy poster: Taekwondo, wrestling, boxing, MMA and self defence, Wednesday to Friday, 7 to 9 PM' }
+        ],
         show: true
       },
       {
@@ -11302,7 +11319,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
           <span>Saad bin Abi Waqas Park, Block 10-A</span></a></li>
         <li><a href="martial-arts.html#branch=avicenna"><b>Avicenna Taekwondo Dojang</b>
           <span>The Avicenna School, Bangalore Town</span></a></li>
-        <li><a href="martial-arts.html#branch=sms-martial-arts-club"><b>SMS Martial Arts Club</b>
+        <li><a href="martial-arts.html#branch=sms-martial-arts-club"><b>SMS Mix Martial Art Academy</b>
           <span>Eidgah Ground, Nazimabad</span></a></li>
       </ul>
     </div>
@@ -11620,7 +11637,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
         <a href="martial-arts.html#branch=unity">Unity Taekwondo Academy<small>Gulshan-e-Iqbal</small></a>
         <a href="martial-arts.html#branch=saad-bin-abi-waqas">Saad bin Abi Waqas Taekwondo Club<small>Block 10-A</small></a>
         <a href="martial-arts.html#branch=avicenna">Avicenna Taekwondo Dojang<small>Bangalore Town</small></a>
-        <a href="martial-arts.html#branch=sms-martial-arts-club">SMS Martial Arts Club<small>Nazimabad</small></a>
+        <a href="martial-arts.html#branch=sms-martial-arts-club">SMS Mix Martial Art Academy<small>Nazimabad</small></a>
       </nav>
       <div class="mkft__col mkft__col--reach">
         <h5>Reach us</h5>
