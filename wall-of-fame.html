@@ -217,6 +217,7 @@
           ]
         ],
         "campuses": [],
+        "wall": {"badge": "4th Dan", "ev": "Chairman, Markaz Martial Arts Academy", "yr": null},
         "record": []
       },
       {
@@ -575,6 +576,7 @@
             "name": "Unity Taekwondo Academy"
           }
         ],
+        "wall": {"badge": "1st Dan", "ev": "National Intervarsity Taekwondo player", "yr": null},
         "record": []
       },
       {
@@ -611,6 +613,7 @@
             "name": "Saad bin Abi Waqas Taekwondo Club"
           }
         ],
+        "wall": {"badge": "1st Dan", "ev": "Kukkiwon 1st Dan black belt", "yr": 2026},
         "record": []
       },
       {
@@ -642,6 +645,7 @@
           ]
         ],
         "campuses": [],
+        "wall": {"badge": "1st Dan", "ev": "National-level Taekwondo player", "yr": null},
         "record": []
       },
       {
@@ -672,6 +676,7 @@
           ]
         ],
         "campuses": [],
+        "wall": {"badge": "1st Dan", "ev": "13th Korean Ambassador National Taekwondo Championship", "yr": null},
         "record": []
       },
       {
@@ -2641,6 +2646,7 @@ body.menu .np-grid a{transform:none;opacity:1}
 /* medal colour, carried by the card and the roll row */
 [data-m="gold"]  {--m:#C8971C}
 [data-m="silver"]{--m:#8A94A6}
+[data-m="honour"]{--m:#1E3A8A}
 [data-m="bronze"]{--m:#B0692F}
 
 /* ---------- squad cards ---------- */
@@ -3326,10 +3332,14 @@ window.Markaz.ready(function () {
   }
 
   /* ================= THE ROWS ================= */
-  var PEOPLE = TEAM.filter(function (t) { return (t.record || []).some(count); });
+  /* Medal holders, plus team members with no medal on record but a stated
+     honour (a Dan grade, national-player status). Honours never add to the
+     medal totals; they only put the person on the wall. */
+  function medalled(t) { return (t.record || []).some(count); }
+  var PEOPLE = TEAM.filter(function (t) { return medalled(t) || t.wall; });
   var ROWS = [];
   PEOPLE.forEach(function (t) {
-    t.record.forEach(function (r) {
+    (t.record || []).forEach(function (r) {
       if (!count(r)) return;
       var d = detail(r);
       ROWS.push({ who: t.n, ev: r.ev, yr: r.yr || null, g: r.g || 0, s: r.s || 0, b: r.b || 0,
@@ -3356,8 +3366,15 @@ window.Markaz.ready(function () {
   });
 
   /* ================= THE SQUAD ================= */
-  function lead(p) { return p.record[p.top || 0] || p.record[0]; }
-  function has(p, m) { return p.record.some(function (r) { return r[KEY[m]]; }); }
+  function lead(p) {
+    if (!medalled(p)) return null;
+    var r = p.record[p.top || 0];
+    return (r && count(r)) ? r : p.record.filter(count)[0];
+  }
+  function has(p, m) {
+    if (m === 'honour') return !medalled(p);
+    return (p.record || []).some(function (r) { return r[KEY[m]]; });
+  }
   function line(r) {
     var d = detail(r);
     return haul(r) + ': ' + r.ev + (r.yr ? ', ' + r.yr : '') + (d ? ' (' + d + ')' : '');
@@ -3374,17 +3391,19 @@ window.Markaz.ready(function () {
     $('#wNone').hidden = list.length > 0;
     $('#wall').hidden = list.length === 0;
     $('#wall').innerHTML = list.map(function (p) {
-      var r = lead(p), m = best(r);
+      var r = lead(p), w = p.wall || {}, m = r ? best(r) : 'honour';
+      var tag = r ? LABEL[m] : (w.badge || 'Honour'), ev = r ? r.ev : (w.ev || p.r || ''),
+          yr = r ? r.yr : w.yr;
       return '<article class="card card--tap champ" data-m="' + m + '" data-k="' +
         PEOPLE.indexOf(p) + '" role="button" tabindex="0" aria-label="Open the record for ' +
         esc(p.n) + '">' +
         '<div class="card__ph"><img src="' + esc(p.img) + '.webp" alt="' + esc(p.n) +
           '" style="object-position:' + esc(p.pos || '50% 30%') + '" loading="lazy" decoding="async"></div>' +
-        '<span class="medal"><i></i>' + LABEL[m] + '</span>' + M.openGlyph +
+        '<span class="medal"><i></i>' + esc(tag) + '</span>' + M.openGlyph +
         '<div class="card__b"><h3>' + esc(p.n) + '</h3>' +
-          '<div class="ev">' + esc(r.ev) + '</div>' +
+          '<div class="ev">' + esc(ev) + '</div>' +
           '<div class="card__foot"><span>' + esc(p.d || 'Taekwondo') + '</span>' +
-            '<strong class="yr">' + (r.yr || '') + '</strong></div>' +
+            '<strong class="yr">' + (yr || '') + '</strong></div>' +
         '</div></article>';
     }).join('');
     M.live($('#wall'));
@@ -3392,6 +3411,19 @@ window.Markaz.ready(function () {
 
   M.cards('#wall', PEOPLE, function (p) {
     var r = lead(p);
+    if (!r) {
+      var w = p.wall || {}, hf = [];
+      (p.facts || []).forEach(function (f) { if (f[1]) hf.push(f); });
+      return {
+        title: p.n + (p.aka ? ' (' + p.aka + ')' : ''),
+        sub: (w.ev || p.r || '') + (w.yr ? ', ' + w.yr : ''),
+        img: (p.wide || p.img) + '.webp',
+        body: p.s,
+        facts: hf,
+        list: p.list || [],
+        cta: ['Full profile', 'about.html#team=' + p.id]
+      };
+    }
     var n = p.record.reduce(function (a, x) { return a + count(x); }, 0);
     var facts = [['Grade', p.grade || (p.facts && p.facts[0] ? p.facts[0][1] : '')], ['Medals listed', String(n)]];
     (p.facts || []).forEach(function (f) { if (/since|At Markaz/.test(f[0])) facts.push(f); });
@@ -3417,8 +3449,9 @@ window.Markaz.ready(function () {
   }
 
   M.chips('#wMedal',
-    [{ v: 'all', l: 'Any medal' }].concat(ORDER.map(function (m) {
-      return { v: m, l: LABEL[m], n: PEOPLE.filter(function (p) { return has(p, m); }).length };
+    [{ v: 'all', l: 'Everyone' }].concat(ORDER.concat(['honour']).map(function (m) {
+      return { v: m, l: m === 'honour' ? 'Honours' : LABEL[m],
+               n: PEOPLE.filter(function (p) { return has(p, m); }).length };
     })),
     function (v) { view.m = v; paintWall(); });
 
@@ -5492,8 +5525,8 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
   <div class="wrap">
     <div class="sh">
       <h2>The people on the wall.</h2>
-      <p>Filter by what they came home with. Open anyone for their full record, exactly as
-        they sent it.</p>
+      <p>Filter by what they came home with, or by honours for the black belts and national
+        players. Open anyone for their full record, exactly as they sent it.</p>
     </div>
 
     <div class="frail">
