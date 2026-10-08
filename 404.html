@@ -68,6 +68,11 @@ a.b{display:inline-flex;align-items:center;min-height:48px;padding:14px 20px;
   transition:opacity .45s cubic-bezier(.22,1,.36,1), transform .45s cubic-bezier(.22,1,.36,1);
 }
 .mkpv.is-on{ opacity:1; transform:none; pointer-events:auto }
+/* step aside while any sheet, popup or menu is open, so it never covers
+   their buttons (it used to sit over "Add to cart" on phones) */
+html.lenis-stopped .mkpv.is-on, body.locked .mkpv.is-on, body.ovon .mkpv.is-on,
+body.modal-open .mkpv.is-on, body[style*="position: fixed"] .mkpv.is-on{
+  opacity:0; transform:translateY(14px); pointer-events:none }
 .mkpv__h{
   display:flex; align-items:center; gap:8px; margin:0 0 6px;
   font:800 12px/1 'Archivo','Inter Tight',system-ui,sans-serif;

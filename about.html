@@ -1175,7 +1175,10 @@
       var v = pick(data, key);
       if (v === undefined || v === null) return;
       var wa = el.getAttribute('data-mk-wa');
-      el.setAttribute('href', wa !== null ? waLink(v, wa) : String(v));
+      var href = wa !== null ? waLink(v, wa) : String(v);
+      /* only real web, phone, mail and WhatsApp links ever reach an href */
+      if (!/^(https?:|tel:|mailto:|#|\/)/i.test(href.trim())) return;
+      el.setAttribute('href', href);
     });
 
     r.querySelectorAll('[data-mk-tel]').forEach(function (el) {
@@ -1571,6 +1574,39 @@
   }
 })(window);
 
+
+/* Link guard: whatever the content panel stores, no link on the page can
+   ever run script. Any href that is not web, phone, mail, WhatsApp or an
+   in-page anchor is neutralised as soon as it appears. */
+(function () {
+  'use strict';
+  var BAD = /^\s*(javascript|data|vbscript):/i;
+  function clean(root) {
+    if (!root || !root.querySelectorAll) return;
+    var list = root.querySelectorAll('a[href]');
+    for (var i = 0; i < list.length; i++) {
+      if (BAD.test(list[i].getAttribute('href'))) list[i].setAttribute('href', '#');
+    }
+  }
+  function start() {
+    clean(document);
+    if (!window.MutationObserver) return;
+    new MutationObserver(function (ms) {
+      for (var i = 0; i < ms.length; i++) {
+        var m = ms[i];
+        if (m.type === 'attributes') clean(m.target.parentNode || document);
+        for (var j = 0; j < m.addedNodes.length; j++) {
+          var n = m.addedNodes[j];
+          if (n.nodeType !== 1) continue;
+          if (n.tagName === 'A' && BAD.test(n.getAttribute('href') || '')) n.setAttribute('href', '#');
+          clean(n);
+        }
+      }
+    }).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['href'] });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
 </script>
 <title>About Markaz OUJ Performance | Karachi Sports Company Since 2014</title>
 <meta name="description" content="Markaz OUJ Performance is chaired by Abdul Samad Khan, training, competing and coaching since 1991. Coaching and PE teachers, equipment, events, camps, fitness and martial arts for institutions across Karachi.">
@@ -8744,6 +8780,11 @@ body section h2,body .mkui-h2{letter-spacing:-.024em!important;font-weight:800!i
   transition:opacity .45s cubic-bezier(.22,1,.36,1), transform .45s cubic-bezier(.22,1,.36,1);
 }
 .mkpv.is-on{ opacity:1; transform:none; pointer-events:auto }
+/* step aside while any sheet, popup or menu is open, so it never covers
+   their buttons (it used to sit over "Add to cart" on phones) */
+html.lenis-stopped .mkpv.is-on, body.locked .mkpv.is-on, body.ovon .mkpv.is-on,
+body.modal-open .mkpv.is-on, body[style*="position: fixed"] .mkpv.is-on{
+  opacity:0; transform:translateY(14px); pointer-events:none }
 .mkpv__h{
   display:flex; align-items:center; gap:8px; margin:0 0 6px;
   font:800 12px/1 'Archivo','Inter Tight',system-ui,sans-serif;
