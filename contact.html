@@ -3452,6 +3452,12 @@ window.Markaz.ready(function () {
     if (camp && sel) sel.value = camp;
   })();
 
+  /* the phone field only accepts sensible characters, as it did on the home form */
+  var ph = $('#cfPhone');
+  if (ph) ph.addEventListener('input', function () {
+    ph.value = ph.value.replace(/[^\d+\-\s()]/g, '').slice(0, 20);
+  });
+
   function fieldOf(el) { return el.closest('.cf__f'); }
   function check(el) {
     var v = (el.value || '').trim(), bad = false;
