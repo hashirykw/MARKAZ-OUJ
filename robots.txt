@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /admin.html
-Disallow: /404.html
+Disallow: /admin
+Disallow: /404
 
 # Markaz OUJ Performance — Karachi sports, fitness and martial arts
 Sitemap: https://markaz-ouj.com/sitemap.xml
