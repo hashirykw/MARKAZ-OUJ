@@ -11140,9 +11140,17 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
       <div class="sh-lg markaz-lg"><img src="markaz.png" alt="Markaz Martial Arts Academy" data-logo="markaz" width="160" height="160" decoding="async" loading="lazy"></div>
       <div class="eyb">On the floor</div>
       <h2>The <em>coaching team</em></h2>
-      <p>Tap any card for what they handle.</p>
+      <p>The coaches who run the Markaz floor under Sir Abdul Samad Khan.</p>
     </div>
-    <div class="row g-3 g-xl-4">
+    <div class="tfold__bar">
+      <button class="btn btn-k tfold__btn" type="button" id="teamFoldBtn" aria-expanded="false" aria-controls="teamFold">
+        <span>Explore the full team under Sir Samad</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <a class="btn btn-o tfold__more" href="/about#team" hidden>Every coach, on the about page
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="tfold" id="teamFold" inert><div class="tfold__in">
+    <div class="row g-3 g-xl-4 mt-1">
       <div class="col-12 col-md-4" data-rv style="--i:1">
         <article class="tm h-100" tabindex="0" role="button" data-modal
                  data-accent="b" data-ghost="02"
@@ -11183,10 +11191,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
         </article>
       </div>
     </div>
-    <div class="d-flex justify-content-center mt-4" data-rv>
-      <a class="btn btn-k" href="/about#team">Meet the full team
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
+    </div></div>
   </div>
 </section>
 
@@ -11239,6 +11244,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
     <div class="d-flex flex-wrap gap-2 justify-content-center mt-4" data-rv>
       <a class="btn btn-r" href="/wall-of-fame#gallery">Full gallery &amp; Wall of Fame
         <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-fb" href="https://www.facebook.com/mmamarkaz/photos_albums" target="_blank" rel="noopener"><svg class="fb" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8.5v3h2.6V21z"/></svg> Every photo on Facebook</a>
       <a class="btn btn-o" href="https://www.instagram.com/markazmartialartsacademy/" target="_blank" rel="noopener">Follow on Instagram</a>
     </div>
   </div>
@@ -21843,7 +21849,7 @@ article[id],.cdc[id],[id^="team-"],[id^="campus-"]{scroll-margin-top:110px}
         var g = host.querySelector('.mkui-campgrid:not(.mkui-campgrid--main)');
         if (!g || g.hasAttribute('data-deskrail')) return;
         g.setAttribute('data-deskrail', '');
-        g.style.setProperty('--rail-n', '3');
+        g.style.setProperty('--rail-n', '4');
         wire(g);
       }
       apply();
@@ -22104,6 +22110,106 @@ body[data-page="index"] #team .row > [class*="col-"]:first-child .tm{ display:bl
   if (!el) return;
   var n = new Date().getFullYear() - (+el.getAttribute('data-mk-since'));
   if (n > 0) el.dataset.n = n;
+})();
+</script>
+<style id="mk-home-compact">
+/* Shorter home page: tighter campus cards, smaller chairman photo,
+   coaching team folded behind one button */
+
+/* ---- campus network ---- */
+body[data-page="index"] #branches .mkui-head{margin-bottom:18px}
+body[data-page="index"] #branches .mkui-stats{gap:10px;margin-top:16px}
+body[data-page="index"] #branches .mkui-stat{padding:11px 14px;border-radius:12px}
+body[data-page="index"] #branches .mkui-stat b{font-size:clamp(19px,2.2vw,24px)}
+body[data-page="index"] #branches .mkui-stat span{font-size:11.5px;margin-top:4px}
+
+body[data-page="index"] #branches .mkui-campgrid{gap:14px}
+body[data-page="index"] #branches .mkui-campgrid--main{margin-bottom:14px}
+body[data-page="index"] #branches .mkui-camp:not(.mkui-camp--main) .mkui-camp__media{aspect-ratio:16/8.4}
+body[data-page="index"] #branches .mkui-camp__body{padding:0 16px 12px}
+body[data-page="index"] #branches .mkui-camp:not(.mkui-camp--main) .mkui-camp__head{
+  flex-direction:row;align-items:center;gap:10px;margin-top:12px;margin-bottom:4px}
+body[data-page="index"] #branches .mkui-camp__logo{width:42px;height:42px;border-radius:11px}
+body[data-page="index"] #branches .mkui-camp__logo img{padding:4px}
+body[data-page="index"] #branches .mkui-card__name{font-size:15.5px;min-height:0;line-height:1.2}
+body[data-page="index"] #branches .mkui-card__tag{font-size:12.5px}
+body[data-page="index"] #branches .mkui-camp__foot{min-height:38px;margin-top:8px;padding-top:8px}
+body[data-page="index"] #branches .mkui-camp__map{height:30px;padding-top:0;padding-bottom:0}
+@media (min-width:761px){
+  body[data-page="index"] #branches .mkui-camp--main .mkui-camp__media{min-height:0;width:30%}
+  body[data-page="index"] #branches .mkui-camp--main .mkui-camp__body{width:70%;padding:14px 22px 12px}
+  body[data-page="index"] #branches .mkui-camp--main .mkui-camp__head{margin:0 0 4px}
+  body[data-page="index"] #branches .mkui-camp--main .mkui-camp__crest img{max-height:84%}
+}
+body[data-page="index"] #branches .mkui-cta{margin-top:16px !important}
+body[data-page="index"] #branches .mkui-card__more{font-size:12.5px;white-space:nowrap;gap:5px}
+body[data-page="index"] #branches .mkui-camp__map{font-size:12px;padding-left:10px;padding-right:10px}
+body[data-page="index"] #about .split{margin-top:0}
+
+/* ---- who we are: smaller chairman photo ---- */
+body[data-page="index"] #about .split-vis{aspect-ratio:auto !important;height:clamp(240px,26vw,360px)}
+body[data-page="index"] #about .split-vis img{object-position:50% 22%}
+body[data-page="index"] #about .split{align-items:center}
+body[data-page="index"] #about .sh{margin-bottom:22px}
+
+/* ---- coaching team, folded ---- */
+.tfold{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.2,.7,.2,1)}
+.tfold.is-open{grid-template-rows:1fr}
+.tfold__in{min-height:0;overflow:hidden;padding:0 2px}
+.tfold.is-open .tfold__in{padding-top:4px;padding-bottom:6px}
+body[data-page="index"] #team .sh{margin-bottom:0}
+.tfold__bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
+.tfold__btn svg{transition:transform .35s}
+.tfold__btn{max-width:100%}
+@media (max-width:760px){
+  .tfold__btn,.tfold__more{width:100%;height:auto !important;min-height:48px;padding:13px 18px !important;
+    white-space:normal;line-height:1.3 !important;letter-spacing:.06em}
+}
+.tfold__btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.tfold__more[hidden]{display:none !important}
+@media (prefers-reduced-motion:reduce){.tfold{transition:none}}
+</style>
+<style id="mk-fb-albums">
+/* Facebook photo archive call-outs — links to the albums on facebook.com/mmamarkaz */
+.fbal{display:flex;align-items:center;gap:clamp(16px,2.4vw,28px);margin-top:clamp(26px,3.4vw,40px);
+  padding:clamp(18px,2.4vw,26px) clamp(18px,2.8vw,32px);border-radius:22px;background:#fff;
+  border:1px solid rgba(11,21,51,.1);box-shadow:0 18px 40px -30px rgba(11,21,51,.45)}
+.fbal__ic{flex:none;width:56px;height:56px;border-radius:16px;background:#1877F2;display:grid;place-items:center}
+.fbal__ic svg{width:30px;height:30px;fill:#fff}
+.fbal__tx{flex:1;min-width:0}
+.fbal__k{display:block;font:700 11px/1 var(--f-num,inherit);letter-spacing:.14em;text-transform:uppercase;color:#1877F2;margin-bottom:8px}
+.fbal__h{margin:0;font-family:var(--dsp,inherit);font-weight:900;font-size:clamp(19px,2.1vw,25px);line-height:1.1;color:var(--ink,#0B1533);text-transform:none;letter-spacing:-.01em}
+.fbal__p{margin:6px 0 0;font-size:14px;line-height:1.5;color:var(--mut,#5B6478);max-width:60ch}
+.btn.btn-fb,.btn-fb{background:#1877F2;color:#fff;border-color:transparent}
+.btn.btn-fb:hover,.btn-fb:hover{background:#0F63D6;color:#fff}
+.btn-fb svg.fb{width:17px;height:17px;fill:currentColor;stroke:none}
+.fbal .btn-fb{flex:none}
+.dark .fbal,.fbal--dark{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);box-shadow:none}
+.dark .fbal__h,.fbal--dark .fbal__h{color:#fff}
+.dark .fbal__p,.fbal--dark .fbal__p{color:rgba(255,255,255,.66)}
+.dark .fbal__k,.fbal--dark .fbal__k{color:#7FB2FF}
+.fbrow{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px}
+@media (max-width:760px){
+  .fbal{flex-direction:column;align-items:flex-start;text-align:left}
+  .fbal .btn-fb{width:100%}
+  .fbal__ic{width:48px;height:48px;border-radius:14px}
+  .fbal__ic svg{width:26px;height:26px}
+}
+</style>
+<script id="mk-team-fold">
+(function(){
+  var b=document.getElementById('teamFoldBtn'),f=document.getElementById('teamFold');
+  if(!b||!f)return;
+  var more=document.querySelector('#team .tfold__more'),lab=b.querySelector('span');
+  b.addEventListener('click',function(){
+    var open=b.getAttribute('aria-expanded')!=='true';
+    b.setAttribute('aria-expanded',String(open));
+    f.classList.toggle('is-open',open);
+    if(open){f.removeAttribute('inert');}else{f.setAttribute('inert','');}
+    if(more)more.hidden=!open;
+    lab.textContent=open?'Hide the team':'Explore the full team under Sir Samad';
+    if(open){Array.prototype.forEach.call(f.querySelectorAll('[data-rv]'),function(e){e.classList.add('in','is-in','rv-in');});}
+  });
 })();
 </script>
 </body>
