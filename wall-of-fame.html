@@ -9845,5 +9845,19 @@ article[id],.cdc[id],[id^="team-"],[id^="campus-"]{scroll-margin-top:110px}
   .rrow u{justify-self:end;text-align:right}
 }
 </style>
+<style id="mk-scrollbar">
+/* Themed page scrollbar: navy to blue thumb, red on hover, soft track */
+html{scrollbar-width:auto;scrollbar-color:auto}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:#EEF1F7;box-shadow:inset 1px 0 0 rgba(11,21,51,.06)}
+::-webkit-scrollbar-thumb{border-radius:99px;border:3px solid #EEF1F7;
+  background:linear-gradient(180deg,#0B1533 0%,#1A2C6B 55%,#1D3FD6 100%)}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#D8121A 0%,#A80E14 100%)}
+::-webkit-scrollbar-thumb:active{background:#D8121A}
+::-webkit-scrollbar-corner{background:#EEF1F7}
+@supports (-moz-appearance:none){
+  html{scrollbar-width:thin;scrollbar-color:#1A2C6B #EEF1F7}
+}
+</style>
 </body>
 </html>
