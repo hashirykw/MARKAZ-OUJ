@@ -5599,7 +5599,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
 (function(){
   var R=document.documentElement, X=document.getElementById('ldx');
   if(!X) return;
-  if(!R.classList.contains('ld-on')){ X.parentNode.removeChild(X); return; }
+  if(!R.classList.contains('ld-on')){ X.parentNode.removeChild(X); document.body.classList.add('ready'); return; }
   try{ sessionStorage.setItem('mk-ld','1'); }catch(e){}
   var stop=function(e){ e.preventDefault(); };
   addEventListener('wheel',stop,{passive:false});
@@ -5609,6 +5609,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
     if(done) return; done=true;
     if(X.parentNode) X.parentNode.removeChild(X);
     R.classList.remove('ld-on','ldx-go','ldx-dive');
+    document.body.classList.add('ready');   /* page heroes (.rise) reveal on body.ready */
     removeEventListener('wheel',stop,{passive:false});
     removeEventListener('touchmove',stop,{passive:false});
     try{ dispatchEvent(new Event('mk:loaded')); }catch(e){}
