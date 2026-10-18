@@ -12796,6 +12796,37 @@ html body #mkChat .mkc-panel{padding:0 !important}
 @media (max-width:760px){
   html body #mkChat.is-open > #mkcFab{opacity:0 !important;pointer-events:none !important;transform:scale(.6) !important}
 }
+
+/* --- v2: sharper, framed, less bubbly --- */
+html body #mkChat .mkc-panel{border-radius:14px !important;border:1.5px solid #0B1533 !important;
+  box-shadow:0 0 0 1px rgba(227,32,42,.55),0 0 0 5px rgba(11,21,51,.08),0 36px 80px -20px rgba(11,21,51,.65) !important}
+html body #mkChat .mkc-panel::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;z-index:5;pointer-events:none;
+  background:linear-gradient(180deg,#E3202A,#1F4FE0)}
+html body #mkChat .mkc-head{padding:12px 14px 12px 16px !important}
+html body #mkChat .mkc-who b{font-size:13px !important;letter-spacing:.14em !important;text-transform:uppercase}
+html body #mkChat .mkc-who i{font-size:10.5px !important;letter-spacing:.12em !important}
+html body #mkChat .mkc-av{border-radius:9px !important;box-shadow:0 0 0 1.5px rgba(255,255,255,.25),0 4px 12px rgba(0,0,0,.35) !important}
+html body #mkChat .mkc-close{border-radius:8px !important}
+html body #mkChat .mkc-close:hover{transform:none !important}
+html body #mkChat .mkc-log{background:
+    linear-gradient(rgba(11,21,51,.035) 1px,transparent 1px) 0 0/100% 22px,
+    linear-gradient(90deg,rgba(11,21,51,.035) 1px,transparent 1px) 0 0/22px 100%,#F2F5F9 !important}
+html body #mkChat .mkc-m{font-size:14.5px !important;line-height:1.55 !important}
+html body #mkChat .mkc-m--bot{border-radius:2px 10px 10px 10px !important;border:1px solid #CBD3E1 !important;border-left:3px solid #E3202A !important;
+  box-shadow:0 1px 0 rgba(11,21,51,.06),0 10px 22px -16px rgba(11,21,51,.45) !important}
+html body #mkChat .mkc-m--me{border-radius:10px 2px 10px 10px !important;border:1px solid #0B1533 !important;box-shadow:inset 0 -2px 0 #E3202A,0 10px 20px -14px rgba(11,21,51,.7) !important}
+html body #mkChat .mkc-chips{background:#fff !important;border-top:1px solid #CBD3E1 !important}
+html body #mkChat .mkc-chip{border-radius:7px !important;border:1.5px solid #0B1533 !important;background:#fff !important;
+  font-size:11.5px !important;letter-spacing:.12em !important;font-weight:700 !important;padding:9px 14px !important;box-shadow:none !important}
+html body #mkChat .mkc-chip:hover,html body #mkChat .mkc-chip:focus-visible{box-shadow:inset 0 -2px 0 #E3202A !important;transform:none !important}
+html body #mkChat .mkc-act{border-radius:7px !important;border:1.5px solid #0B1533 !important;font-size:11.5px !important;letter-spacing:.12em !important}
+html body #mkChat .mkc-act.is-wa{border-color:#A60E15 !important;box-shadow:0 8px 18px -10px rgba(216,18,26,.7) !important}
+html body #mkChat .mkc-bar{background:#fff !important;border-top:1px solid #CBD3E1 !important}
+html body #mkChat #mkcIn{border-radius:8px !important;border:1.5px solid #CBD3E1 !important;background:#F6F8FB !important}
+html body #mkChat #mkcIn:focus{border-color:#0B1533 !important;box-shadow:0 0 0 3px rgba(31,79,224,.14) !important}
+html body #mkChat .mkc-bar button{border-radius:8px !important;background:linear-gradient(150deg,#14234F,#0B1533) !important;
+  box-shadow:inset 0 -2px 0 #E3202A,0 8px 18px -10px rgba(11,21,51,.7) !important}
+html body #mkChat .mkc-bar button:hover{transform:none !important;background:linear-gradient(150deg,#E4232B,#A60E15) !important;box-shadow:0 8px 18px -10px rgba(216,18,26,.7) !important}
 </style>
 <style id="mk-nexlyr-ig">
 html body .nxb__ig{background:linear-gradient(135deg,#F58529 0%,#DD2A7B 45%,#8134AF 75%,#515BD4 100%) !important;color:#fff !important;border-color:transparent !important}
@@ -12803,10 +12834,11 @@ html body .nxb__ig:hover{filter:brightness(1.08) saturate(1.1);transform:transla
 html body .nxb__ig svg{stroke:#fff}
 html body .nxb__ig ~ .nxb__go,html body .nxb__ig{margin-left:0}
 @media (max-width:520px){
-  html body .nxb__ig{display:none !important}
-  html body .nxb__acts{display:flex;gap:10px;width:100%;grid-column:1/-1}
-  html body .nxb__acts .nxb__go{flex:1 1 0;justify-content:center;display:inline-flex !important;margin:0 !important}
-  html body .nxb__acts .nxb__ig{display:inline-flex !important}
+  html body .nxb__acts{display:flex;gap:8px;flex:0 0 auto;margin-left:auto;align-items:center}
+  html body .nxb__acts .nxb__go{width:46px !important;height:46px !important;min-width:0 !important;padding:0 !important;margin:0 !important;
+    font-size:0 !important;gap:0 !important;justify-content:center !important;display:inline-flex !important;border-radius:12px !important}
+  html body .nxb__acts .nxb__go svg{width:20px !important;height:20px !important}
+  html body .nxb__igt{display:none !important}
 }
 @media (min-width:521px){html body .nxb__acts{display:contents}}
 </style>
