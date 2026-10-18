@@ -11210,13 +11210,13 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
                data-p="Black performance tee with the full Markaz Martial Arts Academy crest printed large across the front and back, and the small crest on the chest. Open to anyone — you do not have to train with us to order one. Sizes and the current price are confirmed when you message us, and bulk orders are quoted together."
                data-meta="Made to order &middot; Ask for sizes and price" data-chips="Black|Front and back print|Bulk orders welcome"
                data-photo="shirt-markaz.jpg"
-               data-wa="Assalam o Alaikum, I want to order the Markaz Martial Arts Academy shirt. Please share sizes and price."><div class="prod__ph"><picture><source srcset="shirt-markaz.webp" type="image/webp"><img src="shirt-markaz.jpg" alt="Markaz Martial Arts Academy shirt, front and back" loading="lazy" decoding="async"></picture><span class="prod__tag r">Made to order</span></div><div class="prod__in"><div class="prod__cat">Markaz Martial Arts Academy</div><h3>Academy Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
+               data-wa="Assalam o Alaikum, I want to order the Markaz Martial Arts Academy shirt. Please share sizes and price."><div class="prod__ph prod__ph--cut"><img src="shirt-markaz-cut.webp" alt="Markaz Martial Arts Academy shirt, front and back" width="1000" height="800" loading="lazy" decoding="async"><span class="prod__tag r">Made to order</span></div><div class="prod__in"><div class="prod__cat">Markaz Martial Arts Academy</div><h3>Academy Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
       <div class="col-12 col-sm-6 col-lg-5" data-rv style="--i:1"><article class="prod" data-modal data-accent="b" data-ghost="02"
                data-e="OUJ Store" data-product="shirt-ouj" data-h="Markaz OUJ Performance Shirt"
                data-p="White performance tee with the gold OUJ mark on the chest, across the front and on the back, finished with a short zip collar. Open to anyone — no membership needed. Sizes and the current price are confirmed when you message us, and bulk orders are quoted together."
                data-meta="Made to order &middot; Ask for sizes and price" data-chips="White and gold|Zip collar|Bulk orders welcome"
                data-photo="shirt-ouj.jpg"
-               data-wa="Assalam o Alaikum, I want to order the Markaz OUJ Performance shirt. Please share sizes and price."><div class="prod__ph"><picture><source srcset="shirt-ouj.webp" type="image/webp"><img src="shirt-ouj.jpg" alt="Markaz OUJ Performance shirt, front and back" loading="lazy" decoding="async"></picture><span class="prod__tag b">Made to order</span></div><div class="prod__in"><div class="prod__cat">Markaz OUJ Performance</div><h3>Performance Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
+               data-wa="Assalam o Alaikum, I want to order the Markaz OUJ Performance shirt. Please share sizes and price."><div class="prod__ph prod__ph--cut"><img src="shirt-ouj-cut.webp" alt="Markaz OUJ Performance shirt, front and back" width="1000" height="800" loading="lazy" decoding="async"><span class="prod__tag b">Made to order</span></div><div class="prod__in"><div class="prod__cat">Markaz OUJ Performance</div><h3>Performance Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
     </div>
 
     <p class="note text-center">Institution pricing for partner schools, colleges and corporates.</p>
@@ -22375,6 +22375,28 @@ body[data-page="index"] #gallery .mkfan > .mo:hover figcaption,body[data-page="i
   fan.parentNode.insertBefore(hint,fan.nextSibling);
 })();
 </script>
+<style id="mk-shirts">
+/* Shirt cards: cut-out shirts on a soft studio backdrop with a brand glow
+   and a floor shadow, instead of the mock-up's grey photo box. */
+#store .prod__ph--cut{background:
+  radial-gradient(60% 55% at 50% 42%,#FFFFFF 0%,rgba(255,255,255,0) 70%),
+  linear-gradient(180deg,#F4F6FA 0%,#E6EAF2 100%)}
+#store .prod[data-accent="r"] .prod__ph--cut{background:
+  radial-gradient(55% 50% at 50% 44%,rgba(216,18,26,.14) 0%,rgba(216,18,26,0) 70%),
+  radial-gradient(60% 55% at 50% 42%,#FFFFFF 0%,rgba(255,255,255,0) 70%),
+  linear-gradient(180deg,#F4F6FA 0%,#E6EAF2 100%)}
+#store .prod[data-accent="b"] .prod__ph--cut{background:
+  radial-gradient(55% 50% at 50% 44%,rgba(18,64,200,.13) 0%,rgba(18,64,200,0) 70%),
+  radial-gradient(60% 55% at 50% 42%,#FFFFFF 0%,rgba(255,255,255,0) 70%),
+  linear-gradient(180deg,#F4F6FA 0%,#E6EAF2 100%)}
+#store .prod__ph--cut::before{content:'';position:absolute;left:18%;right:18%;bottom:11%;height:7%;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(11,21,51,.28),rgba(11,21,51,0));filter:blur(4px);z-index:0}
+#store .prod__ph--cut img,
+#store .prod.is-live .prod__ph--cut img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;
+  padding:6% 7% 12%;filter:drop-shadow(0 14px 18px rgba(11,21,51,.22));transform:none;transition:transform .7s var(--ez2,ease)}
+#store .prod:hover .prod__ph--cut img{filter:drop-shadow(0 18px 24px rgba(11,21,51,.26));transform:translateY(-6px) scale(1.04)}
+#store .prod__ph--cut::after{background:linear-gradient(0deg,rgba(255,255,255,.7),transparent 28%)}
+</style>
 <style id="mk-scrollbar">
 /* Page scrollbar in the site's colours: navy thumb with a red tail, the same
    pairing as the header buttons, on the soft mist track. */
