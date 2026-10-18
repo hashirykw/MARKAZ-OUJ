@@ -9727,5 +9727,67 @@ html{scrollbar-width:auto;scrollbar-color:auto}
   html{scrollbar-width:thin;scrollbar-color:#14245E #EEF1F7}
 }
 </style>
+<style id="mk-polish-shell">
+/* ===== Shell polish (Oct 2026): logo without tile + live ring, aligned button corners ===== */
+@property --mkring{syntax:'<angle>';inherits:false;initial-value:0deg}
+
+/* --- Header logo: no white tile, red/blue ring that comes alive on hover --- */
+.dbrand{overflow:visible !important}
+.dbrand .plate{
+  background:transparent !important;border:0 !important;box-shadow:none !important;
+  overflow:visible !important;position:relative !important;isolation:isolate;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1);
+}
+.dbrand .plate::before{
+  content:"" !important;position:absolute !important;inset:-2px !important;border-radius:12px !important;
+  background:radial-gradient(60% 60% at 50% 50%,rgba(18,64,200,.0),rgba(18,64,200,0) 70%) !important;
+  box-shadow:0 0 0 0 rgba(227,32,42,0);z-index:-1;transition:box-shadow .45s ease,background .45s ease;
+}
+.dbrand .plate::after{
+  content:"" !important;display:block !important;position:absolute !important;inset:-2px !important;
+  border-radius:12px;padding:1.5px;pointer-events:none;z-index:2;
+  background:conic-gradient(from var(--mkring),#E3202A 0deg,#E3202A 70deg,rgba(227,32,42,.15) 120deg,#1F4FE0 180deg,#1F4FE0 250deg,rgba(31,79,224,.15) 300deg,#E3202A 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  opacity:.75;transition:opacity .4s ease,inset .45s cubic-bezier(.2,.8,.2,1);
+  animation:mkring 9s linear infinite;
+}
+.dbrand__logo{width:84% !important;height:auto !important;max-height:84% !important;object-fit:contain;
+  filter:drop-shadow(0 1px 1px rgba(11,21,51,.18));transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.dbrand:hover .plate,.dbrand:focus-visible .plate{transform:translateY(-1px)}
+.dbrand:hover .plate::after,.dbrand:focus-visible .plate::after{opacity:1;inset:-4px !important;animation-duration:2.4s}
+.dbrand:hover .plate::before,.dbrand:focus-visible .plate::before{
+  background:radial-gradient(60% 60% at 50% 50%,rgba(18,64,200,.10),rgba(18,64,200,0) 75%) !important;
+  box-shadow:0 0 18px -2px rgba(227,32,42,.35),0 0 26px -4px rgba(31,79,224,.35)}
+.dbrand:hover .dbrand__logo{transform:scale(1.07)}
+@keyframes mkring{to{--mkring:360deg}}
+@media (prefers-reduced-motion:reduce){.dbrand .plate::after{animation:none}}
+
+/* --- Buttons: red corners that follow the button's own rounded edge --- */
+.btn{--cnr:#E3202A;--cnr-l:15px}
+.btn::before{
+  content:"" !important;display:block !important;position:absolute !important;
+  inset:0 !important;width:auto !important;height:auto !important;margin:0 !important;z-index:4 !important;pointer-events:none !important;
+  transform:none !important;opacity:1 !important;animation:none !important;
+  background:none !important;box-sizing:border-box !important;
+  border:1.6px solid var(--cnr) !important;border-radius:inherit !important;
+  -webkit-mask:
+    linear-gradient(#000 0 0) top left/var(--cnr-l) var(--cnr-l) no-repeat,
+    linear-gradient(#000 0 0) bottom right/var(--cnr-l) var(--cnr-l) no-repeat;
+  mask:
+    linear-gradient(#000 0 0) top left/var(--cnr-l) var(--cnr-l) no-repeat,
+    linear-gradient(#000 0 0) bottom right/var(--cnr-l) var(--cnr-l) no-repeat;
+  transition:-webkit-mask-size .35s cubic-bezier(.2,.8,.2,1),mask-size .35s cubic-bezier(.2,.8,.2,1) !important;
+}
+.btn:hover::before,.btn:focus-visible::before{--cnr-l:24px;
+  -webkit-mask-size:24px 24px,24px 24px;mask-size:24px 24px,24px 24px}
+.mkcta .btn-r{--cnr:rgba(255,255,255,.9)}
+
+/* --- Product card arrow: swings up on hover / tap --- */
+.prod__buy svg{transition:transform .45s cubic-bezier(.34,1.56,.64,1) !important;transform-origin:50% 50%}
+.prod:hover .prod__buy,.prod.is-live .prod__buy,.prod:active .prod__buy,.prod:focus-within .prod__buy,.prod__buy:hover,.prod__buy:active{transform:scale(1.12) !important}
+.prod:hover .prod__buy svg,.prod:active .prod__buy svg,.prod:focus-within .prod__buy svg,.prod__buy:hover svg,.prod__buy:active svg{transform:rotate(-90deg)}
+@media (prefers-reduced-motion:reduce){.prod__buy svg{transition:none !important}}
+</style>
 </body>
 </html>
