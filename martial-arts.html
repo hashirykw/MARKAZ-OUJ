@@ -14290,17 +14290,18 @@ article[id],.cdc[id],[id^="team-"],[id^="campus-"]{scroll-margin-top:110px}
 })();
 </script>
 <style id="mk-scrollbar">
-/* Themed page scrollbar: navy to blue thumb, red on hover, soft track */
+/* Page scrollbar: slim rounded navy thumb floating on a track that matches
+   the page, so it reads as part of the design instead of a hard bar. */
 html{scrollbar-width:auto;scrollbar-color:auto}
-::-webkit-scrollbar{width:12px;height:12px}
-::-webkit-scrollbar-track{background:#EEF1F7;box-shadow:inset 1px 0 0 rgba(11,21,51,.06)}
-::-webkit-scrollbar-thumb{border-radius:99px;border:3px solid #EEF1F7;
-  background:linear-gradient(180deg,#0B1533 0%,#1A2C6B 55%,#1D3FD6 100%)}
-::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#D8121A 0%,#A80E14 100%)}
-::-webkit-scrollbar-thumb:active{background:#D8121A}
-::-webkit-scrollbar-corner{background:#EEF1F7}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#F2F4F7}
+::-webkit-scrollbar-thumb{min-height:56px;border-radius:10px;border:3px solid #F2F4F7;
+  background:linear-gradient(180deg,#24366F,#1A2A5E);background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{border-width:2px;background:linear-gradient(180deg,#2A4FD0,#1D3FB8);background-clip:padding-box}
+::-webkit-scrollbar-thumb:active{border-width:2px;background:#D8121A;background-clip:padding-box}
+::-webkit-scrollbar-corner{background:#F2F4F7}
 @supports (-moz-appearance:none){
-  html{scrollbar-width:thin;scrollbar-color:#1A2C6B #EEF1F7}
+  html{scrollbar-width:thin;scrollbar-color:#24366F #F2F4F7}
 }
 </style>
 </body>
