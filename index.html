@@ -2,6 +2,103 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="preload" href="/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<style id="mk-fonts">
+/* Self-hosted variable fonts: no Google round trips before first paint. */
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/archivo-var.woff2) format('woff2')}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:100 900;font-display:swap;src:url(/inter-tight-var.woff2) format('woff2')}
+</style>
+<script>/* preloader switch: once per session, never with reduced motion */(function(d){try{if(!sessionStorage.getItem('mk-ld')&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){d.documentElement.classList.add('ld-on');setTimeout(function(){d.documentElement.classList.remove('ld-on')},3200)}}catch(e){}})(document);</script>
+<style id="mk-ld-css">
+/* ==================================================================
+   PRELOADER — same system as the Sir Rohail / Sir Sohail sites:
+   MARKAZ rises, fills with foil from below, then the camera dives
+   through the K. Runs on transforms only, so it stays smooth while
+   the page parses underneath, and is over in under two seconds.
+   ================================================================== */
+.ldx{display:none}
+html.ld-on .ldx{display:contents}
+html.ld-on body{overflow:hidden}
+html.ld-on .wi{animation-play-state:paused}
+.ldx-fill,.ldx-ink{position:fixed;inset:0;display:grid;place-items:center;will-change:transform;contain:strict}
+.ldx-fill{z-index:998;background:radial-gradient(70% 60% at 50% 46%,#1b3170 0%,#0b1637 60%,#050a1c 100%)}
+.ldx-ink{z-index:999;background:#000;color:#fff;mix-blend-mode:multiply}
+.ldx-grp{position:relative;display:grid;justify-items:center;gap:clamp(12px,1.5vw,20px)}
+.ldx-w{position:relative;display:flex;overflow:hidden;padding:.05em .06em .03em;
+  font-family:'Archivo','Arial Black',system-ui,sans-serif;font-weight:900;font-stretch:92%;
+  font-variation-settings:'wdth' 92,'wght' 900;font-size:clamp(4.2rem,16.5vw,16.5rem);line-height:.84;
+  letter-spacing:-.015em;white-space:nowrap}
+.ldx-w span{display:inline-block}
+.ldx-w i{display:inline-block;font-style:normal;transform:translateY(118%)}
+.ldx-s{overflow:hidden;font:600 clamp(10.5px,1.1vw,14px)/1.4 'Inter Tight',system-ui,sans-serif;
+  letter-spacing:.34em;text-transform:uppercase;padding-left:.34em;white-space:nowrap}
+.ldx-s span{display:inline-block;transform:translateY(120%)}
+.ldx-fill .ldx-w,.ldx-fill .ldx-s{color:transparent}
+.ldx-fill .ldx-s{background:linear-gradient(90deg,#6c7287,#dfe2ea 50%,#6c7287)}
+/* the foil rises as a mask: outer slides up, inner slides down by the same amount */
+.ldx-rise{position:absolute;inset:0;overflow:hidden;transform:translateY(100%)}
+.ldx-gold{position:absolute;inset:0;overflow:hidden;transform:translateY(-100%);
+  background:linear-gradient(100deg,#5e6375 0%,#a9aec0 16%,#f3f4f7 31%,#cdd1e2 44%,#7c8299 58%,#e7e9ef 74%,#a2a8bd 88%,#5e6375 100%);
+  background-size:220% 100%;animation:ldxFoil 3.2s linear infinite}
+.ldx-gold img{position:absolute;left:50%;top:50%;width:70%;max-width:none;height:auto;transform:translate(-50%,-50%);
+  mix-blend-mode:soft-light;opacity:.75;filter:contrast(1.25)}
+.ldx-shine{position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.75) 47%,transparent 58%);
+  background-size:250% 100%;animation:ldxShine 1.6s cubic-bezier(.65,0,.35,1) infinite;mix-blend-mode:overlay}
+.ldx-crest{position:absolute;left:-4%;right:-4%;top:0;height:3px;margin-top:-1.5px;
+  background:linear-gradient(90deg,transparent,#ffd6d8 18%,#fff 50%,#ffd6d8 82%,transparent);
+  box-shadow:0 0 18px 4px rgba(228,35,43,.8)}
+.ldx-cw{position:absolute;inset:0;transform:translateY(100%)}
+@keyframes ldxFoil{to{background-position:-220% 0}}
+@keyframes ldxShine{0%{background-position:150% 0}100%{background-position:-100% 0}}
+.ldx-m{position:fixed;z-index:1000;font:600 11px/1.5 'Inter Tight',system-ui,sans-serif;letter-spacing:.24em;
+  text-transform:uppercase;color:rgba(238,241,248,.62);pointer-events:none;opacity:0;transform:translateY(10px)}
+.ldx-tl{top:calc(24px + env(safe-area-inset-top,0px));left:clamp(18px,4vw,56px);display:flex;align-items:center;gap:12px}
+.ldx-tl i{display:grid;place-items:center;width:44px;height:34px;border-radius:9px;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.ldx-tl img{width:34px;height:auto;display:block}
+.ldx-tl span{color:#f4f6fb}
+.ldx-tr{top:calc(36px + env(safe-area-inset-top,0px));right:clamp(18px,4vw,56px)}
+.ldx-bl{left:clamp(18px,4vw,56px);bottom:calc(5vh + env(safe-area-inset-bottom,0px));display:grid;gap:8px}
+.ldx-bl b{font-family:'Archivo','Arial Black',system-ui,sans-serif;font-weight:800;font-style:normal;
+  font-variation-settings:'wdth' 100,'wght' 800;font-size:clamp(3rem,6.2vw,5.4rem);line-height:.9;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#f2f3f6,#b9bdcc 55%,#e4232b);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.ldx-br{right:clamp(18px,4vw,56px);bottom:calc(5vh + env(safe-area-inset-bottom,0px));text-align:right}
+/* ---- the timeline: everything keys off .go on the root ---- */
+.ldx-go .ldx-m{opacity:1;transform:none;transition:opacity .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1)}
+.ldx-go .ldx-w i{transform:none;transition:transform .62s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--n) * 45ms)}
+.ldx-go .ldx-s span{transform:none;transition:transform .5s cubic-bezier(.16,1,.3,1) .3s}
+.ldx-go .ldx-rise,.ldx-go .ldx-gold{transform:none;transition:transform .95s cubic-bezier(.65,0,.35,1) .1s}
+.ldx-go .ldx-cw{transform:none;transition:transform .95s cubic-bezier(.65,0,.35,1) .1s}
+.ldx-go .ldx-crest{opacity:0;transition:opacity .22s linear .92s}
+.ldx-dive .ldx-m{opacity:0;transform:translateY(-8px);transition:opacity .2s ease-in,transform .2s ease-in}
+.ldx-dive .ldx-fill,.ldx-dive .ldx-ink{transform:scale(60);transition:transform .52s cubic-bezier(.7,0,.84,0)}
+.ldx-dive .ldx-fill{opacity:0;transition:transform .52s cubic-bezier(.7,0,.84,0),opacity .26s ease-in .22s}
+@media (max-width:760px){
+  .ldx-w{font-size:17vw}
+  .ldx-s{font-size:9.5px;letter-spacing:.22em}
+  .ldx-tr{display:none}
+  .ldx-m{font-size:9.5px;letter-spacing:.18em}
+  .ldx-bl b{font-size:3rem}
+}
+</style>
+<style id="mk-hvid-css">
+/* ==================================================================
+   HERO VIDEO — event footage behind the hero. The blur is baked into
+   the file (cheap to decode, tiny to download), a soft wash keeps the
+   headline on top, and the frame below is the poster until it plays.
+   ================================================================== */
+.hero > .hvid{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;
+  background:#dfe3ea url(data:image/webp;base64,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) center/cover no-repeat}
+.hvid__v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 1.2s ease}
+.hvid__v.on{opacity:1}
+.hvid__wash{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(242,244,247,.55) 0%,rgba(242,244,247,0) 22%,rgba(242,244,247,0) 70%,#F2F4F7 100%),
+  linear-gradient(90deg,rgba(242,244,247,.9) 0%,rgba(242,244,247,.84) 34%,rgba(242,244,247,.6) 62%,rgba(242,244,247,.5) 100%)}
+@media (max-width:991.98px){
+  .hvid__wash{background:
+    linear-gradient(180deg,rgba(242,244,247,.7) 0%,rgba(242,244,247,.8) 40%,rgba(242,244,247,.86) 70%,#F2F4F7 100%)}
+}
+</style>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script data-inlined="assets/markaz-content.js">
 /* ==================================================================
@@ -2044,15 +2141,11 @@
 <link rel="apple-touch-icon" sizes="180x180" href="ouj.png">
 <link rel="manifest" href="site.webmanifest">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="ouj.png" fetchpriority="high"><noscript></noscript>
 
 
 <noscript></noscript>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..700&display=swap">
 <style>
 /* ===== index.legacy.css ===== */
 /* index.html — the original inline stylesheet, lifted out verbatim.
@@ -6312,6 +6405,23 @@ img{backface-visibility:hidden}
 .mkc-panel{
   background:linear-gradient(168deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.62) 46%,rgba(240,244,253,.74) 100%);
 }
+/* phones and tablets drop the panel blur (see the 900px rule above), so the
+   see-through gradient let the hero headline read through the chat. Without
+   the blur the panel needs a near-solid fill. */
+@media (max-width:900px){
+  .mkc-panel{background:linear-gradient(168deg,rgba(255,255,255,.98) 0%,rgba(250,251,254,.97) 100%)}
+}
+/* The chat's title bar is a <header>, so the site-wide `header{position:fixed;
+   top:0; height:var(--nav)}` rules were landing on it too. On desktop the
+   panel's blur kept it in place but it sat over the first message; on phones
+   (no blur) it flew to the top of the screen behind the site header, taking
+   the close button with it. Put it back in the panel's flow. */
+#mkChat .mkc-head{
+  position:relative !important;top:auto !important;left:auto !important;right:auto !important;
+  z-index:1;flex:0 0 auto;height:auto !important;padding:13px 14px !important;
+  background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.5)) !important;
+  backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+  box-shadow:none !important;transition:none !important;will-change:auto !important}
 .mkc-m--bot{background:rgba(255,255,255,.88);border-color:rgba(255,255,255,.95)}
 .mkc-m--me{background:linear-gradient(168deg,#2454DC,var(--blue-dk));border-color:rgba(255,255,255,.3)}
 .mkc-chip{background:rgba(255,255,255,.8);border-color:rgba(18,64,200,.14)}
@@ -10821,29 +10931,56 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
 @media print{.nxb{display:none!important}}
 </style>
 </head>
-<body data-page="index" data-sitenav="off" data-siterv="off" class="booting">
-<div id="boot" aria-hidden="true">
-  <span class="boot__half l"></span>
-  <span class="boot__half r"></span>
-  <span class="boot__crack"></span>
-  <div class="boot__c">
-    <div class="boot__mark">OUJ</div>
-    <div class="boot__n">Markaz OUJ Performance</div>
-    <div class="boot__bar"><i></i></div>
-  </div>
-</div>
+<body data-page="index" data-sitenav="off" data-siterv="off">
+<div class="ldx" id="ldx" aria-hidden="true"><div class="ldx-fill"><div class="ldx-grp"><div class="ldx-w">MARKAZ<div class="ldx-rise"><div class="ldx-gold"><img src="/ld-photo.webp" alt="" width="560" height="316" decoding="async"><i class="ldx-shine"></i></div></div><div class="ldx-cw"><i class="ldx-crest"></i></div></div><div class="ldx-s">OUJ Performance &middot; Karachi</div></div></div><div class="ldx-ink"><div class="ldx-grp"><div class="ldx-w"><span><i style="--n:0">M</i></span><span><i style="--n:1">A</i></span><span><i style="--n:2">R</i></span><span class="ldx-k"><i style="--n:3">K</i></span><span><i style="--n:4">A</i></span><span><i style="--n:5">Z</i></span></div><div class="ldx-s"><span>OUJ Performance &middot; Karachi</span></div></div></div><div class="ldx-m ldx-tl"><i><img src="/ouj.png" alt="" width="34" height="26"></i><span>Markaz OUJ Performance</span></div><div class="ldx-m ldx-tr">Since 2009</div><div class="ldx-m ldx-bl"><b id="ldN">000</b><span>Warming up</span></div><div class="ldx-m ldx-br">Sports &middot; Fitness<br>Martial Arts</div></div>
+<script>
+/* Preloader timeline, ~1.6s after the display font is in (that wait is capped at 250ms). */
+(function(){
+  var R=document.documentElement, X=document.getElementById('ldx');
+  if(!X) return;
+  if(!R.classList.contains('ld-on')){ X.parentNode.removeChild(X); return; }
+  try{ sessionStorage.setItem('mk-ld','1'); }catch(e){}
+  var stop=function(e){ e.preventDefault(); };
+  addEventListener('wheel',stop,{passive:false});
+  addEventListener('touchmove',stop,{passive:false});
+  var done=false, N=document.getElementById('ldN');
+  function kill(){
+    if(done) return; done=true;
+    if(X.parentNode) X.parentNode.removeChild(X);
+    R.classList.remove('ld-on','ldx-go','ldx-dive');
+    removeEventListener('wheel',stop,{passive:false});
+    removeEventListener('touchmove',stop,{passive:false});
+    try{ dispatchEvent(new Event('mk:loaded')); }catch(e){}
+  }
+  setTimeout(kill,2400);                      /* failsafe, whatever happens */
+  addEventListener('pageshow',function(e){ if(e.persisted) kill(); });
+  function start(){
+    if(done) return;
+    try{ scrollTo(0,0); }catch(e){}
+    var k=X.querySelector('.ldx-ink .ldx-k'), r=k.getBoundingClientRect();
+    var o=(r.left+r.width*.19)+'px '+(r.top+r.height*.52)+'px';
+    X.querySelector('.ldx-ink').style.transformOrigin=o;
+    X.querySelector('.ldx-fill').style.transformOrigin=o;
+    void X.offsetWidth;
+    R.classList.add('ldx-go');
+    var t0=performance.now();
+    (function count(t){
+      var p=Math.min(1,Math.max(0,(t-t0-100)/950)),
+          e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2,
+          v=Math.round(e*100);
+      N.textContent=(v<10?'00':v<100?'0':'')+v;
+      if(p<1&&!done) requestAnimationFrame(count);
+    })(t0);
+    setTimeout(function(){ R.classList.add('ldx-dive'); },1080);
+    setTimeout(kill,1620);
+  }
+  var f=document.fonts&&document.fonts.load?document.fonts.load('900 100px Archivo').catch(function(){}):null;
+  Promise.race([f||Promise.resolve(),new Promise(function(r){ setTimeout(r,250); })])
+    .then(function(){ requestAnimationFrame(function(){ requestAnimationFrame(start); }); });
+})();
+</script>
 
 
-<!-- ==================== PRELOADER ==================== -->
-<div id="pre">
-  <div class="pre-in">
-    <img src="ouj.png" alt="" class="lg" data-logo="ouj" width="420" height="319" decoding="async" fetchpriority="high">
-    <b>Markaz OUJ</b><span>Performance</span>
-    <div class="pre-bar"><i id="preBar"></i></div>
-    <span class="pre-pct" id="prePct">00%</span>
-    <span class="pre-note">Federal B Area · Karachi</span>
-  </div>
-</div>
 
 <!-- ==================== HEADER ==================== -->
 <div class="sprog" id="sprog"></div>
@@ -10897,6 +11034,37 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
 </div>
 
 <span id="main" tabindex="-1"></span><section class="hero" id="top">
+  <div class="hvid" aria-hidden="true"><video class="hvid__v" muted loop playsinline disablepictureinpicture disableremoteplayback preload="none" tabindex="-1"></video><i class="hvid__wash"></i></div>
+  <script>
+  /* Hero video: fetched only after the page has loaded, never on data
+     saver / 2G / reduced motion, smaller file on phones, paused when the
+     hero is off screen or the tab is hidden. */
+  (function(){
+    var v=document.querySelector('.hvid__v'); if(!v) return;
+    var c=navigator.connection||{};
+    if(c.saveData||/2g/.test(c.effectiveType||'')) return;
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var hero=v.closest('.hero'), vis=true, started=false;
+    v.muted=true;
+    function sync(){
+      if(!started) return;
+      if(vis&&!document.hidden){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+      else v.pause();
+    }
+    function go(){
+      if(started) return; started=true;
+      v.addEventListener('playing',function(){ v.classList.add('on'); },{once:true});
+      v.src=(window.innerWidth<=760?'/hero-640.mp4':'/hero-960.mp4');
+      sync();
+    }
+    if('IntersectionObserver' in window && hero)
+      new IntersectionObserver(function(e){ vis=e[0].isIntersecting; sync(); }).observe(hero);
+    document.addEventListener('visibilitychange',sync);
+    function soon(){ (window.requestIdleCallback||function(f){ setTimeout(f,150); })(go,{timeout:900}); }
+    if(document.readyState==='complete') soon(); else addEventListener('load',soon,{once:true});
+    setTimeout(go,4500);
+  })();
+  </script>
   <canvas id="scene" aria-hidden="true"></canvas>
 
   <div class="rail">
