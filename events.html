@@ -29,27 +29,26 @@ html.ld-on .wi{animation-play-state:paused}
   font-variation-settings:'wdth' 92,'wght' 900;font-size:clamp(4.2rem,16.5vw,16.5rem);line-height:.84;
   letter-spacing:-.015em;white-space:nowrap}
 .ldx-w span{display:inline-block}
-.ldx-w i{display:inline-block;font-style:normal;transform:translateY(118%)}
+.ldx-w i{display:inline-block;font-style:normal;transform:translate3d(0,118%,0);will-change:transform;backface-visibility:hidden}
 .ldx-s{overflow:hidden;font:600 clamp(10.5px,1.1vw,14px)/1.4 'Inter Tight',system-ui,sans-serif;
   letter-spacing:.34em;text-transform:uppercase;padding-left:.34em;white-space:nowrap}
-.ldx-s span{display:inline-block;transform:translateY(120%)}
+.ldx-s span{display:inline-block;transform:translate3d(0,120%,0);will-change:transform}
 .ldx-fill .ldx-w,.ldx-fill .ldx-s{color:transparent}
 .ldx-fill .ldx-s{background:linear-gradient(90deg,#6c7287,#dfe2ea 50%,#6c7287)}
 /* the foil rises as a mask: outer slides up, inner slides down by the same amount */
 .ldx-rise{position:absolute;inset:0;overflow:hidden;transform:translateY(100%)}
 .ldx-gold{position:absolute;inset:0;overflow:hidden;transform:translateY(-100%);
   background:linear-gradient(100deg,#5e6375 0%,#a9aec0 16%,#f3f4f7 31%,#cdd1e2 44%,#7c8299 58%,#e7e9ef 74%,#a2a8bd 88%,#5e6375 100%);
-  background-size:220% 100%;animation:ldxFoil 3.2s linear infinite}
+  background-size:220% 100%;will-change:transform}
 .ldx-gold img{position:absolute;left:50%;top:50%;width:70%;max-width:none;height:auto;transform:translate(-50%,-50%);
   mix-blend-mode:soft-light;opacity:.75;filter:contrast(1.25)}
 .ldx-shine{position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.75) 47%,transparent 58%);
-  background-size:250% 100%;animation:ldxShine 1.6s cubic-bezier(.65,0,.35,1) infinite;mix-blend-mode:overlay}
+  left:-60%;right:auto;width:60%;background-size:100% 100%;mix-blend-mode:overlay;will-change:transform;animation:ldxShine 1.5s cubic-bezier(.45,0,.55,1) infinite}
 .ldx-crest{position:absolute;left:-4%;right:-4%;top:0;height:3px;margin-top:-1.5px;
   background:linear-gradient(90deg,transparent,#ffd6d8 18%,#fff 50%,#ffd6d8 82%,transparent);
   box-shadow:0 0 18px 4px rgba(228,35,43,.8)}
 .ldx-cw{position:absolute;inset:0;transform:translateY(100%)}
-@keyframes ldxFoil{to{background-position:-220% 0}}
-@keyframes ldxShine{0%{background-position:150% 0}100%{background-position:-100% 0}}
+@keyframes ldxShine{from{transform:translate3d(0,0,0)}to{transform:translate3d(270%,0,0)}}
 .ldx-m{position:fixed;z-index:1000;font:600 11px/1.5 'Inter Tight',system-ui,sans-serif;letter-spacing:.24em;
   text-transform:uppercase;color:rgba(238,241,248,.62);pointer-events:none;opacity:0;transform:translateY(10px)}
 .ldx-tl{top:calc(24px + env(safe-area-inset-top,0px));left:clamp(18px,4vw,56px);display:flex;align-items:center;gap:12px}
@@ -64,15 +63,16 @@ html.ld-on .wi{animation-play-state:paused}
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .ldx-br{right:clamp(18px,4vw,56px);bottom:calc(5vh + env(safe-area-inset-bottom,0px));text-align:right}
 /* ---- the timeline: everything keys off .go on the root ---- */
-.ldx-go .ldx-m{opacity:1;transform:none;transition:opacity .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1)}
-.ldx-go .ldx-w i{transform:none;transition:transform .62s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--n) * 45ms)}
-.ldx-go .ldx-s span{transform:none;transition:transform .5s cubic-bezier(.16,1,.3,1) .3s}
-.ldx-go .ldx-rise,.ldx-go .ldx-gold{transform:none;transition:transform .95s cubic-bezier(.65,0,.35,1) .1s}
-.ldx-go .ldx-cw{transform:none;transition:transform .95s cubic-bezier(.65,0,.35,1) .1s}
-.ldx-go .ldx-crest{opacity:0;transition:opacity .22s linear .92s}
-.ldx-dive .ldx-m{opacity:0;transform:translateY(-8px);transition:opacity .2s ease-in,transform .2s ease-in}
-.ldx-dive .ldx-fill,.ldx-dive .ldx-ink{transform:scale(60);transition:transform .52s cubic-bezier(.7,0,.84,0)}
-.ldx-dive .ldx-fill{opacity:0;transition:transform .52s cubic-bezier(.7,0,.84,0),opacity .26s ease-in .22s}
+.ldx-go .ldx-m{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.ldx-go .ldx-w i{transform:translate3d(0,0,0);transition:transform .82s cubic-bezier(.22,1,.36,1);transition-delay:calc(var(--n) * 55ms)}
+.ldx-go .ldx-s span{transform:translate3d(0,0,0);transition:transform .7s cubic-bezier(.22,1,.36,1) .32s}
+.ldx-go .ldx-rise,.ldx-go .ldx-gold{transform:none;transition:transform 1.05s cubic-bezier(.45,0,.2,1) .12s}
+.ldx-go .ldx-cw{transform:none;transition:transform 1.05s cubic-bezier(.45,0,.2,1) .12s}
+.ldx-go .ldx-crest{opacity:0;transition:opacity .3s ease-out 1.02s}
+.ldx-dive .ldx-m{opacity:0;transform:translateY(-8px);transition:opacity .28s ease,transform .3s ease}
+.ldx-dive .ldx-fill,.ldx-dive .ldx-ink{transform:scale(34);transition:transform .66s cubic-bezier(.62,0,.24,1)}
+.ldx-dive .ldx-ink{opacity:0;transition:transform .66s cubic-bezier(.62,0,.24,1),opacity .3s ease .4s}
+.ldx-dive .ldx-fill{opacity:0;transition:transform .66s cubic-bezier(.62,0,.24,1),opacity .34s ease .2s}
 @media (max-width:760px){
   .ldx-w{font-size:17vw}
   .ldx-s{font-size:9.5px;letter-spacing:.22em}
@@ -5543,7 +5543,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
     removeEventListener('touchmove',stop,{passive:false});
     try{ dispatchEvent(new Event('mk:loaded')); }catch(e){}
   }
-  setTimeout(kill,2400);                      /* failsafe, whatever happens */
+  setTimeout(kill,2600);                      /* failsafe, whatever happens */
   addEventListener('pageshow',function(e){ if(e.persisted) kill(); });
   function start(){
     if(done) return;
@@ -5556,17 +5556,17 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
     R.classList.add('ldx-go');
     var t0=performance.now();
     (function count(t){
-      var p=Math.min(1,Math.max(0,(t-t0-100)/950)),
+      var p=Math.min(1,Math.max(0,(t-t0-120)/1050)),
           e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2,
           v=Math.round(e*100);
       N.textContent=(v<10?'00':v<100?'0':'')+v;
       if(p<1&&!done) requestAnimationFrame(count);
     })(t0);
-    setTimeout(function(){ R.classList.add('ldx-dive'); },1080);
-    setTimeout(kill,1620);
+    setTimeout(function(){ R.classList.add('ldx-dive'); },1200);
+    setTimeout(kill,1900);
   }
   var f=document.fonts&&document.fonts.load?document.fonts.load('900 100px Archivo').catch(function(){}):null;
-  Promise.race([f||Promise.resolve(),new Promise(function(r){ setTimeout(r,250); })])
+  Promise.race([f||Promise.resolve(),new Promise(function(r){ setTimeout(r,160); })])
     .then(function(){ requestAnimationFrame(function(){ requestAnimationFrame(start); }); });
 })();
 </script>
