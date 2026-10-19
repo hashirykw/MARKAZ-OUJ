@@ -9960,5 +9960,24 @@ html body .nxb__ig ~ .nxb__go,html body .nxb__ig{margin-left:0}
 }
 @media (min-width:521px){html body .nxb__acts{display:contents}}
 </style>
+<style id="mk-menu-fit">
+/* ===== Phone menu: always fits one screen, slightly smaller type ===== */
+@media (max-width:991.98px){
+  html body #navPanel{height:100vh !important;height:100dvh !important;max-height:100dvh !important;overflow:hidden !important;
+    display:flex !important;flex-direction:column !important;padding:clamp(72px,10dvh,86px) 20px clamp(14px,2.4dvh,22px) !important}
+  html body #navPanel .np-grid{flex:0 1 auto !important;min-height:0 !important;display:flex !important;flex-direction:column !important;gap:0 !important}
+  html body #navPanel .np-grid a{flex:1 1 0 !important;min-height:0 !important;max-height:72px !important;flex-basis:72px !important;padding:0 !important;
+    display:flex !important;flex-direction:column !important;justify-content:center !important;gap:2px}
+  html body #navPanel .np-grid a b{font-size:clamp(15px,2.35dvh,19px) !important;line-height:1.15 !important}
+  html body #navPanel .np-grid a span{font-size:clamp(10.5px,1.45dvh,12px) !important;line-height:1.25 !important;margin-top:0 !important}
+  html body #navPanel .np-foot{flex:0 0 auto !important;margin-top:0 !important;padding-top:clamp(10px,1.8dvh,16px) !important;gap:8px !important}
+  html body #navPanel .np-foot .btn{min-height:clamp(38px,5.2dvh,44px) !important;font-size:12px !important}
+  html body #navPanel .np-social{flex:0 0 auto !important;padding-top:clamp(8px,1.6dvh,14px) !important;margin-top:clamp(8px,1.6dvh,14px) !important}
+  html body #navPanel .np-social .mkui-social__a{width:clamp(36px,5dvh,44px) !important;height:clamp(36px,5dvh,44px) !important}
+}
+@media (max-width:991.98px) and (max-height:560px){
+  html body #navPanel .np-grid a span{display:none !important}
+}
+</style>
 </body>
 </html>
