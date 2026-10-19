@@ -3536,7 +3536,7 @@ window.Markaz.ready(function () {
              'Ten belt grades, panel examined',
              ((window.MARKAZ && MARKAZ.get('schedule.rows', []).length) || 12) + ' classes on the weekly timetable', 'Free first class, no minimum term'] },
     { n: 'Markaz OUJ Store', role: 'The store',
-      href: '/store',
+      logo: 'ouj-store-sm.webp', lightPlate: true, href: '/store',
       s: 'Equipment and academy kit, supplied at the price we buy it for ourselves.',
       body: 'The store opened because institutions kept asking where to buy gear that would ' +
             'survive a season of school use. We buy at volume for our own academy and pass ' +
@@ -3550,7 +3550,7 @@ window.Markaz.ready(function () {
       '" data-k="' + k + '" role="button" tabindex="0" aria-label="Open details for ' +
       esc(g.n) + '">' + M.openGlyph +
       '<div class="card__b">' +
-        (g.logo ? '<span class="plate ' + (g.dark ? 'plate--light' : 'plate--dark') +
+        (g.logo ? '<span class="plate ' + ((g.dark || g.lightPlate) ? 'plate--light' : 'plate--dark') +
           ' plate--md"><img src="' + g.logo + '" alt="" width="200" height="90" loading="lazy" decoding="async"></span>' : '') +
         '<div class="grp__role">' + esc(g.role) + '</div>' +
         '<h3>' + esc(g.n) + '</h3><p>' + esc(g.s) + '</p>' +
