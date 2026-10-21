@@ -22978,6 +22978,15 @@ html body #store .prod__ph--cut::before{left:14%;right:14%;bottom:9%;height:9%;
 html body #store .prod__ph--cut img,
 html body #store .prod.is-live .prod__ph--cut img{filter:drop-shadow(0 16px 20px rgba(11,21,51,.38)) drop-shadow(0 4px 6px rgba(11,21,51,.18)) !important}
 html body #store .prod:hover .prod__ph--cut img{filter:drop-shadow(0 22px 26px rgba(11,21,51,.42)) drop-shadow(0 5px 8px rgba(11,21,51,.2)) !important}
+/* shirts centred in the space under the tag strip */
+html body #store .prod__ph--cut img,
+html body #store .prod.is-live .prod__ph--cut img{padding:54px 9% 8% !important;object-position:50% 50% !important}
+html body #store .prod__ph--cut .prod__tag{top:12px !important}
+html body #store .prod__ph--cut::before{bottom:5% !important}
+@media (max-width:576px){
+  html body #store .prod__ph--cut img,
+  html body #store .prod.is-live .prod__ph--cut img{padding:50px 7% 7% !important}
+}
 
 /* --- Hero video: clearer, lighter wash --- */
 @media (min-width:992px){
