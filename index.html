@@ -11213,12 +11213,12 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
                data-e="OUJ Store" data-product="shirt-markaz" data-h="Markaz Martial Arts Academy Shirt"
                data-p="Black performance tee, crest front and back."
                data-photo="shirt-markaz.jpg"
-               data-wa="Assalam o Alaikum, I want to order the Markaz Martial Arts Academy shirt. Please share sizes and price."><div class="prod__ph prod__ph--cut"><span class="prod__bg" aria-hidden="true" style="background-image:url('shirt-markaz-cut.webp')"></span><img src="shirt-markaz-cut.webp" alt="Markaz Martial Arts Academy shirt, front and back" width="1000" height="800" loading="lazy" decoding="async"><span class="prod__tag r">Made to order</span></div><div class="prod__in"><h3>Academy Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
+               data-wa="Assalam o Alaikum, I want to order the Markaz Martial Arts Academy shirt. Please share sizes and price."><div class="prod__ph prod__ph--cut"><img src="shirt-markaz-cut.webp" alt="Markaz Martial Arts Academy shirt, front and back" width="1000" height="800" loading="lazy" decoding="async"><span class="prod__tag r">Made to order</span></div><div class="prod__in"><h3>Academy Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
       <div class="col-12 col-sm-6 col-lg-5" data-rv style="--i:1"><article class="prod" data-modal data-accent="b" data-ghost="02"
                data-e="OUJ Store" data-product="shirt-ouj" data-h="Markaz OUJ Performance Shirt"
                data-p="White and gold performance tee, short zip collar."
                data-photo="shirt-ouj.jpg"
-               data-wa="Assalam o Alaikum, I want to order the Markaz OUJ Performance shirt. Please share sizes and price."><div class="prod__ph prod__ph--cut"><span class="prod__bg" aria-hidden="true" style="background-image:url('shirt-ouj-cut.webp')"></span><img src="shirt-ouj-cut.webp" alt="Markaz OUJ Performance shirt, front and back" width="1000" height="800" loading="lazy" decoding="async"><span class="prod__tag b">Made to order</span></div><div class="prod__in"><h3>Performance Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
+               data-wa="Assalam o Alaikum, I want to order the Markaz OUJ Performance shirt. Please share sizes and price."><div class="prod__ph prod__ph--cut"><img src="shirt-ouj-cut.webp" alt="Markaz OUJ Performance shirt, front and back" width="1000" height="800" loading="lazy" decoding="async"><span class="prod__tag b">Made to order</span></div><div class="prod__in"><h3>Performance Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
     </div>
 
     <p class="note text-center">Institution pricing for partner schools, colleges and corporates.</p>
@@ -22972,12 +22972,12 @@ html body .mkc6__logo picture{display:block;width:100%;height:100%}
 html body .mkc6__logo img{width:100% !important;height:100% !important;object-fit:contain;display:block}
 @media (max-width:767px){html body .mkc6__logo{width:64px !important;height:64px !important;padding:7px}}
 
-/* --- Shirt cards: soft blurred backdrop behind the shirt --- */
-html body #store .prod__ph--cut{isolation:isolate}
-html body #store .prod__ph--cut .prod__bg{position:absolute;inset:-12%;z-index:0;background-size:cover;background-position:center;
-  filter:blur(26px) saturate(1.15) brightness(.82);transform:scale(1.15);opacity:.55;pointer-events:none}
-html body #store .prod__ph--cut::after{background:linear-gradient(0deg,rgba(11,21,51,.10),transparent 35%) !important}
-html body #store .prod__ph--cut img{z-index:1}
+/* --- Shirt cards: original light backdrop, deeper shadow under the shirt --- */
+html body #store .prod__ph--cut::before{left:14%;right:14%;bottom:9%;height:9%;
+  background:radial-gradient(closest-side,rgba(11,21,51,.55),rgba(11,21,51,0)) !important;filter:blur(5px)}
+html body #store .prod__ph--cut img,
+html body #store .prod.is-live .prod__ph--cut img{filter:drop-shadow(0 16px 20px rgba(11,21,51,.38)) drop-shadow(0 4px 6px rgba(11,21,51,.18)) !important}
+html body #store .prod:hover .prod__ph--cut img{filter:drop-shadow(0 22px 26px rgba(11,21,51,.42)) drop-shadow(0 5px 8px rgba(11,21,51,.2)) !important}
 
 /* --- Hero video: clearer, lighter wash --- */
 @media (min-width:992px){
