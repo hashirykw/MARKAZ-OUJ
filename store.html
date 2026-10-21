@@ -6940,11 +6940,35 @@ var KEYC = 'ouj_checkout_v1';    /* a half-filled checkout, so it is not retyped
 var IMG = function(f){ return /\.(svg|webp|jpe?g|png)$/i.test(f || '') ? f : 'art-store-package.svg'; };
 
 /* ---------- the catalogue ---------- */
-var CATS = ['Cricket','Football','Basketball','Athletics','Taekwondo','Swimming',
+var CATS = ['Apparel','Cricket','Football','Basketball','Athletics','Taekwondo','Swimming',
             'Indoor & table','Fitness & gym','Team kits','Protective gear',
             'Ground & facility','School packages'];
 
+/* Official shirt size guide: [size, ages, chest in, chest cm, length in, length cm] */
+var SIZE_GUIDE = {
+  adult: { label:'Adult', chart:'size-chart-adult', rows:[
+    ['XS','13–14','20',51,'27.5',70],['S','15–16','22',56,'29',74],['M','17–18','24',61,'30.5',77],
+    ['L','19–20','26',66,'32',81],['XL','21–22','28',71,'33.5',85],['2XL','23–24','30',76,'35',89],['3XL','25+','32',81,'36.5',93]] },
+  kids: { label:'Kids', chart:'size-chart-kids', rows:[
+    ['2T','2–3','20',51,'15',38],['3T','3–4','21',53,'16',41],['4T','4–5','22',56,'17',43],['5T','5–6','23',58,'18',46],
+    ['XS','6–7','24',61,'19',48],['S','8–9','25.5',65,'20',51],['M','10–11','27',69,'21',53],['L','11–12','28.5',72,'22',56]] }
+};
+
 var ITEMS = [
+/* -- Apparel: the two Markaz shirts lead the store -- */
+{id:'shirt-markaz', n:'Markaz Martial Arts Academy Shirt', c:'Apparel', p:0, ask:1, top:1, guide:1,
+ img:'shirt-markaz-cut.webp', stock:'in', feat:1, tag:'Most popular', tc:'r',
+ d:'Black performance tee, crest front and back.',
+ l:'Black performance tee with the Markaz Martial Arts Academy crest printed front and back. Open to anyone — you do not have to train with us. Made to order; the price is confirmed on WhatsApp.',
+ sizes:['Adult XS – 3XL','Kids 2T – L'], uses:['Students','Individuals','Clubs'],
+ sp:[['Colour','Black'],['Print','Front, back and chest crest'],['Fabric','Moisture-wicking'],['Sizes','Adult XS–3XL · Kids 2T–L']]},
+{id:'shirt-ouj', n:'Markaz OUJ Performance Shirt', c:'Apparel', p:0, ask:1, top:2, guide:1,
+ img:'shirt-ouj-cut.webp', stock:'in', feat:1, tag:'Most popular', tc:'b',
+ d:'White and gold performance tee, short zip collar.',
+ l:'White performance tee with the gold OUJ mark front and back and a short zip collar. Open to anyone. Made to order; the price is confirmed on WhatsApp.',
+ sizes:['Adult XS – 3XL','Kids 2T – L'], uses:['Students','Individuals','Corporates'],
+ sp:[['Colour','White and gold'],['Collar','Short zip'],['Fabric','Moisture-wicking'],['Sizes','Adult XS–3XL · Kids 2T–L']]},
+
 /* -- Cricket -- */
 {id:'ck-bat-kw', n:'Kashmir Willow Match Bat', c:'Cricket', p:4800, was:5600, img:'art-store-cricket.svg',
  tag:'Best seller', tc:'r', feat:1, stock:'in',
@@ -7482,6 +7506,7 @@ function buildBar(){
 function uniq(a){ var s=[],i; for(i=0;i<a.length;i++){ if(s.indexOf(a[i])<0) s.push(a[i]); } return s; }
 var SIZE_BUCKETS = ['Junior / youth','Adult','One size / set','Made to measure'];
 function bucketOf(it){
+  if(it.guide) return 'Adult';
   if(!it.sizes || !it.sizes.length) return 'One size / set';
   var s = it.sizes.join(' ').toLowerCase();
   if(it.c==='Team kits') return 'Made to measure';
@@ -7508,7 +7533,7 @@ function buildFilters(){
     return chk('use',u,ITEMS.filter(function(i){ return (i.uses||[]).indexOf(u)>=0; }).length); }).join('');
 
   $('#fPrice').innerHTML = PRICE_BANDS.map(function(b){
-    return chk('price',b.l,ITEMS.filter(function(i){ return b.t(i.p); }).length); }).join('');
+    return chk('price',b.l,ITEMS.filter(function(i){ return !i.ask && b.t(i.p); }).length); }).join('');
 
   $('#fAvail').innerHTML = chk('avail','In stock now',ITEMS.filter(function(i){return i.stock==='in';}).length)
     + chk('avail','On offer',ITEMS.filter(function(i){return !!i.was;}).length)
@@ -7525,7 +7550,7 @@ function passes(it){
   if(view.use.length && !view.use.some(function(u){ return (it.uses||[]).indexOf(u)>=0; })) return false;
   if(view.price.length){
     var ok = view.price.some(function(l){
-      var b = PRICE_BANDS.filter(function(x){return x.l===l;})[0]; return b && b.t(it.p); });
+      var b = PRICE_BANDS.filter(function(x){return x.l===l;})[0]; return b && !it.ask && b.t(it.p); });
     if(!ok) return false;
   }
   if(view.avail.length){
@@ -7543,7 +7568,7 @@ function card(it){
   if(it.v && Object.keys(it.v).length)
     chips += '<span class="pchip b">'+Object.keys(it.v).length+' option'
            + (Object.keys(it.v).length>1?'s':'')+'</span>';
-  return '<article class="prod'+(it.stock==='out'?' out':'')
+  return '<article class="prod'+(it.stock==='out'?' out':'')+(it.ask?' prod--ask':'')
        + (bulkQ[it.id]?' picked':'')+'" data-id="'+it.id+'" tabindex="0" role="button">'
    + '<div class="prod__ph">'
      + '<img src="'+IMG(it.img)+'" alt="'+esc(it.n)+'" loading="lazy" decoding="async">'
@@ -7558,11 +7583,15 @@ function card(it){
      + '<div class="prod__chips">'+chips+'</div>'
      + '<div class="prod__foot">'
        + '<span class="prod__price">'
-         + (it.was?'<s>'+rs(it.was)+'</s>':'')
-         + '<b>'+rs(it.p)+'</b><small>'+(it.sizes&&it.sizes.length>1?'per piece':'each')+'</small>'
+         + (it.ask ? '<b class="ask">Ask for price</b><small>made to order</small>'
+           : (it.was?'<s>'+rs(it.was)+'</s>':'')
+           + '<b>'+rs(it.p)+'</b><small>'+(it.sizes&&it.sizes.length>1?'per piece':'each')+'</small>')
        + '</span>'
-       + '<button class="prod__buy" data-add="'+it.id+'" aria-label="Add '+esc(it.n)+' to cart">'
-         + '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>'
+       + (it.ask
+         ? '<button class="prod__buy prod__go" data-add="'+it.id+'" aria-label="Choose a size for '+esc(it.n)+'">'
+           + '<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>'
+         : '<button class="prod__buy" data-add="'+it.id+'" aria-label="Add '+esc(it.n)+' to cart">'
+           + '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>')
        + '<span class="prod__bulk">'
          + '<span class="prod__each">Per<br>student</span>'
          + '<span class="stp">'
@@ -7579,10 +7608,10 @@ function card(it){
 var PAGE = { step: 12, n: 12, sig: '', drawn: 0, more: false };
 function paintGrid(){
   var list = ITEMS.filter(passes);
-  if(view.sort==='lo') list.sort(function(a,b){ return a.p-b.p; });
-  else if(view.sort==='hi') list.sort(function(a,b){ return b.p-a.p; });
+  if(view.sort==='lo') list.sort(function(a,b){ return (a.ask?1:0)-(b.ask?1:0) || a.p-b.p; });
+  else if(view.sort==='hi') list.sort(function(a,b){ return (a.ask?1:0)-(b.ask?1:0) || b.p-a.p; });
   else if(view.sort==='az') list.sort(function(a,b){ return a.n.localeCompare(b.n); });
-  else list.sort(function(a,b){ return (b.feat?1:0)-(a.feat?1:0); });
+  else list.sort(function(a,b){ return (a.top||99)-(b.top||99) || (b.feat?1:0)-(a.feat?1:0); });
 
   /* V15: twelve at a time. A new search, filter, sort or mode starts
      again from the top; editing quantities keeps what is open. */
@@ -7632,6 +7661,7 @@ function openPD(id){
       + '</div></div>';
   }).join('');
 
+  if(pd.ask){ openAskPD(); return; }
   $('#pdBody').innerHTML =
       '<div><div class="pd__ph"><img src="'+IMG(pd.img)+'" alt="'+esc(pd.n)+'" loading="lazy" decoding="async"></div></div>'
     + '<div>'
@@ -7657,6 +7687,94 @@ function openPD(id){
     + '</div>';
   show('#pdOv');
 }
+
+/* Ask-for-price items: pick a size, order on WhatsApp. */
+var askSel = { grp:'adult', i:-1 };
+function openAskPD(){
+  askSel = { grp:'adult', i:-1 };
+  $('#pdBody').innerHTML =
+      '<div><div class="pd__ph pd__ph--shirt"><img src="'+IMG(pd.img)+'" alt="'+esc(pd.n)+'" decoding="async"></div></div>'
+    + '<div class="pd--ask">'
+      + '<div class="pd__cat">'+esc(pd.c)+'</div>'
+      + '<h4>'+esc(pd.n)+'</h4>'
+      + '<p class="pd__d">'+esc(pd.d)+'</p>'
+      + '<div class="szk">'
+        + '<div class="szk__tabs" role="tablist" aria-label="Size range">'
+          + '<button type="button" role="tab" data-sg="adult" class="on" aria-selected="true">Adult</button>'
+          + '<button type="button" role="tab" data-sg="kids" aria-selected="false">Kids</button></div>'
+        + '<div class="szk__sz" role="radiogroup" aria-label="Size"></div>'
+        + '<div class="szk__fit" aria-live="polite"></div>'
+        + '<button type="button" class="szk__chart" data-chart>View size chart</button>'
+      + '</div>'
+      + '<div class="vgrp"><h5>Quantity</h5><div class="stp">'
+        + '<button data-qs="-1" aria-label="Less">−</button>'
+        + '<input id="pdQty" type="number" value="1" min="1" max="999" inputmode="numeric">'
+        + '<button data-qs="1" aria-label="More">+</button></div></div>'
+      + '<div class="pd__buy">'
+        + '<span class="pd__price pd__price--ask">Ask for price</span>'
+        + '<a class="btn btn-r" id="pdWa" target="_blank" rel="noopener" href="#">Order on WhatsApp'
+          + '<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>'
+      + '</div>'
+    + '</div>';
+  askDraw();
+  show('#pdOv');
+}
+function askDraw(){
+  var G = SIZE_GUIDE[askSel.grp];
+  $('#pdBody .szk__sz').innerHTML = G.rows.map(function(r,i){
+    return '<button type="button" role="radio" data-sz="'+i+'" aria-checked="'+(i===askSel.i)+'"'+(i===askSel.i?' class="on"':'')+'>'+esc(r[0])+'</button>'; }).join('');
+  var r = G.rows[askSel.i];
+  $('#pdBody .szk__fit').innerHTML = r
+    ? '<span><em>Age</em><b>'+esc(r[1])+' yrs</b></span>'
+      + '<span><em>Chest</em><b>'+esc(r[2])+'&Prime;<i>'+r[3]+' cm</i></b></span>'
+      + '<span><em>Length</em><b>'+esc(r[4])+'&Prime;<i>'+r[5]+' cm</i></b></span>'
+    : '<span class="hint">Pick a size to see its fit</span>';
+  askWa();
+}
+function askWa(){
+  var r = SIZE_GUIDE[askSel.grp].rows[askSel.i];
+  var q = Math.max(1, parseInt(($('#pdQty')||{}).value,10)||1);
+  var a = $('#pdWa'); if(!a) return;
+  a.href = WA + '?text=' + encodeURIComponent('Assalam o Alaikum, I want to order the ' + pd.n
+    + (r ? ', ' + SIZE_GUIDE[askSel.grp].label + ' size ' + r[0] : '') + (q>1 ? ', quantity ' + q : '')
+    + '. Please share the price.');
+}
+function openChart(){
+  var G = SIZE_GUIDE[askSel.grp];
+  var v = $('#szv');
+  if(!v){
+    v = document.createElement('div');
+    v.id = 'szv'; v.className = 'szv';
+    v.setAttribute('role','dialog'); v.setAttribute('aria-modal','true'); v.setAttribute('data-lenis-prevent','');
+    v.innerHTML = '<button type="button" class="szv__x" aria-label="Close size chart">&times;</button>'
+      + '<div class="szv__in"><img alt="" decoding="async"></div><span class="szv__tip">Tap the chart to zoom</span>';
+    v.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      var img = ev.target.closest('img');
+      if(img){
+        var r0 = img.getBoundingClientRect(), fx = (ev.clientX-r0.left)/r0.width, fy = (ev.clientY-r0.top)/r0.height;
+        var z = v.classList.toggle('zoom');
+        v.querySelector('.szv__tip').textContent = z ? 'Tap the chart to fit the screen' : 'Tap the chart to zoom';
+        if(z) setTimeout(function(){
+          v.scrollLeft = Math.max(0, img.offsetLeft + img.offsetWidth*fx - v.clientWidth/2);
+          v.scrollTop  = Math.max(0, img.offsetTop + img.offsetHeight*fy - v.clientHeight/2);
+        }, 30);
+        return;
+      }
+      v.classList.remove('on','zoom');
+    });
+    document.body.appendChild(v);
+  }
+  var im = v.querySelector('img');
+  im.src = G.chart + '.webp'; im.alt = G.label + ' shirt size chart';
+  v.classList.remove('zoom'); v.scrollTop = 0; v.scrollLeft = 0;
+  v.querySelector('.szv__tip').textContent = 'Tap the chart to zoom';
+  requestAnimationFrame(function(){ v.classList.add('on'); v.querySelector('.szv__x').focus(); });
+}
+document.addEventListener('keydown', function(e){
+  var v = document.querySelector('#szv.on');
+  if(v && e.key==='Escape'){ e.preventDefault(); e.stopImmediatePropagation(); v.classList.remove('on','zoom'); }
+}, true);
 
 /* ================= CART ================= */
 function lineKey(id,v){ return id+'|'+Object.keys(v||{}).sort().map(function(k){return k+':'+v[k];}).join(','); }
@@ -8021,7 +8139,7 @@ $('#grid').addEventListener('click', function(e){
     e.stopPropagation();
     var it = ITEMS.filter(function(i){ return i.id===addb.dataset.add; })[0];
     if(!it) return;
-    if(it.v && Object.keys(it.v).length){ openPD(it.id); return; }   /* needs a choice first */
+    if(it.ask || (it.v && Object.keys(it.v).length)){ openPD(it.id); return; }   /* needs a choice first */
     add(it,{},1);
     addb.classList.add('done');
     setTimeout(function(){ addb.classList.remove('done'); },900);
@@ -8037,6 +8155,22 @@ $('#grid').addEventListener('keydown', function(e){
 
 /* product detail */
 $('#pdBody').addEventListener('click', function(e){
+  if(pd && pd.ask){
+    var g = e.target.closest('[data-sg]');
+    if(g){
+      if(g.dataset.sg !== askSel.grp){
+        askSel = { grp:g.dataset.sg, i:-1 };
+        $$('[data-sg]', this).forEach(function(b){ var on = b===g; b.classList.toggle('on',on); b.setAttribute('aria-selected',on); });
+        askDraw();
+      }
+      return;
+    }
+    var z = e.target.closest('[data-sz]');
+    if(z){ askSel.i = +z.dataset.sz; askDraw(); return; }
+    if(e.target.closest('[data-chart]')){ openChart(); return; }
+    if(e.target.closest('[data-qs]')) setTimeout(askWa, 0);
+    if(e.target.closest('#pdWa')) askWa();
+  }
   var v = e.target.closest('[data-vk]');
   if(v){
     pdSel[v.dataset.vk] = v.dataset.vv;
@@ -12891,6 +13025,74 @@ html body .sh-lg.st-lg img{width:clamp(78px,8.4vw,112px);height:auto;display:blo
   border:1px solid rgba(11,21,51,.09);box-shadow:0 16px 34px -18px rgba(11,21,51,.38),inset 0 1px 0 rgba(255,255,255,.95);
   filter:drop-shadow(0 8px 20px rgba(18,64,200,.14));transition:transform .35s ease}
 html body .sh:hover .sh-lg.st-lg img{transform:translateY(-2px)}
+</style>
+<style id="mk-store-shirts">
+/* ===== The two Markaz shirts at the head of the store ===== */
+.prod--ask .prod__ph{background:
+  radial-gradient(60% 55% at 50% 42%,#FFFFFF 0%,rgba(255,255,255,0) 70%),
+  linear-gradient(180deg,#F4F6FA 0%,#E6EAF2 100%)}
+.prod--ask .prod__ph::before{content:'';position:absolute;left:14%;right:14%;bottom:7%;height:9%;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(11,21,51,.5),rgba(11,21,51,0));filter:blur(5px);z-index:0}
+.prod--ask .prod__ph img,
+.prod--ask:hover .prod__ph img,
+.prod--ask.is-live .prod__ph img{position:relative;z-index:1;object-fit:contain !important;padding:11% 7% 11%;
+  filter:drop-shadow(0 16px 20px rgba(11,21,51,.38)) drop-shadow(0 4px 6px rgba(11,21,51,.18)) !important}
+.prod--ask:hover .prod__ph img{transform:translateY(-5px) scale(1.04) !important}
+.prod__price b.ask{font-size:17px;white-space:nowrap}
+@media (max-width:520px){.prod__price b.ask{font-size:13.5px}}
+body.bulkmode .prod--ask .prod__go{display:grid !important}
+body.bulkmode .prod--ask .prod__bulk{display:none !important}
+.pd__ph--shirt{background:
+  radial-gradient(60% 55% at 50% 42%,#FFFFFF 0%,rgba(255,255,255,0) 70%),
+  linear-gradient(180deg,#F4F6FA 0%,#E6EAF2 100%)}
+.pd__ph--shirt img{object-fit:contain !important;padding:6%;filter:drop-shadow(0 16px 20px rgba(11,21,51,.38))}
+.pd__price--ask{font-size:20px !important}
+
+/* sizes */
+.szk{margin:4px 0 16px}
+.szk__tabs{display:inline-grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:12px;background:#EEF1F6;border:1px solid #DCE2EA;margin-bottom:12px}
+.szk__tabs button{min-width:92px;height:36px;border:0;border-radius:9px;background:transparent;cursor:pointer;
+  font:700 11.5px/1 'Inter Tight',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#5C6784;transition:background .25s,color .25s}
+.szk__tabs button.on{background:#0B1533;color:#fff;box-shadow:inset 0 -2px 0 #E3202A}
+.szk__sz{display:flex;flex-wrap:wrap;gap:8px}
+.szk__sz button{min-width:50px;height:42px;padding:0 10px;border-radius:10px;border:1.5px solid #CDD5E2;background:#fff;cursor:pointer;
+  font:700 14px/1 'Archivo','Inter Tight',system-ui,sans-serif;color:#0B1533;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.szk__sz button:hover{border-color:#0B1533;transform:translateY(-1px)}
+.szk__sz button.on{background:#0B1533;border-color:#0B1533;color:#fff;box-shadow:inset 0 -3px 0 #E3202A}
+.szk__fit{display:flex;gap:8px;margin-top:12px;min-height:52px;flex-wrap:wrap}
+.szk__fit span{display:grid;gap:3px;min-width:92px;padding:8px 12px;border-radius:10px;background:#fff;border:1px solid #DCE2EA;text-align:center}
+.szk__fit em{font:700 9.5px/1 'Inter Tight',system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#E3202A;font-style:normal}
+.szk__fit b{font:700 15px/1.1 'Archivo','Inter Tight',system-ui,sans-serif;color:#0B1533}
+.szk__fit b i{font:500 11px/1 'Inter Tight',system-ui,sans-serif;color:#5C6784;font-style:normal;margin-left:5px}
+.szk__fit .hint{min-width:0;border:0;background:none;align-self:center;padding:0;font:500 12.5px/1.4 'Inter Tight',system-ui,sans-serif;color:#7A859C}
+.szk__chart{margin-top:12px;display:inline-flex;border:1.5px solid #1240C8;background:#fff;padding:9px 16px;border-radius:999px;cursor:pointer;
+  font:700 11px/1 'Inter Tight',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#1240C8;transition:background .2s,color .2s}
+.szk__chart:hover{background:#1240C8;color:#fff}
+@media (max-width:520px){
+  .szk__sz{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+  .szk__sz button{min-width:0;width:100%;padding:0}
+  .szk__fit span{min-width:0;flex:1 1 0;padding:8px 6px}
+}
+
+/* size chart viewer */
+.szv{position:fixed;inset:0;z-index:3000;display:flex;align-items:flex-start;justify-content:center;overflow:auto;
+  overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:max(16px,3vh) 12px;background:rgba(5,9,22,.95);
+  opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s linear .3s}
+.szv.on{opacity:1;visibility:visible;transition:opacity .3s ease}
+.szv__in{margin:auto}
+.szv img{display:block;width:auto;height:auto;max-width:min(100%,780px);max-height:94vh;margin:0 auto;border-radius:12px;cursor:zoom-in;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.8)}
+.szv.zoom{display:block;padding:64px 0 70px}
+.szv.zoom .szv__in{margin:0;position:relative}
+.szv.zoom img{max-width:none;max-height:none;width:max(1024px,200vw);border-radius:0;cursor:zoom-out}
+@media (min-width:761px){.szv.zoom img{width:1400px;margin:0 auto}}
+@media (max-width:760px){.szv{padding:64px 8px 24px}.szv img{max-height:none;width:100%;max-width:100%}}
+.szv__x{position:fixed;top:14px;right:14px;z-index:2;width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#0B1533;
+  font:400 28px/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+.szv__x:hover{background:#E3202A;color:#fff}
+.szv__tip{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:2;padding:9px 16px;border-radius:999px;
+  background:rgba(255,255,255,.94);color:#0B1533;font:700 11px/1 'Inter Tight',system-ui,sans-serif;letter-spacing:.12em;
+  text-transform:uppercase;white-space:nowrap;box-shadow:0 8px 20px rgba(0,0,0,.4);pointer-events:none}
 </style>
 </body>
 </html>
