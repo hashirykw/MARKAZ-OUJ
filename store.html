@@ -13039,6 +13039,18 @@ html body .sh:hover .sh-lg.st-lg img{transform:translateY(-2px)}
   filter:drop-shadow(0 16px 20px rgba(11,21,51,.38)) drop-shadow(0 4px 6px rgba(11,21,51,.18)) !important}
 .prod--ask:hover .prod__ph img{transform:translateY(-5px) scale(1.04) !important}
 .prod__price b.ask{font-size:17px;white-space:nowrap}
+/* tags sit in a clear band above the shirt, never over it */
+.prod--ask .prod__tag,.prod--ask .prod__stk{top:10px !important}
+.prod--ask .prod__ph img,
+.prod--ask:hover .prod__ph img,
+.prod--ask.is-live .prod__ph img{padding:46px 8% 6% !important}
+.prod--ask .prod__ph::before{bottom:4% !important}
+@media (max-width:520px){
+  .prod--ask .prod__tag,.prod--ask .prod__stk{top:7px !important}
+  .prod--ask .prod__ph img,
+  .prod--ask:hover .prod__ph img,
+  .prod--ask.is-live .prod__ph img{padding:36px 5% 4% !important}
+}
 @media (max-width:520px){.prod__price b.ask{font-size:13.5px}}
 body.bulkmode .prod--ask .prod__go{display:grid !important}
 body.bulkmode .prod--ask .prod__bulk{display:none !important}
