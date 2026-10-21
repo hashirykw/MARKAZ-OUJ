@@ -11059,7 +11059,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
     function go(){
       if(started) return; started=true;
       v.addEventListener('playing',function(){ v.classList.add('on'); },{once:true});
-      v.src=(window.innerWidth<=760?'/hero-640.mp4':'/hero-960.mp4');
+      v.src=(window.innerWidth<=760?'/hero-640-v2.mp4':'/hero-960-v2.mp4');
       sync();
     }
     if('IntersectionObserver' in window && hero)
@@ -11213,12 +11213,12 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
                data-e="OUJ Store" data-product="shirt-markaz" data-h="Markaz Martial Arts Academy Shirt"
                data-p="Black performance tee, crest front and back."
                data-photo="shirt-markaz.jpg"
-               data-wa="Assalam o Alaikum, I want to order the Markaz Martial Arts Academy shirt. Please share sizes and price."><div class="prod__ph prod__ph--cut"><img src="shirt-markaz-cut.webp" alt="Markaz Martial Arts Academy shirt, front and back" width="1000" height="800" loading="lazy" decoding="async"><span class="prod__tag r">Made to order</span></div><div class="prod__in"><h3>Academy Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
+               data-wa="Assalam o Alaikum, I want to order the Markaz Martial Arts Academy shirt. Please share sizes and price."><div class="prod__ph prod__ph--cut"><span class="prod__bg" aria-hidden="true" style="background-image:url('shirt-markaz-cut.webp')"></span><img src="shirt-markaz-cut.webp" alt="Markaz Martial Arts Academy shirt, front and back" width="1000" height="800" loading="lazy" decoding="async"><span class="prod__tag r">Made to order</span></div><div class="prod__in"><h3>Academy Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
       <div class="col-12 col-sm-6 col-lg-5" data-rv style="--i:1"><article class="prod" data-modal data-accent="b" data-ghost="02"
                data-e="OUJ Store" data-product="shirt-ouj" data-h="Markaz OUJ Performance Shirt"
                data-p="White and gold performance tee, short zip collar."
                data-photo="shirt-ouj.jpg"
-               data-wa="Assalam o Alaikum, I want to order the Markaz OUJ Performance shirt. Please share sizes and price."><div class="prod__ph prod__ph--cut"><img src="shirt-ouj-cut.webp" alt="Markaz OUJ Performance shirt, front and back" width="1000" height="800" loading="lazy" decoding="async"><span class="prod__tag b">Made to order</span></div><div class="prod__in"><h3>Performance Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
+               data-wa="Assalam o Alaikum, I want to order the Markaz OUJ Performance shirt. Please share sizes and price."><div class="prod__ph prod__ph--cut"><span class="prod__bg" aria-hidden="true" style="background-image:url('shirt-ouj-cut.webp')"></span><img src="shirt-ouj-cut.webp" alt="Markaz OUJ Performance shirt, front and back" width="1000" height="800" loading="lazy" decoding="async"><span class="prod__tag b">Made to order</span></div><div class="prod__in"><h3>Performance Shirt</h3><div class="prod__foot"><div class="prod__price">Ask for price</div><span class="prod__buy"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div></article></div>
     </div>
 
     <p class="note text-center">Institution pricing for partner schools, colleges and corporates.</p>
@@ -11425,7 +11425,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
 </footer>
 
 <!-- CARD DETAIL MODAL -->
-<div class="modal fade" id="cdm" role="dialog" tabindex="-1" aria-labelledby="cdmH" aria-hidden="true">
+<div class="modal fade" id="cdm" data-lenis-prevent role="dialog" tabindex="-1" aria-labelledby="cdmH" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-body position-relative">
@@ -20854,6 +20854,10 @@ body section h2,body .mkui-h2{letter-spacing:-.024em!important;font-weight:800!i
     'shirt-markaz': { name: 'Markaz Martial Arts Academy shirt' },
     'shirt-ouj':    { name: 'Markaz OUJ Performance shirt' }
   };
+  D.addEventListener('keydown', function (e) {
+    var v = D.querySelector('.mkui-szv.on');
+    if (v && e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); v.classList.remove('on', 'zoom'); }
+  }, true);
   var lastProduct = null;
   D.addEventListener('click', function (e) {
     var card = e.target.closest && e.target.closest('[data-product]');
@@ -20894,8 +20898,7 @@ body section h2,body .mkui-h2{letter-spacing:-.024em!important;font-weight:800!i
           '</div>' +
           '<div class="mkui-prd__sz" role="radiogroup" aria-label="Shirt size"></div>' +
           '<div class="mkui-prd__fit" aria-live="polite"></div>' +
-          '<button type="button" class="mkui-prd__chartbtn" aria-expanded="false">View size chart</button>' +
-          '<div class="mkui-prd__chart"><div><img alt="" loading="lazy" decoding="async"></div></div>';
+          '<button type="button" class="mkui-prd__chartbtn">View size chart</button>';
         var grp = 'adult', pick = null;
         var waBase = 'Assalam o Alaikum, I want to order the ' + prod.name;
         var setWa = function () {
@@ -20911,14 +20914,49 @@ body section h2,body .mkui-h2{letter-spacing:-.024em!important;font-weight:800!i
             '<span><em>Chest</em><b>' + escH(pick[2]) + '&Prime;<i>' + pick[3] + ' cm</i></b></span>' +
             '<span><em>Length</em><b>' + escH(pick[4]) + '&Prime;<i>' + pick[5] + ' cm</i></b></span>';
         };
-        var chartImg = box2.querySelector('.mkui-prd__chart img');
+        var openChart = function () {
+          var G = SIZES[grp];
+          var v = m.querySelector('.mkui-szv');
+          if (!v) {
+            v = D.createElement('div');
+            v.className = 'mkui-szv';
+            v.setAttribute('role', 'dialog'); v.setAttribute('aria-modal', 'true');
+            v.setAttribute('data-lenis-prevent', '');
+            v.innerHTML = '<button type="button" class="mkui-szv__x" aria-label="Close size chart">&times;</button>' +
+              '<div class="mkui-szv__in"><img alt="" decoding="async"></div>' +
+              '<span class="mkui-szv__tip">Tap the chart to zoom</span>';
+            v.addEventListener('click', function (ev) {
+              ev.stopPropagation();
+              if (ev.target.closest('img')) {
+                var r0 = ev.target.getBoundingClientRect(), fx = (ev.clientX - r0.left) / r0.width, fy = (ev.clientY - r0.top) / r0.height;
+                var z = v.classList.toggle('zoom');
+                v.querySelector('.mkui-szv__tip').textContent = z ? 'Tap the chart to fit the screen' : 'Tap the chart to zoom';
+                if (z) {   /* keep the tapped spot under the finger */
+                  var img = ev.target;
+                  setTimeout(function () {
+                    var W2 = img.offsetWidth, H2 = img.offsetHeight;
+                    v.scrollLeft = Math.max(0, img.offsetLeft + W2 * fx - v.clientWidth / 2);
+                    v.scrollTop = Math.max(0, img.offsetTop + H2 * fy - v.clientHeight / 2);
+                  }, 30);
+                }
+                return;
+              }
+              if (ev.target.closest('.mkui-szv__x') || !ev.target.closest('.mkui-szv__tip')) v.classList.remove('on', 'zoom');
+            });
+            m.appendChild(v);
+          }
+          var im = v.querySelector('img');
+          im.src = G.chart + '.webp'; im.alt = G.label + ' shirt size chart';
+          v.setAttribute('aria-label', G.label + ' size chart');
+          v.classList.remove('zoom'); v.scrollTop = 0; v.scrollLeft = 0;
+          v.querySelector('.mkui-szv__tip').textContent = 'Tap the chart to zoom';
+          requestAnimationFrame(function () { v.classList.add('on'); v.querySelector('.mkui-szv__x').focus(); });
+        };
         var drawSizes = function () {
           var G = SIZES[grp];
           box2.querySelector('.mkui-prd__sz').innerHTML = G.rows.map(function (r, i) {
             return '<button type="button" role="radio" aria-checked="false" data-i="' + i + '">' + escH(r[0]) + '</button>';
           }).join('');
-          chartImg.src = G.chart + '.webp';
-          chartImg.alt = G.label + ' shirt size chart';
           pick = null; showFit(); setWa();
         };
         drawSizes();
@@ -20941,11 +20979,7 @@ body section h2,body .mkui-h2{letter-spacing:-.024em!important;font-weight:800!i
             showFit(); setWa(); return;
           }
           var cb = ev.target.closest('.mkui-prd__chartbtn');
-          if (cb) {
-            var open = box2.classList.toggle('chart-on');
-            cb.setAttribute('aria-expanded', open ? 'true' : 'false');
-            cb.textContent = open ? 'Hide size chart' : 'View size chart';
-          }
+          if (cb) openChart();
         });
         var anch2 = go2 ? go2.closest('.row') : null;
         if (anch2 && anch2.parentNode) anch2.parentNode.insertBefore(box2, anch2);
@@ -22899,17 +22933,62 @@ html body .mkui-prd__fit em{font:700 9.5px/1 'Inter Tight',system-ui,sans-serif;
 html body .mkui-prd__fit b{font:700 15px/1.1 'Archivo','Inter Tight',system-ui,sans-serif;color:#0B1533}
 html body .mkui-prd__fit b i{font:500 11px/1 'Inter Tight',system-ui,sans-serif;color:#5C6784;font-style:normal;margin-left:5px}
 html body .mkui-prd__fit .hint{min-width:0;border:0;background:none;align-self:center;font:500 12.5px/1.4 'Inter Tight',system-ui,sans-serif;color:#7A859C}
-html body .mkui-prd__chartbtn{margin:12px auto 0;display:inline-block;border:0;background:none;padding:4px 2px;cursor:pointer;
   font:700 11px/1 'Inter Tight',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#1240C8;
   border-bottom:1.5px solid rgba(18,64,200,.35)}
-html body .mkui-prd__chartbtn:hover{color:#E3202A;border-bottom-color:#E3202A}
-html body .mkui-prd__chart{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .5s cubic-bezier(.22,1,.36,1),opacity .35s ease,margin .5s ease}
-html body .mkui-prd__chart > div{overflow:hidden;min-height:0}
-html body .mkui-prd.chart-on .mkui-prd__chart{grid-template-rows:1fr;opacity:1;margin-top:12px}
-html body .mkui-prd__chart img{display:block;width:100%;max-width:440px;height:auto;margin:0 auto;border-radius:12px;box-shadow:0 14px 30px -18px rgba(11,21,51,.7)}
 @media (max-width:520px){html body .mkui-prd__fit span{min-width:0;flex:1 1 0;padding:8px 6px}
   html body .mkui-prd__sz{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;max-width:320px;margin:0 auto}
   html body .mkui-prd__sz button{min-width:0;width:100%;padding:0}}
+
+/* --- Size chart: full-screen viewer --- */
+html body .mkui-prd__chartbtn{margin:14px auto 0;display:inline-flex;align-items:center;gap:6px;border:1.5px solid #1240C8;background:#fff;
+  padding:9px 16px;border-radius:999px;cursor:pointer;font:700 11px/1 'Inter Tight',system-ui,sans-serif;letter-spacing:.14em;
+  text-transform:uppercase;color:#1240C8;transition:background .2s ease,color .2s ease}
+html body .mkui-prd__chartbtn:hover{background:#1240C8;color:#fff}
+html body .mkui-szv{position:fixed;inset:0;z-index:2000;display:flex;align-items:flex-start;justify-content:center;overflow:auto;
+  overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:max(16px,3vh) 12px;
+  background:rgba(5,9,22,.95);
+  opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s linear .3s;cursor:zoom-out}
+html body .mkui-szv.on{opacity:1;visibility:visible;transition:opacity .3s ease}
+html body .mkui-szv__in{margin:auto;cursor:default}
+html body .mkui-szv img{display:block;width:auto;height:auto;max-width:min(100%,780px);max-height:94vh;margin:0 auto;border-radius:12px;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.8);transform:scale(.97);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+html body .mkui-szv.on img{transform:none;cursor:zoom-in}
+html body .mkui-szv.zoom{display:block;padding:64px 0 70px}
+html body .mkui-szv.zoom .mkui-szv__in{margin:0;position:relative}
+html body .mkui-szv.zoom img{max-width:none !important;max-height:none !important;width:max(1024px,200vw) !important;border-radius:0;cursor:zoom-out}
+@media (min-width:761px){html body .mkui-szv.zoom img{width:1400px !important;margin:0 auto}}
+html body .mkui-szv__tip{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:2;padding:9px 16px;border-radius:999px;
+  background:rgba(255,255,255,.94);color:#0B1533;font:700 11px/1 'Inter Tight',system-ui,sans-serif;letter-spacing:.12em;
+  text-transform:uppercase;white-space:nowrap;box-shadow:0 8px 20px rgba(0,0,0,.4);pointer-events:none}
+html body .mkui-szv__x{position:fixed;top:14px;right:14px;z-index:2;width:44px;height:44px;border-radius:50%;border:0;
+  background:#fff;color:#0B1533;font:400 28px/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+html body .mkui-szv__x:hover{background:#E3202A;color:#fff}
+@media (max-width:760px){html body .mkui-szv img{max-height:none;width:100%;max-width:100%}
+  html body .mkui-szv{padding:64px 8px 24px}}
+
+/* --- Campus logos: whole logo visible --- */
+html body .mkc6__logo{width:76px !important;height:76px !important;border-radius:18px !important;padding:9px;background:#fff}
+html body .mkc6__logo picture{display:block;width:100%;height:100%}
+html body .mkc6__logo img{width:100% !important;height:100% !important;object-fit:contain;display:block}
+@media (max-width:767px){html body .mkc6__logo{width:64px !important;height:64px !important;padding:7px}}
+
+/* --- Shirt cards: soft blurred backdrop behind the shirt --- */
+html body #store .prod__ph--cut{isolation:isolate}
+html body #store .prod__ph--cut .prod__bg{position:absolute;inset:-12%;z-index:0;background-size:cover;background-position:center;
+  filter:blur(26px) saturate(1.15) brightness(.82);transform:scale(1.15);opacity:.55;pointer-events:none}
+html body #store .prod__ph--cut::after{background:linear-gradient(0deg,rgba(11,21,51,.10),transparent 35%) !important}
+html body #store .prod__ph--cut img{z-index:1}
+
+/* --- Hero video: clearer, lighter wash --- */
+@media (min-width:992px){
+  html body .hvid__wash{background:
+    linear-gradient(180deg,rgba(242,244,247,.32) 0%,rgba(242,244,247,0) 20%,rgba(242,244,247,0) 74%,#F2F4F7 100%),
+    linear-gradient(90deg,rgba(242,244,247,.74) 0%,rgba(242,244,247,.58) 34%,rgba(242,244,247,.26) 62%,rgba(242,244,247,.16) 100%) !important}
+}
+@media (max-width:991.98px){
+  html body .hvid__wash{background:
+    linear-gradient(180deg,rgba(226,231,239,.30) 0%,rgba(226,231,239,.46) 38%,rgba(226,231,239,.74) 72%,#E9EDF3 100%) !important}
+}
 </style>
 <script id="mk-oct20-js">
 /* Campus list: centred cards; tapping one drops a map down under its row. */
