@@ -20837,10 +20837,22 @@ body section h2,body .mkui-h2{letter-spacing:-.024em!important;font-weight:800!i
     return '<picture><source srcset="' + escH(base) + '.webp" type="image/webp"><img src="' + escH(base) + '.png" alt="" loading="lazy"></picture>';
   }
   /* products carry their own spec sheet; the card tells us which one */
-  var SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
+  /* Official size guide: [size, ages, chest in, chest cm, length in, length cm] */
+  var SIZES = {
+    adult: { label: 'Adult', chart: 'size-chart-adult', rows: [
+      ['XS', '13–14', '20', 51, '27.5', 70], ['S', '15–16', '22', 56, '29', 74],
+      ['M', '17–18', '24', 61, '30.5', 77], ['L', '19–20', '26', 66, '32', 81],
+      ['XL', '21–22', '28', 71, '33.5', 85], ['2XL', '23–24', '30', 76, '35', 89],
+      ['3XL', '25+', '32', 81, '36.5', 93]] },
+    kids: { label: 'Kids', chart: 'size-chart-kids', rows: [
+      ['2T', '2–3', '20', 51, '15', 38], ['3T', '3–4', '21', 53, '16', 41],
+      ['4T', '4–5', '22', 56, '17', 43], ['5T', '5–6', '23', 58, '18', 46],
+      ['XS', '6–7', '24', 61, '19', 48], ['S', '8–9', '25.5', 65, '20', 51],
+      ['M', '10–11', '27', 69, '21', 53], ['L', '11–12', '28.5', 72, '22', 56]] }
+  };
   var PRODUCTS = {
-    'shirt-markaz': { name: 'Markaz Martial Arts Academy shirt', sizes: SIZES },
-    'shirt-ouj':    { name: 'Markaz OUJ Performance shirt', sizes: SIZES }
+    'shirt-markaz': { name: 'Markaz Martial Arts Academy shirt' },
+    'shirt-ouj':    { name: 'Markaz OUJ Performance shirt' }
   };
   var lastProduct = null;
   D.addEventListener('click', function (e) {
@@ -20876,25 +20888,64 @@ body section h2,body .mkui-h2{letter-spacing:-.024em!important;font-weight:800!i
         var box2 = D.createElement('div');
         box2.className = 'mkui-prd';
         box2.innerHTML =
-          '<div class="mkui-prd__h">Choose your size</div>' +
-          '<div class="mkui-prd__sz" role="radiogroup" aria-label="Shirt size">' +
-            prod.sizes.map(function (z) {
-              return '<button type="button" role="radio" aria-checked="false" data-sz="' + escH(z) + '">' + escH(z) + '</button>';
-            }).join('') +
+          '<div class="mkui-prd__tabs" role="tablist" aria-label="Size range">' +
+            '<button type="button" role="tab" data-grp="adult" class="on" aria-selected="true">Adult</button>' +
+            '<button type="button" role="tab" data-grp="kids" aria-selected="false">Kids</button>' +
           '</div>' +
-          '<p class="mkui-prd__note">Kids sizes and bulk orders on request.</p>';
+          '<div class="mkui-prd__sz" role="radiogroup" aria-label="Shirt size"></div>' +
+          '<div class="mkui-prd__fit" aria-live="polite"></div>' +
+          '<button type="button" class="mkui-prd__chartbtn" aria-expanded="false">View size chart</button>' +
+          '<div class="mkui-prd__chart"><div><img alt="" loading="lazy" decoding="async"></div></div>';
+        var grp = 'adult', pick = null;
         var waBase = 'Assalam o Alaikum, I want to order the ' + prod.name;
-        var setWa = function (z) {
+        var setWa = function () {
+          var r = pick ? SIZES[grp].label + ' size ' + pick[0] : '';
           if (go1) go1.setAttribute('href', 'https://wa.me/923002672558?text=' +
-            encodeURIComponent(waBase + (z ? ' in size ' + z : '') + '. Please share the price.'));
+            encodeURIComponent(waBase + (r ? ', ' + r : '') + '. Please share the price.'));
         };
-        setWa('');
+        var fitEl = box2.querySelector('.mkui-prd__fit');
+        var showFit = function () {
+          if (!pick) { fitEl.innerHTML = '<span class="hint">Pick a size to see its fit</span>'; return; }
+          fitEl.innerHTML =
+            '<span><em>Age</em><b>' + escH(pick[1]) + ' yrs</b></span>' +
+            '<span><em>Chest</em><b>' + escH(pick[2]) + '&Prime;<i>' + pick[3] + ' cm</i></b></span>' +
+            '<span><em>Length</em><b>' + escH(pick[4]) + '&Prime;<i>' + pick[5] + ' cm</i></b></span>';
+        };
+        var chartImg = box2.querySelector('.mkui-prd__chart img');
+        var drawSizes = function () {
+          var G = SIZES[grp];
+          box2.querySelector('.mkui-prd__sz').innerHTML = G.rows.map(function (r, i) {
+            return '<button type="button" role="radio" aria-checked="false" data-i="' + i + '">' + escH(r[0]) + '</button>';
+          }).join('');
+          chartImg.src = G.chart + '.webp';
+          chartImg.alt = G.label + ' shirt size chart';
+          pick = null; showFit(); setWa();
+        };
+        drawSizes();
         box2.addEventListener('click', function (ev) {
-          var btn = ev.target.closest('[data-sz]'); if (!btn) return;
-          Array.prototype.forEach.call(box2.querySelectorAll('[data-sz]'), function (x) {
-            var on = x === btn; x.classList.toggle('on', on); x.setAttribute('aria-checked', on ? 'true' : 'false');
-          });
-          setWa(btn.getAttribute('data-sz'));
+          var t = ev.target.closest('[data-grp]');
+          if (t) {
+            if (t.getAttribute('data-grp') === grp) return;
+            grp = t.getAttribute('data-grp');
+            Array.prototype.forEach.call(box2.querySelectorAll('[data-grp]'), function (x) {
+              var on = x === t; x.classList.toggle('on', on); x.setAttribute('aria-selected', on ? 'true' : 'false');
+            });
+            drawSizes(); return;
+          }
+          var btn = ev.target.closest('[data-i]');
+          if (btn) {
+            Array.prototype.forEach.call(box2.querySelectorAll('[data-i]'), function (x) {
+              var on = x === btn; x.classList.toggle('on', on); x.setAttribute('aria-checked', on ? 'true' : 'false');
+            });
+            pick = SIZES[grp].rows[+btn.getAttribute('data-i')];
+            showFit(); setWa(); return;
+          }
+          var cb = ev.target.closest('.mkui-prd__chartbtn');
+          if (cb) {
+            var open = box2.classList.toggle('chart-on');
+            cb.setAttribute('aria-expanded', open ? 'true' : 'false');
+            cb.textContent = open ? 'Hide size chart' : 'View size chart';
+          }
         });
         var anch2 = go2 ? go2.closest('.row') : null;
         if (anch2 && anch2.parentNode) anch2.parentNode.insertBefore(box2, anch2);
@@ -22834,6 +22885,31 @@ html body .mkc6__acts a.p:hover{background:#E3202A;border-color:#E3202A}
 }
 html body .mkc6-cta{margin-top:24px}
 @media (prefers-reduced-motion:reduce){html body .mkc6__drop,html body .mkc6__card{transition:none}}
+
+/* --- Shirt popup: adult / kids sizes with fit --- */
+html body .mkui-prd__tabs{display:inline-grid;grid-template-columns:1fr 1fr;padding:4px;margin:0 auto 12px;border-radius:12px;background:#EEF1F6;border:1px solid #DCE2EA}
+html body .mkui-prd__tabs button{min-width:96px;height:36px;border:0;border-radius:9px;background:transparent;cursor:pointer;
+  font:700 11.5px/1 'Inter Tight',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#5C6784;
+  transition:background .25s ease,color .25s ease,box-shadow .25s ease}
+html body .mkui-prd__tabs button.on{background:#0B1533;color:#fff;box-shadow:inset 0 -2px 0 #E3202A,0 6px 14px -8px rgba(11,21,51,.6)}
+html body .mkui-prd__sz button{min-width:50px;height:42px}
+html body .mkui-prd__fit{display:flex;justify-content:center;gap:8px;margin:12px auto 0;min-height:52px;flex-wrap:wrap}
+html body .mkui-prd__fit span{display:grid;gap:3px;min-width:92px;padding:8px 12px;border-radius:10px;background:#fff;border:1px solid #DCE2EA;text-align:center}
+html body .mkui-prd__fit em{font:700 9.5px/1 'Inter Tight',system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#E3202A;font-style:normal}
+html body .mkui-prd__fit b{font:700 15px/1.1 'Archivo','Inter Tight',system-ui,sans-serif;color:#0B1533}
+html body .mkui-prd__fit b i{font:500 11px/1 'Inter Tight',system-ui,sans-serif;color:#5C6784;font-style:normal;margin-left:5px}
+html body .mkui-prd__fit .hint{min-width:0;border:0;background:none;align-self:center;font:500 12.5px/1.4 'Inter Tight',system-ui,sans-serif;color:#7A859C}
+html body .mkui-prd__chartbtn{margin:12px auto 0;display:inline-block;border:0;background:none;padding:4px 2px;cursor:pointer;
+  font:700 11px/1 'Inter Tight',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#1240C8;
+  border-bottom:1.5px solid rgba(18,64,200,.35)}
+html body .mkui-prd__chartbtn:hover{color:#E3202A;border-bottom-color:#E3202A}
+html body .mkui-prd__chart{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .5s cubic-bezier(.22,1,.36,1),opacity .35s ease,margin .5s ease}
+html body .mkui-prd__chart > div{overflow:hidden;min-height:0}
+html body .mkui-prd.chart-on .mkui-prd__chart{grid-template-rows:1fr;opacity:1;margin-top:12px}
+html body .mkui-prd__chart img{display:block;width:100%;max-width:440px;height:auto;margin:0 auto;border-radius:12px;box-shadow:0 14px 30px -18px rgba(11,21,51,.7)}
+@media (max-width:520px){html body .mkui-prd__fit span{min-width:0;flex:1 1 0;padding:8px 6px}
+  html body .mkui-prd__sz{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;max-width:320px;margin:0 auto}
+  html body .mkui-prd__sz button{min-width:0;width:100%;padding:0}}
 </style>
 <script id="mk-oct20-js">
 /* Campus list: centred cards; tapping one drops a map down under its row. */
