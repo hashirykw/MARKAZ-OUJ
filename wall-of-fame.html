@@ -1624,6 +1624,13 @@ html.ld-on .wi{animation-play-state:paused}
       .catch(function (e) { return { ok: false, error: (e && e.message) || String(e) }; });
   }
 
+  /* A customer's own orders: [{ id, phone }] -> status, items and totals.
+     Needs both the order number and the phone it was placed with. */
+  function lookupOrders(list) {
+    if (!configured() || !list || !list.length) return Promise.resolve([]);
+    return rpc('order_lookup', { p: list.slice(0, 25) }).then(function (r) { return r || []; }, function () { return null; });
+  }
+
   /* Turns any enquiry form into a lead. Fields are read from [data-k]
      labels: Name, Phone, Email, Campus, Notes/Message, Interest; the rest
      go along as details. */
@@ -1777,6 +1784,7 @@ html.ld-on .wi{animation-play-state:paused}
     pull: pull,
     submit: submit,
     leadFromForm: leadFromForm,
+    lookupOrders: lookupOrders,
     stat: stat,
     paintStat: paintStat,
     ago: ago,
@@ -1852,6 +1860,7 @@ html.ld-on .wi{animation-play-state:paused}
 .ci__p.ask,.orow b.ask{font-size:11.5px;color:#8A6400;font-weight:700}
 @media (prefers-reduced-motion:reduce){.szk__sz.shake{animation:none}}
 </style>
+
 
 
 <title>Wall of Fame | Medals, Champions &amp; Gallery | Markaz Martial Arts Academy Karachi</title>
