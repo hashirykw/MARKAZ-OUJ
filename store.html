@@ -1576,7 +1576,7 @@ html.ld-on .wi{animation-play-state:paused}
         var j = null; try { j = t ? JSON.parse(t) : null; } catch (e) {}
         if (!r.ok) {
           var err = new Error((j && (j.message || j.hint)) || ('The server said ' + r.status));
-          err.status = r.status; throw err;
+          err.status = r.status; err.code = (j && j.code) || ''; throw err;
         }
         return j;
       });
@@ -1632,21 +1632,97 @@ html.ld-on .wi{animation-play-state:paused}
   if (root.document) {
     root.document.addEventListener('visibilitychange', function () {
       if (root.document.visibilityState === 'visible' && Date.now() - lastPull > 60000) pull();
+      if (root.document.visibilityState === 'visible' && typeof flush === 'function') flush();
     });
   }
 
   /* Forms and checkout. kind: 'order' or a lead kind
      ('booking', 'enquiry', 'event', 'product', 'callback').
-     Never throws — the WhatsApp hand-off must work even if this fails. */
+     Never throws — the WhatsApp hand-off must work even if this fails.
+
+     The store's own answers ("sold out", "check the phone number") have
+     codes starting PT: the visitor fixes those. Anything else — no signal,
+     a server hiccup — is tried again once, and an order that still cannot
+     get through is kept on the phone and sent the next time the site is
+     open. Orders carry their own number (ref), so a resend is never saved
+     twice. */
+  function theirs(e) { return !!(e && e.status >= 400 && e.status < 500 && /^PT/.test(e.code || '')); }
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
   function submit(kind, payload) {
     if (!configured()) return Promise.resolve({ ok: false, offline: true });
     var body = kind === 'order' ? payload : Object.assign({
       kind: kind,
       page: root.location ? root.location.pathname : ''
     }, payload || {});
-    return rpc(kind === 'order' ? 'submit_order' : 'submit_lead', { p: body })
+    var fn = kind === 'order' ? 'submit_order' : 'submit_lead';
+    var go = function () { return rpc(fn, { p: body }); };
+    return go()
+      .catch(function (e) {
+        if (theirs(e) || kind !== 'order' && e && e.status) throw e;   /* enquiries: retry only when nothing reached the server */
+        return wait(1500).then(go);
+      })
       .then(function (r) { return { ok: true, result: r }; })
-      .catch(function (e) { return { ok: false, error: (e && e.message) || String(e), status: (e && e.status) || 0 }; });
+      .catch(function (e) {
+        var out = { ok: false, error: (e && e.message) || String(e), status: (e && e.status) || 0, code: (e && e.code) || '' };
+        if (!theirs(e) && (kind === 'order' ? body.ref : !out.status)) { queue(fn, body); out.queued = true; }
+        return out;
+      });
+  }
+
+  /* ------------------------------------------------ outbox (saved for later) */
+  var OUTBOX = 'markaz.outbox.v1';
+  function readBox() { try { var a = JSON.parse(root.localStorage.getItem(OUTBOX) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  function writeBox(a) { try { if (a.length) root.localStorage.setItem(OUTBOX, JSON.stringify(a.slice(-20))); else root.localStorage.removeItem(OUTBOX); } catch (e) {} }
+  function queue(fn, body) {
+    var a = readBox().filter(function (x) { return !(body.ref && x.body && x.body.ref === body.ref); });
+    a.push({ fn: fn, body: body, at: Date.now(), tries: 0 });
+    writeBox(a);
+  }
+  /* an order that went through later: the customer's "My orders" list finds it */
+  function markSent(ref, res) {
+    try {
+      var k = 'ouj_orders_v1', list = JSON.parse(root.localStorage.getItem(k) || '[]');
+      list.forEach(function (o) {
+        if (o && o.id === ref) { o.saved = true; if (o.status === 'whatsapp') o.status = 'new'; if (res && res.total != null) o.total = +res.total; }
+      });
+      root.localStorage.setItem(k, JSON.stringify(list));
+    } catch (e) {}
+  }
+  var flushing = false;
+  function flush() {
+    if (flushing || !configured()) return Promise.resolve();
+    var box = readBox(); if (!box.length) return Promise.resolve();
+    /* one tab at a time */
+    try {
+      var lock = +root.localStorage.getItem(OUTBOX + '.lock') || 0;
+      if (Date.now() - lock < 30000) return Promise.resolve();
+      root.localStorage.setItem(OUTBOX + '.lock', String(Date.now()));
+    } catch (e) {}
+    flushing = true;
+    var keep = [];
+    var step = box.reduce(function (p, item) {
+      return p.then(function () {
+        if (!item || !item.fn || Date.now() - (item.at || 0) > 7 * 864e5 || (item.tries || 0) >= 15) return;   /* too old: drop it */
+        return rpc(item.fn, { p: item.body }).then(function (r) {
+          if (item.fn === 'submit_order' && item.body.ref) markSent(item.body.ref, r);
+        }, function (e) {
+          if (theirs(e)) return;                       /* the store said no (sold out…): it already went on WhatsApp */
+          item.tries = (item.tries || 0) + 1; keep.push(item);
+        });
+      });
+    }, Promise.resolve());
+    return step.then(function () {
+      /* anything queued while this ran stays too */
+      var now = readBox().filter(function (x) { return box.indexOf(x) < 0 && !box.some(function (y) { return JSON.stringify(y.body) === JSON.stringify(x.body); }); });
+      writeBox(keep.concat(now));
+      flushing = false;
+      try { root.localStorage.removeItem(OUTBOX + '.lock'); } catch (e) {}
+    });
+  }
+  if (root.addEventListener) {
+    root.addEventListener('online', function () { flush(); });
+    setTimeout(flush, 4000);
   }
 
   /* A customer's own orders: [{ id, phone }] -> status, items and totals.
@@ -1808,6 +1884,8 @@ html.ld-on .wi{animation-play-state:paused}
     branchPhotos: branchPhotos,
     pull: pull,
     submit: submit,
+    flushOutbox: flush,
+    pendingOutbox: function () { return readBox().length; },
     leadFromForm: leadFromForm,
     lookupOrders: lookupOrders,
     stat: stat,
@@ -1885,6 +1963,7 @@ html.ld-on .wi{animation-play-state:paused}
 .ci__p.ask,.orow b.ask{font-size:11.5px;color:#8A6400;font-weight:700}
 @media (prefers-reduced-motion:reduce){.szk__sz.shake{animation:none}}
 </style>
+
 
 
 
@@ -8427,7 +8506,14 @@ function orderId(){
   return 'OUJ-' + String(d.getFullYear()).slice(2)
        + String(d.getMonth()+1).padStart(2,'0')
        + String(d.getDate()).padStart(2,'0') + '-'
-       + Math.random().toString(36).slice(2,6).toUpperCase();
+       + rnd6();
+}
+/* six random letters/digits from the phone's secure random source */
+function rnd6(){
+  var A = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', out = '', b = new Uint8Array(6);
+  try { crypto.getRandomValues(b); } catch(e) { for(var i=0;i<6;i++) b[i] = Math.floor(Math.random()*256); }
+  for(var j=0;j<6;j++) out += A[b[j] % A.length];
+  return out;
 }
 var placing = false;
 function place(){
@@ -8487,6 +8573,7 @@ function place(){
      second copy. If the database cannot be reached, WhatsApp becomes the
      way the order is sent, exactly as before. */
   var payload = {
+    ref: id,
     customer: { who: co.who, name: $('#cName').value, phone: $('#cPhone').value,
                 phone2: ($('#cPhone2') && $('#cPhone2').value) || '', email: $('#cEmail').value.trim(), whatsapp: waNumber(),
                 institution: $('#cInst').value, role: $('#cRole').value, heads: $('#cHeads').value, po: $('#cPo').value },
@@ -8512,7 +8599,7 @@ function place(){
     var saved = res && res.ok && res.result && res.result.id;
     /* the store said no (an item sold out, a detail to fix, too many orders):
        stay on this step and say why, instead of pretending it went through */
-    if(!saved && res && res.status >= 400 && res.status < 500){
+    if(!saved && res && res.status >= 400 && res.status < 500 && /^PT/.test(res.code || '')){
       var e4 = $('#e4'), sp = e4 && e4.querySelector('span');
       if(sp) sp.textContent = res.error || 'Please check your order and try again.';
       if(e4) e4.classList.add('on');
@@ -8620,7 +8707,7 @@ function refreshOrders(){
     if(!r || !r.length) return;
     var all = myOrders();
     r.forEach(function(x){
-      all.forEach(function(o){ if(o.id === x.id){ o.status = x.status; o.total = +x.total; o.delivery = x.delivery_charge; } });
+      all.forEach(function(o){ if(o.id === x.id || (x.ref && o.id === x.ref)){ o.status = x.status; o.total = +x.total; o.delivery = x.delivery_charge; } });
     });
     write(KEYO, all); paintOrders();
   });
