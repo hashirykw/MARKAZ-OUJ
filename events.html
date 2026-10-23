@@ -108,33 +108,23 @@ html.ld-on .wi{animation-play-state:paused}
 (function (root) {
   'use strict';
 
-  var LS_KEY = 'markaz.content.v1';
+  var LS_KEY = 'markaz.content.v2';
 
   /* ---------------------------------------------------------------
-     SUPABASE — fill these three in to make edits stick across devices.
-     Leave url blank and the whole thing runs on localStorage instead,
-     which is enough to demo the panel to the owner today.
+     SUPABASE — the live database behind the Markaz OUJ control panel.
+     Every page reads the whole site in ONE call (rpc/public_site) and
+     caches it, so a returning visitor sees the latest numbers instantly
+     and the network only confirms them. Forms and the store checkout
+     write through rpc/submit_lead and rpc/submit_order.
 
-     Table expected:
-       create table site_content (
-         id text primary key,
-         content jsonb not null,
-         updated_at timestamptz default now()
-       );
-       -- anyone may read the live row
-       alter table site_content enable row level security;
-       create policy "public read" on site_content
-         for select using (true);
-       -- only signed-in users may write it
-       create policy "authed write" on site_content
-         for all using (auth.role() = 'authenticated')
-         with check (auth.role() = 'authenticated');
+     Leave url blank and the site runs exactly as shipped, on the
+     DEFAULTS below. The publishable / anon key is safe in browser code:
+     the database only lets visitors read the public site and submit
+     forms — everything else needs a signed-in admin.
      --------------------------------------------------------------- */
   var SUPABASE = {
-    url: '',            // e.g. https://xxxxxxxx.supabase.co
-    anonKey: '',        // the public anon key, safe in client code
-    table: 'site_content',
-    row: 'live'
+    url: 'https://gkhezzcrhsghkivxoqao.supabase.co',
+    anonKey: 'sb_publishable_mxJG02p2-WevtKwwRmma-A_fsbVa5vg'
   };
 
   /* ---------------------------------------------------------------
@@ -1187,7 +1177,11 @@ html.ld-on .wi{animation-play-state:paused}
         { n: 'MMA open mat',                 d: 'MMA',        w: 'Sat',           t: '7:00 – 8:30 PM',      b: 'Squad' },
         { n: 'Strength and conditioning',    d: 'Boxing',     w: 'Mon, Thu',      t: '9:15 – 10:00 PM',     b: 'Adults' }
       ]
-    }
+    },
+
+    /* Every number on the site. mode auto = counted from the data,
+       manual = typed in the control panel. */
+    stats: {"items": [{"key": "network.students", "page": "Home & Academy", "where": "Network strip under \"Six campuses, one standard\"", "label": "Students taught since 2009", "auto": "studentsTaught", "suffix": "+", "sub": "", "value": "", "mode": "auto", "hide": false}, {"key": "network.medals", "page": "Home & Academy", "where": "Network strip", "label": "Medals won", "auto": "medals.total", "sub": "", "suffix": "", "value": "", "mode": "auto", "hide": false}, {"key": "network.championships", "page": "Home & Academy", "where": "Network strip", "label": "Championships", "auto": "championships", "sub": "", "suffix": "", "value": "", "mode": "auto", "hide": false}, {"key": "network.campuses", "page": "Home & Academy", "where": "Network strip", "label": "Academies and clubs", "auto": "campuses", "sub": "", "suffix": "", "value": "", "mode": "auto", "hide": false}, {"key": "home.years", "page": "Home", "where": "\"Who we are\" card", "label": "Years running", "sub": "Since 2009, unbroken", "auto": "yearsSince", "suffix": "", "value": "", "mode": "auto", "hide": false}, {"key": "home.students", "page": "Home", "where": "\"Who we are\" card", "label": "Students taught", "sub": "Under Sir Abdul Samad Khan", "auto": "studentsTaught", "suffix": "+", "value": "", "mode": "auto", "hide": false}, {"key": "about.services", "page": "About", "where": "Top board", "label": "Core services", "sub": "Coaching to equipment", "value": "6", "suffix": "", "auto": "", "mode": "manual", "hide": false}, {"key": "about.clients", "page": "About", "where": "Top board", "label": "Clients", "sub": "Institutions served", "value": "25", "suffix": "+", "auto": "", "mode": "manual", "hide": false}, {"key": "about.google", "page": "About", "where": "Top board", "label": "Google", "sub": "From 612 reviews", "value": "4.1", "suffix": "", "auto": "", "mode": "manual", "hide": false}, {"key": "about.since", "page": "About", "where": "Top board", "label": "Operating since", "sub": "Based in Karachi", "value": "2009", "suffix": "", "auto": "", "mode": "manual", "hide": false}, {"key": "academy.disciplines", "page": "Academy", "where": "Top board", "label": "On the floor", "sub": "Disciplines, one membership", "value": "4", "suffix": "", "auto": "", "mode": "manual", "hide": false}, {"key": "academy.classes", "page": "Academy", "where": "Top board", "label": "Every week", "sub": "Classes on the timetable", "auto": "classes", "suffix": "", "value": "", "mode": "auto", "hide": false}, {"key": "academy.grades", "page": "Academy", "where": "Top board", "label": "Taekwondo", "sub": "Grades, white to black belt", "value": "10", "suffix": "", "auto": "", "mode": "manual", "hide": false}, {"key": "academy.since", "page": "Academy", "where": "Top board", "label": "Teaching since", "sub": "In Federal B Area", "value": "2009", "suffix": "", "auto": "", "mode": "manual", "hide": false}, {"key": "store.items", "page": "Store", "where": "Top board", "label": "In stock", "sub": "Items on the shelf", "auto": "products", "suffix": "", "value": "", "mode": "auto", "hide": false}, {"key": "store.categories", "page": "Store", "where": "Top board", "label": "Range", "sub": "Sport categories", "auto": "categories", "suffix": "", "value": "", "mode": "auto", "hide": false}, {"key": "store.supplied", "page": "Store", "where": "Top board", "label": "Supplied", "sub": "Institutions kitted", "value": "25", "suffix": "+", "auto": "", "mode": "manual", "hide": false}, {"key": "store.delivery", "page": "Store", "where": "Top board", "label": "Delivery", "sub": "Days across Karachi", "value": "2–5", "suffix": "", "auto": "", "mode": "manual", "hide": false}, {"key": "fame.gold", "page": "Wall of Fame", "where": "Top board", "label": "First place", "sub": "Gold medals", "auto": "fame.gold", "suffix": "", "value": "", "mode": "auto", "hide": false}, {"key": "fame.silver", "page": "Wall of Fame", "where": "Top board", "label": "Second", "sub": "Silver medals", "auto": "fame.silver", "suffix": "", "value": "", "mode": "auto", "hide": false}, {"key": "fame.bronze", "page": "Wall of Fame", "where": "Top board", "label": "Third", "sub": "Bronze medals", "auto": "fame.bronze", "suffix": "", "value": "", "mode": "auto", "hide": false}, {"key": "fame.athletes", "page": "Wall of Fame", "where": "Top board", "label": "Named on the wall", "sub": "Athletes", "auto": "fame.athletes", "suffix": "", "value": "", "mode": "auto", "hide": false}]}
   };
 
   /* ---------------------------------------------------------------- utils */
@@ -1227,7 +1221,30 @@ html.ld-on .wi{animation-play-state:paused}
     }, obj);
   }
 
-  var overrides = readLocal() || {};
+  /* ---------------------------------------------------------------- safety
+     Content is checked when it is saved in the control panel; this is the
+     second wall. Photo and link fields must be plain web addresses or site
+     file names, and text that looks like an HTML tag cannot become one. */
+  var URL_KEYS = /^(img|wide|logo|src|photo|chart|full|mapsUrl|website|instagram|facebook|linkUrl|url|location)$/;
+  var SAFE_URL = /^(https?:\/\/[^\s"'<>()\\`]+|\/?[A-Za-z0-9][A-Za-z0-9._\/#=-]*)$/;
+  var BAD_SCHEME = /^\s*(javascript|data|vbscript|file):/i;
+  function cleanStr(k, v) {
+    if (URL_KEYS.test(k)) return (v === '' || (SAFE_URL.test(v) && !BAD_SCHEME.test(v))) ? v : '';
+    return v.indexOf('<') < 0 ? v : v.replace(/<(?=[A-Za-z\/!?])/g, '\u2039');
+  }
+  function sanitize(o, k) {
+    if (typeof o === 'string') return cleanStr(k || '', o);
+    if (Array.isArray(o)) return o.map(function (x) { return sanitize(x, k); });
+    if (o && typeof o === 'object') {
+      var out = {};
+      for (var key in o) if (Object.prototype.hasOwnProperty.call(o, key) && key !== '__proto__' && key !== 'constructor' && key !== 'prototype')
+        out[key] = sanitize(o[key], key);
+      return out;
+    }
+    return o;
+  }
+
+  var overrides = sanitize(readLocal() || {});
   var data = merge(DEFAULTS, overrides);
 
   /* ---------------------------------------------------------------- binding
@@ -1264,6 +1281,10 @@ html.ld-on .wi{animation-play-state:paused}
       var v = pick(data, el.getAttribute('data-mk-tel'));
       if (v) el.setAttribute('href', 'tel:' + v);
     });
+
+    /* boards whose number the page counts itself (data-mk-stat-page)
+       are painted by that page, with its own count */
+    r.querySelectorAll('[data-mk-stat]:not([data-mk-stat-page])').forEach(function (el) { paintStat(el); });
   }
 
 
@@ -1316,6 +1337,7 @@ html.ld-on .wi{animation-play-state:paused}
 
     if (a.linkUrl && a.linkLabel) {
       var link = d.createElement('a');
+      if (BAD_SCHEME.test(a.linkUrl) || !/^(https?:\/\/|\/|#)/i.test(a.linkUrl)) { d.body.insertBefore(bar, d.body.firstChild); return; }
       link.href = a.linkUrl;
       link.textContent = a.linkLabel;
       link.style.cssText =
@@ -1539,65 +1561,291 @@ html.ld-on .wi{animation-play-state:paused}
   /* ---------------------------------------------------------------- remote */
   function configured() { return !!(SUPABASE.url && SUPABASE.anonKey); }
 
-  function pull() {
-    if (!configured()) return Promise.resolve(null);
-    var u = SUPABASE.url.replace(/\/+$/, '') +
-            '/rest/v1/' + SUPABASE.table +
-            '?id=eq.' + encodeURIComponent(SUPABASE.row) + '&select=content';
-    return fetch(u, {
-      headers: { apikey: SUPABASE.anonKey, Authorization: 'Bearer ' + SUPABASE.anonKey }
-    })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (rows) {
-        if (!rows || !rows.length || !rows[0].content) return null;
-        overrides = rows[0].content;
-        writeLocal(overrides);
-        data = merge(DEFAULTS, overrides);
-        announce();
-        return overrides;
-      })
-      .catch(function () { return null; });
-  }
-
-  /* token comes from the admin panel's Supabase sign-in */
-  function push(patch, accessToken) {
-    overrides = patch;
-    data = merge(DEFAULTS, overrides);
-    var localOk = writeLocal(overrides);
-    announce();
-
-    if (!configured() || !accessToken) {
-      return Promise.resolve({ ok: localOk, where: 'localStorage' });
-    }
-    var u = SUPABASE.url.replace(/\/+$/, '') + '/rest/v1/' + SUPABASE.table;
-    return fetch(u, {
+  function rpc(fn, body) {
+    var ctl = root.AbortController ? new root.AbortController() : null;
+    var timer = ctl ? setTimeout(function () { ctl.abort(); }, 12000) : 0;
+    return fetch(SUPABASE.url.replace(/\/+$/, '') + '/rest/v1/rpc/' + fn, {
       method: 'POST',
-      headers: {
-        apikey: SUPABASE.anonKey,
-        Authorization: 'Bearer ' + accessToken,
-        'Content-Type': 'application/json',
-        Prefer: 'resolution=merge-duplicates,return=minimal'
-      },
-      body: JSON.stringify([{ id: SUPABASE.row, content: overrides }])
+      cache: 'no-store',
+      headers: { apikey: SUPABASE.anonKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body || {}),
+      signal: ctl ? ctl.signal : undefined
     }).then(function (r) {
-      return { ok: r.ok, where: r.ok ? 'Supabase' : 'localStorage only',
-               status: r.status, detail: r.ok ? '' : 'check the table name and RLS policies' };
-    }).catch(function (e) {
-      return { ok: false, where: 'localStorage only', detail: String(e) };
+      clearTimeout(timer);
+      return r.text().then(function (t) {
+        var j = null; try { j = t ? JSON.parse(t) : null; } catch (e) {}
+        if (!r.ok) {
+          var err = new Error((j && (j.message || j.hint)) || ('The server said ' + r.status));
+          err.status = r.status; err.code = (j && j.code) || ''; throw err;
+        }
+        return j;
+      });
     });
   }
 
-  function signIn(email, password) {
-    if (!configured()) return Promise.reject(new Error('Supabase is not configured yet'));
-    return fetch(SUPABASE.url.replace(/\/+$/, '') + '/auth/v1/token?grant_type=password', {
-      method: 'POST',
-      headers: { apikey: SUPABASE.anonKey, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, password: password })
-    }).then(function (r) { return r.json(); })
-      .then(function (j) {
-        if (!j.access_token) throw new Error(j.error_description || j.msg || 'Sign-in failed');
-        return j.access_token;
+  /* the server's shape -> the same shape as DEFAULTS */
+  function fromServer(s) {
+    if (!s || !s.sections || !Object.keys(s.sections).length) return null;   /* not seeded yet */
+    s = sanitize(s);
+    var o = {};
+    Object.keys(s.sections).forEach(function (k) { o[k] = s.sections[k]; });
+    ['branches', 'programmes', 'team', 'products'].forEach(function (k) {
+      if (Array.isArray(s[k])) o[k] = s[k];
+    });
+    o._v = s.version;
+    return o;
+  }
+
+  var pulling = null, lastPull = 0, BOOT = Date.now();
+  function pull() {
+    if (!configured()) return Promise.resolve(null);
+    if (pulling) return pulling;
+    lastPull = Date.now();
+    pulling = rpc('public_site').then(function (s) {
+      var next = fromServer(s);
+      if (!next) return null;
+      var same = overrides && overrides._v != null && overrides._v === next._v;
+      overrides = next;
+      writeLocal(overrides);
+      if (!same) {
+        data = merge(DEFAULTS, overrides);
+        announce();
+        /* Some sections are drawn once, when the page loads. If the page was
+           drawn from older content, redraw it once — only right after load,
+           never while someone is reading. */
+        var live = root.document && root.document.body &&
+                   root.document.body.hasAttribute('data-mk-live');
+        if (!live && Date.now() - BOOT < 5000) {
+          var tag = 'mk-reloaded-' + next._v;
+          var done = false;
+          try { done = root.sessionStorage.getItem(tag) === '1'; root.sessionStorage.setItem(tag, '1'); } catch (e) { done = true; }
+          if (!done && root.location) root.location.reload();
+        }
+      }
+      return overrides;
+    }).catch(function () { return null; })
+      .then(function (r) { pulling = null; return r; });
+    return pulling;
+  }
+
+  /* a tab left open picks up changes when the visitor comes back to it */
+  if (root.document) {
+    root.document.addEventListener('visibilitychange', function () {
+      if (root.document.visibilityState === 'visible' && Date.now() - lastPull > 60000) pull();
+      if (root.document.visibilityState === 'visible' && typeof flush === 'function') flush();
+    });
+  }
+
+  /* Forms and checkout. kind: 'order' or a lead kind
+     ('booking', 'enquiry', 'event', 'product', 'callback').
+     Never throws — the WhatsApp hand-off must work even if this fails.
+
+     The store's own answers ("sold out", "check the phone number") have
+     codes starting PT: the visitor fixes those. Anything else — no signal,
+     a server hiccup — is tried again once, and an order that still cannot
+     get through is kept on the phone and sent the next time the site is
+     open. Orders carry their own number (ref), so a resend is never saved
+     twice. */
+  function theirs(e) { return !!(e && e.status >= 400 && e.status < 500 && /^PT/.test(e.code || '')); }
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  function submit(kind, payload) {
+    if (!configured()) return Promise.resolve({ ok: false, offline: true });
+    var body = kind === 'order' ? payload : Object.assign({
+      kind: kind,
+      page: root.location ? root.location.pathname : ''
+    }, payload || {});
+    var fn = kind === 'order' ? 'submit_order' : 'submit_lead';
+    var go = function () { return rpc(fn, { p: body }); };
+    return go()
+      .catch(function (e) {
+        if (theirs(e) || kind !== 'order' && e && e.status) throw e;   /* enquiries: retry only when nothing reached the server */
+        return wait(1500).then(go);
+      })
+      .then(function (r) { return { ok: true, result: r }; })
+      .catch(function (e) {
+        var out = { ok: false, error: (e && e.message) || String(e), status: (e && e.status) || 0, code: (e && e.code) || '' };
+        if (!theirs(e) && (kind === 'order' ? body.ref : !out.status)) { queue(fn, body); out.queued = true; }
+        return out;
       });
+  }
+
+  /* ------------------------------------------------ outbox (saved for later) */
+  var OUTBOX = 'markaz.outbox.v1';
+  function readBox() { try { var a = JSON.parse(root.localStorage.getItem(OUTBOX) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  function writeBox(a) { try { if (a.length) root.localStorage.setItem(OUTBOX, JSON.stringify(a.slice(-20))); else root.localStorage.removeItem(OUTBOX); } catch (e) {} }
+  function queue(fn, body) {
+    var a = readBox().filter(function (x) { return !(body.ref && x.body && x.body.ref === body.ref); });
+    a.push({ fn: fn, body: body, at: Date.now(), tries: 0 });
+    writeBox(a);
+  }
+  /* an order that went through later: the customer's "My orders" list finds it */
+  function markSent(ref, res) {
+    try {
+      var k = 'ouj_orders_v1', list = JSON.parse(root.localStorage.getItem(k) || '[]');
+      list.forEach(function (o) {
+        if (o && o.id === ref) { o.saved = true; if (o.status === 'whatsapp') o.status = 'new'; if (res && res.total != null) o.total = +res.total; }
+      });
+      root.localStorage.setItem(k, JSON.stringify(list));
+    } catch (e) {}
+  }
+  var flushing = false;
+  function flush() {
+    if (flushing || !configured()) return Promise.resolve();
+    var box = readBox(); if (!box.length) return Promise.resolve();
+    /* one tab at a time */
+    try {
+      var lock = +root.localStorage.getItem(OUTBOX + '.lock') || 0;
+      if (Date.now() - lock < 30000) return Promise.resolve();
+      root.localStorage.setItem(OUTBOX + '.lock', String(Date.now()));
+    } catch (e) {}
+    flushing = true;
+    var keep = [];
+    var step = box.reduce(function (p, item) {
+      return p.then(function () {
+        if (!item || !item.fn || Date.now() - (item.at || 0) > 7 * 864e5 || (item.tries || 0) >= 15) return;   /* too old: drop it */
+        return rpc(item.fn, { p: item.body }).then(function (r) {
+          if (item.fn === 'submit_order' && item.body.ref) markSent(item.body.ref, r);
+        }, function (e) {
+          if (theirs(e)) return;                       /* the store said no (sold out…): it already went on WhatsApp */
+          item.tries = (item.tries || 0) + 1; keep.push(item);
+        });
+      });
+    }, Promise.resolve());
+    return step.then(function () {
+      /* anything queued while this ran stays too */
+      var now = readBox().filter(function (x) { return box.indexOf(x) < 0 && !box.some(function (y) { return JSON.stringify(y.body) === JSON.stringify(x.body); }); });
+      writeBox(keep.concat(now));
+      flushing = false;
+      try { root.localStorage.removeItem(OUTBOX + '.lock'); } catch (e) {}
+    });
+  }
+  if (root.addEventListener) {
+    root.addEventListener('online', function () { flush(); });
+    setTimeout(flush, 4000);
+  }
+
+  /* A customer's own orders: [{ id, phone }] -> status, items and totals.
+     Needs both the order number and the phone it was placed with. */
+  function lookupOrders(list) {
+    if (!configured() || !list || !list.length) return Promise.resolve([]);
+    return rpc('order_lookup', { p: list.slice(0, 25) }).then(function (r) { return r || []; }, function () { return null; });
+  }
+
+  /* Turns any enquiry form into a lead. Fields are read from [data-k]
+     labels: Name, Phone, Email, Campus, Notes/Message, Interest; the rest
+     go along as details. */
+  function leadFromForm(form, kind) {
+    var p = { kind: kind || form.getAttribute('data-lead') || 'enquiry', data: {} };
+    Array.prototype.forEach.call(form.querySelectorAll('[data-k]'), function (f) {
+      var k = f.getAttribute('data-k') || '';
+      var isSel = f.classList.contains('sel');
+      var raw = isSel ? (f.dataset.value || '') : (f.value || '').trim();
+      var v = isSel ? raw : (f.tagName === 'SELECT' ? (f.value ? f.options[f.selectedIndex].text : '') : raw);
+      if (!v) return;
+      if (/name/i.test(k) && !/institution|school|company/i.test(k) && !p.name) p.name = v;
+      else if (/phone|whats\s?app|mobile|number/i.test(k) && !p.phone) p.phone = v;
+      else if (/e-?mail/i.test(k)) p.email = v;
+      else if (/campus|branch/i.test(k)) { p.branch_id = raw; p.data[k] = v; }
+      else if (/note|message|detail/i.test(k)) p.message = v;
+      else if (/interest|subject|about/i.test(k) && !p.subject) { p.subject = v; p.data[k] = v; }
+      else p.data[k] = v;
+    });
+    return submit(p.kind, p);
+  }
+
+  /* ---------------------------------------------------------------- stats
+     stat('fame.gold', 12) -> { display: '12', label, sub, hide, ... }
+     Manual values from the panel win; auto ones are counted here, or by
+     the page when it passes its own count. */
+  function statAuto(src) {
+    var m = medals(), L = data.leadership || {};
+    switch (src) {
+      case 'studentsTaught': return L.studentsTaught || null;
+      case 'medals.total':   return m.total;
+      case 'medals.gold':    return m.gold;
+      case 'medals.silver':  return m.silver;
+      case 'medals.bronze':  return m.bronze;
+      case 'championships':  return m.events;
+      case 'campuses':       return branches().length;
+      case 'yearsSince':
+        var y = parseInt(String(L.since || '2009').replace(/\D+/g, '').slice(-4), 10) || 2009;
+        return new Date().getFullYear() - y;
+      case 'classes':        return ((data.schedule || {}).rows || []).length || null;
+      case 'products':
+        return data.products ? data.products.filter(function (p) { return p.show !== false; }).length : null;
+      case 'categories':     return data.store && data.store.cats ? data.store.cats.length : null;
+    }
+    return null;
+  }
+
+  function stat(key, autoVal) {
+    var items = (data.stats && data.stats.items) || [];
+    var def = null;
+    for (var i = 0; i < items.length; i++) if (items[i].key === key) { def = items[i]; break; }
+    def = def || { key: key, mode: 'auto' };
+    var v;
+    if (def.mode === 'manual') v = def.value;
+    else {
+      v = (autoVal !== undefined && autoVal !== null) ? autoVal : statAuto(def.auto);
+      if (v === null || v === undefined) v = def.value;
+    }
+    v = (v === null || v === undefined) ? '' : v;
+    var raw = String(v).trim();
+    var num = typeof v === 'number' ? v : (/^\d[\d,]*(\.\d+)?$/.test(raw) ? parseFloat(raw.replace(/,/g, '')) : null);
+    var suffix = def.suffix || '';
+    return {
+      key: key, value: raw, num: num, suffix: suffix,
+      label: def.label || '', sub: def.sub || '', hide: !!def.hide,
+      display: raw === '' ? '' :
+        ((num !== null && num >= 10000 ? num.toLocaleString('en-US') : raw) + suffix)
+    };
+  }
+
+  /* writes a stat into a board / card. el carries data-mk-stat="key";
+     inside it: [data-mk-stat-v] value, [data-mk-stat-l] label,
+     [data-mk-stat-s] sub-line. */
+  function paintStat(el, autoVal) {
+    var s = stat(el.getAttribute('data-mk-stat'), autoVal);
+    el.hidden = s.hide;
+    if (s.hide) { el.style.display = 'none'; return s; }
+    el.style.display = '';
+    var v = el.querySelector('[data-mk-stat-v]') || el.querySelector('b');
+    if (v && s.value !== '') {
+      if (v.hasAttribute('data-n') && s.num !== null) {
+        v.setAttribute('data-n', String(s.num));
+        if (s.suffix) v.setAttribute('data-suffix', s.suffix); else v.removeAttribute('data-suffix');
+        v.textContent = s.num >= 10000 ? s.num.toLocaleString('en-US') + s.suffix : s.value + s.suffix;
+      } else {
+        v.removeAttribute('data-n');
+        v.textContent = s.display;
+      }
+      if (el.hasAttribute('data-ghost')) el.setAttribute('data-ghost', s.num !== null ? String(s.num).slice(-2) : s.value.slice(0, 2));
+    }
+    var l = el.querySelector('[data-mk-stat-l]'); if (l && s.label) l.textContent = s.label;
+    var u = el.querySelector('[data-mk-stat-s]'); if (u && s.sub) u.textContent = s.sub;
+    return s;
+  }
+
+  /* ---------------------------------------------------------------- relative time
+     "3 months ago" from 2026-07-20 — recomputed on every visit, so a past
+     event never needs its wording updated by hand. */
+  function ago(v) {
+    var t = toDate(v);
+    if (!t) return '';
+    var now = new Date(); now.setHours(0, 0, 0, 0);
+    var days = Math.round((now - t) / 86400000);
+    if (days < 0) return '';
+    if (days === 0) return 'today';
+    if (days === 1) return 'yesterday';
+    if (days < 7) return days + ' days ago';
+    if (days < 30) { var w = Math.floor(days / 7); return w === 1 ? 'a week ago' : w + ' weeks ago'; }
+    var mo = (now.getFullYear() - t.getFullYear()) * 12 + now.getMonth() - t.getMonth() -
+             (now.getDate() < t.getDate() ? 1 : 0);
+    if (mo < 1) mo = 1;
+    if (mo < 12) return mo === 1 ? 'a month ago' : mo + ' months ago';
+    var y = Math.floor(mo / 12), r = mo % 12;
+    return (y === 1 ? 'a year' : y + ' years') + (r ? ' and ' + (r === 1 ? 'a month' : r + ' months') : '') + ' ago';
   }
 
   function reset() {
@@ -1635,8 +1883,16 @@ html.ld-on .wi{animation-play-state:paused}
     branches: branches,
     branchPhotos: branchPhotos,
     pull: pull,
-    push: push,
-    signIn: signIn,
+    submit: submit,
+    flushOutbox: flush,
+    pendingOutbox: function () { return readBox().length; },
+    leadFromForm: leadFromForm,
+    lookupOrders: lookupOrders,
+    stat: stat,
+    paintStat: paintStat,
+    ago: ago,
+    toDate: toDate,
+    fromDb: function () { return !!(overrides && overrides._v != null); },
     reset: reset,
     configured: configured,
     onChange: function (fn) { root.addEventListener('markaz:content', function (e) { fn(e.detail); }); }
@@ -1687,6 +1943,32 @@ html.ld-on .wi{animation-play-state:paused}
   else start();
 })();
 </script>
+<style id="mk-db-css">
+/* Control-panel additions: booking phone check, event history, store size picker */
+.mkui-bad,.mkui input.mkui-bad{border-color:#D8121A!important;box-shadow:0 0 0 3px rgba(216,18,26,.14)!important}
+.mkdb-ed{margin:10px 0 4px;display:grid;gap:8px}
+.mkdb-ed__row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.mkdb-ed__k{font:600 12px/1 var(--sans,system-ui);padding:6px 10px;border-radius:999px;background:rgba(18,64,200,.07);color:#14245E}
+.mkdb-ed__p{margin:0;font-size:13.5px;line-height:1.55;color:#4A5370}
+.mkdb-ed__stars{color:#D9A62B;letter-spacing:2px;font-size:14px}.mkdb-ed__stars i{color:rgba(11,21,51,.18);font-style:normal}
+.mkdb-med{font:600 12px/1 var(--sans,system-ui);padding:6px 10px;border-radius:999px;border:1px solid}
+.mkdb-med b{font-weight:800}
+.mkdb-med--g{color:#8A6400;background:#FFF6DA;border-color:#EBCB6B}
+.mkdb-med--s{color:#4A5370;background:#F1F3F7;border-color:#C9CFDB}
+.mkdb-med--b{color:#7A3E12;background:#FBEEE4;border-color:#E2B48E}
+.szk__charts{display:flex;flex-wrap:wrap;gap:8px}
+.szk__sz.shake{animation:mkdbShake .45s}
+@keyframes mkdbShake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+.mkst-note{font-size:12.5px;line-height:1.5;color:#6B7390;margin:12px 0 0}
+.ci__p.ask,.orow b.ask{font-size:11.5px;color:#8A6400;font-weight:700}
+@media (prefers-reduced-motion:reduce){.szk__sz.shake{animation:none}}
+</style>
+
+
+
+
+
+
 <title>Events | Tournaments, Camps &amp; Workshops | Markaz OUJ Performance Karachi</title>
 <meta name="description" content="Tournaments, camps and workshops run by Markaz OUJ Performance in Karachi: the next event, the full calendar, recent club results, and how to have Markaz organise an event for your institution.">
 <meta name="theme-color" content="#0B1533">
@@ -3375,7 +3657,7 @@ section#results{padding-bottom:clamp(36px,4.4vw,60px)}
   /* Build sheet content from a plain object, so every page describes
      its cards the same way and they all open looking the same. */
   function sheetHTML(d) {
-    return (d.img ? '<div class="sheet__ph"><img src="' + d.img + '" alt="' +
+    return (d.img ? '<div class="sheet__ph"><img src="' + esc(d.img) + '" alt="' +
               esc(d.title || '') + '" decoding="async" loading="lazy"></div>' : '') +
       '<div class="sheet__b">' +
         '<h3>' + esc(d.title || '') + '</h3>' +
@@ -3387,7 +3669,7 @@ section#results{padding-bottom:clamp(36px,4.4vw,60px)}
           d.facts.map(function (f) {
             return '<div><em>' + esc(f[0]) + '</em><b>' + esc(f[1]) + '</b></div>';
           }).join('') + '</div>' : '') +
-        (d.cta ? '<div style="margin-top:24px"><a class="btn btn-r" href="' + d.cta[1] + '">' +
+        (d.cta ? '<div style="margin-top:24px"><a class="btn btn-r" href="' + esc(d.cta[1]) + '">' +
           esc(d.cta[0]) + '</a></div>' : '') +
       '</div>';
   }
@@ -3589,6 +3871,8 @@ window.Markaz.ready(function () {
       tile = '<span class="evr__d evr__d--past"><b>' + h.getDate() + '</b><span>' + MON[h.getMonth()] + ' ' +
         String(h.getFullYear()).slice(2) + '</span></span>';
       chips.push('<span>Last dated ' + esc(nice(lastHeld(p))) + '</span>');
+      var ag = MK.ago ? MK.ago(lastHeld(p)) : '';
+      if (ag) chips.push('<span class="g">' + esc(ag.charAt(0).toUpperCase() + ag.slice(1)) + '</span>');
     } else {
       tile = '<span class="evr__d evr__d--tba evr__d--ic"><svg viewBox="0 0 24 24" aria-hidden="true">' +
         '<rect x="3.6" y="5.4" width="16.8" height="15" rx="2.4"/><path d="M8 3v4.4M16 3v4.4M3.6 10.4h16.8"/></svg>' +
@@ -5522,7 +5806,7 @@ p .mkb, li .mkb, dd .mkb, .lead .mkb{
 }
 </style>
 </head>
-<body data-page="events">
+<body data-mk-live data-page="events">
 <div class="ldx" id="ldx" aria-hidden="true"><div class="ldx-fill"><div class="ldx-grp"><div class="ldx-w">MARKAZ<div class="ldx-rise"><div class="ldx-gold"><img src="/ld-photo.webp" alt="" width="560" height="316" decoding="async"><i class="ldx-shine"></i></div></div><div class="ldx-cw"><i class="ldx-crest"></i></div></div><div class="ldx-s">OUJ Performance &middot; Karachi</div></div></div><div class="ldx-ink"><div class="ldx-grp"><div class="ldx-w"><span><i style="--n:0">M</i></span><span><i style="--n:1">A</i></span><span><i style="--n:2">R</i></span><span class="ldx-k"><i style="--n:3">K</i></span><span><i style="--n:4">A</i></span><span><i style="--n:5">Z</i></span></div><div class="ldx-s"><span>OUJ Performance &middot; Karachi</span></div></div></div><div class="ldx-m ldx-tl"><i><img src="/ouj.png" alt="" width="34" height="26"></i><span>Markaz OUJ Performance</span></div><div class="ldx-m ldx-tr">Since 2009</div><div class="ldx-m ldx-bl"><b id="ldN">000</b><span>Warming up</span></div><div class="ldx-m ldx-br">Sports &middot; Fitness<br>Martial Arts</div></div>
 <script>
 /* Preloader timeline, ~1.6s after the display font is in (that wait is capped at 250ms). */
@@ -6771,7 +7055,7 @@ img{height:auto}
       ? '<li class="mkui-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.4"/>' +
         '<path d="M8 3v4M16 3v4M3 10h18"/></svg><span><em>Batches</em><b>' +
         b.classes.filter(function (k) { return k.time && k.time !== '\u2014'; })
-          .map(function (k) { return (k.label ? k.label + ': ' : '') + k.days + ', ' + k.time; }).join(' · ') +
+          .map(function (k) { return esc((k.label ? k.label + ': ' : '') + k.days + ', ' + k.time); }).join(' · ') +
         '</b></span></li>' : '';
 
     card.innerHTML =
@@ -6983,7 +7267,7 @@ img{height:auto}
 
     var foot =
       '<button class="mkui-btn mkui-btn--p" type="button" data-book="' + esc(b.id) + '">' +
-        ICON.wa + ((b.trial && b.trial.label) || 'Book a class') + '</button>' +
+        ICON.wa + esc((b.trial && b.trial.label) || 'Book a class') + '</button>' +
       (b.mapsUrl ? '<a class="mkui-btn mkui-btn--o" href="' + esc(b.mapsUrl) + '" target="_blank" rel="noopener">' +
         ICON.pin + 'Directions</a>' : '') +
       (onAcademy ? '' : '<a class="mkui-btn mkui-btn--i" href="/martial-arts#branches">Academy page ' + ICON.arrow + '</a>');
@@ -7084,6 +7368,8 @@ img{height:auto}
         '<div class="mkui-f"><label for="bkAge">Age</label>' +
           '<input id="bkAge" inputmode="numeric" placeholder="e.g. 12"></div>' +
       '</div>' +
+      '<div class="mkui-f"><label for="bkPhone">Your WhatsApp number</label>' +
+        '<input id="bkPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="03xx xxx xxxx"></div>' +
       '<div class="mkui-f"><label for="bkWho">Booking for</label>' +
         '<input id="bkWho" placeholder="myself / my son / my daughter"></div>' +
       '<div class="mkui-f"><label for="bkNote">Anything we should know <span style="text-transform:none;letter-spacing:0;font-weight:400">— optional</span></label>' +
@@ -7103,8 +7389,27 @@ img{height:auto}
     if (back) return show(+back.dataset.back);
     if (e.target.closest('[data-go]')) {
       var v = function (id) { var n = $('#' + id, modalBody); return n ? n.value.trim() : ''; };
+      var bad = false;
+      [['bkName', v('bkName').length < 2], ['bkPhone', v('bkPhone').replace(/\D/g, '').length < 10]].forEach(function (f) {
+        var n = $('#' + f[0], modalBody); if (!n) return;
+        n.classList.toggle('mkui-bad', f[1]);
+        n.setAttribute('aria-invalid', f[1] ? 'true' : 'false');
+        if (f[1] && !bad) { bad = true; n.focus(); }
+      });
+      if (bad) return;
       var url = MK.bookingLink(bk.branch, bk.batch, {
         name: v('bkName'), age: v('bkAge'), forWhom: v('bkWho'), note: v('bkNote')
+      });
+      /* the lead goes to the control panel; WhatsApp opens at once so the
+         browser never treats it as a pop-up */
+      var tg = MK.bookingTargets().find(function (x) { return x.id === bk.branch; }) || {};
+      var cls = (tg.classes || [])[bk.batch] || {};
+      if (MK.submit) MK.submit('booking', {
+        branch_id: bk.branch, name: v('bkName'), phone: v('bkPhone'),
+        subject: 'Trial class' + (cls.label ? ' — ' + cls.label : ''),
+        message: v('bkNote'),
+        data: { age: v('bkAge'), forWhom: v('bkWho'), campus: tg.name || '', batch: cls.label || '',
+                days: cls.days || '', time: cls.time || '' }
       });
       W.open(url, '_blank', 'noopener');
       closeModal();
@@ -7112,6 +7417,30 @@ img{height:auto}
   }
 
   /* ================================================================ PROGRAMMES */
+  /* what a past edition achieved: when (counted from today), turnout,
+     medals and a short write-up, all from the control panel */
+  function edFacts(ed) {
+    var bits = [];
+    var a = MK.ago ? MK.ago(ed.date) : '';
+    if (a) bits.push('<span class="mkdb-ed__k">' + esc(a.charAt(0).toUpperCase() + a.slice(1)) + '</span>');
+    if (ed.attendance) bits.push('<span class="mkdb-ed__k">' + esc(Number(ed.attendance).toLocaleString('en-US')) + ' took part</span>');
+    if (ed.host) {
+      var hb = (MK.get('branches') || []).find(function (b) { return b.id === ed.host; });
+      if (hb) bits.push('<span class="mkdb-ed__k">At ' + esc(hb.name) + '</span>');
+    }
+    var m = ed.medals || {};
+    var med = [['g', 'Gold'], ['s', 'Silver'], ['b', 'Bronze']].filter(function (x) { return +m[x[0]] > 0; })
+      .map(function (x) { return '<span class="mkdb-med mkdb-med--' + x[0] + '"><b>' + (+m[x[0]]) + '</b> ' + x[1] + '</span>'; });
+    var stars = +ed.rating > 0 ? '<span class="mkdb-ed__stars" aria-label="Rated ' + (+ed.rating) + ' out of 5">' +
+      '★★★★★'.slice(0, Math.min(5, +ed.rating)) + '<i>' + '★★★★★'.slice(0, 5 - Math.min(5, +ed.rating)) + '</i></span>' : '';
+    if (!bits.length && !med.length && !ed.summary && !stars) return '';
+    return '<div class="mkdb-ed">' +
+      (bits.length || stars ? '<div class="mkdb-ed__row">' + bits.join('') + stars + '</div>' : '') +
+      (med.length ? '<div class="mkdb-ed__row">' + med.join('') + '</div>' : '') +
+      (ed.summary ? '<p class="mkdb-ed__p">' + esc(ed.summary) + '</p>' : '') +
+    '</div>';
+  }
+
   function progCard(p) {
     var ribbon = MK.programmeRibbon(p);
     var st = MK.programmeStatus(p);
@@ -7203,6 +7532,7 @@ img{height:auto}
             '<span class="mkui-batch__d">' + esc(ed.venue || 'Venue not logged') + '</span>' +
             (ed.date ? '<span class="mkui-batch__t">' + esc(niceDate(ed.date, true)) + '</span>' : '') +
           '</div>' +
+          edFacts(ed) +
           (shots.length
             ? '<div class="mkui-ph">' + shots.map(function (sh) {
                 var gi = gal.findIndex(function (g) { return g.src === sh.src; });
@@ -7303,15 +7633,14 @@ img{height:auto}
   }
 
   function mountStats() {
-    var s = MK.stats();
+    var keys = ['network.students', 'network.medals', 'network.championships', 'network.campuses'];
     $$('[data-mk-stats]').forEach(function (host) {
-      host.className = 'mkui ' + (host.className || '');
-      host.innerHTML = '<div class="mkui-stats">' +
-        (s.studentsTaught ? '<div class="mkui-stat"><b>' + s.studentsTaughtLabel + '</b><span>Students taught since 2009</span></div>' : '') +
-        (s.medals ? '<div class="mkui-stat"><b>' + s.medals + '</b><span>Medals won</span></div>' : '') +
-        (s.championships ? '<div class="mkui-stat"><b>' + s.championships + '</b><span>Championships</span></div>' : '') +
-        '<div class="mkui-stat"><b>' + s.branches + '</b><span>Academies and clubs</span></div>' +
-        '</div>';
+      if (!/\bmkui\b/.test(host.className)) host.className = 'mkui ' + (host.className || '');
+      host.innerHTML = '<div class="mkui-stats">' + keys.map(function (k) {
+        var s = MK.stat(k);
+        if (s.hide || s.display === '' || (s.num === 0 && k !== 'network.campuses')) return '';
+        return '<div class="mkui-stat"><b>' + esc(s.display) + '</b><span>' + esc(s.label) + '</span></div>';
+      }).join('') + '</div>';
     });
   }
 
@@ -8647,9 +8976,18 @@ body section h2,body .mkui-h2{letter-spacing:-.024em!important;font-weight:800!i
                               ['Price', 'Confirmed on order'], ['Bulk', 'Quoted together']] }
   };
   var lastProduct = null;
+  /* a product picked in the control panel brings its own specs */
+  function fromPanel(id) {
+    var list = W.MARKAZ && W.MARKAZ.get && W.MARKAZ.get('products');
+    if (!Array.isArray(list)) return null;
+    var p = list.filter(function (x) { return x && x.id === id; })[0];
+    if (!p) return null;
+    var specs = (p.homeSpecs && p.homeSpecs.length) ? p.homeSpecs : (p.sp || []);
+    return specs.length ? { specs: specs } : null;
+  }
   D.addEventListener('click', function (e) {
     var card = e.target.closest && e.target.closest('[data-product]');
-    lastProduct = card ? PRODUCTS[card.getAttribute('data-product')] || null : lastProduct;
+    lastProduct = card ? fromPanel(card.getAttribute('data-product')) || PRODUCTS[card.getAttribute('data-product')] || null : lastProduct;
   }, true);
 
   function cdmCampuses() {
