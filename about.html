@@ -1221,7 +1221,30 @@ html.ld-on .wi{animation-play-state:paused}
     }, obj);
   }
 
-  var overrides = readLocal() || {};
+  /* ---------------------------------------------------------------- safety
+     Content is checked when it is saved in the control panel; this is the
+     second wall. Photo and link fields must be plain web addresses or site
+     file names, and text that looks like an HTML tag cannot become one. */
+  var URL_KEYS = /^(img|wide|logo|src|photo|chart|full|mapsUrl|website|instagram|facebook|linkUrl|url|location)$/;
+  var SAFE_URL = /^(https?:\/\/[^\s"'<>()\\`]+|\/?[A-Za-z0-9][A-Za-z0-9._\/#=-]*)$/;
+  var BAD_SCHEME = /^\s*(javascript|data|vbscript|file):/i;
+  function cleanStr(k, v) {
+    if (URL_KEYS.test(k)) return (v === '' || (SAFE_URL.test(v) && !BAD_SCHEME.test(v))) ? v : '';
+    return v.indexOf('<') < 0 ? v : v.replace(/<(?=[A-Za-z\/!?])/g, '\u2039');
+  }
+  function sanitize(o, k) {
+    if (typeof o === 'string') return cleanStr(k || '', o);
+    if (Array.isArray(o)) return o.map(function (x) { return sanitize(x, k); });
+    if (o && typeof o === 'object') {
+      var out = {};
+      for (var key in o) if (Object.prototype.hasOwnProperty.call(o, key) && key !== '__proto__' && key !== 'constructor' && key !== 'prototype')
+        out[key] = sanitize(o[key], key);
+      return out;
+    }
+    return o;
+  }
+
+  var overrides = sanitize(readLocal() || {});
   var data = merge(DEFAULTS, overrides);
 
   /* ---------------------------------------------------------------- binding
@@ -1314,6 +1337,7 @@ html.ld-on .wi{animation-play-state:paused}
 
     if (a.linkUrl && a.linkLabel) {
       var link = d.createElement('a');
+      if (BAD_SCHEME.test(a.linkUrl) || !/^(https?:\/\/|\/|#)/i.test(a.linkUrl)) { d.body.insertBefore(bar, d.body.firstChild); return; }
       link.href = a.linkUrl;
       link.textContent = a.linkLabel;
       link.style.cssText =
@@ -1562,6 +1586,7 @@ html.ld-on .wi{animation-play-state:paused}
   /* the server's shape -> the same shape as DEFAULTS */
   function fromServer(s) {
     if (!s || !s.sections || !Object.keys(s.sections).length) return null;   /* not seeded yet */
+    s = sanitize(s);
     var o = {};
     Object.keys(s.sections).forEach(function (k) { o[k] = s.sections[k]; });
     ['branches', 'programmes', 'team', 'products'].forEach(function (k) {
@@ -1621,7 +1646,7 @@ html.ld-on .wi{animation-play-state:paused}
     }, payload || {});
     return rpc(kind === 'order' ? 'submit_order' : 'submit_lead', { p: body })
       .then(function (r) { return { ok: true, result: r }; })
-      .catch(function (e) { return { ok: false, error: (e && e.message) || String(e) }; });
+      .catch(function (e) { return { ok: false, error: (e && e.message) || String(e), status: (e && e.status) || 0 }; });
   }
 
   /* A customer's own orders: [{ id, phone }] -> status, items and totals.
@@ -1860,6 +1885,8 @@ html.ld-on .wi{animation-play-state:paused}
 .ci__p.ask,.orow b.ask{font-size:11.5px;color:#8A6400;font-weight:700}
 @media (prefers-reduced-motion:reduce){.szk__sz.shake{animation:none}}
 </style>
+
+
 
 
 
@@ -3466,7 +3493,7 @@ body.menu .np-grid a{transform:none;opacity:1}
   /* Build sheet content from a plain object, so every page describes
      its cards the same way and they all open looking the same. */
   function sheetHTML(d) {
-    return (d.img ? '<div class="sheet__ph"><img src="' + d.img + '" alt="' +
+    return (d.img ? '<div class="sheet__ph"><img src="' + esc(d.img) + '" alt="' +
               esc(d.title || '') + '" decoding="async" loading="lazy"></div>' : '') +
       '<div class="sheet__b">' +
         '<h3>' + esc(d.title || '') + '</h3>' +
@@ -3478,7 +3505,7 @@ body.menu .np-grid a{transform:none;opacity:1}
           d.facts.map(function (f) {
             return '<div><em>' + esc(f[0]) + '</em><b>' + esc(f[1]) + '</b></div>';
           }).join('') + '</div>' : '') +
-        (d.cta ? '<div style="margin-top:24px"><a class="btn btn-r" href="' + d.cta[1] + '">' +
+        (d.cta ? '<div style="margin-top:24px"><a class="btn btn-r" href="' + esc(d.cta[1]) + '">' +
           esc(d.cta[0]) + '</a></div>' : '') +
       '</div>';
   }
@@ -3727,7 +3754,7 @@ window.Markaz.ready(function () {
       esc(g.n) + '">' + M.openGlyph +
       '<div class="card__b">' +
         (g.logo ? '<span class="plate ' + ((g.dark || g.lightPlate) ? 'plate--light' : 'plate--dark') +
-          ' plate--md"><img src="' + g.logo + '" alt="" width="200" height="90" loading="lazy" decoding="async"></span>' : '') +
+          ' plate--md"><img src="' + esc(g.logo) + '" alt="" width="200" height="90" loading="lazy" decoding="async"></span>' : '') +
         '<div class="grp__role">' + esc(g.role) + '</div>' +
         '<h3>' + esc(g.n) + '</h3><p>' + esc(g.s) + '</p>' +
       '</div></article>';
@@ -3758,7 +3785,7 @@ window.Markaz.ready(function () {
   $('#serveGrid').innerHTML = SERVE.map(function (s, k) {
     return '<article class="card who card--tap" data-k="' + k + '" role="button" tabindex="0" ' +
       'aria-label="Open details for ' + esc(s.n) + '">' +
-      '<img src="' + s.img + '" alt="" loading="lazy" decoding="async">' +
+      '<img src="' + esc(s.img) + '" alt="" loading="lazy" decoding="async">' +
       '<span class="card__scrim"></span>' + M.openGlyph +
       '<div class="card__cap"><h3>' + esc(s.n) + '</h3><p>' + esc(s.s) + '</p></div></article>';
   }).join('');
@@ -3780,7 +3807,7 @@ window.Markaz.ready(function () {
       '<div class="tl-date' + alt + '">' + esc(s.y) + '</div>' +
       '<article class="tl-card card--tap" data-k="' + k + '" role="button" tabindex="0" ' +
         'aria-label="Open ' + esc(s.h) + '">' +
-        '<span class="ph-bg" style="background-image:url(\'' + s.img + '\')"></span>' +
+        '<span class="ph-bg" style="background-image:url(\'' + esc(s.img) + '\')"></span>' +
         M.openGlyph +
         '<span class="tl-kind' + alt + '">' + esc(s.k) + '</span>' +
         '<h3>' + esc(s.h) + '</h3><p>' + esc(s.p) + '</p>' +
@@ -7111,7 +7138,7 @@ img{height:auto}
       ? '<li class="mkui-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.4"/>' +
         '<path d="M8 3v4M16 3v4M3 10h18"/></svg><span><em>Batches</em><b>' +
         b.classes.filter(function (k) { return k.time && k.time !== '\u2014'; })
-          .map(function (k) { return (k.label ? k.label + ': ' : '') + k.days + ', ' + k.time; }).join(' · ') +
+          .map(function (k) { return esc((k.label ? k.label + ': ' : '') + k.days + ', ' + k.time); }).join(' · ') +
         '</b></span></li>' : '';
 
     card.innerHTML =
@@ -7323,7 +7350,7 @@ img{height:auto}
 
     var foot =
       '<button class="mkui-btn mkui-btn--p" type="button" data-book="' + esc(b.id) + '">' +
-        ICON.wa + ((b.trial && b.trial.label) || 'Book a class') + '</button>' +
+        ICON.wa + esc((b.trial && b.trial.label) || 'Book a class') + '</button>' +
       (b.mapsUrl ? '<a class="mkui-btn mkui-btn--o" href="' + esc(b.mapsUrl) + '" target="_blank" rel="noopener">' +
         ICON.pin + 'Directions</a>' : '') +
       (onAcademy ? '' : '<a class="mkui-btn mkui-btn--i" href="/martial-arts#branches">Academy page ' + ICON.arrow + '</a>');
